@@ -118,7 +118,7 @@ function normalizeHistoryItem(raw: any): ExamHistoryItem | null {
   const answers = normalizeSelectedAnswers(raw.answers);
 
   const flaggedQuestions = Array.isArray(raw.flaggedQuestions)
-    ? raw.flaggedQuestions.filter((item) => typeof item === "number")
+    ? raw.flaggedQuestions.filter((item: unknown) => typeof item === "number")
     : [];
 
   const reviewAnswers: ReviewAnswer[] = Array.isArray(raw.reviewAnswers)
