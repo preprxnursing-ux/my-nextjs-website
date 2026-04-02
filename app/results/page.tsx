@@ -65,11 +65,17 @@ export default function ResultsPage() {
           </p>
 
           <div className="mt-6 flex gap-3">
-            <Link href="/quiz" className="bg-black text-white px-5 py-3 rounded-xl">
+            <Link
+              href="/quiz"
+              className="bg-black text-white px-5 py-3 rounded-xl"
+            >
               Go to Quiz
             </Link>
 
-            <Link href="/" className="border px-5 py-3 rounded-xl bg-white">
+            <Link
+              href="/"
+              className="border px-5 py-3 rounded-xl bg-white"
+            >
               Home
             </Link>
           </div>
@@ -93,9 +99,74 @@ export default function ResultsPage() {
 
           <p className={`mt-3 font-semibold ${color}`}>{profile}</p>
           <p className="text-gray-600 mt-2">{message}</p>
+
+          <div className="mt-8 flex justify-center">
+            <div className="relative w-40 h-40">
+              <div className="absolute inset-0 rounded-full border-[10px] border-gray-200" />
+              <div
+                className="absolute inset-0 rounded-full border-[10px] border-black"
+                style={{
+                  clipPath: `inset(0 ${100 - percentage}% 0 0)`
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-3xl font-bold">{percentage}%</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* More sections go here… (your earlier code is fine) */}
+        <div className="grid md:grid-cols-4 gap-4">
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <p className="text-sm text-gray-500">Score</p>
+            <p className="text-2xl font-bold">
+              {session.score}/{session.totalQuestions}
+            </p>
+          </div>
+
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <p className="text-sm text-gray-500">Flagged</p>
+            <p className="text-2xl font-bold">{flaggedCount}</p>
+          </div>
+
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <p className="text-sm text-gray-500">Checked</p>
+            <p className="text-2xl font-bold">
+              {session.checkedAnswers.filter(Boolean).length}
+            </p>
+          </div>
+
+          <div className="bg-white p-5 rounded-2xl shadow">
+            <p className="text-sm text-gray-500">Accuracy</p>
+            <p className="text-2xl font-bold">{percentage}%</p>
+          </div>
+        </div>
+
+        <div className="bg-black text-white rounded-3xl p-8 text-center">
+          <h2 className="text-2xl font-bold">
+            What do you want to do next?
+          </h2>
+
+          <p className="text-gray-300 mt-2">
+            Review your decisions or start another exam session.
+          </p>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <Link
+              href="/review"
+              className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
+            >
+              Open Review Lab
+            </Link>
+
+            <Link
+              href="/quiz"
+              className="border border-white px-6 py-3 rounded-xl"
+            >
+              Start New Exam
+            </Link>
+          </div>
+        </div>
 
       </div>
     </main>
