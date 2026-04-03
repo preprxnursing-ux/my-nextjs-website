@@ -370,7 +370,15 @@ export default function QuizPage() {
           : "standard",
       reviewAnswers,
     });
-
+    localStorage.setItem(
+  "quiz_last_result",
+  JSON.stringify({
+    score,
+    total,
+    percentage,
+    completedAt: new Date().toISOString(),
+  })
+);
     localStorage.setItem(
       STORAGE_KEYS.lastAttemptMeta,
       JSON.stringify({
