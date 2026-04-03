@@ -2,39 +2,20 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { getExamSession, type ExamSession } from "../../lib/examStorage";
 
 export default function ResultsPage() {
-  const [session, setSession] = useState<ExamSession | null>(null);
+  const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
-    const saved = getExamSession();
-    setSession(saved);
+    const saved = localStorage.getItem("quiz_last_result");
+    if (saved) {
+      setSession(JSON.parse(saved));
+    }
   }, []);
 
   const percentage = useMemo(() => {
-    if (!session || session.totalQuestions === 0) return 0;
-    return Math.round((session.score / session.totalQuestions) * 100);
-  }, [session]);
-
-  const flaggedCount = useMemo(() => {
-    if (!session) return 0;
-    return session.flaggedQuestions.filter(Boolean).length;
-  }, [session]);
-
-  const highConfidenceCount = useMemo(() => {
-    if (!session) return 0;
-    return session.confidenceLevels.filter((c) => c === "High").length;
-  }, [session]);
-
-  const mediumConfidenceCount = useMemo(() => {
-    if (!session) return 0;
-    return session.confidenceLevels.filter((c) => c === "Medium").length;
-  }, [session]);
-
-  const lowConfidenceCount = useMemo(() => {
-    if (!session) return 0;
-    return session.confidenceLevels.filter((c) => c === "Low").length;
+    if (!session || session.total === 0) return 0;
+    return Math.round((session.score / session.total) * 100);
   }, [session]);
 
   let profile = "Emerging Thinker";
@@ -88,6 +69,7 @@ export default function ResultsPage() {
     <main className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-10 px-4">
       <div className="max-w-5xl mx-auto space-y-8">
 
+        {/* Summary Card */}
         <div className="bg-white rounded-3xl shadow-xl p-10 text-center">
           <p className="text-sm uppercase tracking-widest text-gray-500">
             Performance Intelligence
@@ -99,8 +81,17 @@ export default function ResultsPage() {
 
           <p className={`mt-3 font-semibold ${color}`}>{profile}</p>
           <p className="text-gray-600 mt-2">{message}</p>
+
+          <div className="mt-6 text-2xl font-bold">
+            Score: {session.score} / {session.total}
+          </div>
+
+          <div className="text-lg text-gray-700 mt-2">
+            Accuracy: {percentage}%
+          </div>
         </div>
 
+        {/* Actions */}
         <div className="bg-black text-white rounded-3xl p-8 text-center">
           <h2 className="text-2xl font-bold">
             What do you want to do next?
