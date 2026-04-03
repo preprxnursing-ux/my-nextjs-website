@@ -358,18 +358,18 @@ export default function QuizPage() {
     };
 
     addExamAttempt({
-      score,
-      total,
-      answers: selectedMap,
-      flaggedQuestions,
-      timeRemaining: mode.timerEnabled ? timeLeft : 0,
-      timeUsed,
-      mode:
-        modeId === "timed" || modeId === "quick" || modeId === "tutor"
-          ? modeId
-          : "standard",
-      reviewAnswers,
-    });
+  score,
+  total,
+  answers: selectedMap,
+  flaggedQuestions,
+  timeRemaining: mode.timerEnabled ? timeLeft : 0,
+  timeUsed,
+  mode:
+    modeId === "timed" || modeId === "quick" || modeId === "tutor"
+      ? modeId
+      : "standard",
+  reviewAnswers,
+});
     localStorage.setItem(
   "quiz_last_result",
   JSON.stringify({
