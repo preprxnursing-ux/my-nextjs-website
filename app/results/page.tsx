@@ -2,17 +2,33 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function ResultsPage() {
   const [session, setSession] = useState<any>(null);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("quiz_last_result");
-    if (saved) {
-      setSession(JSON.parse(saved));
-    }
-  }, []);
+ useEffect(() => {
+  const fetchLatest = async () => {
+    const { data, error } = await supabase
+      .from("exam_attempts")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(1);
 
+    if (data && data.length > 0) {
+      setSession({
+        score: data[0].correct,
+        total: data[0].total_questions,
+      });
+    }
+
+    if (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  fetchLatest();
+}, []);
   const percentage = useMemo(() => {
     if (!session || session.total === 0) return 0;
     return Math.round((session.score / session.total) * 100);

@@ -2,6 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 import {
   ExamHistoryItem,
   formatSeconds,
@@ -40,18 +50,52 @@ function formatAttemptDate(value?: string) {
 }
 
 export default function HistoryPage() {
-  const [history, setHistory] = useState<ExamHistoryItem[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
   const [activeAttemptId, setActiveAttemptId] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedHistory = getExamHistory();
-    setHistory(savedHistory);
+  const fetchHistory = async () => {
+    const { data, error } = await supabase
+      .from("exam_attempts")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    const savedActiveAttemptId = localStorage.getItem(ACTIVE_ATTEMPT_KEY);
-    setActiveAttemptId(savedActiveAttemptId);
-  }, []);
+    if (data) {
+      const formatted = data.map((item) => ({
+        id: item.id,
+        score: item.correct,
+        total: item.total_questions,
+        percentage:
+  item.total_questions && item.total_questions > 0
+    ? Math.round((item.correct / item.total_questions) * 100)
+    : 0,
+        completedAt: item.created_at,
+        flaggedCount: 0,
+        answeredCount: item.total_questions,
+        timeUsed: 0,
+        timeRemaining: 0,
+        mode: "standard",
+      }));
 
-  const bestAttempt = useMemo(() => {
+      setHistory(formatted);
+    }
+
+    if (error) {
+      console.error("Fetch history error:", error);
+    }
+  };
+
+  fetchHistory();
+
+  const savedActiveAttemptId = localStorage.getItem(ACTIVE_ATTEMPT_KEY);
+  setActiveAttemptId(savedActiveAttemptId);
+}, []);
+
+  const chartData = history.map((item, index) => ({
+  name: `Attempt ${history.length - index}`,
+ score: item.percentage || 0,
+}));
+const bestAttempt = useMemo(() => {
     if (!history.length) return null;
     return [...history].sort((a, b) => b.percentage - a.percentage)[0];
   }, [history]);
@@ -116,9 +160,34 @@ export default function HistoryPage() {
             specific session for review.
           </p>
         </div>
+        {/* CHART FIRST */}
+<div className="mb-6 rounded-[28px] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
+  <p className="text-sm text-slate-300 mb-4">Performance Trend</p>
 
+  <div className="h-64">
+  <ResponsiveContainer width="100%" height="100%">
+    <LineChart data={chartData.length ? chartData : [{ name: "Start", score: 0 }]}>
+      <XAxis dataKey="name" stroke="#94a3b8" />
+      <YAxis domain={[0, 100]} stroke="#94a3b8" />
+      <Tooltip />
+      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+
+      <Line
+        type="monotone"
+        dataKey="score"
+        stroke="#38bdf8"
+        strokeWidth={3}
+        dot={{ r: 4 }}
+        activeDot={{ r: 6 }}
+      />
+    </LineChart>
+  </ResponsiveContainer>
+</div>
+</div>
+
+{/* THEN your stats grid */}
         <div className="mb-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-[28px] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
+<div className="rounded-[28px] border border-white/10 bg-white/10 p-6 backdrop-blur-xl">
             <p className="text-sm text-slate-300">Total Attempts</p>
             <p className="mt-2 text-4xl font-bold text-white">{history.length}</p>
           </div>

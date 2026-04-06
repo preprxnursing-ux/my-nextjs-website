@@ -301,15 +301,16 @@ export default function QuizPage() {
     localStorage.removeItem("quiz_reviewRecords");
   };
 
-  console.log("FINISH EXAM TRIGGERED");
+  
   const finishExam = async (autoSubmitted = false) => {
-    const total = activeQuestions.length;
-    const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
-    const timeUsed =
-      mode.timerEnabled && mode.duration !== null
-        ? Math.max(0, mode.duration - timeLeft)
-        : 0;
+  console.log("FINISH EXAM RUNNING");
 
+  const total = activeQuestions.length;
+  const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+  const timeUsed =
+    mode.timerEnabled && mode.duration !== null
+      ? Math.max(0, mode.duration - timeLeft)
+      : 0;
     const reviewAnswers: ReviewAnswer[] = mode.tutorMode
       ? Object.keys(answerRecords)
           .map((key) => Number(key))
@@ -380,6 +381,7 @@ export default function QuizPage() {
       score,
       correct: score,
       total_questions: total,
+      topic: "General", // 👈 add this line
     },
   ]);
 

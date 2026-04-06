@@ -1,8 +1,35 @@
 "use client";
 
+import { supabase } from "@/lib/supabaseClient";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-
 export default function HomePage() {
+  const [latestScore, setLatestScore] = useState(0);
+  const [correct, setCorrect] = useState(0);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+  const fetchLatest = async () => {
+    const { data, error } = await supabase
+      .from("exam_attempts")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (data && data.length > 0) {
+  const attempt = data[0];
+
+  setLatestScore(attempt.score);
+  setCorrect(attempt.correct);
+  setTotal(attempt.total_questions);
+}
+
+    if (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+
+  fetchLatest();
+}, []);
   return (
     <main className="min-h-screen bg-[#f1f5f9] text-slate-900">
       <div className="mx-auto max-w-7xl px-4 py-10 space-y-8">
@@ -52,10 +79,24 @@ export default function HomePage() {
 
             {/* METRICS */}
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <Metric label="Latest Score" value="0%" sub="Most recent saved attempt" />
-              <Metric label="Correct" value="0" sub="Answers marked correct" />
-              <Metric label="Incorrect" value="30" sub="Questions to revisit" />
-              <Metric label="Questions" value="30" sub="Items in saved exam" />
+              <Metric
+  label="Latest Score"
+  value={`${latestScore}%`}
+  sub="Most recent saved attempt"
+/>
+              <Metric label="Correct" value={String(correct)} sub="Answers marked correct" />
+
+<Metric
+  label="Incorrect"
+  value={String(total - correct)}
+  sub="Questions to revisit"
+/>
+
+<Metric
+  label="Questions"
+  value={String(total)}
+  sub="Items in saved exam"
+/>
             </div>
           </div>
 
