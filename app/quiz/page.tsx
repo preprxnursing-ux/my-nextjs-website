@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { questions } from "@/lib/questions";
 import { addExamAttempt } from "@/lib/quiz-utils";
+import { supabase } from "@/lib/supabaseClient";
 import {
   DEFAULT_MODE_ID,
   STORAGE_KEYS,
@@ -300,7 +301,8 @@ export default function QuizPage() {
     localStorage.removeItem("quiz_reviewRecords");
   };
 
-  const finishExam = (autoSubmitted = false) => {
+  console.log("FINISH EXAM TRIGGERED");
+  const finishExam = async (autoSubmitted = false) => {
     const total = activeQuestions.length;
     const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
     const timeUsed =
@@ -370,7 +372,18 @@ export default function QuizPage() {
           : "standard",
       reviewAnswers,
     });
+    // 🔥 Save to Supabase
+    const { data, error } = await supabase
+  .from("exam_attempts")
+  .insert([
+    {
+      score,
+      correct: score,
+      total_questions: total,
+    },
+  ]);
 
+console.log("SUPABASE RESPONSE:", { data, error });
     localStorage.setItem(
       STORAGE_KEYS.lastAttemptMeta,
       JSON.stringify({
@@ -984,4 +997,5 @@ function LegendItem({
     </div>
   );
 }
+
 
