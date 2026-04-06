@@ -374,18 +374,26 @@ export default function QuizPage() {
       reviewAnswers,
     });
     // 🔥 Save to Supabase
-    const { data, error } = await supabase
-  .from("exam_attempts")
-  .insert([
-    {
-      score,
-      correct: score,
-      total_questions: total,
-      topic: "General", // 👈 add this line
-    },
-  ]);
+    try {
+  const { data, error } = await supabase
+    .from("exam_attempts")
+    .insert([
+      {
+        score,
+        correct: score,
+        total_questions: total,
+        topic: "General",
+      },
+    ]);
 
-console.log("SUPABASE RESPONSE:", { data, error });
+  if (error) {
+    console.error("❌ SUPABASE ERROR:", error);
+  } else {
+    console.log("✅ INSERT SUCCESS:", data);
+  }
+} catch (err) {
+  console.error("💥 INSERT CRASH:", err);
+}
     localStorage.setItem(
       STORAGE_KEYS.lastAttemptMeta,
       JSON.stringify({
