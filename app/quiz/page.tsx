@@ -374,30 +374,30 @@ export default function QuizPage() {
       reviewAnswers,
     });
     // 🔥 Save to Supabase
-    try {
-  if (!supabase) {
-  console.error("Supabase not initialized");
-  return;
-}
+    // 🔥 Save to Supabase
+if (!supabase) {
+  console.warn("Supabase not initialized — skipping save");
+} else {
+  try {
+    const { data, error } = await supabase
+      .from("exam_attempts")
+      .insert([
+        {
+          score,
+          correct: score,
+          total_questions: total,
+          topic: "General",
+        },
+      ]);
 
-const { data, error } = await supabase!
-  .from("exam_attempts")
-  .insert([
-    {
-      score,
-      correct: score,
-      total_questions: total,
-      topic: "General",
-    },
-  ]);
-
-  if (error) {
-    console.error("❌ SUPABASE ERROR:", error);
-  } else {
-    console.log("✅ INSERT SUCCESS:", data);
+    if (error) {
+      console.error("❌ INSERT ERROR:", error);
+    } else {
+      console.log("✅ INSERT SUCCESS:", data);
+    }
+  } catch (err) {
+    console.error("💥 INSERT CRASH:", err);
   }
-} catch (err) {
-  console.error("💥 INSERT CRASH:", err);
 }
     localStorage.setItem(
       STORAGE_KEYS.lastAttemptMeta,
@@ -411,8 +411,7 @@ const { data, error } = await supabase!
     saveLegacyReviewProgress(answerRecords);
     setExamFinished(true);
     clearActiveExamSession();
-  };
-
+  }
   const handleRestart = () => {
     setCurrentIndex(0);
     setSelectedMap({});
