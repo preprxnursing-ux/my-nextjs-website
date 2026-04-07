@@ -55,11 +55,12 @@ export default function HistoryPage() {
 
   useEffect(() => {
   const fetchHistory = async () => {
-    const { data, error } = await supabase
-      .from("exam_attempts")
-      .select("*")
-      .order("created_at", { ascending: false });
+   if (!supabase) return;
 
+const { data, error } = await supabase!
+  .from("exam_attempts")
+  .select("*")
+  .order("created_at", { ascending: false });
     if (data) {
       const formatted = data.map((item) => ({
         id: item.id,

@@ -9,19 +9,24 @@ export default function HomePage() {
   const [total, setTotal] = useState(0);
   useEffect(() => {
   const fetchLatest = async () => {
-    const { data, error } = await supabase
+    if (!supabase) {
+      console.error("Supabase not initialized");
+      return;
+    }
+
+    const { data, error } = await supabase!
       .from("exam_attempts")
       .select("*")
       .order("created_at", { ascending: false })
       .limit(1);
 
     if (data && data.length > 0) {
-  const attempt = data[0];
+      const attempt = data[0];
 
-  setLatestScore(attempt.score);
-  setCorrect(attempt.correct);
-  setTotal(attempt.total_questions);
-}
+      setLatestScore(attempt.score);
+      setCorrect(attempt.correct);
+      setTotal(attempt.total_questions);
+    }
 
     if (error) {
       console.error("Fetch error:", error);

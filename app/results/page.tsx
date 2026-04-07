@@ -9,7 +9,12 @@ export default function ResultsPage() {
 
  useEffect(() => {
   const fetchLatest = async () => {
-    const { data, error } = await supabase
+    if (!supabase) {
+      console.error("Supabase not initialized");
+      return;
+    }
+
+    const { data, error } = await supabase!
       .from("exam_attempts")
       .select("*")
       .order("created_at", { ascending: false })

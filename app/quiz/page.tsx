@@ -375,16 +375,21 @@ export default function QuizPage() {
     });
     // 🔥 Save to Supabase
     try {
-  const { data, error } = await supabase
-    .from("exam_attempts")
-    .insert([
-      {
-        score,
-        correct: score,
-        total_questions: total,
-        topic: "General",
-      },
-    ]);
+  if (!supabase) {
+  console.error("Supabase not initialized");
+  return;
+}
+
+const { data, error } = await supabase!
+  .from("exam_attempts")
+  .insert([
+    {
+      score,
+      correct: score,
+      total_questions: total,
+      topic: "General",
+    },
+  ]);
 
   if (error) {
     console.error("❌ SUPABASE ERROR:", error);
