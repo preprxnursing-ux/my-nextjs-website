@@ -12,7 +12,7 @@ import {
 } from "@/lib/quiz-config";
 
 type ReviewAnswer = {
-  questionId: string;
+  questionId: number;
   question: string;
   topic: string;
   difficulty: "easy" | "medium" | "hard";
@@ -243,7 +243,7 @@ export default function QuizPage() {
     const resolvedCorrectAnswer = getCorrectAnswer(currentQuestion);
     const isCorrect = selected === resolvedCorrectAnswer;
     const answerRecord: ReviewAnswer = {
-      questionId: currentQuestion.id,
+      questionId: Number(currentQuestion.id),
       question: currentQuestion.question,
       topic: currentQuestion.topic,
       difficulty: currentQuestion.difficulty,
@@ -287,7 +287,7 @@ export default function QuizPage() {
           const selectedAnswer = selectedMap[index];
           const correctAnswer = getCorrectAnswer(question);
           return {
-            questionId: question.id,
+            questionId: Number(question.id),
             question: question.question,
             topic: question.topic,
             difficulty: question.difficulty,
