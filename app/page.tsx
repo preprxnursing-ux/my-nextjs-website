@@ -2,6 +2,7 @@
 
 import { supabase } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
+import { GraduationCap, BookOpen, Brain, HeartPulse } from "lucide-react";
 import Link from "next/link";
 export default function HomePage() {
   const [latestScore, setLatestScore] = useState(0);
@@ -81,7 +82,55 @@ export default function HomePage() {
                 View Results
               </Link>
             </div>
+            {/* NEW: Tutor Options (like your image) */}
+<div className="mt-6 max-w-lg">
+  <div className="bg-slate-100 border border-slate-200 rounded-2xl p-4 shadow-sm">
 
+    <div className="grid grid-cols-2 gap-3">
+
+      <div className="flex items-start gap-3 p-3 rounded-xl bg-white hover:bg-slate-50 transition cursor-pointer">
+        <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 text-sm">
+          🎓
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Nursing School</p>
+          <p className="text-xs text-slate-500">Private tutoring</p>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-3 p-3 rounded-xl bg-white hover:bg-slate-50 transition cursor-pointer">
+        <div className="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center text-green-600 text-sm">
+          📘
+        </div>
+        <div>
+          <p className="text-sm font-semibold">NCLEX</p>
+          <p className="text-xs text-slate-500">Exam prep</p>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-3 p-3 rounded-xl bg-white hover:bg-slate-50 transition cursor-pointer">
+        <div className="w-9 h-9 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 text-sm">
+          🧠
+        </div>
+        <div>
+          <p className="text-sm font-semibold">FNP</p>
+          <p className="text-xs text-slate-500">Certification</p>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-3 p-3 rounded-xl bg-white hover:bg-slate-50 transition cursor-pointer">
+        <div className="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600 text-sm">
+          ❤️
+        </div>
+        <div>
+          <p className="text-sm font-semibold">CCRN</p>
+          <p className="text-xs text-slate-500">Critical care</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
             {/* METRICS */}
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
               <Metric
