@@ -16,10 +16,6 @@ const fontStyle = `
     0%,100% { transform: translateY(0px); }
     50%      { transform: translateY(-16px); }
   }
-  @keyframes pulseRing {
-    0%   { transform: scale(1); opacity: .5; }
-    100% { transform: scale(1.6); opacity: 0; }
-  }
   @keyframes shimmer {
     0%   { background-position: -200% center; }
     100% { background-position: 200% center; }
@@ -32,57 +28,7 @@ const fontStyle = `
   .fade-up { animation: fadeUp .7s ease both; }
   .float   { animation: floatY 6s ease-in-out infinite; }
 
-  .feature-card {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 20px;
-    padding: 28px;
-    cursor: pointer;
-    transition: all .35s cubic-bezier(.34,1.56,.64,1);
-    position: relative;
-    overflow: hidden;
-  }
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(14,165,233,.06) 100%);
-    opacity: 0;
-    transition: opacity .35s ease;
-    border-radius: 20px;
-  }
-  .feature-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    border-color: rgba(14,165,233,.35);
-    box-shadow: 0 24px 60px rgba(0,0,0,.3), 0 0 0 1px rgba(14,165,233,.15);
-    background: rgba(255,255,255,.07);
-  }
-  .feature-card:hover::before { opacity: 1; }
-
-  .feature-card .card-icon {
-    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-  }
-  .feature-card:hover .card-icon {
-    transform: scale(1.2) rotate(-5deg);
-  }
-
-  .feature-card .card-desc {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .4s ease, opacity .4s ease, margin .4s ease;
-    opacity: 0;
-    margin-top: 0;
-  }
-  .feature-card:hover .card-desc {
-    max-height: 120px;
-    opacity: 1;
-    margin-top: 12px;
-  }
-
-  .comparison-row {
-    transition: background .2s ease;
-    cursor: default;
-  }
+  .comparison-row { transition: background .2s ease; }
   .comparison-row:hover { background: rgba(14,165,233,.06) !important; }
 
   .tab-btn {
@@ -168,9 +114,7 @@ const comparisons = [
 
 const tabs = [
   {
-    id: "quiz",
-    label: "Quiz Mode",
-    icon: "🎯",
+    id: "quiz", label: "Quiz Mode", icon: "🎯",
     preview: {
       title: "NCLEX-RN Practice Exam",
       subtitle: "Question 12 of 30 · Timed Mode",
@@ -185,9 +129,7 @@ const tabs = [
     },
   },
   {
-    id: "rationale",
-    label: "Rationales",
-    icon: "🧠",
+    id: "rationale", label: "Rationales", icon: "🧠",
     preview: {
       title: "Clinical Rationale",
       subtitle: "Correct Answer: B",
@@ -201,9 +143,7 @@ const tabs = [
     },
   },
   {
-    id: "dashboard",
-    label: "Dashboard",
-    icon: "📊",
+    id: "dashboard", label: "Dashboard", icon: "📊",
     preview: {
       title: "Your Performance",
       subtitle: "Last 7 days · NCLEX-RN",
@@ -216,6 +156,45 @@ const tabs = [
     },
   },
 ];
+
+function FeatureCard({ feature: f }: { feature: typeof features[0] }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: hovered ? "rgba(255,255,255,.07)" : "rgba(255,255,255,.04)",
+        border: `1px solid ${hovered ? "rgba(14,165,233,.35)" : "rgba(255,255,255,.08)"}`,
+        borderRadius: "20px",
+        padding: "28px",
+        cursor: "pointer",
+        transition: "all .35s cubic-bezier(.34,1.56,.64,1)",
+        position: "relative",
+        overflow: "hidden",
+        transform: hovered ? "translateY(-8px) scale(1.02)" : "translateY(0) scale(1)",
+        boxShadow: hovered ? "0 24px 60px rgba(0,0,0,.3), 0 0 0 1px rgba(14,165,233,.15)" : "none",
+      }}>
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: f.color, borderRadius: "20px 20px 0 0", opacity: hovered ? 1 : 0.4, transition: "opacity .35s" }} />
+      <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "80px", height: "80px", borderRadius: "50%", background: `radial-gradient(circle,${f.glow} 0%,transparent 70%)`, opacity: hovered ? 1 : 0, transition: "opacity .35s", pointerEvents: "none" }} />
+      <div style={{ fontSize: "28px", marginBottom: "14px", transition: "transform .35s cubic-bezier(.34,1.56,.64,1)", transform: hovered ? "scale(1.2) rotate(-5deg)" : "scale(1) rotate(0deg)" }}>
+        {f.icon}
+      </div>
+      <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", marginBottom: "6px" }}>{f.title}</h3>
+      <p style={{ fontSize: "12px", color: f.color, fontWeight: 600, letterSpacing: ".04em" }}>{f.short}</p>
+      <div style={{
+        maxHeight: hovered ? "120px" : "0px",
+        overflow: "hidden",
+        opacity: hovered ? 1 : 0,
+        marginTop: hovered ? "12px" : "0px",
+        transition: "max-height .4s ease, opacity .4s ease, margin .4s ease",
+      }}>
+        <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.7, fontWeight: 400 }}>{f.desc}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function FeaturesPage() {
   const [activeTab, setActiveTab] = useState("quiz");
@@ -245,27 +224,23 @@ export default function FeaturesPage() {
       <style>{fontStyle}</style>
       <main style={{ background: "#0d1f35", minHeight: "100vh", color: "#f1f5f9" }}>
 
-        {/* ══ HERO ══ */}
-       <section style={{ position: "relative", padding: "80px 20px 60px", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2a45 100%)" }}>
+        {/* HERO */}
+        <section style={{ position: "relative", padding: "80px 20px 60px", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2a45 100%)" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(14,165,233,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.04) 1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
           <div className="float" style={{ position: "absolute", top: "-60px", right: "8%", width: "480px", height: "480px", background: "radial-gradient(circle,rgba(14,165,233,.12) 0%,transparent 65%)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", bottom: "-40px", left: "4%", width: "300px", height: "300px", background: "radial-gradient(circle,rgba(139,92,246,.08) 0%,transparent 65%)", pointerEvents: "none" }} />
 
           <div style={{ maxWidth: "1280px", margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
             <div className="fade-up" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(14,165,233,.12)", border: "1px solid rgba(14,165,233,.3)", borderRadius: "100px", padding: "6px 18px", fontSize: "11px", fontWeight: 700, color: "#7dd3fc", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "28px" }}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
               Platform Features
             </div>
-
             <h1 className="fd fade-up" style={{ fontSize: "clamp(2.8rem,6vw,5rem)", fontWeight: 700, lineHeight: 1.08, color: "#f8fafc", marginBottom: "20px", animationDelay: ".1s" }}>
               Everything you need<br />
               <span className="shimmer-text">to pass first time.</span>
             </h1>
-
             <p className="fade-up" style={{ fontSize: "clamp(1rem,1.4vw,1.15rem)", color: "#64748b", fontWeight: 400, lineHeight: 1.8, maxWidth: "560px", margin: "0 auto 40px", animationDelay: ".2s" }}>
               Built around one goal — helping you think like a nurse, not just memorise answers. Every feature exists for a reason.
             </p>
-
             <div className="fade-up" style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", animationDelay: ".3s" }}>
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "#0ea5e9", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontSize: "14px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 28px rgba(14,165,233,.35)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-2px)"; }}
@@ -281,16 +256,14 @@ export default function FeaturesPage() {
           </div>
         </section>
 
-        {/* ══ TICKER ══ */}
+        {/* TICKER */}
         <div style={{ background: "#0a1e32", borderTop: "1px solid rgba(14,165,233,.08)", borderBottom: "1px solid rgba(14,165,233,.08)", padding: "14px 0" }}>
           <div className="ticker-wrap">
             <div className="ticker-inner">
               {[...Array(2)].map((_, ri) => (
                 <span key={ri} style={{ display: "inline-flex" }}>
                   {["3,100+ practice questions", "98% first-attempt pass rate", "6 certification paths", "Built by licensed RNs", "Adaptive CAT simulation", "Full NGN question support", "Free to start", "Deep clinical rationales"].map(t => (
-                    <span key={t} className="ticker-item">
-                      <span className="ticker-dot" />{t}
-                    </span>
+                    <span key={t} className="ticker-item"><span className="ticker-dot" />{t}</span>
                   ))}
                 </span>
               ))}
@@ -298,10 +271,10 @@ export default function FeaturesPage() {
           </div>
         </div>
 
-        {/* ══ ANIMATED STATS ══ */}
-        <section ref={statsRef} style={{ background: "#0a1e32", padding: "72px 40px" }}>
+        {/* ANIMATED STATS */}
+        <section ref={statsRef} style={{ background: "#0a1e32", padding: "72px 20px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: "20px" }}>
               {[
                 { val: `${students.toLocaleString()}+`, label: "Students preparing",      color: "#38bdf8" },
                 { val: `${passRate}%`,                   label: "First-attempt pass rate", color: "#34d399" },
@@ -319,8 +292,8 @@ export default function FeaturesPage() {
           </div>
         </section>
 
-        {/* ══ INTERACTIVE DEMO ══ */}
-        <section style={{ background: "#112a40", padding: "60px 20px" }}>
+        {/* INTERACTIVE DEMO */}
+        <section style={{ background: "#112a40", padding: "72px 20px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Live Preview</p>
@@ -328,7 +301,6 @@ export default function FeaturesPage() {
               <p style={{ fontSize: "15px", color: "#64748b", fontWeight: 400, marginTop: "10px" }}>Click the tabs to explore each feature.</p>
             </div>
 
-            {/* TABS */}
             <div style={{ display: "flex", gap: "8px", justifyContent: "center", marginBottom: "32px", flexWrap: "wrap" }}>
               {tabs.map(tab => (
                 <button key={tab.id} className={`tab-btn${activeTab === tab.id ? " active" : ""}`}
@@ -338,13 +310,11 @@ export default function FeaturesPage() {
               ))}
             </div>
 
-            {/* PREVIEW PANEL */}
-            <div style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.08)", borderRadius: "24px", padding: "36px", maxWidth: "760px", margin: "0 auto" }}>
+            <div style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.08)", borderRadius: "24px", padding: "28px", maxWidth: "760px", margin: "0 auto" }}>
 
-              {/* Quiz Tab */}
-              {activeTab === "quiz" && activeTabData.preview && (
+              {activeTab === "quiz" && (
                 <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
                     <div>
                       <p style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase" }}>{activeTabData.preview.subtitle}</p>
                       <p style={{ fontSize: "16px", fontWeight: 700, color: "#f8fafc", marginTop: "4px" }}>{activeTabData.preview.title}</p>
@@ -353,27 +323,24 @@ export default function FeaturesPage() {
                       ⏱ {activeTabData.preview.timer}
                     </div>
                   </div>
-                  <p style={{ fontSize: "15px", color: "#cbd5e1", lineHeight: 1.75, marginBottom: "24px", fontWeight: 400 }}>
-                    {activeTabData.preview.question}
-                  </p>
+                  <p style={{ fontSize: "15px", color: "#cbd5e1", lineHeight: 1.75, marginBottom: "24px", fontWeight: 400 }}>{activeTabData.preview.question}</p>
                   <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
                     {activeTabData.preview.options?.map((opt) => {
                       const isSelected = selectedOption === opt.label;
                       const isCorrect = opt.correct;
-                      const showResult = showAnswer;
                       let bg = "rgba(255,255,255,.04)";
                       let border = "rgba(255,255,255,.08)";
                       let color = "#94a3b8";
-                      if (isSelected && !showResult) { bg = "rgba(14,165,233,.12)"; border = "rgba(14,165,233,.35)"; color = "#38bdf8"; }
-                      if (showResult && isCorrect) { bg = "rgba(16,185,129,.12)"; border = "rgba(16,185,129,.35)"; color = "#34d399"; }
-                      if (showResult && isSelected && !isCorrect) { bg = "rgba(239,68,68,.1)"; border = "rgba(239,68,68,.3)"; color = "#f87171"; }
+                      if (isSelected && !showAnswer) { bg = "rgba(14,165,233,.12)"; border = "rgba(14,165,233,.35)"; color = "#38bdf8"; }
+                      if (showAnswer && isCorrect) { bg = "rgba(16,185,129,.12)"; border = "rgba(16,185,129,.35)"; color = "#34d399"; }
+                      if (showAnswer && isSelected && !isCorrect) { bg = "rgba(239,68,68,.1)"; border = "rgba(239,68,68,.3)"; color = "#f87171"; }
                       return (
                         <button key={opt.label} onClick={() => !showAnswer && setSelectedOption(opt.label)}
-                          style={{ display: "flex", alignItems: "center", gap: "14px", padding: "14px 18px", borderRadius: "12px", background: bg, border: `1px solid ${border}`, color, fontSize: "14px", fontWeight: 500, cursor: showAnswer ? "default" : "pointer", transition: "all .2s", textAlign: "left", fontFamily: "inherit" }}>
+                          style={{ display: "flex", alignItems: "center", gap: "14px", padding: "14px 18px", borderRadius: "12px", background: bg, border: `1px solid ${border}`, color, fontSize: "14px", fontWeight: 500, cursor: showAnswer ? "default" : "pointer", transition: "all .2s", textAlign: "left", fontFamily: "inherit", width: "100%" }}>
                           <span style={{ width: "28px", height: "28px", borderRadius: "8px", border: `1px solid ${border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, flexShrink: 0, background: "rgba(255,255,255,.04)" }}>{opt.label}</span>
                           {opt.text}
-                          {showResult && isCorrect && <span style={{ marginLeft: "auto", color: "#34d399" }}>✓</span>}
-                          {showResult && isSelected && !isCorrect && <span style={{ marginLeft: "auto", color: "#f87171" }}>✗</span>}
+                          {showAnswer && isCorrect && <span style={{ marginLeft: "auto", color: "#34d399" }}>✓</span>}
+                          {showAnswer && isSelected && !isCorrect && <span style={{ marginLeft: "auto", color: "#f87171" }}>✗</span>}
                         </button>
                       );
                     })}
@@ -392,11 +359,10 @@ export default function FeaturesPage() {
                 </div>
               )}
 
-              {/* Rationale Tab */}
-              {activeTab === "rationale" && activeTabData.preview && (
+              {activeTab === "rationale" && (
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(16,185,129,.15)", border: "1px solid rgba(16,185,129,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px" }}>✓</div>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(16,185,129,.15)", border: "1px solid rgba(16,185,129,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", flexShrink: 0 }}>✓</div>
                     <div>
                       <p style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase" }}>{activeTabData.preview.subtitle}</p>
                       <p style={{ fontSize: "15px", fontWeight: 700, color: "#34d399" }}>{activeTabData.preview.title}</p>
@@ -416,14 +382,13 @@ export default function FeaturesPage() {
                 </div>
               )}
 
-              {/* Dashboard Tab */}
-              {activeTab === "dashboard" && activeTabData.preview && (
+              {activeTab === "dashboard" && (
                 <div>
                   <div style={{ marginBottom: "24px" }}>
                     <p style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase" }}>{activeTabData.preview.subtitle}</p>
                     <p style={{ fontSize: "16px", fontWeight: 700, color: "#f8fafc", marginTop: "4px" }}>{activeTabData.preview.title}</p>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: "12px", marginBottom: "20px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: "12px", marginBottom: "20px" }}>
                     {activeTabData.preview.stats?.map(s => (
                       <div key={s.label} style={{ padding: "20px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)", borderRadius: "14px", transition: "all .2s" }}
                         onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
@@ -442,68 +407,58 @@ export default function FeaturesPage() {
           </div>
         </section>
 
-        {/* ══ FEATURE CARDS ══ */}
-        <section style={{ background: "#0d2a40", padding: "60px 20px" }}>
+        {/* FEATURE CARDS */}
+        <section style={{ background: "#0d2a40", padding: "72px 20px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "56px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>What's Inside</p>
               <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>Hover to explore each feature.</h2>
               <p style={{ fontSize: "15px", color: "#64748b", fontWeight: 400, marginTop: "10px" }}>Every feature was designed around how nurses actually study.</p>
             </div>
-
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "16px" }}>
               {features.map((f) => (
-                <div key={f.title} className="feature-card">
-                  <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: f.color, borderRadius: "20px 20px 0 0", opacity: 0.5, transition: "opacity .35s" }} />
-                  <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "80px", height: "80px", borderRadius: "50%", background: `radial-gradient(circle,${f.glow} 0%,transparent 70%)`, pointerEvents: "none", transition: "opacity .35s" }} />
-                  <div className="card-icon" style={{ fontSize: "28px", marginBottom: "14px", display: "block" }}>{f.icon}</div>
-                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", marginBottom: "6px" }}>{f.title}</h3>
-                  <p style={{ fontSize: "12px", color: f.color, fontWeight: 600, letterSpacing: ".04em" }}>{f.short}</p>
-                  <p className="card-desc" style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.7, fontWeight: 400 }}>{f.desc}</p>
-                </div>
+                <FeatureCard key={f.title} feature={f} />
               ))}
             </div>
           </div>
         </section>
 
-        {/* ══ COMPARISON TABLE ══ */}
-        <section style={{ background: "#112a40", padding: "60px 20px" }}>
+        {/* COMPARISON TABLE */}
+        <section style={{ background: "#112a40", padding: "72px 20px" }}>
           <div style={{ maxWidth: "900px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>How We Compare</p>
               <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>Why students choose us.</h2>
             </div>
-
             <div style={{ borderRadius: "20px", overflow: "hidden", border: "1px solid rgba(255,255,255,.08)" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 160px 160px", background: "rgba(14,165,233,.08)", borderBottom: "1px solid rgba(255,255,255,.08)", padding: "16px 20px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 120px", background: "rgba(14,165,233,.08)", borderBottom: "1px solid rgba(255,255,255,.08)", padding: "16px 20px" }}>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#475569", letterSpacing: ".1em", textTransform: "uppercase" }}>Feature</p>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#38bdf8", letterSpacing: ".1em", textTransform: "uppercase", textAlign: "center" }}>Pre-NCLEX</p>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#475569", letterSpacing: ".1em", textTransform: "uppercase", textAlign: "center" }}>Others</p>
               </div>
-
               {comparisons.map((row, i) => (
                 <div key={row.feature} className="comparison-row"
-                  style={{ display: "grid", gridTemplateColumns: "1fr 160px 160px", padding: "16px 20px", borderBottom: i < comparisons.length - 1 ? "1px solid rgba(255,255,255,.05)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,.02)" : "transparent" }}>
+                  style={{ display: "grid", gridTemplateColumns: "1fr 120px 120px", padding: "14px 20px", borderBottom: i < comparisons.length - 1 ? "1px solid rgba(255,255,255,.05)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,.02)" : "transparent" }}>
                   <p style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 500 }}>{row.feature}</p>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     {row.us ? (
-                      <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "rgba(52,211,153,.15)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="13" height="13" fill="none" stroke="#34d399" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                      <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(52,211,153,.15)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="12" height="12" fill="none" stroke="#34d399" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
                       </div>
                     ) : (
-                      <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "rgba(255,255,255,.04)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="13" height="13" fill="none" stroke="#334155" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                      <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(255,255,255,.04)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="12" height="12" fill="none" stroke="#334155" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
                       </div>
                     )}
                   </div>
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     {row.them ? (
-                      <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="13" height="13" fill="none" stroke="#475569" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                      <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="12" height="12" fill="none" stroke="#475569" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
                       </div>
                     ) : (
-                      <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "rgba(239,68,68,.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="13" height="13" fill="none" stroke="#ef4444" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                      <div style={{ width: "26px", height: "26px", borderRadius: "50%", background: "rgba(239,68,68,.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="12" height="12" fill="none" stroke="#ef4444" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
                       </div>
                     )}
                   </div>
@@ -513,8 +468,8 @@ export default function FeaturesPage() {
           </div>
         </section>
 
-        {/* ══ FINAL CTA ══ */}
-        <section style={{ position: "relative", padding: "100px 40px", overflow: "hidden", background: "#0d1f35", textAlign: "center" }}>
+        {/* FINAL CTA */}
+        <section style={{ position: "relative", padding: "100px 20px", overflow: "hidden", background: "#0d1f35", textAlign: "center" }}>
           <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "500px", height: "500px", background: "radial-gradient(circle,rgba(14,165,233,.08) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
             <h2 className="fd" style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.15, marginBottom: "16px" }}>
