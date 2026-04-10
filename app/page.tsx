@@ -1,6 +1,6 @@
 "use client";
 
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/lib/supabase";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
@@ -223,9 +223,9 @@ export default function HomePage() {
     return () => obs.disconnect();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchLatest = async () => {
-      if (supabase) return;
+      if (!supabase) return;
       const { data } = await supabase
         .from("exam_attempts")
         .select("*")
@@ -366,7 +366,7 @@ export default function HomePage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(12,1fr)", gap: "16px" }}>
 
               {/* NCLEX-RN hero card */}
-              <Link href="/courses/nclex-rn" className="bento-card" style={{ gridColumn: "1/8", gridRow: "1/2", textDecoration: "none", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "320px" }}>
+              <div className="bento-card" style={{ gridColumn: "1/8", gridRow: "1/2", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "320px", cursor: "pointer" }} onClick={() => window.location.href = "/courses/nclex-rn"}></div>
                 <div style={{ padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
                     <div style={{ marginBottom: "20px" }}>
@@ -405,8 +405,7 @@ export default function HomePage() {
                   <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&q=80" alt="NCLEX-RN nurse" className="img-cover" style={{ filter: "brightness(.78)" }} />
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right,rgba(13,31,53,.85) 0%,transparent 55%)" }} />
                 </div>
-              </Link>
-
+               </div>
               {/* CCRN */}
               <Link href="/courses/ccrn" className="bento-card" style={{ gridColumn: "8/13", textDecoration: "none", position: "relative", overflow: "hidden", minHeight: "320px" }}>
                 <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80" alt="CCRN critical care" className="img-cover" style={{ position: "absolute", inset: 0, filter: "brightness(.5)" }} />
