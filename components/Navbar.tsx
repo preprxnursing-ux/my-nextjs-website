@@ -200,14 +200,14 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
 
       {open && (
         <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
-          <div style={{ background: "linear-gradient(160deg,#0a1929 0%,#0d1f35 100%)", border: "1px solid rgba(14,165,233,.18)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(14,165,233,.08)", overflow: "hidden" }}>
+          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04)", overflow: "hidden" }}>
 
             {/* Header */}
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(255,255,255,.06)", background: "rgba(14,165,233,.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "13px", fontWeight: 800, color: "#f8fafc", margin: "0 0 2px" }}>Student Stories</p>
-                <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>Real nurses · Real results · Verified</p>
-              </div>
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+  <div>
+    <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Student Stories</p>
+    <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Real nurses · Real results · Verified</p>
+  </div>
               <div style={{ display: "flex", alignItems: "center", gap: "5px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.25)", borderRadius: "100px", padding: "5px 12px" }}>
                 {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "11px" }}>★</span>)}
                 <span style={{ fontSize: "11px", color: "#fbbf24", fontWeight: 700, marginLeft: "4px" }}>4.9</span>
@@ -218,17 +218,17 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
             <div style={{ display: "grid", gridTemplateColumns: "190px 1fr", minHeight: "240px" }}>
 
               {/* Left — selector */}
-              <div style={{ borderRight: "1px solid rgba(255,255,255,.06)", padding: "10px" }}>
-                <p style={{ fontSize: "9px", fontWeight: 700, color: "#334155", letterSpacing: ".14em", textTransform: "uppercase", padding: "4px 8px 8px" }}>Hover to preview</p>
+              <div style={{ borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px", background: "rgba(248,249,251,1)" }}>
+  <p style={{ fontSize: "9px", fontWeight: 700, color: "#94a3b8", letterSpacing: ".14em", textTransform: "uppercase", padding: "4px 8px 8px" }}>Hover to preview</p>
                 {previews.map((p, i) => (
                   <div key={p.name} onMouseEnter={() => setActiveCard(i)}
-                    style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? `${p.color}12` : "transparent", border: `1px solid ${activeCard === i ? p.color + "30" : "transparent"}`, cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
+                   style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? `${p.color}10` : "rgba(255,255,255,0)", border: `1px solid ${activeCard === i ? p.color + "30" : "rgba(0,0,0,0)"}`, cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
                     <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: `${p.color}18`, border: `2px solid ${p.color}${activeCard === i ? "60" : "30"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: p.color, flexShrink: 0, transition: "all .2s", transform: activeCard === i ? "scale(1.1)" : "scale(1)" }}>
                       {p.initials}
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#f8fafc" : "#64748b", margin: 0, transition: "color .2s" }}>{p.name}</p>
-                      <p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#334155", margin: 0, fontWeight: 600, transition: "color .2s" }}>{p.exam}</p>
+                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#0f172a" : "#64748b", margin: 0, transition: "color .2s" }}>{p.name}</p>
+<p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600, transition: "color .2s" }}>{p.exam}</p>
                     </div>
                     {activeCard === i && (
                       <svg style={{ marginLeft: "auto", flexShrink: 0 }} width="12" height="12" fill="none" stroke={p.color} strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
@@ -286,7 +286,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
             </div>
 
             {/* Stats footer */}
-            <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", padding: "12px 20px", background: "rgba(255,255,255,.02)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+            <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
               {[
                 { val: "50K+", label: "Students", color: "#38bdf8" },
                 { val: "98%", label: "Pass rate", color: "#34d399" },
@@ -295,7 +295,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
               ].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
                   <p style={{ fontSize: "14px", fontWeight: 800, color: s.color, margin: "0 0 2px" }}>{s.val}</p>
-                  <p style={{ fontSize: "10px", color: "#334155", margin: 0, fontWeight: 500 }}>{s.label}</p>
+                  <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{s.label}</p>
                 </div>
               ))}
             </div>
