@@ -366,12 +366,13 @@ useEffect(() => {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(12,1fr)", gap: "16px" }}>
 
               {/* NCLEX-RN hero card */}
-              <div className="bento-card" style={{ gridColumn: "1/8", gridRow: "1/2", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "320px", cursor: "pointer" }} onClick={() => window.location.href = "/courses/nclex-rn"}></div>
+              <div className="bento-card" onClick={() => window.location.href = "/courses/nclex-rn"}
+                style={{ gridColumn: "1/8", gridRow: "1/2", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "320px", cursor: "pointer" }}>
                 <div style={{ padding: "36px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
                     <div style={{ marginBottom: "20px" }}>
                       <span style={{ fontSize: "11px", fontWeight: 700, background: "rgba(14,165,233,.18)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.35)", padding: "5px 14px", borderRadius: "100px", letterSpacing: ".08em", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                        <span style={{ width: "6px", height: "6px", background: "#0ea5e9", borderRadius: "50%", display: "inline-block", animation: "pulseRing 1.8s ease-out infinite", position: "relative" }} />
+                        <span style={{ width: "6px", height: "6px", background: "#0ea5e9", borderRadius: "50%", display: "inline-block" }} />
                         LIVE NOW
                       </span>
                     </div>
@@ -405,9 +406,11 @@ useEffect(() => {
                   <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&q=80" alt="NCLEX-RN nurse" className="img-cover" style={{ filter: "brightness(.78)" }} />
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right,rgba(13,31,53,.85) 0%,transparent 55%)" }} />
                 </div>
-               </div>
+              </div>
+
               {/* CCRN */}
-              <Link href="/courses/ccrn" className="bento-card" style={{ gridColumn: "8/13", textDecoration: "none", position: "relative", overflow: "hidden", minHeight: "320px" }}>
+              <div className="bento-card" onClick={() => window.location.href = "/courses/ccrn"}
+                style={{ gridColumn: "8/13", position: "relative", overflow: "hidden", minHeight: "320px", cursor: "pointer" }}>
                 <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80" alt="CCRN critical care" className="img-cover" style={{ position: "absolute", inset: 0, filter: "brightness(.5)" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(248,113,113,.18) 0%,rgba(13,31,53,.92) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "30px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -426,10 +429,11 @@ useEffect(() => {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
 
               {/* NP */}
-              <Link href="/courses/nurse-practitioner" className="bento-card" style={{ gridColumn: "1/5", textDecoration: "none", position: "relative", overflow: "hidden", minHeight: "240px" }}>
+              <div className="bento-card" onClick={() => window.location.href = "/courses/nurse-practitioner"}
+                style={{ gridColumn: "1/5", position: "relative", overflow: "hidden", minHeight: "240px", cursor: "pointer" }}>
                 <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80" alt="Nurse Practitioner" className="img-cover" style={{ position: "absolute", inset: 0, filter: "brightness(.48)" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(192,132,252,.15) 0%,rgba(13,31,53,.9) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "28px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -443,10 +447,11 @@ useEffect(() => {
                     <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </Link>
                 </div>
-              </Link>
+              </div>
 
               {/* NCLEX-PN */}
-              <Link href="/courses/nclex-pn" className="bento-card" style={{ gridColumn: "5/9", textDecoration: "none", position: "relative", overflow: "hidden", minHeight: "240px" }}>
+              <div className="bento-card" onClick={() => window.location.href = "/courses/nclex-pn"}
+                style={{ gridColumn: "5/9", position: "relative", overflow: "hidden", minHeight: "240px", cursor: "pointer" }}>
                 <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=80" alt="NCLEX-PN" className="img-cover" style={{ position: "absolute", inset: 0, filter: "brightness(.48)" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(129,140,248,.15) 0%,rgba(13,31,53,.9) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "28px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
@@ -460,11 +465,12 @@ useEffect(() => {
                     <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </Link>
                 </div>
-              </Link>
+              </div>
 
               {/* Nursing School + Pre-Nursing stacked */}
               <div style={{ gridColumn: "9/13", display: "flex", flexDirection: "column", gap: "16px" }}>
-                <Link href="/courses/nursing-school" className="bento-card" style={{ textDecoration: "none", flex: 1, padding: "24px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "rgba(52,211,153,.07)", borderColor: "rgba(52,211,153,.18)", minHeight: "108px" }}>
+                <div className="bento-card" onClick={() => window.location.href = "/courses/nursing-school"}
+                  style={{ flex: 1, padding: "24px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "rgba(52,211,153,.07)", borderColor: "rgba(52,211,153,.18)", minHeight: "108px", cursor: "pointer" }}>
                   <div>
                     <p style={{ fontSize: "11px", fontWeight: 700, color: "#34d399", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "5px" }}>Nursing School</p>
                     <h3 className="fd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>School Companion</h3>
@@ -473,9 +479,10 @@ useEffect(() => {
                   <Link href="/courses/nursing-school" className="btn-sm" style={{ background: "rgba(52,211,153,.12)", color: "#6ee7b7", border: "1px solid rgba(52,211,153,.25)", alignSelf: "flex-start", marginTop: "12px" }}>
                     Learn more <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </Link>
-                </Link>
+                </div>
 
-                <Link href="/courses/pre-nursing" className="bento-card" style={{ textDecoration: "none", flex: 1, padding: "24px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "rgba(251,191,36,.06)", borderColor: "rgba(251,191,36,.18)", minHeight: "108px" }}>
+                <div className="bento-card" onClick={() => window.location.href = "/courses/pre-nursing"}
+                  style={{ flex: 1, padding: "24px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "rgba(251,191,36,.06)", borderColor: "rgba(251,191,36,.18)", minHeight: "108px", cursor: "pointer" }}>
                   <div>
                     <p style={{ fontSize: "11px", fontWeight: 700, color: "#fbbf24", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "5px" }}>Pre-Nursing</p>
                     <h3 className="fd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>TEAS 7 & HESI A2</h3>
@@ -484,7 +491,7 @@ useEffect(() => {
                   <Link href="/courses/pre-nursing" className="btn-sm" style={{ background: "rgba(251,191,36,.12)", color: "#fde68a", border: "1px solid rgba(251,191,36,.25)", alignSelf: "flex-start", marginTop: "12px" }}>
                     Learn more <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </Link>
-                </Link>
+                </div>
               </div>
 
             </div>
