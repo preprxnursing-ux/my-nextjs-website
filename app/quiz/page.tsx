@@ -12,7 +12,7 @@ import {
 } from "@/lib/quiz-config";
 
 type ReviewAnswer = {
-  questionId: number;
+  questionId: string;
   question: string;
   topic: string;
   difficulty: "easy" | "medium" | "hard";
@@ -243,7 +243,7 @@ export default function QuizPage() {
     const resolvedCorrectAnswer = getCorrectAnswer(currentQuestion);
     const isCorrect = selected === resolvedCorrectAnswer;
     const answerRecord: ReviewAnswer = {
-      questionId: Number(currentQuestion.id),
+      questionId: currentQuestion.id,
       question: currentQuestion.question,
       topic: currentQuestion.topic,
       difficulty: currentQuestion.difficulty,
@@ -287,7 +287,7 @@ export default function QuizPage() {
           const selectedAnswer = selectedMap[index];
           const correctAnswer = getCorrectAnswer(question);
           return {
-            questionId: Number(question.id),
+            questionId: question.id,
             question: question.question,
             topic: question.topic,
             difficulty: question.difficulty,
@@ -313,7 +313,6 @@ export default function QuizPage() {
       mode: modeId === "timed" || modeId === "quick" || modeId === "tutor" ? modeId : "standard",
       reviewAnswers,
     });
-
     // Save to Supabase
     try {
       const { createClient } = await import("@/lib/supabase/client");

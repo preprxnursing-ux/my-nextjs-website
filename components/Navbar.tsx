@@ -4,11 +4,61 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCart, ChevronDown, X, Menu, LogOut, User } from "lucide-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 
+const courseItems = [
+  {
+    exam: "Pre-Nursing",
+    title: "TEAS 7 & HESI A2 Success Toolkit",
+    color: "#f59e0b",
+    href: "/courses/pre-nursing",
+    available: false,
+    tag: "TEAS 7 · HESI A2 entrance exams",
+  },
+  {
+    exam: "Nursing School",
+    title: "Your Nursing School Companion",
+    color: "#10b981",
+    href: "/courses/nursing-school",
+    available: false,
+    tag: "Fundamentals to advanced topics",
+  },
+  {
+    exam: "NCLEX-RN®",
+    title: "NCLEX-RN Success Tools",
+    color: "#0ea5e9",
+    href: "/courses/nclex-rn",
+    available: true,
+    tag: "3,100+ questions · All 8 categories",
+  },
+  {
+    exam: "NCLEX-PN®",
+    title: "Effective NCLEX-PN Prep",
+    color: "#6366f1",
+    href: "/courses/nclex-pn",
+    available: false,
+    tag: "Full PN test plan coverage",
+  },
+  {
+    exam: "Nurse Practitioner",
+    title: "Expert NP Exam Resources",
+    color: "#8b5cf6",
+    href: "/courses/nurse-practitioner",
+    available: false,
+    tag: "FNP · AGPCNP certification prep",
+  },
+  {
+    exam: "CCRN®",
+    title: "Essential CCRN Success Resources",
+    color: "#ef4444",
+    href: "/courses/ccrn",
+    available: false,
+    tag: "ICU-level critical care prep",
+  },
+];
+
 const featuredLinks = [
-  { href: "/courses",      label: "Courses" },
   { href: "/educators",    label: "For Educators" },
   { href: "/features",     label: "Our Features" },
   { href: "/testimonials", label: "Testimonials" },
@@ -29,52 +79,109 @@ const appLinks = [
   { href: "/history", label: "History" },
 ];
 
-const BTN_COLOR = "#708090";
-const BTN_HOVER  = "#5a6a7a";
-const BTN_ACTIVE = "#06b6d4";
-
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+const navStyle = `
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-8px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .nav-dropdown { animation: dropIn .18s ease both; }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #cbd5e1;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background .15s, color .15s;
+    font-family: inherit;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,.08); color: #f1f5f9; }
+  .nav-btn.active { background: rgba(14,165,233,.15); color: #38bdf8; }
+
+  .nav-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: #0ea5e9;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all .18s;
+    box-shadow: 0 4px 14px rgba(14,165,233,.3);
+    font-family: inherit;
+  }
+  .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(14,165,233,.38); }
+
+  .course-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: all .22s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .course-card:hover {
+    background: rgba(255,255,255,.08);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.3);
+  }
+`;
+
 export default function Navbar() {
-  const pathname  = usePathname();
-  const router    = useRouter();
+  const pathname = usePathname();
+  const router   = useRouter();
 
-  const [moreOpen,   setMoreOpen]   = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [avatarOpen, setAvatarOpen] = useState(false);
-  const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
+  const [moreOpen,    setMoreOpen]    = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const [avatarOpen,  setAvatarOpen]  = useState(false);
+  const [coursesOpen, setCoursesOpen] = useState(false);
+  const [user,        setUser]        = useState<any>(null);
+  const [initials,    setInitials]    = useState("?");
 
-  // Real user state
-  const [user,     setUser]     = useState<any>(null);
-  const [initials, setInitials] = useState("?");
+  const coursesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
-
-    // Get current session on load
     supabase.auth.getUser().then(({ data }) => {
       if (data.user) {
         setUser(data.user);
-        const name = data.user.user_metadata?.full_name ?? data.user.email ?? "";
-        setInitials(getInitials(name));
+        setInitials(getInitials(data.user.user_metadata?.full_name ?? data.user.email ?? ""));
       }
     });
-
-    // Listen for login/logout changes
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
       if (session?.user) {
         setUser(session.user);
-        const name = session.user.user_metadata?.full_name ?? session.user.email ?? "";
-        setInitials(getInitials(name));
+        setInitials(getInitials(session.user.user_metadata?.full_name ?? session.user.email ?? ""));
       } else {
         setUser(null);
         setInitials("?");
       }
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
 
@@ -92,244 +199,394 @@ export default function Navbar() {
     router.refresh();
   }
 
-  const btnStyle = (key: string, active: boolean): React.CSSProperties => ({
-    backgroundColor: active ? BTN_ACTIVE : hoveredBtn === key ? BTN_HOVER : BTN_COLOR,
-    transition: "background-color 0.15s",
-    padding: "9px 18px",
-    borderRadius: "9px",
-    fontSize: "13px",
-    fontWeight: 600,
-    color: "#fff",
-    border: "none",
-    cursor: "pointer",
-    whiteSpace: "nowrap" as const,
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "5px",
-    textDecoration: "none",
-    flexShrink: 0,
-  });
+  function handleCoursesEnter() {
+    if (coursesTimeout.current) clearTimeout(coursesTimeout.current);
+    setCoursesOpen(true);
+  }
+  function handleCoursesLeave() {
+    coursesTimeout.current = setTimeout(() => setCoursesOpen(false), 140);
+  }
 
   return (
-    <header className="sticky top-0 z-50 bg-black border-b border-white/10">
-      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-4 md:px-8">
+    <>
+      <style>{navStyle}</style>
+      <header style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: "linear-gradient(to bottom,#0a1929 0%,#0d1f35 100%)",
+        borderBottom: "1px solid rgba(14,165,233,.12)",
+        backdropFilter: "blur(12px)",
+      }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "8px", padding: "0 24px", height: "60px" }}>
 
-        {/* LOGO */}
-        <Link href="/" className="flex shrink-0 items-center transition opacity-90 hover:opacity-100">
-          <Image
-            src="/logo.png"
-            alt="Pre-NCLEX Nursing"
-            width={140}
-            height={38}
-            className="object-contain"
-          />
-        </Link>
+          {/* LOGO */}
+          <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", opacity: .92, transition: "opacity .15s", textDecoration: "none" }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
+            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={136} height={36} style={{ objectFit: "contain" }} />
+          </Link>
 
-        {/* ALL BUTTONS — desktop */}
-        <div className="hidden md:flex items-center gap-2 flex-1 justify-end">
+          {/* DESKTOP NAV */}
+          <div style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", flexWrap: "nowrap" }} className="hidden md:flex">
 
-          {featuredLinks.map((link) => {
-            const active = isActive(pathname, link.href);
-            return (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={btnStyle(link.label, active)}
-                onMouseEnter={() => setHoveredBtn(link.label)}
-                onMouseLeave={() => setHoveredBtn(null)}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-
-          <span className="h-5 w-px bg-white/15 mx-1" />
-
-          {appLinks.map((link) => {
-            const active = isActive(pathname, link.href);
-            return (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={btnStyle(link.label, active)}
-                onMouseEnter={() => setHoveredBtn(link.label)}
-                onMouseLeave={() => setHoveredBtn(null)}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-
-          <span className="h-5 w-px bg-white/15 mx-1" />
-
-          {/* MORE DROPDOWN */}
-          <div className="relative">
-            <button
-              onClick={() => setMoreOpen(!moreOpen)}
-              style={btnStyle("more", false)}
-              onMouseEnter={() => setHoveredBtn("more")}
-              onMouseLeave={() => setHoveredBtn(null)}
-            >
-              More
-              <ChevronDown style={{ width: 14, height: 14, transition: "transform 0.2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
-            </button>
-
-            {moreOpen && (
-              <>
-                <div className="fixed inset-0 z-10" onClick={() => setMoreOpen(false)} />
-                <div className="absolute right-0 top-full z-20 mt-2 w-52 rounded-2xl border border-white/10 bg-black p-2 shadow-2xl">
-                  {moreLinks.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={() => setMoreOpen(false)}
-                      className="block rounded-xl px-4 py-3 text-sm font-medium text-slate-300 hover:bg-white/10 hover:text-white transition"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* FAR RIGHT — Cart + Avatar */}
-        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-
-          {/* CART */}
-          <button
-            style={btnStyle("cart", false)}
-            onMouseEnter={() => setHoveredBtn("cart")}
-            onMouseLeave={() => setHoveredBtn(null)}
-          >
-            <ShoppingCart style={{ width: 15, height: 15 }} />
-            Cart
-          </button>
-
-          {/* AVATAR — shows login button if not logged in */}
-          {user ? (
-            <div className="relative">
+            {/* COURSES DROPDOWN */}
+            <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button
-                onClick={() => setAvatarOpen(!avatarOpen)}
-                className="flex items-center gap-1.5 cursor-pointer"
+                className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-500 text-sm font-semibold text-white">
-                  {initials}
-                </div>
-                <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+                Courses
+                <ChevronDown style={{ width: 13, height: 13, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
 
-              {avatarOpen && (
-                <>
-                  <div className="fixed inset-0 z-10" onClick={() => setAvatarOpen(false)} />
-                  <div className="absolute right-0 top-full z-20 mt-2 w-52 rounded-2xl border border-white/10 bg-black p-2 shadow-2xl">
-                    <div className="px-4 py-3 border-b border-white/10">
-                      <p className="text-xs text-slate-400">Signed in as</p>
-                      <p className="text-sm font-medium text-white truncate">{user.email}</p>
-                    </div>
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setAvatarOpen(false)}
-                      className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm text-slate-300 hover:bg-white/10 hover:text-white transition mt-1"
-                    >
-                      <User className="w-4 h-4" />
-                      My Dashboard
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full rounded-xl px-4 py-2.5 text-sm text-rose-400 hover:bg-rose-500/10 transition"
-                    >
-                      <LogOut className="w-4 h-4" />
-                      Sign out
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
+              {coursesOpen && (
+                <div
+                  className="nav-dropdown"
+                  style={{ position: "absolute", left: 0, top: "100%", zIndex: 50, paddingTop: "10px", width: "768px" }}
+                  onMouseEnter={handleCoursesEnter}
+                  onMouseLeave={handleCoursesLeave}
+                >
+                  <div style={{
+  background: "#ffffff",
+  border: "1px solid rgba(0,0,0,.08)",
+  borderRadius: "20px",
+  boxShadow: "0 32px 80px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04)",
+  overflow: "hidden",
+}}>
+
+                    {/* header */}
+                    <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(0,0,0,.07)", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(14,165,233,.04)" }}>
+  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+    <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9" }} />
+    <span style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".18em", textTransform: "uppercase" }}>
+  Certification Paths
+</span>
+  </div>
+  <Link href="/courses" onClick={() => setCoursesOpen(false)}
+    style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}
+    onMouseEnter={e => (e.currentTarget.style.color = "#38bdf8")}
+    onMouseLeave={e => (e.currentTarget.style.color = "#0ea5e9")}>
+    View all courses →
+  </Link>
+</div>
+                    {/* 2-col bento grid */}
+<div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", padding: "14px" }}>
+  {courseItems.map((course, i) => {
+    const greyShades = [
+  { bg: "rgba(248,249,251,1)",  border: "rgba(0,0,0,.07)" },
+  { bg: "rgba(245,247,250,1)",  border: "rgba(0,0,0,.06)" },
+  { bg: "rgba(250,251,253,1)",  border: "rgba(0,0,0,.07)" },
+  { bg: "rgba(243,246,249,1)",  border: "rgba(0,0,0,.06)" },
+  { bg: "rgba(247,249,252,1)",  border: "rgba(0,0,0,.07)" },
+  { bg: "rgba(244,247,251,1)",  border: "rgba(0,0,0,.06)" },
+];
+    const shade = greyShades[i] ?? greyShades[0];
+
+    return (
+      <Link
+        key={course.exam}
+        href={course.href}
+        onClick={() => setCoursesOpen(false)}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "20px 22px",
+          borderRadius: "14px",
+          textDecoration: "none",
+          background: shade.bg,
+          border: `1px solid ${shade.border}`,
+          transition: "all .28s cubic-bezier(.34,1.56,.64,1)",
+          position: "relative",
+          overflow: "hidden",
+          cursor: "pointer",
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = "scale(1.045) translateY(-3px)";
+          el.style.background = `linear-gradient(135deg, ${course.color}18 0%, ${course.color}08 60%, #ffffff 100%)`;
+el.style.borderColor = course.color + "60";
+el.style.boxShadow = `0 12px 32px rgba(0,0,0,.1), 0 0 0 1px ${course.color}25, inset 0 1px 0 ${course.color}15`;
+          el.style.zIndex = "10";
+          const glow = el.querySelector(".card-glow") as HTMLElement;
+          if (glow) glow.style.opacity = "1";
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = "scale(1) translateY(0)";
+          el.style.background = shade.bg;
+          el.style.borderColor = shade.border;
+          el.style.boxShadow = "none";
+          el.style.zIndex = "1";
+          const glow = el.querySelector(".card-glow") as HTMLElement;
+          if (glow) glow.style.opacity = "0";
+        }}
+      >
+        {/* top color bar */}
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: "2.5px",
+          background: course.color,
+          opacity: course.available ? 1 : 0.35,
+        }} />
+
+        {/* glow blob — hidden by default, shows on hover */}
+        <div
+          className="card-glow"
+          style={{
+            position: "absolute",
+            top: "-20px", right: "-20px",
+            width: "100px", height: "100px",
+            borderRadius: "50%",
+            background: `radial-gradient(circle, ${course.color}40 0%, transparent 70%)`,
+            opacity: 0,
+            transition: "opacity .28s ease",
+            pointerEvents: "none",
+          }}
+        />
+
+        {/* row 1 — name + badge */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "10px", position: "relative", zIndex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{
+  width: "11px", height: "11px", borderRadius: "50%",
+  background: course.color, flexShrink: 0,
+  boxShadow: `0 0 12px ${course.color}90`,
+}} />
+            <span style={{ fontSize: "14px", fontWeight: 800, color: course.color, letterSpacing: ".03em" }}>
+  {course.exam}
+</span>
+          </div>
+          {course.available ? (
+            <span style={{
+              fontSize: "9px", fontWeight: 800,
+              background: "rgba(14,165,233,.16)", color: "#7dd3fc",
+              border: "1px solid rgba(14,165,233,.32)",
+              padding: "2px 8px", borderRadius: "100px",
+              letterSpacing: ".07em",
+              display: "flex", alignItems: "center", gap: "4px",
+            }}>
+              <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
+              LIVE
+            </span>
           ) : (
-            <Link
-              href="/auth/login"
-              style={btnStyle("login", false)}
-              onMouseEnter={() => setHoveredBtn("login")}
-              onMouseLeave={() => setHoveredBtn(null)}
-            >
-              Sign in
-            </Link>
+            <span style={{
+              fontSize: "9px", fontWeight: 600,
+              background: "rgba(255,255,255,.05)", color: "#475569",
+              border: "1px solid rgba(255,255,255,.08)",
+              padding: "2px 8px", borderRadius: "100px", letterSpacing: ".06em",
+            }}>
+              SOON
+            </span>
           )}
         </div>
 
-        {/* MOBILE HAMBURGER */}
-        <button
-          className="md:hidden ml-auto flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-slate-300"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
+        {/* row 2 — title */}
+<p style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", lineHeight: 1.4, marginBottom: "6px", position: "relative", zIndex: 1 }}>
+  {course.title}
+</p>
 
-      {/* MOBILE MENU */}
-      {mobileOpen && (
-        <div className="border-t border-white/5 bg-black md:hidden">
-          <div className="mx-auto max-w-7xl space-y-2 px-6 py-4">
+{/* row 3 — tag */}
+<p style={{ fontSize: "12px", color: "#64748b", fontWeight: 500, lineHeight: 1.4, position: "relative", zIndex: 1 }}>
+  {course.tag}
+</p>
+      </Link>
+    );
+  })}
+</div>
 
-            <p className="px-2 pt-1 pb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Featured</p>
-            {featuredLinks.map((link) => {
-              const active = isActive(pathname, link.href);
-              return (
-                <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-4 py-3 text-sm font-semibold text-white transition"
-                  style={{ backgroundColor: active ? BTN_ACTIVE : BTN_COLOR }}>
-                  {link.label}
-                </Link>
-              );
-            })}
+                    {/* footer CTA */}
+                    <div style={{ margin: "0 14px 14px", padding: "14px 18px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.14)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+  <div>
+<p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN — it's free</p>
+<p style={{ fontSize: "12px", color: "#64748b", margin: "3px 0 0", fontWeight: 500 }}>No credit card · No commitment · Live now</p>
+  </div>
+                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)}
+                        className="nav-btn-primary" style={{ fontSize: "12px", padding: "8px 16px" }}>
+                        Try free →
+                      </Link>
+                    </div>
 
-            <p className="px-2 pt-4 pb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">App</p>
-            {appLinks.map((link) => {
-              const active = isActive(pathname, link.href);
-              return (
-                <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                  className="block rounded-xl px-4 py-3 text-sm font-semibold text-white transition"
-                  style={{ backgroundColor: active ? BTN_ACTIVE : BTN_COLOR }}>
-                  {link.label}
-                </Link>
-              );
-            })}
+                  </div>
+                </div>
+              )}
+            </div>
 
-            <p className="px-2 pt-4 pb-2 text-[10px] font-semibold uppercase tracking-widest text-slate-500">More</p>
-            {moreLinks.map((link) => (
-              <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                className="block rounded-xl px-4 py-3 text-sm text-slate-400 hover:bg-white/5 hover:text-white transition">
+            {/* FEATURED LINKS */}
+            {featuredLinks.map((link) => (
+              <Link key={link.label} href={link.href}
+                className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
                 {link.label}
               </Link>
             ))}
 
-            <div className="flex items-center gap-3 px-2 pt-4 pb-2">
-              <button className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
-                style={{ backgroundColor: BTN_COLOR }}>
-                <ShoppingCart className="h-4 w-4" />
-                Cart
+            <span style={{ width: "1px", height: "18px", background: "rgba(255,255,255,.1)", margin: "0 4px", flexShrink: 0 }} />
+
+            {/* APP LINKS */}
+            {appLinks.map((link) => (
+              <Link key={link.label} href={link.href}
+                className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
+                {link.label}
+              </Link>
+            ))}
+
+            <span style={{ width: "1px", height: "18px", background: "rgba(255,255,255,.1)", margin: "0 4px", flexShrink: 0 }} />
+
+            {/* MORE */}
+            <div style={{ position: "relative" }}>
+              <button className="nav-btn" onClick={() => setMoreOpen(!moreOpen)}>
+                More
+                <ChevronDown style={{ width: 13, height: 13, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
-              {user ? (
-                <button onClick={handleLogout}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
-                  style={{ backgroundColor: "#e11d48" }}>
-                  <LogOut className="h-4 w-4" />
-                  Sign out
-                </button>
-              ) : (
-                <Link href="/auth/login" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
-                  style={{ backgroundColor: BTN_COLOR }}>
-                  Sign in
-                </Link>
+              {moreOpen && (
+                <>
+                  <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setMoreOpen(false)} />
+                  <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "180px", background: "linear-gradient(160deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "14px", padding: "6px", boxShadow: "0 20px 50px rgba(0,0,0,.4)" }}>
+                    {moreLinks.map((link) => (
+                      <Link key={link.label} href={link.href} onClick={() => setMoreOpen(false)}
+                        style={{ display: "block", padding: "10px 14px", borderRadius: "10px", fontSize: "13px", fontWeight: 500, color: "#94a3b8", textDecoration: "none", transition: "all .15s" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.color = "#f1f5f9"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#94a3b8"; }}>
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
-
           </div>
+
+          {/* FAR RIGHT */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }} className="hidden md:flex">
+
+            {/* CART */}
+            <button className="nav-btn" style={{ gap: "6px" }}>
+              <ShoppingCart style={{ width: 14, height: 14 }} />
+              Cart
+            </button>
+
+            {user ? (
+              <div style={{ position: "relative" }}>
+                <button onClick={() => setAvatarOpen(!avatarOpen)}
+                  style={{ display: "flex", alignItems: "center", gap: "6px", background: "none", border: "none", cursor: "pointer", padding: "4px" }}>
+                  <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff", boxShadow: "0 4px 12px rgba(14,165,233,.35)" }}>
+                    {initials}
+                  </div>
+                  <ChevronDown style={{ width: 13, height: 13, color: "#64748b", transition: "transform .2s", transform: avatarOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+                </button>
+
+                {avatarOpen && (
+                  <>
+                    <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setAvatarOpen(false)} />
+                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "210px", background: "linear-gradient(160deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
+                      <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
+                        <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>Signed in as</p>
+                        <p style={{ fontSize: "13px", fontWeight: 600, color: "#e2e8f0", margin: "3px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
+                      </div>
+                      <div style={{ padding: "6px" }}>
+                        <Link href="/dashboard" onClick={() => setAvatarOpen(false)}
+                          style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "10px", fontSize: "13px", fontWeight: 500, color: "#94a3b8", textDecoration: "none", transition: "all .15s" }}
+                          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.color = "#f1f5f9"; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#94a3b8"; }}>
+                          <User style={{ width: 15, height: 15 }} />
+                          My Dashboard
+                        </Link>
+                        <button onClick={handleLogout}
+                          style={{ display: "flex", alignItems: "center", gap: "10px", width: "100%", padding: "10px 12px", borderRadius: "10px", fontSize: "13px", fontWeight: 500, color: "#f87171", background: "none", border: "none", cursor: "pointer", transition: "all .15s", fontFamily: "inherit" }}
+                          onMouseEnter={e => (e.currentTarget.style.background = "rgba(248,113,113,.08)")}
+                          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                          <LogOut style={{ width: 15, height: 15 }} />
+                          Sign out
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <Link href="/auth/login" className="nav-btn">Sign in</Link>
+            )}
+
+            <Link href="/auth/signup" className="nav-btn-primary">
+              Get started
+            </Link>
+          </div>
+
+          {/* MOBILE HAMBURGER */}
+          <button
+            className="md:hidden"
+            style={{ marginLeft: "auto", display: "flex", width: "38px", height: "38px", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer" }}
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
+          </button>
         </div>
-      )}
-    </header>
+
+        {/* MOBILE MENU */}
+        {mobileOpen && (
+          <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", background: "linear-gradient(160deg,#0d1f35,#0f2540)" }}>
+            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 24px", display: "flex", flexDirection: "column", gap: "6px" }}>
+
+              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px", marginBottom: "2px" }}>Courses</p>
+              {courseItems.map((course) => (
+                <Link key={course.exam} href={course.href} onClick={() => setMobileOpen(false)}
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)", textDecoration: "none", transition: "all .2s" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,.08)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,.04)")}>
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: course.color, flexShrink: 0, boxShadow: `0 0 8px ${course.color}60` }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: course.color, margin: 0 }}>{course.exam}</p>
+                    <p style={{ fontSize: "11px", color: "#475569", margin: 0, fontWeight: 400 }}>{course.title}</p>
+                  </div>
+                  {course.available && (
+                    <span style={{ fontSize: "9px", fontWeight: 800, background: "rgba(14,165,233,.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.3)", padding: "2px 8px", borderRadius: "100px" }}>LIVE</span>
+                  )}
+                </Link>
+              ))}
+
+              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "12px 8px 2px" }}>Pages</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+                {featuredLinks.map((link) => (
+                  <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
+                    style={{ display: "block", padding: "11px 14px", borderRadius: "11px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+
+              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "12px 8px 2px" }}>App</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+                {appLinks.map((link) => (
+                  <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
+                    style={{ display: "block", padding: "11px 14px", borderRadius: "11px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+
+              <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+                <button style={{ display: "flex", alignItems: "center", gap: "7px", padding: "11px 16px", borderRadius: "11px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)", fontSize: "13px", fontWeight: 600, color: "#94a3b8", cursor: "pointer", fontFamily: "inherit" }}>
+                  <ShoppingCart style={{ width: 14, height: 14 }} /> Cart
+                </button>
+                {user ? (
+                  <button onClick={handleLogout}
+                    style={{ display: "flex", alignItems: "center", gap: "7px", padding: "11px 16px", borderRadius: "11px", background: "rgba(248,113,113,.1)", border: "1px solid rgba(248,113,113,.2)", fontSize: "13px", fontWeight: 600, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
+                    <LogOut style={{ width: 14, height: 14 }} /> Sign out
+                  </button>
+                ) : (
+                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}
+                    style={{ display: "flex", alignItems: "center", gap: "7px", padding: "11px 16px", borderRadius: "11px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)", fontSize: "13px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
+                    Sign in
+                  </Link>
+                )}
+                <Link href="/auth/signup" onClick={() => setMobileOpen(false)}
+                  style={{ display: "flex", alignItems: "center", gap: "7px", padding: "11px 16px", borderRadius: "11px", background: "#0ea5e9", border: "none", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 4px 14px rgba(14,165,233,.3)" }}>
+                  Get started
+                </Link>
+              </div>
+
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
