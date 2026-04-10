@@ -246,7 +246,7 @@ export default function FeaturesPage() {
       <main style={{ background: "#0d1f35", minHeight: "100vh", color: "#f1f5f9" }}>
 
         {/* ══ HERO ══ */}
-        <section style={{ position: "relative", padding: "100px 40px 80px", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2a45 100%)" }}>
+       <section style={{ position: "relative", padding: "80px 20px 60px", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2a45 100%)" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(14,165,233,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.04) 1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
           <div className="float" style={{ position: "absolute", top: "-60px", right: "8%", width: "480px", height: "480px", background: "radial-gradient(circle,rgba(14,165,233,.12) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", bottom: "-40px", left: "4%", width: "300px", height: "300px", background: "radial-gradient(circle,rgba(139,92,246,.08) 0%,transparent 65%)", pointerEvents: "none" }} />
@@ -320,7 +320,7 @@ export default function FeaturesPage() {
         </section>
 
         {/* ══ INTERACTIVE DEMO ══ */}
-        <section style={{ background: "#112a40", padding: "80px 40px" }}>
+        <section style={{ background: "#112a40", padding: "60px 20px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Live Preview</p>
@@ -423,7 +423,7 @@ export default function FeaturesPage() {
                     <p style={{ fontSize: "11px", color: "#475569", fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase" }}>{activeTabData.preview.subtitle}</p>
                     <p style={{ fontSize: "16px", fontWeight: 700, color: "#f8fafc", marginTop: "4px" }}>{activeTabData.preview.title}</p>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: "12px", marginBottom: "20px" }}>
                     {activeTabData.preview.stats?.map(s => (
                       <div key={s.label} style={{ padding: "20px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)", borderRadius: "14px", transition: "all .2s" }}
                         onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
@@ -443,7 +443,7 @@ export default function FeaturesPage() {
         </section>
 
         {/* ══ FEATURE CARDS ══ */}
-        <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
+        <section style={{ background: "#0d2a40", padding: "60px 20px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "56px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>What's Inside</p>
@@ -451,7 +451,7 @@ export default function FeaturesPage() {
               <p style={{ fontSize: "15px", color: "#64748b", fontWeight: 400, marginTop: "10px" }}>Every feature was designed around how nurses actually study.</p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "16px" }}>
               {features.map((f) => (
                 <div key={f.title} className="feature-card">
                   <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: f.color, borderRadius: "20px 20px 0 0", opacity: 0.5, transition: "opacity .35s" }} />
@@ -467,7 +467,7 @@ export default function FeaturesPage() {
         </section>
 
         {/* ══ COMPARISON TABLE ══ */}
-        <section style={{ background: "#112a40", padding: "80px 40px" }}>
+        <section style={{ background: "#112a40", padding: "60px 20px" }}>
           <div style={{ maxWidth: "900px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>How We Compare</p>
