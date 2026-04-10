@@ -306,7 +306,107 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
     </div>
   );
 }
+function ContactDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  function handleEnter() {
+    if (timeout.current) clearTimeout(timeout.current);
+    setOpen(true);
+  }
+  function handleLeave() {
+    timeout.current = setTimeout(() => setOpen(false), 140);
+  }
+
+  const people = [
+    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80", topics: "Platform · Courses · Account", response: "Within 4 hours" },
+    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&q=80", topics: "Partnerships · Media · Strategy", response: "Within 24 hours" },
+  ];
+
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href="/contact" className={`nav-btn${isActive(pathname, "/contact") ? " active" : ""}`}>
+        Contact Us
+        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </Link>
+
+      {open && (
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 50, paddingTop: "10px", width: "480px" }}>
+          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+
+            {/* Header */}
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Talk to a real person</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>No bots · Real humans · Fast responses</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(34,197,94,.08)", border: "1px solid rgba(34,197,94,.2)", borderRadius: "100px", padding: "5px 12px" }}>
+                <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e" }} />
+                <span style={{ fontSize: "11px", fontWeight: 700, color: "#16a34a" }}>Online now</span>
+              </div>
+            </div>
+
+            {/* People cards */}
+            <div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
+              {people.map(p => (
+                <div key={p.name}
+                  style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "14px", padding: "14px 16px", borderRadius: "14px", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.06)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)", cursor: "default" }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,.1), 0 0 0 1px ${p.color}20`; e.currentTarget.style.background = `linear-gradient(135deg,${p.color}08 0%,rgba(248,249,251,1) 100%)`; e.currentTarget.style.borderColor = `${p.color}30`; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; }}>
+
+                  {/* Avatar */}
+                  <div style={{ position: "relative" }}>
+                    <div style={{ width: "48px", height: "48px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${p.color}30` }}>
+                      <img src={p.avatar} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </div>
+                    <div style={{ position: "absolute", bottom: "1px", right: "1px", width: "12px", height: "12px", borderRadius: "50%", background: "#22c55e", border: "2px solid white" }} />
+                  </div>
+
+                  {/* Info */}
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
+                      <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0 }}>{p.name}</p>
+                      <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
+                    </div>
+                    <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
+                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>⏱ {p.response}</p>
+                  </div>
+
+                  {/* Email button */}
+                  <a href={`mailto:${p.email}`}
+                    style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0 }}
+                    onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${p.color}50`; }}
+                    onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = `0 4px 12px ${p.color}40`; }}>
+                    <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    Email
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div style={{ margin: "0 12px 12px", padding: "12px 16px", background: "rgba(14,165,233,.04)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Prefer a contact form?</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Send us a detailed message on the contact page</p>
+              </div>
+              <Link href="/contact"
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                Contact page →
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -457,10 +557,14 @@ export default function Navbar() {
 
             {/* REST OF LINKS */}
             {featuredLinks.map((link) => (
-              <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
-                {link.label}
-              </Link>
-            ))}
+  link.label === "Contact Us" ? (
+    <ContactDropdown key={link.label} pathname={pathname} />
+  ) : (
+    <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
+      {link.label}
+    </Link>
+  )
+))}
 
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
