@@ -95,92 +95,7 @@ const navStyle = `
     #desktop-actions { display: none !important; }
   }
 `;
-function TestimonialsDropdown({ pathname }: { pathname: string }) {
-  const [open, setOpen] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function handleEnter() {
-    if (timeout.current) clearTimeout(timeout.current);
-    setOpen(true);
-  }
-  function handleLeave() {
-    timeout.current = setTimeout(() => setOpen(false), 140);
-  }
-
-  const previews = [
-    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically." },
-    { initials: "MT", name: "Marcus T.", score: "1st attempt", exam: "NCLEX-RN", color: "#34d399", quote: "Three weeks of study using only this platform. I felt calm walking into the exam." },
-    { initials: "AN", name: "Amara N.", score: "Passed 110Q", exam: "NCLEX-RN", color: "#c084fc", quote: "After failing once with another platform, I switched here and passed comfortably." },
-  ];
-
-  return (
-    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <Link href="/testimonials"
-        className={`nav-btn${isActive(pathname, "/testimonials") ? " active" : ""}`}>
-        Testimonials
-        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
-      </Link>
-
-      {open && (
-        <div className="nav-dropdown"
-          style={{ position: "absolute", left: "-80px", top: "100%", zIndex: 50, paddingTop: "10px", width: "420px" }}>
-          <div style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,.15)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.5)", overflow: "hidden" }}>
-
-            {/* Header */}
-            <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(255,255,255,.06)", background: "rgba(14,165,233,.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "12px", fontWeight: 800, color: "#f8fafc", margin: 0 }}>Student Stories</p>
-                <p style={{ fontSize: "10px", color: "#475569", margin: "2px 0 0", fontWeight: 400 }}>Real nurses · Real results</p>
-              </div>
-              <div style={{ display: "flex", gap: "2px" }}>
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} style={{ color: "#fbbf24", fontSize: "11px" }}>★</span>
-                ))}
-                <span style={{ fontSize: "10px", color: "#64748b", marginLeft: "4px", fontWeight: 600 }}>4.9/5</span>
-              </div>
-            </div>
-
-            {/* Preview cards */}
-            <div style={{ padding: "10px", display: "flex", flexDirection: "column", gap: "4px" }}>
-              {previews.map((p) => (
-                <Link key={p.name} href="/testimonials"
-                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "12px 14px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.05)"; e.currentTarget.style.transform = "translateX(4px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${p.color}18`, border: `1px solid ${p.color}35`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: p.color, flexShrink: 0 }}>
-                    {p.initials}
-                  </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-                      <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>{p.name}</p>
-                      <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}18`, color: p.color, border: `1px solid ${p.color}30`, padding: "2px 8px", borderRadius: "100px" }}>{p.score}</span>
-                    </div>
-                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{p.quote}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* Footer */}
-            <div style={{ margin: "0 10px 10px", padding: "12px 16px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.14)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>10,000+ success stories</p>
-                <p style={{ fontSize: "10px", color: "#475569", margin: 0, fontWeight: 400 }}>NCLEX-RN · NCLEX-PN · Nursing School</p>
-              </div>
-              <Link href="/testimonials"
-                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                Read all stories
-                <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 function FeaturesDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -193,69 +108,6 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     timeout.current = setTimeout(() => setOpen(false), 140);
   }
 
-  const featureItems = [
-    {
-      title: "Three Exam Modes",
-      desc: "Timed, Tutor, and Quick practice modes built for real NCLEX pressure",
-      color: "#0ea5e9",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-      ),
-    },
-    {
-      title: "Deep Clinical Rationales",
-      desc: "Every answer explained with full clinical reasoning — learn why, not just what",
-      color: "#8b5cf6",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-        </svg>
-      ),
-    },
-    {
-      title: "Performance Dashboard",
-      desc: "Track every attempt, spot weak topics, and measure real improvement",
-      color: "#10b981",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      ),
-    },
-    {
-      title: "Flag & Review System",
-      desc: "Flag tough questions mid-exam and study them with full breakdowns after",
-      color: "#f59e0b",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
-        </svg>
-      ),
-    },
-    {
-      title: "Adaptive Timer",
-      desc: "Build the mental endurance NCLEX demands with real timed pressure",
-      color: "#ef4444",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-        </svg>
-      ),
-    },
-    {
-      title: "AI Tutor — Coming Soon",
-      desc: "Personalised study plans that adapt to exactly where you're struggling",
-      color: "#c084fc",
-      icon: (
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
-        </svg>
-      ),
-    },
-  ];
-
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/features"
@@ -266,66 +118,49 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
 
       {open && (
         <div className="nav-dropdown"
-          style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
-          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+          style={{ position: "absolute", left: 0, top: "100%", zIndex: 50, paddingTop: "10px", width: "340px" }}>
+          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "18px", boxShadow: "0 24px 60px rgba(0,0,0,.15)", overflow: "hidden" }}>
 
-            {/* Header */}
-            <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0, letterSpacing: "-.01em" }}>Everything you need to pass</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 400 }}>Built by licensed RNs for nurses who pass first time</p>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(14,165,233,.1)", border: "1px solid rgba(14,165,233,.25)", borderRadius: "100px", padding: "4px 12px" }}>
-                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
-                <span style={{ fontSize: "10px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".1em", textTransform: "uppercase" }}>9 Features</span>
-              </div>
+            <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)" }}>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".16em", textTransform: "uppercase", margin: 0 }}>Platform Features</p>
             </div>
 
-            {/* Feature grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
-              {featureItems.map((f) => (
+            <div style={{ padding: "10px" }}>
+              {[
+                { icon: "🎯", title: "Three Exam Modes", desc: "Timed, Tutor, and Quick practice modes", color: "#0ea5e9" },
+                { icon: "🧠", title: "Deep Rationales", desc: "Full clinical breakdown after every question", color: "#8b5cf6" },
+                { icon: "📊", title: "Performance Dashboard", desc: "Track scores and spot weak topics", color: "#10b981" },
+                { icon: "🚩", title: "Flag & Review", desc: "Flag questions and study what matters", color: "#f59e0b" },
+                { icon: "🤖", title: "AI Tutor — Soon", desc: "Personalised study plans powered by AI", color: "#c084fc" },
+              ].map((f) => (
                 <Link key={f.title} href="/features"
-                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px 16px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = `${f.color}08`;
-                    e.currentTarget.style.transform = "translateX(3px)";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.transform = "translateX(0)";
-                  }}>
-                  <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: `${f.color}12`, border: `1px solid ${f.color}25`, display: "flex", alignItems: "center", justifyContent: "center", color: f.color, flexShrink: 0, marginTop: "1px" }}>
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 12px", borderRadius: "10px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = `${f.color}12`; e.currentTarget.style.transform = "translateX(4px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${f.color}15`, border: `1px solid ${f.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", flexShrink: 0 }}>
                     {f.icon}
                   </div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px", lineHeight: 1.3 }}>{f.title}</p>
-                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.5 }}>{f.desc}</p>
+                  <div>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{f.title}</p>
+                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>{f.desc}</p>
                   </div>
                 </Link>
               ))}
             </div>
 
-            {/* Footer CTA */}
-            <div style={{ margin: "0 10px 10px", padding: "14px 18px", background: "linear-gradient(135deg,rgba(14,165,233,.07) 0%,rgba(139,92,246,.05) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>See every feature in detail</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Interactive demos · Comparison table · Full breakdown</p>
-              </div>
-              <Link href="/features"
-                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                See all features
-                <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div style={{ margin: "0 10px 10px", padding: "10px 14px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>See all features</p>
+              <Link href="/features" style={{ fontSize: "11px", fontWeight: 700, background: "#0ea5e9", color: "#fff", padding: "5px 12px", borderRadius: "7px", textDecoration: "none" }}>
+                Explore →
               </Link>
             </div>
-
           </div>
         </div>
       )}
     </div>
   );
 }
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
