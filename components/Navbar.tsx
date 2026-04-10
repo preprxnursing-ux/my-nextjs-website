@@ -265,10 +265,26 @@ export default function Navbar() {
             </div>
 
             {featuredLinks.map((link) => (
-              <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
-                {link.label}
-              </Link>
-            ))}
+  <Link key={link.label} href={link.href}
+    className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}
+    style={{ position: "relative" }}
+    onMouseEnter={e => {
+      const el = e.currentTarget;
+      el.style.background = "rgba(14,165,233,.12)";
+      el.style.color = "#38bdf8";
+      el.style.transform = "translateY(-2px)";
+      el.style.boxShadow = "0 4px 14px rgba(14,165,233,.2)";
+    }}
+    onMouseLeave={e => {
+      const el = e.currentTarget;
+      el.style.background = "transparent";
+      el.style.color = "#cbd5e1";
+      el.style.transform = "translateY(0)";
+      el.style.boxShadow = "none";
+    }}>
+    {link.label}
+  </Link>
+))}
 
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
