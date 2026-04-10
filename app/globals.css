@@ -24,3 +24,159 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* ============================================
+   GLOBAL MOBILE RESPONSIVE STYLES
+   ============================================ */
+
+/* Base */
+* { box-sizing: border-box; }
+img { max-width: 100%; }
+
+/* ── Padding containers ── */
+@media (max-width: 768px) {
+  section, .section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* ── Typography scale down ── */
+  h1, .fd { font-size: clamp(2rem, 8vw, 3.5rem) !important; }
+  h2 { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; }
+  h3 { font-size: clamp(1.2rem, 5vw, 1.8rem) !important; }
+
+  /* ── Hero section ── */
+  section[style*="96vh"] {
+    min-height: 100svh !important;
+    padding: 100px 20px 60px !important;
+    align-items: flex-start !important;
+  }
+
+  /* ── All multi-column grids → single column ── */
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="gridTemplateColumns: '1fr 1fr'"],
+  div[style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+  }
+
+  div[style*="repeat(12,1fr)"],
+  div[style*="repeat(12, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  div[style*="repeat(3,1fr)"],
+  div[style*="repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  div[style*="repeat(4,1fr)"],
+  div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  div[style*="repeat(auto-fit"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  div[style*="1.3fr .7fr"],
+  div[style*="1fr 340px"],
+  div[style*="1.3fr 0.7fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Bento grid items — reset column/row spans ── */
+  .bento-card[style*="gridColumn"],
+  div[style*="gridColumn"],
+  a[style*="gridColumn"] {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+
+  /* ── Bento card image layout ── */
+  .bento-card[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+
+  /* ── Hide right image panel on NCLEX-RN hero card ── */
+  .bento-card > div[style*="borderRadius: '0 22px"] {
+    display: none !important;
+  }
+
+  /* ── Flex rows → columns ── */
+  div[style*="display: \"flex\""][style*="gap"],
+  div[style*="display: 'flex'"][style*="flexWrap: 'wrap'"] {
+    flex-wrap: wrap !important;
+  }
+
+  /* ── Buttons full width on mobile ── */
+  .btn-primary, .btn-outline {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px 20px !important;
+  }
+
+  /* ── Stats grid ── */
+  div[style*="repeat(auto-fit,minmax(200px"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ── Why us section — image + text ── */
+  div[style*="grid-template-columns: 1fr 1fr"][style*="gap: 60px"],
+  div[style*="gap: \"60px\""] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* ── Image panels ── */
+  div[style*="height: \"520px\""] {
+    height: 280px !important;
+  }
+
+  /* ── Dashboard panels ── */
+  div[style*="grid-template-columns: \"1.3fr .7fr\""] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Horizontal scroll for ticker ── */
+  .ticker-wrap { overflow: hidden !important; }
+
+  /* ── Auth pages ── */
+  div[style*="maxWidth: \"420px\""],
+  div[style*="max-width: 420px"] {
+    max-width: 100% !important;
+    margin: 0 20px !important;
+  }
+
+  /* ── Padding reductions ── */
+  div[style*="padding: \"36px\""],
+  div[style*="padding: '36px'"] {
+    padding: 20px !important;
+  }
+
+  div[style*="padding: \"80px 40px\""],
+  div[style*="padding: '80px 40px'"] {
+    padding: 48px 20px !important;
+  }
+
+  div[style*="padding: \"120px 40px\""] {
+    padding: 72px 20px !important;
+  }
+}
+
+/* ── Extra small phones ── */
+@media (max-width: 480px) {
+  div[style*="repeat(auto-fit,minmax(200px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  div[style*="repeat(4,1fr)"],
+  div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .btn-primary, .btn-outline, .btn-dark, .btn-sm {
+    font-size: 13px !important;
+  }
+}
