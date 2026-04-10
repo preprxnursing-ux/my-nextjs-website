@@ -228,7 +228,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", flexWrap: "nowrap" }} className="hidden md:flex">
+          <div style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", flexWrap: "nowrap" }} className="hidden md:flex" id="desktop-nav">
 
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
@@ -455,7 +455,7 @@ el.style.boxShadow = `0 12px 32px rgba(0,0,0,.1), 0 0 0 1px ${course.color}25, i
           </div>
 
           {/* FAR RIGHT */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }} className="hidden md:flex">
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }} className="hidden md:flex" id="desktop-actions">
 
             {/* CART */}
             <button className="nav-btn" style={{ gap: "6px" }}>

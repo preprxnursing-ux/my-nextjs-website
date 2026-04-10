@@ -156,3 +156,12 @@ img { max-width: 100% !important; }
     justify-content: center !important;
   }
 }
+/* Force hide desktop nav on mobile */
+@media (max-width: 767px) {
+  #desktop-nav {
+    display: none !important;
+  }
+  #desktop-actions {
+    display: none !important;
+  }
+}
