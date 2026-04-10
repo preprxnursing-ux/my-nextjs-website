@@ -18,7 +18,6 @@ const courseItems = [
 
 const featuredLinks = [
   { href: "/educators", label: "For Educators" },
-  { href: "/features", label: "Our Features" },
   { href: "/testimonials", label: "Testimonials" },
   { href: "/contact", label: "Contact Us" },
   { href: "/pricing", label: "Pricing" },
@@ -64,7 +63,7 @@ const navStyle = `
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: background .15s, color .15s;
+    transition: all .18s;
     font-family: inherit;
   }
   .nav-btn:hover { background: rgba(255,255,255,.08); color: #f1f5f9; }
@@ -91,12 +90,76 @@ const navStyle = `
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
 
-  /* Hide desktop nav on mobile */
   @media (max-width: 767px) {
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
   }
 `;
+
+function FeaturesDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleEnter() {
+    if (timeout.current) clearTimeout(timeout.current);
+    setOpen(true);
+  }
+  function handleLeave() {
+    timeout.current = setTimeout(() => setOpen(false), 140);
+  }
+
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href="/features"
+        className={`nav-btn${isActive(pathname, "/features") ? " active" : ""}`}>
+        Our Features
+        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </Link>
+
+      {open && (
+        <div className="nav-dropdown"
+          style={{ position: "absolute", left: 0, top: "100%", zIndex: 50, paddingTop: "10px", width: "340px" }}>
+          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "18px", boxShadow: "0 24px 60px rgba(0,0,0,.15)", overflow: "hidden" }}>
+
+            <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)" }}>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".16em", textTransform: "uppercase", margin: 0 }}>Platform Features</p>
+            </div>
+
+            <div style={{ padding: "10px" }}>
+              {[
+                { icon: "🎯", title: "Three Exam Modes", desc: "Timed, Tutor, and Quick practice modes", color: "#0ea5e9" },
+                { icon: "🧠", title: "Deep Rationales", desc: "Full clinical breakdown after every question", color: "#8b5cf6" },
+                { icon: "📊", title: "Performance Dashboard", desc: "Track scores and spot weak topics", color: "#10b981" },
+                { icon: "🚩", title: "Flag & Review", desc: "Flag questions and study what matters", color: "#f59e0b" },
+                { icon: "🤖", title: "AI Tutor — Soon", desc: "Personalised study plans powered by AI", color: "#c084fc" },
+              ].map((f) => (
+                <Link key={f.title} href="/features"
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "10px 12px", borderRadius: "10px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = `${f.color}12`; e.currentTarget.style.transform = "translateX(4px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${f.color}15`, border: `1px solid ${f.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", flexShrink: 0 }}>
+                    {f.icon}
+                  </div>
+                  <div>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{f.title}</p>
+                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>{f.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div style={{ margin: "0 10px 10px", padding: "10px 14px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>See all features</p>
+              <Link href="/features" style={{ fontSize: "11px", fontWeight: 700, background: "#0ea5e9", color: "#fff", padding: "5px 12px", borderRadius: "7px", textDecoration: "none" }}>
+                Explore →
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -199,7 +262,6 @@ export default function Navbar() {
                   style={{ position: "absolute", left: 0, top: "100%", zIndex: 50, paddingTop: "10px", width: "720px" }}
                   onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
                   <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
-
                     <div style={{ padding: "12px 18px", borderBottom: "1px solid rgba(0,0,0,.07)", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(14,165,233,.04)" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9" }} />
@@ -210,7 +272,6 @@ export default function Navbar() {
                         View all →
                       </Link>
                     </div>
-
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", padding: "12px" }}>
                       {courseItems.map((course, i) => {
                         const shade = greyShades[i] ?? greyShades[0];
@@ -249,7 +310,6 @@ export default function Navbar() {
                         );
                       })}
                     </div>
-
                     <div style={{ margin: "0 12px 12px", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <div>
                         <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN — it's free</p>
@@ -264,27 +324,21 @@ export default function Navbar() {
               )}
             </div>
 
-            {featuredLinks.map((link) => (
-  <Link key={link.label} href={link.href}
-    className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}
-    style={{ position: "relative" }}
-    onMouseEnter={e => {
-      const el = e.currentTarget;
-      el.style.background = "rgba(14,165,233,.12)";
-      el.style.color = "#38bdf8";
-      el.style.transform = "translateY(-2px)";
-      el.style.boxShadow = "0 4px 14px rgba(14,165,233,.2)";
-    }}
-    onMouseLeave={e => {
-      const el = e.currentTarget;
-      el.style.background = "transparent";
-      el.style.color = "#cbd5e1";
-      el.style.transform = "translateY(0)";
-      el.style.boxShadow = "none";
-    }}>
-    {link.label}
-  </Link>
-))}
+            {/* FOR EDUCATORS */}
+            <Link href="/educators" className={`nav-btn${isActive(pathname, "/educators") ? " active" : ""}`}>
+              For Educators
+            </Link>
+
+            {/* OUR FEATURES DROPDOWN */}
+            <FeaturesDropdown pathname={pathname} />
+
+            {/* REST OF FEATURED LINKS */}
+            {featuredLinks.filter(l => l.label !== "For Educators").map((link) => (
+              <Link key={link.label} href={link.href}
+                className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
+                {link.label}
+              </Link>
+            ))}
 
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
@@ -319,7 +373,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* FAR RIGHT — DESKTOP ONLY */}
+          {/* FAR RIGHT */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
             <button className="nav-btn" style={{ gap: "5px" }}>
               <ShoppingCart style={{ width: 13, height: 13 }} /> Cart
@@ -371,8 +425,7 @@ export default function Navbar() {
           <button
             style={{ marginLeft: "auto", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
             className="md:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
+            onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X style={{ width: 17, height: 17 }} /> : <Menu style={{ width: 17, height: 17 }} />}
           </button>
         </div>
@@ -399,7 +452,11 @@ export default function Navbar() {
 
               <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>Pages</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-                {featuredLinks.map((link) => (
+                <Link href="/features" onClick={() => setMobileOpen(false)}
+                  style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, "/features") ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, "/features") ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, "/features") ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                  Our Features
+                </Link>
+                {[...featuredLinks].map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
                     style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
                     {link.label}
