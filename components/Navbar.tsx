@@ -95,7 +95,92 @@ const navStyle = `
     #desktop-actions { display: none !important; }
   }
 `;
+function TestimonialsDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  function handleEnter() {
+    if (timeout.current) clearTimeout(timeout.current);
+    setOpen(true);
+  }
+  function handleLeave() {
+    timeout.current = setTimeout(() => setOpen(false), 140);
+  }
+
+  const previews = [
+    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically." },
+    { initials: "MT", name: "Marcus T.", score: "1st attempt", exam: "NCLEX-RN", color: "#34d399", quote: "Three weeks of study using only this platform. I felt calm walking into the exam." },
+    { initials: "AN", name: "Amara N.", score: "Passed 110Q", exam: "NCLEX-RN", color: "#c084fc", quote: "After failing once with another platform, I switched here and passed comfortably." },
+  ];
+
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href="/testimonials"
+        className={`nav-btn${isActive(pathname, "/testimonials") ? " active" : ""}`}>
+        Testimonials
+        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </Link>
+
+      {open && (
+        <div className="nav-dropdown"
+          style={{ position: "absolute", left: "-80px", top: "100%", zIndex: 50, paddingTop: "10px", width: "420px" }}>
+          <div style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,.15)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.5)", overflow: "hidden" }}>
+
+            {/* Header */}
+            <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(255,255,255,.06)", background: "rgba(14,165,233,.05)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: "12px", fontWeight: 800, color: "#f8fafc", margin: 0 }}>Student Stories</p>
+                <p style={{ fontSize: "10px", color: "#475569", margin: "2px 0 0", fontWeight: 400 }}>Real nurses · Real results</p>
+              </div>
+              <div style={{ display: "flex", gap: "2px" }}>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: "#fbbf24", fontSize: "11px" }}>★</span>
+                ))}
+                <span style={{ fontSize: "10px", color: "#64748b", marginLeft: "4px", fontWeight: 600 }}>4.9/5</span>
+              </div>
+            </div>
+
+            {/* Preview cards */}
+            <div style={{ padding: "10px", display: "flex", flexDirection: "column", gap: "4px" }}>
+              {previews.map((p) => (
+                <Link key={p.name} href="/testimonials"
+                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "12px 14px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.05)"; e.currentTarget.style.transform = "translateX(4px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${p.color}18`, border: `1px solid ${p.color}35`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: p.color, flexShrink: 0 }}>
+                    {p.initials}
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
+                      <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>{p.name}</p>
+                      <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}18`, color: p.color, border: `1px solid ${p.color}30`, padding: "2px 8px", borderRadius: "100px" }}>{p.score}</span>
+                    </div>
+                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as any }}>{p.quote}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div style={{ margin: "0 10px 10px", padding: "12px 16px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.14)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>10,000+ success stories</p>
+                <p style={{ fontSize: "10px", color: "#475569", margin: 0, fontWeight: 400 }}>NCLEX-RN · NCLEX-PN · Nursing School</p>
+              </div>
+              <Link href="/testimonials"
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                Read all stories
+                <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 function FeaturesDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
