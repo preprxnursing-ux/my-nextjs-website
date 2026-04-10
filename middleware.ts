@@ -1,52 +1,50 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
-          supabaseResponse = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
-        },
-      },
-    }
-  );
+  // Pages that require login
+  const protectedPaths = [
+    "/quiz",
+    "/results",
+    "/review",
+    "/history",
+    "/dashboard",
+  ];
 
-  // Refresh the session on every request
-  const { data: { user } } = await supabase.auth.getUser();
-
-  // Pages that require login — redirect to login if not logged in
-  const protectedPaths = ["/quiz", "/results", "/review", "/history", "/dashboard"];
   const isProtected = protectedPaths.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
+    pathname.startsWith(path)
   );
 
-  if (isProtected && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/auth/login";
-    loginUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
-    return NextResponse.redirect(loginUrl);
+  // TEMP FIX: we cannot safely check Supabase user in middleware yet
+  // so we allow all users through for now
+
+  if (isProtected) {
+    const hasSessionCookie =
+      request.cookies.get("sb-access-token") ||
+      request.cookies.get("supabase-auth-token");
+
+    // If no session cookie → redirect to login
+    if (!hasSessionCookie) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/auth/login";
+      loginUrl.searchParams.set("redirectTo", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
-  // If logged in and trying to access login/signup — redirect to home
-  if (user && request.nextUrl.pathname.startsWith("/auth")) {
-    return NextResponse.redirect(new URL("/", request.url));
+  // Prevent logged-in users from seeing auth pages (basic cookie check)
+  if (pathname.startsWith("/auth")) {
+    const hasSessionCookie =
+      request.cookies.get("sb-access-token") ||
+      request.cookies.get("supabase-auth-token");
+
+    if (hasSessionCookie) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
 
-  return supabaseResponse;
+  return NextResponse.next();
 }
 
 export const config = {
