@@ -17,7 +17,7 @@ const courseItems = [
 ];
 
 const featuredLinks = [
-  { href: "/educators", label: "For Educators" },
+
   { href: "/contact", label: "Contact Us" },
   { href: "/pricing", label: "Pricing" },
 ];
@@ -51,7 +51,8 @@ const navStyle = `
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 6px 9px;
+    padding: 5px 7px;
+font-size: 12px;
     border-radius: 8px;
     font-size: 12.5px;
     font-weight: 600;
@@ -446,8 +447,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* FOR EDUCATORS */}
-            <Link href="/educators" className={`nav-btn${isActive(pathname, "/educators") ? " active" : ""}`}>For Educators</Link>
+      
 
             {/* OUR FEATURES DROPDOWN */}
             <FeaturesDropdown pathname={pathname} />
