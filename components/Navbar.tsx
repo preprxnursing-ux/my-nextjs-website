@@ -95,7 +95,7 @@ const navStyle = `
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 8px 14px;
+    padding: 6px 10px;
     border-radius: 9px;
     font-size: 13px;
     font-weight: 600;
@@ -218,7 +218,7 @@ export default function Navbar() {
         borderBottom: "1px solid rgba(14,165,233,.12)",
         backdropFilter: "blur(12px)",
       }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "8px", padding: "0 24px", height: "60px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", gap: "4px", padding: "0 16px", height: "60px" }}>
 
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", opacity: .92, transition: "opacity .15s", textDecoration: "none" }}
@@ -228,7 +228,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", flexWrap: "nowrap" }} className="hidden md:flex" id="desktop-nav">
+          <div style={{ display: "flex", alignItems: "center", gap: "1px", flex: 1, justifyContent: "center", flexWrap: "nowrap", overflow: "hidden" }} className="hidden md:flex"> id="desktop-nav">
 
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
