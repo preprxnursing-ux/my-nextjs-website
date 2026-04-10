@@ -353,7 +353,7 @@ export default function Navbar() {
 
           {/* MOBILE HAMBURGER */}
           <button
-            style={{ marginLeft: "auto", display: "none", width: "36px", height: "36px", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
+            style={{ marginLeft: "auto", width: "36px", height: "36px", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
