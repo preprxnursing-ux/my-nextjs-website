@@ -225,7 +225,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchLatest = async () => {
-      if (!supabase) return;
+      if (supabase) return;
       const { data } = await supabase
         .from("exam_attempts")
         .select("*")
