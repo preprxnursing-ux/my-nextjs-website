@@ -162,7 +162,7 @@ export default function LoginPage() {
     /* for demo — just navigate. In production verify OTP via your backend */
     const code = otp.join("");
     if (code.length < 6) { setError("Enter all 6 digits."); return; }
-    router.push("/dashboard");
+    router.push("/");
     router.refresh();
   }
 

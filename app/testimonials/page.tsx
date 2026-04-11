@@ -666,7 +666,7 @@ function TestimonialCard({ t, index }: { t: typeof testimonials[0]; index: numbe
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "16px", borderTop: `1px solid rgba(255,255,255,.06)`, marginTop: "auto" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div className="avatar-ring"
-  style={{ "--avatar-color": t.color, width: "40px", height: "40px", borderRadius: "50%", background: `${t.color}18`, border: `2px solid ${t.color}50`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 800, color: t.color, flexShrink: 0 } as React.CSSProperties}>
+  style={{ "--avatar-color": t.color, width: "40px", height: "40px", borderRadius: "50%", background: `${t.color}18`, border: `2px solid ${t.color}50`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 800, color: t.color, flexShrink: 0 } as React.CSSProperties}>f
           </div>
           <div>
             <p style={{ fontSize: "14px", fontWeight: 700, color: "#f1f5f9", margin: 0 }}>{t.name}</p>
