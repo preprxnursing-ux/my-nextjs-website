@@ -17,7 +17,6 @@ const courseItems = [
 ];
 
 const featuredLinks = [
-
   { href: "/contact", label: "Contact Us" },
   { href: "/pricing", label: "Pricing" },
 ];
@@ -52,9 +51,8 @@ const navStyle = `
     align-items: center;
     gap: 4px;
     padding: 5px 7px;
-font-size: 12px;
+    font-size: 12px;
     border-radius: 8px;
-    font-size: 12.5px;
     font-weight: 600;
     color: #cbd5e1;
     background: transparent;
@@ -201,8 +199,6 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
       {open && (
         <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.04)", overflow: "hidden" }}>
-
-            {/* Header */}
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.07)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px", letterSpacing: "-.01em" }}>Student Stories</p>
@@ -213,11 +209,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 <span style={{ fontSize: "11px", color: "#92400e", fontWeight: 800, marginLeft: "4px" }}>4.9</span>
               </div>
             </div>
-
-            {/* Two-panel layout */}
             <div style={{ display: "grid", gridTemplateColumns: "190px 1fr", minHeight: "240px" }}>
-
-              {/* Left — grey selector panel */}
               <div style={{ background: "rgba(248,249,251,1)", borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px" }}>
                 <p style={{ fontSize: "9px", fontWeight: 800, color: "#94a3b8", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 10px" }}>Hover to preview</p>
                 {previews.map((p, i) => (
@@ -236,28 +228,16 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                   </div>
                 ))}
               </div>
-
-              {/* Right — white preview panel */}
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#ffffff", position: "relative", overflow: "hidden" }}>
-
-                {/* Subtle glow */}
                 <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}12 0%,transparent 70%)`, pointerEvents: "none", transition: "background .3s ease" }} />
-
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  {/* Color accent */}
                   <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px", transition: "background .3s ease" }} />
-
-                  {/* Stars */}
                   <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>
                     {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>★</span>)}
                   </div>
-
-                  {/* Quote */}
                   <p style={{ fontSize: "13px", color: "#334155", fontStyle: "italic", lineHeight: 1.8, marginBottom: "16px", fontWeight: 500, transition: "all .25s ease" }}>
                     "{active.quote}"
                   </p>
-
-                  {/* Author */}
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}15`, border: `2px solid ${active.color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0 }}>
                       {active.initials}
@@ -271,8 +251,6 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                     </span>
                   </div>
                 </div>
-
-                {/* CTA */}
                 <Link href="/testimonials"
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", textDecoration: "none", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.12)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(14,165,233,.15)"; }}
@@ -285,8 +263,6 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 </Link>
               </div>
             </div>
-
-            {/* Stats footer — light grey */}
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
               {[
                 { val: "50K+", label: "Students", color: "#0369a1" },
@@ -300,13 +276,13 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       )}
     </div>
   );
 }
+
 function ContactDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -334,8 +310,6 @@ function ContactDropdown({ pathname }: { pathname: string }) {
       {open && (
         <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 50, paddingTop: "10px", width: "480px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
-
-            {/* Header */}
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Talk to a real person</p>
@@ -346,24 +320,18 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 <span style={{ fontSize: "11px", fontWeight: 700, color: "#16a34a" }}>Online now</span>
               </div>
             </div>
-
-            {/* People cards */}
             <div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "8px" }}>
               {people.map(p => (
                 <div key={p.name}
                   style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "14px", padding: "14px 16px", borderRadius: "14px", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.06)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)", cursor: "default" }}
                   onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,.1), 0 0 0 1px ${p.color}20`; e.currentTarget.style.background = `linear-gradient(135deg,${p.color}08 0%,rgba(248,249,251,1) 100%)`; e.currentTarget.style.borderColor = `${p.color}30`; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; }}>
-
-                  {/* Avatar */}
                   <div style={{ position: "relative" }}>
                     <div style={{ width: "48px", height: "48px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${p.color}30` }}>
                       <img src={p.avatar} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     </div>
                     <div style={{ position: "absolute", bottom: "1px", right: "1px", width: "12px", height: "12px", borderRadius: "50%", background: "#22c55e", border: "2px solid white" }} />
                   </div>
-
-                  {/* Info */}
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
                       <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0 }}>{p.name}</p>
@@ -372,8 +340,6 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
                     <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>⏱ {p.response}</p>
                   </div>
-
-                  {/* Email button */}
                   <a href={`mailto:${p.email}`}
                     style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0 }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${p.color}50`; }}
@@ -387,8 +353,6 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 </div>
               ))}
             </div>
-
-            {/* Footer */}
             <div style={{ margin: "0 12px 12px", padding: "12px 16px", background: "rgba(14,165,233,.04)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Prefer a contact form?</p>
@@ -401,14 +365,13 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 Contact page →
               </Link>
             </div>
-
           </div>
         </div>
-      </div>
       )}
     </div>
   );
 }
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -549,8 +512,6 @@ export default function Navbar() {
               )}
             </div>
 
-      
-
             {/* OUR FEATURES DROPDOWN */}
             <FeaturesDropdown pathname={pathname} />
 
@@ -559,14 +520,14 @@ export default function Navbar() {
 
             {/* REST OF LINKS */}
             {featuredLinks.map((link) => (
-  link.label === "Contact Us" ? (
-    <ContactDropdown key={link.label} pathname={pathname} />
-  ) : (
-    <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
-      {link.label}
-    </Link>
-  )
-))}
+              link.label === "Contact Us" ? (
+                <ContactDropdown key={link.label} pathname={pathname} />
+              ) : (
+                <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
+                  {link.label}
+                </Link>
+              )
+            ))}
 
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
@@ -578,65 +539,60 @@ export default function Navbar() {
 
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
+            {/* MORE DROPDOWN */}
             <div style={{ position: "relative" }}>
-  <button className="nav-btn" onClick={() => setMoreOpen(!moreOpen)}>
-    More
-    <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
-  </button>
-  {moreOpen && (
-    <>
-      <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setMoreOpen(false)} />
-      <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
-
-        {/* Header */}
-        <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0, letterSpacing: "-.01em" }}>More from Pre-NCLEX Nursing</p>
-          <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(14,165,233,.1)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.2)", padding: "3px 10px", borderRadius: "100px" }}>Resources</span>
-        </div>
-
-        {/* Main links grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
-          {[
-            { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>), color: "#0ea5e9" },
-            { href: "#", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
-            { href: "#", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
-            { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
-            { href: "/educators", label: "For Educators", desc: "Tools and access for institutions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
-            { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
-          ].map((item) => (
-            <Link key={item.label} href={item.href} onClick={() => setMoreOpen(false)}
-              style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px 14px", borderRadius: "12px", textDecoration: "none", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.05)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)" }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = `0 8px 24px rgba(0,0,0,.08)`; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.05)"; e.currentTarget.style.boxShadow = "none"; }}>
-              <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>
-                {item.icon}
-              </div>
-              <div style={{ minWidth: 0 }}>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px", lineHeight: 1.3 }}>{item.label}</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.4 }}>{item.desc}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Footer — start free CTA */}
-        <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div>
-            <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
-            <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free · No credit card · Live now</p>
+              <button className="nav-btn" onClick={() => setMoreOpen(!moreOpen)}>
+                More
+                <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+              </button>
+              {moreOpen && (
+                <>
+                  <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setMoreOpen(false)} />
+                  <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+                    <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0, letterSpacing: "-.01em" }}>More from Pre-NCLEX Nursing</p>
+                      <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(14,165,233,.1)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.2)", padding: "3px 10px", borderRadius: "100px" }}>Resources</span>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
+                      {[
+                        { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>), color: "#0ea5e9" },
+                        { href: "#", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
+                        { href: "#", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
+                        { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
+                        { href: "/educators", label: "For Educators", desc: "Tools and access for institutions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
+                        { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
+                      ].map((item) => (
+                        <Link key={item.label} href={item.href} onClick={() => setMoreOpen(false)}
+                          style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px 14px", borderRadius: "12px", textDecoration: "none", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.05)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)" }}
+                          onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = `0 8px 24px rgba(0,0,0,.08)`; }}
+                          onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.05)"; e.currentTarget.style.boxShadow = "none"; }}>
+                          <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>
+                            {item.icon}
+                          </div>
+                          <div style={{ minWidth: 0 }}>
+                            <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px", lineHeight: 1.3 }}>{item.label}</p>
+                            <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.4 }}>{item.desc}</p>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div>
+                        <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
+                        <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free · No credit card · Live now</p>
+                      </div>
+                      <Link href="/auth/signup" onClick={() => setMoreOpen(false)}
+                        style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                        Get started →
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-          <Link href="/auth/signup" onClick={() => setMoreOpen(false)}
-            style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-            Get started →
-          </Link>
-        </div>
-
-      </div>
-    </>
-  )}
-</div>
 
           {/* FAR RIGHT */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
