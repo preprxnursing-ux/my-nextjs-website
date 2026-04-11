@@ -23,8 +23,8 @@ const featuredLinks = [
 
 const moreLinks = [
   { href: "#", label: "Private Tutors" },
-  { href: "#", label: "Blog" },
-  { href: "#", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 const appLinks = [
@@ -556,9 +556,8 @@ export default function Navbar() {
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
                       {[
                         { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>), color: "#0ea5e9" },
-                        { href: "#", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
-                        { href: "#", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
-                        { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
+                        { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
+{ href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },                        { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
                         { href: "/educators", label: "For Educators", desc: "Tools and access for institutions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
                         { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
                       ].map((item) => (
