@@ -248,7 +248,7 @@ useEffect(() => {
         {/* ══════════════════════ HERO */}
         <section style={{ position: "relative", minHeight: "96vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>
 
-          <div style={{ position: "absolute", inset: 0, backgroundImage: `url('/hero.png')`, backgroundSize: "cover", backgroundPosition: "center right", opacity: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center right", opacity: .13 }} />
           <div className="float-slow" style={{ position: "absolute", top: "-80px", right: "10%", width: "500px", height: "500px", background: "radial-gradient(circle,rgba(14,165,233,.16) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div className="float" style={{ position: "absolute", bottom: "-60px", left: "5%", width: "340px", height: "340px", background: "radial-gradient(circle,rgba(56,189,248,.1) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(14,165,233,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.05) 1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
