@@ -183,10 +183,10 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
   }
 
   const previews = [
-    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", attempt: "1st attempt", color: "#38bdf8", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically. This platform is unreal." },
-    { initials: "MT", name: "Marcus T.", score: "1st attempt", exam: "NCLEX-RN", attempt: "1st attempt", color: "#34d399", quote: "Three weeks of study using only this platform. I felt completely calm walking into the exam because I had already seen that level of difficulty." },
-    { initials: "AN", name: "Amara N.", score: "Passed 110Q", exam: "NCLEX-RN", attempt: "2nd attempt", color: "#c084fc", quote: "After failing once with another platform, I switched here and passed comfortably. I finally understood why wrong answers were wrong." },
-    { initials: "DW", name: "Denise W.", score: "Passed 85Q", exam: "NCLEX-PN", attempt: "1st attempt", color: "#818cf8", quote: "Quick mode 10-question sprints were perfect for my schedule. I passed my PN on the first attempt and I credit this platform completely." },
+    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", attempt: "1st attempt", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically. This platform is unreal." },
+    { initials: "MT", name: "Marcus T.", score: "1st attempt", exam: "NCLEX-RN", attempt: "1st attempt", color: "#059669", quote: "Three weeks of study using only this platform. I felt completely calm walking into the exam." },
+    { initials: "AN", name: "Amara N.", score: "Passed 110Q", exam: "NCLEX-RN", attempt: "2nd attempt", color: "#7c3aed", quote: "After failing once with another platform, I switched here and passed comfortably." },
+    { initials: "DW", name: "Denise W.", score: "Passed 85Q", exam: "NCLEX-PN", attempt: "1st attempt", color: "#4f46e5", quote: "Quick mode 10-question sprints were perfect for my schedule. I passed my PN on the first attempt." },
   ];
 
   const active = previews[activeCard];
@@ -200,35 +200,35 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
 
       {open && (
         <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
-          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04)", overflow: "hidden" }}>
+          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.04)", overflow: "hidden" }}>
 
             {/* Header */}
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-  <div>
-    <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Student Stories</p>
-    <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Real nurses · Real results · Verified</p>
-  </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "5px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.25)", borderRadius: "100px", padding: "5px 12px" }}>
-                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "11px" }}>★</span>)}
-                <span style={{ fontSize: "11px", color: "#fbbf24", fontWeight: 700, marginLeft: "4px" }}>4.9</span>
+            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.07)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px", letterSpacing: "-.01em" }}>Student Stories</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 500 }}>Real nurses · Real results · Verified</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "4px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", borderRadius: "100px", padding: "5px 12px" }}>
+                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>★</span>)}
+                <span style={{ fontSize: "11px", color: "#92400e", fontWeight: 800, marginLeft: "4px" }}>4.9</span>
               </div>
             </div>
 
             {/* Two-panel layout */}
             <div style={{ display: "grid", gridTemplateColumns: "190px 1fr", minHeight: "240px" }}>
 
-              {/* Left — selector */}
-              <div style={{ borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px", background: "rgba(248,249,251,1)" }}>
-  <p style={{ fontSize: "9px", fontWeight: 700, color: "#94a3b8", letterSpacing: ".14em", textTransform: "uppercase", padding: "4px 8px 8px" }}>Hover to preview</p>
+              {/* Left — grey selector panel */}
+              <div style={{ background: "rgba(248,249,251,1)", borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px" }}>
+                <p style={{ fontSize: "9px", fontWeight: 800, color: "#94a3b8", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 10px" }}>Hover to preview</p>
                 {previews.map((p, i) => (
                   <div key={p.name} onMouseEnter={() => setActiveCard(i)}
-                   style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? `${p.color}10` : "rgba(255,255,255,0)", border: `1px solid ${activeCard === i ? p.color + "30" : "rgba(0,0,0,0)"}`, cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
-                    <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: `${p.color}18`, border: `2px solid ${p.color}${activeCard === i ? "60" : "30"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: p.color, flexShrink: 0, transition: "all .2s", transform: activeCard === i ? "scale(1.1)" : "scale(1)" }}>
+                    style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? "#ffffff" : "transparent", border: `1px solid ${activeCard === i ? "rgba(0,0,0,.08)" : "transparent"}`, boxShadow: activeCard === i ? "0 2px 8px rgba(0,0,0,.06)" : "none", cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
+                    <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: `${p.color}15`, border: `2px solid ${activeCard === i ? p.color + "60" : p.color + "25"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: p.color, flexShrink: 0, transition: "all .2s", transform: activeCard === i ? "scale(1.08)" : "scale(1)" }}>
                       {p.initials}
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#0f172a" : "#64748b", margin: 0, transition: "color .2s" }}>{p.name}</p>
-<p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600, transition: "color .2s" }}>{p.exam}</p>
+                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#0f172a" : "#475569", margin: 0, transition: "color .2s" }}>{p.name}</p>
+                      <p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600, transition: "color .2s" }}>{p.exam}</p>
                     </div>
                     {activeCard === i && (
                       <svg style={{ marginLeft: "auto", flexShrink: 0 }} width="12" height="12" fill="none" stroke={p.color} strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
@@ -237,35 +237,36 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 ))}
               </div>
 
-              {/* Right — preview */}
-              <div style={{ padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", position: "relative", overflow: "hidden" }}>
-                {/* Animated glow blob */}
-                <div style={{ position: "absolute", top: "-40px", right: "-40px", width: "180px", height: "180px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}25 0%,transparent 70%)`, pointerEvents: "none", transition: "background .3s ease" }} />
+              {/* Right — white preview panel */}
+              <div style={{ padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#ffffff", position: "relative", overflow: "hidden" }}>
+
+                {/* Subtle glow */}
+                <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}12 0%,transparent 70%)`, pointerEvents: "none", transition: "background .3s ease" }} />
 
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  {/* Color accent bar */}
-                  <div style={{ height: "3px", width: "48px", background: `linear-gradient(90deg,${active.color},${active.color}60)`, borderRadius: "3px", marginBottom: "14px", transition: "background .3s ease" }} />
+                  {/* Color accent */}
+                  <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px", transition: "background .3s ease" }} />
 
                   {/* Stars */}
                   <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>
-                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "13px" }}>★</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>★</span>)}
                   </div>
 
                   {/* Quote */}
-                  <p style={{ fontSize: "13px", color: "#cbd5e1", fontStyle: "italic", lineHeight: 1.8, marginBottom: "18px", fontWeight: 400, transition: "all .25s ease" }}>
+                  <p style={{ fontSize: "13px", color: "#334155", fontStyle: "italic", lineHeight: 1.8, marginBottom: "16px", fontWeight: 500, transition: "all .25s ease" }}>
                     "{active.quote}"
                   </p>
 
-                  {/* Author row */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}18`, border: `2px solid ${active.color}50`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0, transition: "all .3s" }}>
+                  {/* Author */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}15`, border: `2px solid ${active.color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0 }}>
                       {active.initials}
                     </div>
                     <div style={{ flex: 1 }}>
-                      <p style={{ fontSize: "13px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>{active.name}</p>
-                      <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>{active.exam} · {active.attempt}</p>
+                      <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{active.name}</p>
+                      <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>{active.exam} · {active.attempt}</p>
                     </div>
-                    <span style={{ fontSize: "10px", fontWeight: 700, background: `${active.color}15`, color: active.color, border: `1px solid ${active.color}35`, padding: "5px 12px", borderRadius: "100px", whiteSpace: "nowrap", transition: "all .3s" }}>
+                    <span style={{ fontSize: "10px", fontWeight: 700, background: `${active.color}12`, color: active.color, border: `1px solid ${active.color}30`, padding: "5px 12px", borderRadius: "100px", whiteSpace: "nowrap" }}>
                       {active.score}
                     </span>
                   </div>
@@ -273,29 +274,29 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
 
                 {/* CTA */}
                 <Link href="/testimonials"
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "rgba(14,165,233,.08)", border: "1px solid rgba(14,165,233,.2)", borderRadius: "12px", textDecoration: "none", transition: "all .2s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.18)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(14,165,233,.2)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", textDecoration: "none", transition: "all .2s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.12)"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(14,165,233,.15)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(14,165,233,.05)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                   <div>
-                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>Read all 22+ stories</p>
-                    <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>NCLEX-RN · NCLEX-PN · Nursing School</p>
+                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Read all 22+ stories</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>NCLEX-RN · NCLEX-PN · Nursing School</p>
                   </div>
-                  <svg width="16" height="16" fill="none" stroke="#38bdf8" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </Link>
               </div>
             </div>
 
-            {/* Stats footer */}
+            {/* Stats footer — light grey */}
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
               {[
-                { val: "50K+", label: "Students", color: "#38bdf8" },
-                { val: "98%", label: "Pass rate", color: "#34d399" },
-                { val: "4.9★", label: "Rating", color: "#fbbf24" },
-                { val: "22+", label: "Stories", color: "#c084fc" },
+                { val: "50K+", label: "Students", color: "#0369a1" },
+                { val: "98%", label: "Pass rate", color: "#065f46" },
+                { val: "4.9★", label: "Rating", color: "#92400e" },
+                { val: "22+", label: "Stories", color: "#5b21b6" },
               ].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
                   <p style={{ fontSize: "14px", fontWeight: 800, color: s.color, margin: "0 0 2px" }}>{s.val}</p>
-                  <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{s.label}</p>
+                  <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 600 }}>{s.label}</p>
                 </div>
               ))}
             </div>
