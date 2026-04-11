@@ -147,7 +147,7 @@ export default function SignupPage() {
     });
     setLoading(false);
     if (error) { setError(error.message); return; }
-    router.push("/dashboard");
+    router.push("/auth/confirm");
   }
 
   function handleSuggest() {
