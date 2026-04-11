@@ -384,6 +384,7 @@ export default function Navbar() {
   const [initials, setInitials] = useState("?");
 
   const coursesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const moreTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -540,14 +541,16 @@ export default function Navbar() {
             <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
 
             {/* MORE DROPDOWN */}
-            <div style={{ position: "relative" }}>
-              <button className="nav-btn" onClick={() => setMoreOpen(!moreOpen)}>
+            <div style={{ position: "relative" }}
+              onMouseEnter={() => { if (moreTimeout.current) clearTimeout(moreTimeout.current); setMoreOpen(true); }}
+              onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false), 140); }}>
+              <button className="nav-btn">
                 More
                 <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
+
               {moreOpen && (
                 <>
-                  <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setMoreOpen(false)} />
                   <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
                     <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0, letterSpacing: "-.01em" }}>More from Pre-NCLEX Nursing</p>
