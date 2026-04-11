@@ -452,7 +452,7 @@ export default function Navbar() {
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
             onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
-            <Image src="/logo_transparent.png" alt="Pre-NCLEX Nursing" width={120} height={32} style={{ objectFit: "contain" }} />
+            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={120} height={32} style={{ objectFit: "contain" }} />
           </Link>
 
           {/* DESKTOP NAV */}
