@@ -337,7 +337,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
 
@@ -662,4 +661,5 @@ export default function Navbar() {
     </>
   );
 }
+
 
