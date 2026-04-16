@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { addExamAttempt, type ReviewAnswer } from "@/lib/quiz-utils";
 import {
   DEFAULT_MODE_ID,
@@ -47,6 +47,7 @@ export default function QuizPage() {
 
   const [mounted, setMounted] = useState(false);
   const [modeId, setModeId] = useState<ExamModeId>(DEFAULT_MODE_ID);
+  const searchParams = useSearchParams();
   const [questions, setQuestions] = useState<any[]>([]);
   const [questionsLoading, setQuestionsLoading] = useState(true);
 
@@ -62,7 +63,7 @@ export default function QuizPage() {
     setMounted(true);
 
     // Fetch questions from Supabase via API
-    fetch("/api/questions")
+    fetch(`/api/questions?${searchParams.toString()}`)
       .then((res) => res.json())
       .then((json) => {
         setQuestions(json.questions ?? []);
@@ -319,10 +320,10 @@ export default function QuizPage() {
           flagged_questions: flaggedQuestions,
           status: "completed",
         }]);
-      if (error) console.error("❌ INSERT ERROR:", error);
-      else console.log("✅ Attempt saved to Supabase");
+      if (error) console.error("âŒ INSERT ERROR:", error);
+      else console.log("âœ… Attempt saved to Supabase");
     } catch (err) {
-      console.error("💥 INSERT CRASH:", err);
+      console.error("ðŸ’¥ INSERT CRASH:", err);
     }
 
     localStorage.setItem(STORAGE_KEYS.lastAttemptMeta, JSON.stringify({
@@ -648,3 +649,5 @@ function LegendItem({ tone, label, dark = false }: { tone: string; label: string
     </div>
   );
 }
+
+
