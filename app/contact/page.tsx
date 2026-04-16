@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import Link from "next/link";
@@ -253,7 +253,7 @@ export default function ContactPage() {
               <div style={{ textAlign: "center", padding: "60px 0" }}>
                 <div style={{ position: "relative", width: "80px", height: "80px", margin: "0 auto 24px" }}>
                   <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(52,211,153,.15)", animation: "pulseRing 2s ease-out infinite" }} />
-                  <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "rgba(52,211,153,.12)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px" }}>✓</div>
+                  <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "rgba(52,211,153,.12)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px" }}>âœ“</div>
                 </div>
                 <h3 className="fd" style={{ fontSize: "2.2rem", fontWeight: 700, color: "#f8fafc", marginBottom: "12px" }}>Message sent!</h3>
                 <p style={{ color: "#64748b", lineHeight: 1.8, maxWidth: "400px", margin: "0 auto 28px" }}>
@@ -327,7 +327,7 @@ export default function ContactPage() {
                   style={{ width: "100%", padding: "15px", borderRadius: "12px", background: !formData.name || !formData.email || !formData.message ? "rgba(14,165,233,.25)" : `linear-gradient(135deg,${selectedContact.color},${selectedContact.color}cc)`, color: "#fff", fontSize: "15px", fontWeight: 700, border: "none", cursor: !formData.name || !formData.email || !formData.message ? "not-allowed" : "pointer", transition: "all .2s", fontFamily: "inherit", boxShadow: formData.name && formData.email && formData.message ? `0 8px 28px ${selectedContact.color}35` : "none" }}
                   onMouseEnter={e => { if (formData.name && formData.email && formData.message) e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Sending..." : `Send message to ${selectedContact.name} →`}
+                  {loading ? "Sending..." : `Send message to ${selectedContact.name} ->`}
                 </button>
               </div>
             )}
@@ -380,7 +380,7 @@ export default function ContactPage() {
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "15px 36px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 28px rgba(14,165,233,.35)", transition: "all .3s cubic-bezier(.34,1.56,.64,1)" }}
                 onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.04)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; }}>
-                Start free today →
+                Start free today
               </Link>
               <Link href="/courses" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.07)", color: "#e2e8f0", padding: "15px 28px", borderRadius: "12px", fontSize: "15px", fontWeight: 600, textDecoration: "none", border: "1px solid rgba(255,255,255,.12)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.13)"; }}
@@ -462,3 +462,4 @@ function ContactCard({ c }: { c: typeof contacts[0] }) {
     </div>
   );
 }
+
