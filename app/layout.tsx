@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://my-nextjs-website-fjpe.vercel.app"),
-  charset: "utf-8",
   title: "NCLEX Exam Studio",
   description: "A creative NCLEX practice and exam experience.",
 };
@@ -28,6 +27,7 @@ export default function RootLayout({
     </html>
   );
 }
+
 
 
 
