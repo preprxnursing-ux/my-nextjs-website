@@ -1,34 +1,30 @@
 ﻿import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/Navbar";
-
+import CartDrawer from "../components/CartDrawer";
+import { CartProvider } from "@/lib/cartContext";
 export const metadata: Metadata = {
   metadataBase: new URL("https://prenclex.com"),
-  title: "NCLEX Exam Studio",
-  description: "A creative NCLEX practice and exam experience.",
+  title: "Pre-NCLEX Nursing | Pass NCLEX First Attempt",
+  description: "Adaptive NCLEX-RN, NCLEX-PN, CCRN and nursing exam preparation platform.",
 };
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-slate-950 text-white antialiased">
-        
-        <Navbar />
-
-        <div>
-  {children}
-</div>
-
+        <CartProvider>
+          <Navbar />
+          <CartDrawer />
+          <div style={{ maxWidth: "100vw", overflowX: "hidden" }}>
+            {children}
+          </div>
+        </CartProvider>
       </body>
     </html>
   );
 }
-
-
-
-
-

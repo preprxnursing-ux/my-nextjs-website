@@ -1,4 +1,5 @@
 ﻿"use client";
+import { useCart } from "@/lib/cartContext";
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -329,6 +330,7 @@ export default function Navbar() {
   const router = useRouter();
 
   const [moreOpen, setMoreOpen] = useState(false);
+  const { cartPlan, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
@@ -647,6 +649,9 @@ export default function Navbar() {
     </>
   );
 }
+
+
+
 
 
 
