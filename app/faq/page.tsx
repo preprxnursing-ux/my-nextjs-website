@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useMemo } from "react";
 const faqs = [
   { category: "General", question: "What is Pre-NCLEX Nursing?", answer: "Pre-NCLEX Nursing is an online exam preparation platform for nursing students worldwide. We offer study resources for NCLEX-RN, NCLEX-PN, CCRN, Nurse Practitioner certifications, TEAS 7, and HESI A2 exams." },
