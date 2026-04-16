@@ -112,3 +112,31 @@ body {
   }
 }
 
+
+/* -- Courses Stack Vertically on Mobile -- */
+@media (max-width: 768px) {
+  div[style*="grid-template-columns: repeat(12,1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: unset !important;
+    scroll-snap-type: unset !important;
+  }
+  div[style*="grid-template-columns: repeat(12,1fr)"] > div {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    flex-shrink: unset !important;
+    scroll-snap-align: unset !important;
+  }
+  div[style*="gridTemplateColumns: \"1fr 1fr\""] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  div[style*="gridTemplateColumns: \"1fr 1fr\""] > div:last-child {
+    height: 200px !important;
+    min-height: 200px !important;
+    border-radius: 0 0 22px 22px !important;
+  }
+}
+
