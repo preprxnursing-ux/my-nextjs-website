@@ -165,3 +165,18 @@ body {
   }
 }
 
+
+/* -- Desktop Max Width Fix -- */
+html, body {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+* {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+/* Allow specific elements to exceed their parent width only within bounds */
+img, svg, video {
+  max-width: 100% !important;
+}
+
