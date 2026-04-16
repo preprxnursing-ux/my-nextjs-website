@@ -336,7 +336,7 @@ export default function LoginPage() {
                 <p className="mb-7 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   No account?{" "}
                   <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign up free ->
+                    Sign up free →
                   </Link>
                 </p>
 
@@ -499,7 +499,7 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Signing in..." : "Sign in ->"}
+                  {loading ? "Signing in..." : "Sign in →"}
                 </button>
 
                 <p className="text-center text-xs mt-6" style={{ color: "#1e293b" }}>
@@ -570,7 +570,7 @@ export default function LoginPage() {
                   style={{ background: "#06b6d4", color: "#fff", boxShadow: "0 8px 24px rgba(6,182,212,0.22)" }}
                   onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                   onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                  Verify & continue ->
+                  Verify & continue →
                 </button>
 
                 <div className="flex items-center justify-between">
@@ -638,7 +638,7 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!forgotLoading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {forgotLoading ? "Sending..." : "Send reset link ->"}
+                  {forgotLoading ? "Sending..." : "Send reset link →"}
                 </button>
 
                 <button onClick={() => { setStep("login"); setForgotError(""); }}

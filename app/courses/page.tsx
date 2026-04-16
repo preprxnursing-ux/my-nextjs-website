@@ -320,7 +320,7 @@ export default function CoursesPage() {
                       style={{ color: course.color }}
                     >
                       {course.available ? "Start practising" : "Learn more"}
-                      <span className="inline-block group-hover:translate-x-1 transition-transform">-></span>
+                      <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
                     </span>
                     {course.available && (
                       <span
@@ -372,7 +372,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Find my course ->
+                Find my course →
               </button>
             )}
 
@@ -437,7 +437,7 @@ export default function CoursesPage() {
                     onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                   >
-                    Go to {courses[finderResult].exam} ->
+                    Go to {courses[finderResult].exam} →
                   </Link>
                   <button
                     onClick={() => { setFinderResult(null); setFinderOpen(true); }}
@@ -526,7 +526,7 @@ export default function CoursesPage() {
                     className="text-sm flex-shrink-0 self-center group-hover:translate-x-1 transition-transform"
                     style={{ color: "#94a3b8" }}
                   >
-                    ->
+                    →
                   </span>
                 </Link>
               ))}
@@ -560,7 +560,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start NCLEX-RN free ->
+                Start NCLEX-RN free →
               </Link>
               <Link
                 href="/auth/signup"

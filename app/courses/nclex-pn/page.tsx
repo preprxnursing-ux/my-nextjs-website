@@ -168,7 +168,7 @@ export default async function NCLEXPNPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising ->" : "Get notified ->"}
+              {user ? "Start practising →" : "Get notified →"}
             </Link>
             <Link
               href="/pricing"
@@ -354,7 +354,7 @@ export default async function NCLEXPNPage() {
               href="/courses/nclex-rn"
               className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              Try NCLEX-RN instead ->
+              Try NCLEX-RN instead →
             </Link>
             <Link
               href={user ? "/dashboard" : "/auth/signup"}

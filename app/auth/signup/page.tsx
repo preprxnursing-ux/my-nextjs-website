@@ -323,7 +323,7 @@ export default function SignupPage() {
                 <p className="mb-6 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   Already have an account?{" "}
                   <Link href="/auth/login" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign in ->
+                    Sign in →
                   </Link>
                 </p>
 
@@ -571,7 +571,7 @@ export default function SignupPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Creating account..." : "Create free account ->"}
+                  {loading ? "Creating account..." : "Create free account →"}
                 </button>
 
                 <p className="text-center text-xs mt-5" style={{ color: "#1e293b" }}>
@@ -628,7 +628,7 @@ export default function SignupPage() {
                     style={{ background: "#34d399", color: "#080d1a", fontWeight: 600 }}
                     onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                     onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                    Go to login ->
+                    Go to login →
                   </Link>
                   <button onClick={() => setStep("details")}
                     className="text-xs hover:underline" style={{ color: "#475569" }}>

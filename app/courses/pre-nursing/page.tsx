@@ -150,7 +150,7 @@ export default async function PreNursingPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising ->" : "Get notified ->"}
+              {user ? "Start practising →" : "Get notified →"}
             </Link>
             <Link
               href="/pricing"
@@ -352,7 +352,7 @@ export default async function PreNursingPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free ->"}
+              {user ? "Go to dashboard" : "Sign up for free →"}
             </Link>
             <Link
               href="/courses/nclex-rn"

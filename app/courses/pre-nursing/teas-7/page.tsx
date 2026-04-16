@@ -233,7 +233,7 @@ export default async function TEAS7Page() {
                     style={{ background: "rgba(255,255,255,.07)", color: "#e7e5e4", border: "1px solid rgba(255,255,255,.14)", padding: "14px 28px", borderRadius: "12px", fontSize: "14px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}
                     onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.13)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                    Compare with HESI A2 ->
+                    Compare with HESI A2 →
                   </Link>
                 </div>
               </div>
@@ -506,13 +506,13 @@ export default async function TEAS7Page() {
                   style={{ background: "#f59e0b", color: "#1c1400", padding: "16px 36px", borderRadius: "13px", fontSize: "15px", fontWeight: 800, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", boxShadow: "0 8px 28px rgba(245,158,11,.35)", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#fbbf24"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#f59e0b"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {user ? "Go to practice questions ->" : "Start free -- no card needed ->"}
+                  {user ? "Go to practice questions →" : "Start free -- no card needed →"}
                 </Link>
                 <Link href="/courses/pre-nursing/hesi-a2"
                   style={{ background: "rgba(255,255,255,.08)", color: "#e7e5e4", border: "1px solid rgba(255,255,255,.15)", padding: "16px 32px", borderRadius: "13px", fontSize: "15px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.14)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.08)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  Compare with HESI A2 ->
+                  Compare with HESI A2 →
                 </Link>
               </div>
             </div>

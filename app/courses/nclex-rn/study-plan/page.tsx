@@ -435,7 +435,7 @@ export default async function NCLEXStudyPlanPage() {
                   style={{ background: "#0ea5e9", color: "#fff", padding: "16px 36px", borderRadius: "13px", fontSize: "15px", fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", boxShadow: "0 8px 28px rgba(14,165,233,.3)", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {user ? "Go to quiz ->" : "Start free -- no card needed ->"}
+                  {user ? "Go to quiz →" : "Start free -- no card needed →"}
                 </Link>
                 <Link href="/courses/nclex-rn"
                   style={{ background: "rgba(255,255,255,.08)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,.15)", padding: "16px 32px", borderRadius: "13px", fontSize: "15px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}

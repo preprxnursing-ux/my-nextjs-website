@@ -392,7 +392,7 @@ export default function TestimonialsPage() {
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
-              Share my story ->
+              Share my story →
             </Link>
             <Link
               href="/courses/nclex-rn"
@@ -432,7 +432,7 @@ export default function TestimonialsPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start free today ->
+                Start free today →
               </Link>
               <Link
                 href="/courses"

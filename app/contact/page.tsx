@@ -327,7 +327,7 @@ export default function ContactPage() {
                   style={{ width: "100%", padding: "15px", borderRadius: "12px", background: !formData.name || !formData.email || !formData.message ? "rgba(14,165,233,.25)" : `linear-gradient(135deg,${selectedContact.color},${selectedContact.color}cc)`, color: "#fff", fontSize: "15px", fontWeight: 700, border: "none", cursor: !formData.name || !formData.email || !formData.message ? "not-allowed" : "pointer", transition: "all .2s", fontFamily: "inherit", boxShadow: formData.name && formData.email && formData.message ? `0 8px 28px ${selectedContact.color}35` : "none" }}
                   onMouseEnter={e => { if (formData.name && formData.email && formData.message) e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Sending..." : `Send message to ${selectedContact.name} ->`}
+                  {loading ? "Sending..." : `Send message to ${selectedContact.name} →`}
                 </button>
               </div>
             )}
@@ -380,7 +380,7 @@ export default function ContactPage() {
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "15px 36px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 28px rgba(14,165,233,.35)", transition: "all .3s cubic-bezier(.34,1.56,.64,1)" }}
                 onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.04)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; }}>
-                Start free today ->
+                Start free today →
               </Link>
               <Link href="/courses" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.07)", color: "#e2e8f0", padding: "15px 28px", borderRadius: "12px", fontSize: "15px", fontWeight: 600, textDecoration: "none", border: "1px solid rgba(255,255,255,.12)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.13)"; }}
