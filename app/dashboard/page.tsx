@@ -1,11 +1,11 @@
-import { createClient } from "@/lib/supabase/server";
+﻿import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
 
-  // Get the logged-in user — redirect to login if not logged in
+  // Get the logged-in user â€” redirect to login if not logged in
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/auth/login");
 
@@ -52,16 +52,16 @@ export default async function DashboardPage() {
             {greeting}
           </p>
           <h1 className="text-3xl font-bold mb-2">
-            {greeting}, {firstName} 👋
+            {greeting}, {firstName} ðŸ‘‹
           </h1>
           <p className="text-slate-400 text-sm">
             {totalAttempts === 0
-              ? "You haven't taken any exams yet — start your first one below."
+              ? "You haven't taken any exams yet â€” start your first one below."
               : `You've completed ${totalAttempts} exam${totalAttempts > 1 ? "s" : ""} so far. Keep going!`}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href="/quiz"
+              href="/quiz/select"
               className="bg-cyan-500 hover:bg-cyan-400 text-white font-semibold px-6 py-2.5 rounded-xl transition text-sm"
             >
               Start New Exam
@@ -85,19 +85,19 @@ export default async function DashboardPage() {
           />
           <StatCard
             label="Average Score"
-            value={totalAttempts > 0 ? `${averageScore}%` : "—"}
+            value={totalAttempts > 0 ? `${averageScore}%` : "â€”"}
             sub="Across all attempts"
             color="indigo"
           />
           <StatCard
             label="Best Score"
-            value={totalAttempts > 0 ? `${Math.round(bestScore)}%` : "—"}
+            value={totalAttempts > 0 ? `${Math.round(bestScore)}%` : "â€”"}
             sub="Your personal best"
             color="emerald"
           />
           <StatCard
             label="Latest Score"
-            value={latestAttempt ? `${Math.round(latestAttempt.score ?? 0)}%` : "—"}
+            value={latestAttempt ? `${Math.round(latestAttempt.score ?? 0)}%` : "â€”"}
             sub="Most recent exam"
             color="amber"
           />
@@ -123,8 +123,8 @@ export default async function DashboardPage() {
                   </svg>
                 </div>
                 <p className="text-slate-500 text-sm">No exams yet</p>
-                <Link href="/quiz" className="mt-3 inline-block text-sm text-cyan-600 hover:underline font-medium">
-                  Take your first exam →
+                <Link href="/quiz/select" className="mt-3 inline-block text-sm text-cyan-600 hover:underline font-medium">
+                  Take your first exam â†’
                 </Link>
               </div>
             ) : (
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
                         <p className="text-sm font-semibold text-slate-800">
                           Attempt {totalAttempts - index}
                         </p>
-                        <p className="text-xs text-slate-500 mt-0.5">{date} · {attempt.mode ?? "Standard"}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{date} Â· {attempt.mode ?? "Standard"}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className={`text-xs font-bold px-3 py-1 rounded-full border ${scoreColor}`}>
@@ -173,7 +173,7 @@ export default async function DashboardPage() {
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h2 className="text-lg font-bold text-slate-900 mb-4">Quick Actions</h2>
               <div className="space-y-3">
-                <Link href="/quiz"
+                <Link href="/quiz/select"
                   className="flex items-center gap-3 p-3 rounded-xl bg-cyan-50 border border-cyan-100 hover:bg-cyan-100 transition">
                   <div className="w-9 h-9 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
