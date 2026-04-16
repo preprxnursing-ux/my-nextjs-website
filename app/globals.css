@@ -140,3 +140,28 @@ body {
   }
 }
 
+
+/* -- Courses Grid Complete Mobile Fix -- */
+@media (max-width: 768px) {
+  .courses-grid-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .courses-grid-container > div {
+    grid-column: unset !important;
+    grid-row: unset !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    min-height: 220px !important;
+  }
+  .courses-grid-container > div > div[style*="gridTemplateColumns"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .courses-grid-container > div > div[style*="gridTemplateColumns"] > div:last-child {
+    height: 180px !important;
+    border-radius: 0 0 22px 22px !important;
+  }
+}
+

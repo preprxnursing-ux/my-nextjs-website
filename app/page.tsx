@@ -365,7 +365,7 @@ useEffect(() => {
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(12,1fr)", gap: "16px" }}>
+            <div className="courses-grid-container" style={{ display: "grid", gridTemplateColumns: "repeat(12,1fr)", gap: "16px" }}>
 
               {/* NCLEX-RN hero card */}
               <div className="bento-card" onClick={() => window.location.href = "/courses/nclex-rn"}
