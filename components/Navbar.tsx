@@ -572,7 +572,7 @@ export default function Navbar() {
             ) : (
               <Link href="/auth/login" className="nav-btn">Sign in</Link>
             )}
-            <Link href="/auth/signup" className="nav-btn-primary">Get started</Link>
+            <Link href={user ? "/dashboard" : "/auth/signup"} className="nav-btn-primary">{user ? "Dashboard" : "Get started"}</Link>
           </div>
 
           {/* MOBILE HAMBURGER */}
@@ -647,3 +647,4 @@ export default function Navbar() {
     </>
   );
 }
+
