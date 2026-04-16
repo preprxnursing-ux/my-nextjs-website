@@ -280,7 +280,7 @@ useEffect(() => {
               <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "48px" }}>
                 {!user && (<Link href="/auth/signup" className="btn-primary">Start free today<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>)}
                 <Link href="/courses" className="btn-outline">Explore courses</Link>
-                <Link href="/quiz" className="btn-dark">Try a question</Link>
+                <Link href="/quiz/select" className="btn-dark">Try a question</Link>
               </div>
 
               <div style={{ display: "flex", gap: "32px", flexWrap: "wrap" }}>
@@ -586,7 +586,7 @@ useEffect(() => {
                   Launch a timed exam, track your score, review rationales, and move through a cleaner testing workflow designed for focused practice.
                 </p>
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "28px" }}>
-                  <Link href="/quiz"    className="btn-primary" style={{ fontSize: "13px", padding: "11px 22px" }}>Start Exam</Link>
+                  <Link href="/quiz/select"    className="btn-primary" style={{ fontSize: "13px", padding: "11px 22px" }}>Start Exam</Link>
                   <Link href="/review"  className="btn-outline" style={{ fontSize: "13px", padding: "11px 20px" }}>Open Review</Link>
                   <Link href="/results" className="btn-dark"    style={{ fontSize: "13px", padding: "11px 20px" }}>View Results</Link>
                 </div>
@@ -659,7 +659,7 @@ useEffect(() => {
                   ))}
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <Link href="/quiz"   className="btn-primary" style={{ justifyContent: "center", fontSize: "13px" }}>Continue to Exam</Link>
+                  <Link href="/quiz/select"   className="btn-primary" style={{ justifyContent: "center", fontSize: "13px" }}>Continue to Exam</Link>
                   <Link href="/review" className="btn-outline" style={{ justifyContent: "center", fontSize: "13px" }}>Open Review</Link>
                   <button onClick={() => { localStorage.clear(); window.location.reload(); }} className="btn-dark" style={{ justifyContent: "center", fontSize: "13px", border: "none" }}>
                     Reset Saved Progress
@@ -671,7 +671,7 @@ useEffect(() => {
             {/* feature cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px", marginBottom: "20px" }}>
               {[
-                { title: "Timed Exam",      text: "Practice inside a focused session with a timer, navigation, answer checking, and submission flow.", href: "/quiz" },
+                { title: "Timed Exam",      text: "Practice inside a focused session with a timer, navigation, answer checking, and submission flow.", href: "/quiz/select" },
                 { title: "Detailed Review", text: "A full breakdown of selected answers, correct answers, and rationales for every saved question.",   href: "/review" },
                 { title: "Results Summary", text: "See your percentage, raw score, and overall performance insight from your latest saved attempt.",    href: "/results" },
               ].map(f => (
@@ -694,7 +694,7 @@ useEffect(() => {
                     <p style={{ fontSize: "11px", color: "#64748b", fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase" }}>Study Flow</p>
                     <h3 className="fd" style={{ fontSize: "1.4rem", fontWeight: 700, color: "#f8fafc", marginTop: "6px" }}>How to use the platform</h3>
                   </div>
-                  <Link href="/quiz" style={{ fontSize: "13px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>Jump to exam mode</Link>
+                  <Link href="/quiz/select" style={{ fontSize: "13px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>Jump to exam mode</Link>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "14px" }}>
                   {[
@@ -718,7 +718,7 @@ useEffect(() => {
                   Clear saved data to begin fresh, or continue into your current exam workflow.
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <Link href="/quiz"   className="btn-primary" style={{ justifyContent: "center", fontSize: "13px" }}>Continue to Exam</Link>
+                  <Link href="/quiz/select"   className="btn-primary" style={{ justifyContent: "center", fontSize: "13px" }}>Continue to Exam</Link>
                   <Link href="/review" className="btn-outline" style={{ justifyContent: "center", fontSize: "13px" }}>Open Review</Link>
                   <button onClick={() => { localStorage.clear(); window.location.reload(); }} className="btn-dark" style={{ justifyContent: "center", fontSize: "13px" }}>
                     Reset Saved Progress
@@ -799,6 +799,8 @@ useEffect(() => {
     </>
   );
 }
+
+
 
 
 
