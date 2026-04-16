@@ -207,11 +207,6 @@ export default function HomePage() {
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
     return () => listener.subscription.unsubscribe();
   }, []);
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
-    return () => listener.subscription.unsubscribe();
-  }, []);
   const [user, setUser] = useState<any>(null);
   const [latestScore, setLatestScore] = useState(0);
   const [correct, setCorrect] = useState(0);
@@ -811,6 +806,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
