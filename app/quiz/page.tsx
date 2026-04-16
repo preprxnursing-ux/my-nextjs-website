@@ -66,9 +66,16 @@ function QuizPageInner() {
     // Fetch questions from Supabase via API
     fetch(`/api/questions?${searchParams.toString()}`)
       .then((res) => res.json())
-      .then((json) => {
-        setQuestions(json.questions ?? []);
+     .then((json) => {
+        const loaded = json.questions ?? [];
+        setQuestions(loaded);
         setQuestionsLoading(false);
+        const storedMode2 = localStorage.getItem(STORAGE_KEYS.mode);
+        const resolvedMode2 = getExamMode(storedMode2 as ExamModeId);
+        const savedTimeLeft2 = Number(localStorage.getItem(STORAGE_KEYS.timeLeft));
+        if (resolvedMode2.timerEnabled) {
+          setTimeLeft(savedTimeLeft2 > 0 ? savedTimeLeft2 : loaded.length * 60);
+        }
       })
       .catch(() => setQuestionsLoading(false));
 
