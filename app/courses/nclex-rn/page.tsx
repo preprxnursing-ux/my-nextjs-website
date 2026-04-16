@@ -310,7 +310,7 @@ export default async function NCLEXRNPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "ðŸ§ ",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Get instant feedback after every question. Read the rationale, understand why, then move forward with confidence.",
