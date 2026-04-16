@@ -91,3 +91,24 @@ body {
   }
 }
 
+
+/* -- Courses Cards Inner Fix -- */
+@media (max-width: 768px) {
+  div[style*="grid-template-columns: repeat(12,1fr)"] > div {
+    min-width: 88vw !important;
+    max-width: 88vw !important;
+  }
+  div[style*="gridColumn: \"1/8\""],
+  div[style*="grid-column: 1/8"],
+  div[style*="gridTemplateColumns: \"1fr 1fr\""] {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  div[style*="gridColumn: \"1/8\""] > div:last-child,
+  div[style*="grid-column: 1 / 8"] > div:last-child {
+    height: 180px !important;
+    border-radius: 0 0 22px 22px !important;
+  }
+}
+
