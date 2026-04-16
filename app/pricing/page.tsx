@@ -1,5 +1,6 @@
+"use client";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { useCart } from "@/lib/cartContext";
 
 const plans = [
   {
@@ -79,10 +80,8 @@ const plans = [
   },
 ];
 
-export default async function PricingPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
+export default function PricingPage() {
+  const { addToCart, setCartOpen } = useCart();
   return (
     <main className="min-h-screen bg-[#f1f5f9]">
 
@@ -132,12 +131,24 @@ export default async function PricingPage() {
               </div>
 
               {/* CTA BUTTON */}
-              <Link
-                href={user ? "/dashboard" : plan.ctaHref}
-                className={`block w-full text-center font-semibold py-3 rounded-xl transition text-sm mb-6 ${plan.ctaStyle}`}
+              <button
+                onClick={() => {
+                  if (plan.id === "free") {
+                    window.location.href = "/auth/signup";
+                    return;
+                  }
+                  addToCart({
+                    id: plan.id,
+                    name: plan.name,
+                    price: plan.id === "premium" ? 29 : 99,
+                    period: plan.id === "premium" ? "per month" : "per month",
+                    color: plan.id === "premium" ? "#0ea5e9" : "#8b5cf6",
+                  });
+                }}
+                className={`block w-full text-center font-semibold py-3 rounded-xl transition text-sm mb-6 ${plan.ctaStyle} cursor-pointer`}
               >
-                {user && plan.id === "free" ? "Go to Dashboard" : plan.cta}
-              </Link>
+                {plan.id === "free" ? "Get Started Free" : `Add to Cart - ${plan.price}`}
+              </button>
 
               {/* FEATURES */}
               <div className="space-y-3">
