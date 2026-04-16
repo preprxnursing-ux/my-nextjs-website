@@ -1,4 +1,5 @@
 ﻿"use client";
+import { Suspense } from "react";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -42,7 +43,7 @@ function getCorrectAnswer(question: any) {
   return -1;
 }
 
-export default function QuizPage() {
+function QuizPageInner() {
   const router = useRouter();
 
   const [mounted, setMounted] = useState(false);
@@ -651,3 +652,7 @@ function LegendItem({ tone, label, dark = false }: { tone: string; label: string
 }
 
 
+
+
+
+export default function QuizPage() { return <Suspense fallback={<div style={{minHeight:'100vh',background:'#060f1e'}}/>}><QuizPageInner /></Suspense>; }
