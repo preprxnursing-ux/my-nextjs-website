@@ -159,7 +159,7 @@ export default function LoginPage() {
   }
 
   async function handleVerify() {
-    /* for demo — just navigate. In production verify OTP via your backend */
+    /* for demo -- just navigate. In production verify OTP via your backend */
     const code = otp.join("");
     if (code.length < 6) { setError("Enter all 6 digits."); return; }
     router.push("/dashboard");
@@ -288,7 +288,7 @@ export default function LoginPage() {
                   style={{ background: "#ecfeff", color: "#0891b2" }}>S</div>
                 <div>
                   <p className="text-white text-xs font-medium">Stephanie G.</p>
-                  <p className="text-xs" style={{ color: "#475569" }}>NCLEX-RN · 1st attempt</p>
+                  <p className="text-xs" style={{ color: "#475569" }}>NCLEX-RN . 1st attempt</p>
                 </div>
               </div>
             </div>
@@ -336,7 +336,7 @@ export default function LoginPage() {
                 <p className="mb-7 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   No account?{" "}
                   <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign up free →
+                    Sign up free ->
                   </Link>
                 </p>
 
@@ -423,7 +423,7 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                {/* strength bar — only shows when typing */}
+                {/* strength bar -- only shows when typing */}
                 {password.length > 0 && (
                   <div className="mb-3">
                     <div className="flex items-center justify-between mb-1">
@@ -438,9 +438,9 @@ export default function LoginPage() {
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {[
                         { key: "length", label: "8+ chars" },
-                        { key: "upper", label: "A–Z" },
-                        { key: "lower", label: "a–z" },
-                        { key: "number", label: "0–9" },
+                        { key: "upper", label: "A-Z" },
+                        { key: "lower", label: "a-z" },
+                        { key: "number", label: "0-9" },
                         { key: "special", label: "!@#$%" },
                         { key: "long", label: "12+ chars" },
                       ].map(({ key, label }) => {
@@ -452,7 +452,7 @@ export default function LoginPage() {
                               border: `1px solid ${ok ? "rgba(16,185,129,0.3)" : "rgba(255,255,255,0.07)"}`,
                               color: ok ? "#34d399" : "#475569",
                             }}>
-                            {ok ? "✓" : "·"} {label}
+                            {ok ? "✓" : "."} {label}
                           </span>
                         );
                       })}
@@ -499,7 +499,7 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Signing in..." : "Sign in →"}
+                  {loading ? "Signing in..." : "Sign in ->"}
                 </button>
 
                 <p className="text-center text-xs mt-6" style={{ color: "#1e293b" }}>
@@ -570,7 +570,7 @@ export default function LoginPage() {
                   style={{ background: "#06b6d4", color: "#fff", boxShadow: "0 8px 24px rgba(6,182,212,0.22)" }}
                   onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                   onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                  Verify & continue →
+                  Verify & continue ->
                 </button>
 
                 <div className="flex items-center justify-between">
@@ -638,7 +638,7 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!forgotLoading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {forgotLoading ? "Sending..." : "Send reset link →"}
+                  {forgotLoading ? "Sending..." : "Send reset link ->"}
                 </button>
 
                 <button onClick={() => { setStep("login"); setForgotError(""); }}

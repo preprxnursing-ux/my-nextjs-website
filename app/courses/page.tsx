@@ -27,7 +27,7 @@ const courses = [
   {
     exam: "Nursing School",
     title: "Your Nursing School Companion",
-    description: "Master fundamentals, med-surg, pharmacology, maternal, paediatric, and mental health nursing — all NCLEX aligned.",
+    description: "Master fundamentals, med-surg, pharmacology, maternal, paediatric, and mental health nursing -- all NCLEX aligned.",
     icon: "🎓",
     color: "#059669",
     bg: "#ecfdf5",
@@ -39,7 +39,7 @@ const courses = [
     stats: [{ label: "Core subjects", value: "6" }, { label: "NCLEX aligned", value: "100%" }],
   },
   {
-    exam: "NCLEX-RN®",
+    exam: "NCLEX-RN(R)",
     title: "NCLEX-RN Success Tools",
     description: "The gold standard for RN licensure prep. Adaptive questions across all 8 client needs categories with full NGN support.",
     icon: "🏥",
@@ -53,7 +53,7 @@ const courses = [
     stats: [{ label: "Questions", value: "3,100+" }, { label: "Pass rate", value: "98%" }],
   },
   {
-    exam: "NCLEX-PN®",
+    exam: "NCLEX-PN(R)",
     title: "Effective NCLEX-PN Prep",
     description: "Built for LPN and LVN candidates. Covers all PN client needs categories with the same adaptive question engine.",
     icon: "📋",
@@ -81,7 +81,7 @@ const courses = [
     stats: [{ label: "Certifications", value: "2" }, { label: "Level", value: "Advanced" }],
   },
   {
-    exam: "CCRN®",
+    exam: "CCRN(R)",
     title: "Essential CCRN Success Resources",
     description: "Critical care certification prep. ICU-level questions covering cardiovascular, pulmonary, neuro, and multisystem topics.",
     icon: "❤️",
@@ -177,7 +177,7 @@ export default function CoursesPage() {
               style={{ color: "#94a3b8", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.75 }}
             >
               From your first nursing school entrance exam all the way to
-              advanced practice certification — we cover the full journey
+              advanced practice certification -- we cover the full journey
               with adaptive questions, deep rationales, and real exam simulation.
             </p>
 
@@ -320,7 +320,7 @@ export default function CoursesPage() {
                       style={{ color: course.color }}
                     >
                       {course.available ? "Start practising" : "Learn more"}
-                      <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
+                      <span className="inline-block group-hover:translate-x-1 transition-transform">-></span>
                     </span>
                     {course.available && (
                       <span
@@ -372,7 +372,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Find my course →
+                Find my course ->
               </button>
             )}
 
@@ -437,7 +437,7 @@ export default function CoursesPage() {
                     onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                   >
-                    Go to {courses[finderResult].exam} →
+                    Go to {courses[finderResult].exam} ->
                   </Link>
                   <button
                     onClick={() => { setFinderResult(null); setFinderOpen(true); }}
@@ -526,7 +526,7 @@ export default function CoursesPage() {
                     className="text-sm flex-shrink-0 self-center group-hover:translate-x-1 transition-transform"
                     style={{ color: "#94a3b8" }}
                   >
-                    →
+                    ->
                   </span>
                 </Link>
               ))}
@@ -550,7 +550,7 @@ export default function CoursesPage() {
             </h2>
             <p className="mb-8" style={{ color: "#94a3b8", fontWeight: 300, lineHeight: 1.75 }}>
               No credit card. No commitment. Just real NCLEX-RN questions
-              with full rationales — ready for you right now.
+              with full rationales -- ready for you right now.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
@@ -560,7 +560,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start NCLEX-RN free →
+                Start NCLEX-RN free ->
               </Link>
               <Link
                 href="/auth/signup"

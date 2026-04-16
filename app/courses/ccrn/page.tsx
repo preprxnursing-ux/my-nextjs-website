@@ -114,7 +114,7 @@ export default async function CCRNPage() {
             </div>
             <div>
               <p className="text-xs font-bold text-red-400 uppercase tracking-widest">
-                CCRN®
+                CCRN(R)
               </p>
               <span className="text-xs font-semibold bg-red-500 text-white px-2 py-0.5 rounded-full">
                 Coming Soon
@@ -128,7 +128,7 @@ export default async function CCRNPage() {
           <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
             Master the critical care knowledge needed to earn your CCRN
             certification. Every question covers the high-acuity topics
-            you face daily in the ICU — from haemodynamics to mechanical
+            you face daily in the ICU -- from haemodynamics to mechanical
             ventilation to sepsis management.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -136,7 +136,7 @@ export default async function CCRNPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising ->" : "Get notified ->"}
             </Link>
             <Link
               href="/pricing"
@@ -322,7 +322,7 @@ export default async function CCRNPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free ->"}
             </Link>
             <Link
               href="/courses/nclex-rn"

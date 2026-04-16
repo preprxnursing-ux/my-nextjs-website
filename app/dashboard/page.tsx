@@ -124,7 +124,7 @@ export default async function DashboardPage() {
                 </div>
                 <p className="text-slate-500 text-sm">No exams yet</p>
                 <Link href="/quiz/select" className="mt-3 inline-block text-sm text-cyan-600 hover:underline font-medium">
-                  Take your first exam â†’
+                  Take your first exam â†'
                 </Link>
               </div>
             ) : (
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
                         <p className="text-sm font-semibold text-slate-800">
                           Attempt {totalAttempts - index}
                         </p>
-                        <p className="text-xs text-slate-500 mt-0.5">{date} Â· {attempt.mode ?? "Standard"}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{date} Â. {attempt.mode ?? "Standard"}</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <span className={`text-xs font-bold px-3 py-1 rounded-full border ${scoreColor}`}>

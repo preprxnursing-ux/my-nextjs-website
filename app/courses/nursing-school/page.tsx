@@ -124,7 +124,7 @@ export default async function NursingSchoolPage() {
             <span className="text-emerald-400">Companion</span>
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-            From fundamentals to med-surg, pharmacology to paediatrics —
+            From fundamentals to med-surg, pharmacology to paediatrics --
             our question bank covers every core subject you will encounter
             in nursing school, all mapped to NCLEX outcomes.
           </p>
@@ -133,7 +133,7 @@ export default async function NursingSchoolPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising ->" : "Get notified ->"}
             </Link>
             <Link
               href="/pricing"
@@ -188,7 +188,7 @@ export default async function NursingSchoolPage() {
           <div className="text-sm leading-relaxed space-y-3 text-slate-600">
             <p>
               Nursing school is intense. You are learning pharmacology,
-              pathophysiology, clinical skills, and patient care all at once —
+              pathophysiology, clinical skills, and patient care all at once --
               while preparing for exams that directly mirror the NCLEX.
             </p>
             <p>
@@ -318,7 +318,7 @@ export default async function NursingSchoolPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free ->"}
             </Link>
             <Link
               href="/courses/nclex-rn"

@@ -223,7 +223,7 @@ export default function BlogPage() {
                           </div>
                           <div>
                             <p style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0", margin: 0 }}>{post.author}</p>
-                            <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>{post.date} · {post.readTime}</p>
+                            <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>{post.date} . {post.readTime}</p>
                           </div>
                         </div>
                         <span className="read-more">
@@ -264,7 +264,7 @@ export default function BlogPage() {
                       <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#f1f5f9", lineHeight: 1.4, margin: 0 }}>{post.title}</h3>
                       <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.6, margin: 0, flex: 1 }}>{post.excerpt}</p>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "10px", borderTop: "1px solid rgba(255,255,255,.06)" }}>
-                        <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>{post.date} · {post.readTime}</p>
+                        <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>{post.date} . {post.readTime}</p>
                         <span className="read-more">
                           Read
                           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

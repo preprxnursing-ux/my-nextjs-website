@@ -149,7 +149,7 @@ export default async function NCLEXRNPage() {
             </div>
             <div>
               <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-                NCLEX-RNÂ®
+                NCLEX-RNÂ(R)
               </p>
               <span className="text-xs font-semibold bg-cyan-500 text-white px-2 py-0.5 rounded-full">
                 Live Now
@@ -170,7 +170,7 @@ export default async function NCLEXRNPage() {
               href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
               className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising â†’" : "Start free today â†’"}
+              {user ? "Start practising â†'" : "Start free today â†'"}
             </Link>
             <Link
               href="/pricing"
@@ -208,7 +208,7 @@ export default async function NCLEXRNPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">3</p>
             <p className="text-sm text-slate-600 mt-1 font-medium">Exam modes</p>
-            <p className="text-xs text-slate-400 mt-1">Timed Â· Tutor Â· Quick</p>
+            <p className="text-xs text-slate-400 mt-1">Timed Â. Tutor Â. Quick</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">8</p>
@@ -357,7 +357,7 @@ export default async function NCLEXRNPage() {
               href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
               className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to Quiz â†’" : "Start free â†’"}
+              {user ? "Go to Quiz â†'" : "Start free â†'"}
             </Link>
             <Link
               href="/pricing"

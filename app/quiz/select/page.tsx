@@ -177,7 +177,7 @@ function QuizSelectInner() {
           <button onClick={startQuiz} disabled={!canStart}
             style={{ width: "100%", padding: "18px", borderRadius: "14px", background: canStart ? `linear-gradient(135deg, ${activeCourse?.color}, ${activeCourse?.color}cc)` : "rgba(255,255,255,0.05)", color: canStart ? "#fff" : "#334155", fontSize: "16px", fontWeight: 700, border: "none", cursor: canStart ? "pointer" : "not-allowed", fontFamily: "inherit", transition: "all 0.3s", boxShadow: canStart ? `0 8px 28px ${activeCourse?.color}40` : "none" }}>
             {canStart
-              ? `Start ${activeCourse?.label} Quiz — ${selectedTopic}`
+              ? `Start ${activeCourse?.label} Quiz -- ${selectedTopic}`
               : "Complete steps 1 and 2 to continue"}
           </button>
         </div>

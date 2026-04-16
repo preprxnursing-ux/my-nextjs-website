@@ -60,7 +60,7 @@ export default function ResultsPage() {
     bgColor = "bg-emerald-50 border-emerald-200";
   } else if (percentage >= 60) {
     profile = "Advancing Learner";
-    message = "You're improving — consistency is key.";
+    message = "You're improving -- consistency is key.";
     color = "text-amber-600";
     bgColor = "bg-amber-50 border-amber-200";
   } else {

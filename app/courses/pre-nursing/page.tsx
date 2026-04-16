@@ -142,7 +142,7 @@ export default async function PreNursingPage() {
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
             Get into nursing school with confidence. Our Pre-Nursing prep covers
-            everything you need for both the TEAS 7 and HESI A2 — the two most
+            everything you need for both the TEAS 7 and HESI A2 -- the two most
             common nursing school entrance exams.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -150,7 +150,7 @@ export default async function PreNursingPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising ->" : "Get notified ->"}
             </Link>
             <Link
               href="/pricing"
@@ -188,7 +188,7 @@ export default async function PreNursingPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">2</p>
             <p className="text-sm text-slate-600 mt-1 font-medium">Exams covered</p>
-            <p className="text-xs text-slate-400 mt-1">TEAS 7 · HESI A2</p>
+            <p className="text-xs text-slate-400 mt-1">TEAS 7 . HESI A2</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">9</p>
@@ -211,7 +211,7 @@ export default async function PreNursingPage() {
             </p>
             <p>
               Both exams test your foundational knowledge in reading, maths,
-              science, and English — the building blocks of nursing education.
+              science, and English -- the building blocks of nursing education.
               A strong score significantly improves your chances of admission
               to competitive nursing programmes.
             </p>
@@ -352,7 +352,7 @@ export default async function PreNursingPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free ->"}
             </Link>
             <Link
               href="/courses/nclex-rn"

@@ -231,7 +231,7 @@ export default function HistoryPage() {
                         </span>
                       </div>
                       <h2 className="mt-2 text-3xl font-bold">
-                        {attempt.percentage}% · {label}
+                        {attempt.percentage}% . {label}
                       </h2>
                     </div>
                     <p className="text-sm text-white/85">{formatAttemptDate(attempt.completedAt)}</p>

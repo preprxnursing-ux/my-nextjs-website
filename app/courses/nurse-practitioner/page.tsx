@@ -73,7 +73,7 @@ const examsCovered = [
 ];
 
 const examFacts = [
-  { label: "Certifications", value: "FNP · AGPCNP" },
+  { label: "Certifications", value: "FNP . AGPCNP" },
   { label: "Question types", value: "MCQ, Case-based" },
   { label: "Focus", value: "Advanced practice" },
   { label: "Pharmacology", value: "Advanced level" },
@@ -118,7 +118,7 @@ export default async function NursePractitionerPage() {
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
             Prepare for your FNP or AGPCNP certification with questions
-            built around advanced practice competencies — from diagnosis
+            built around advanced practice competencies -- from diagnosis
             and pharmacotherapy to chronic disease management.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -126,7 +126,7 @@ export default async function NursePractitionerPage() {
               href={user ? "/quiz" : "/auth/signup"}
               className="bg-violet-500 hover:bg-violet-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising ->" : "Get notified ->"}
             </Link>
             <Link
               href="/pricing"
@@ -164,7 +164,7 @@ export default async function NursePractitionerPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">2</p>
             <p className="text-sm text-slate-600 mt-1 font-medium">Certifications</p>
-            <p className="text-xs text-slate-400 mt-1">FNP · AGPCNP</p>
+            <p className="text-xs text-slate-400 mt-1">FNP . AGPCNP</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">Advanced</p>
@@ -190,7 +190,7 @@ export default async function NursePractitionerPage() {
             <p>
               These exams test advanced clinical knowledge including
               independent diagnosis, prescribing, and management of acute
-              and chronic conditions across the lifespan — going well beyond
+              and chronic conditions across the lifespan -- going well beyond
               the scope of the NCLEX.
             </p>
             <p>
@@ -319,7 +319,7 @@ export default async function NursePractitionerPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-violet-500 hover:bg-violet-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free ->"}
             </Link>
             <Link
               href="/courses/nclex-rn"

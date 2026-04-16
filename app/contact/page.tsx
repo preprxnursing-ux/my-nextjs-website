@@ -75,7 +75,7 @@ const contacts = [
     avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&q=80",
     tagline: "Questions about the platform, courses, or getting started? Melissa is your first stop.",
     topics: ["Platform questions", "Course guidance", "Getting started", "Account support"],
-    availability: "Mon – Fri · 8am – 6pm EAT",
+    availability: "Mon - Fri . 8am - 6pm EAT",
     responseTime: "Usually within 4 hours",
     accentLight: "rgba(14,165,233,.08)",
   },
@@ -91,14 +91,14 @@ const contacts = [
     avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80",
     tagline: "Partnerships, educator access, media inquiries, or strategic conversations go to James.",
     topics: ["Partnerships", "Educator access", "Media & press", "Strategic inquiries"],
-    availability: "Mon – Fri · 9am – 5pm EAT",
+    availability: "Mon - Fri . 9am - 5pm EAT",
     responseTime: "Usually within 24 hours",
     accentLight: "rgba(139,92,246,.08)",
   },
 ];
 
 const faqs = [
-  { q: "Is the platform really free to start?", a: "Yes — no credit card required. You get full access to NCLEX-RN practice questions immediately after signing up." },
+  { q: "Is the platform really free to start?", a: "Yes -- no credit card required. You get full access to NCLEX-RN practice questions immediately after signing up." },
   { q: "How many questions are available?", a: "We currently have 3,100+ NCLEX-RN questions with full clinical rationales. More are added regularly across all certification paths." },
   { q: "Do you offer group or institutional plans?", a: "Yes! Contact James directly at prenclexreview@gmail.com for institutional pricing and educator access arrangements." },
   { q: "Can international nursing students use this?", a: "Absolutely. Our platform is used by students from over 40 countries preparing for NCLEX and other nursing certification exams." },
@@ -164,7 +164,7 @@ export default function ContactPage() {
                   <span className="shimmer-text">Talk to us directly.</span>
                 </h1>
                 <p className="fade-up" style={{ fontSize: "1.1rem", color: "#94a3b8", fontWeight: 400, lineHeight: 1.85, maxWidth: "480px", marginBottom: "36px", animationDelay: ".2s" }}>
-                  No bots. No ticket queues. Reach Melissa or James directly — whichever fits your question best.
+                  No bots. No ticket queues. Reach Melissa or James directly -- whichever fits your question best.
                 </p>
                 <div className="fade-up" style={{ display: "flex", gap: "12px", flexWrap: "wrap", animationDelay: ".3s" }}>
                   {contacts.map(c => (
@@ -203,7 +203,7 @@ export default function ContactPage() {
                       <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(52,211,153,.3)", animation: "pulseRing 2s ease-out infinite" }} />
                       <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#22c55e", position: "relative", zIndex: 1 }} />
                     </div>
-                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#34d399", margin: 0 }}>Online now · Ready to help</p>
+                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#34d399", margin: 0 }}>Online now . Ready to help</p>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function ContactPage() {
             <div className="ticker-inner">
               {[...Array(2)].map((_, ri) => (
                 <span key={ri} style={{ display: "inline-flex" }}>
-                  {["No bots — real humans only", "Response within 4 hours", "Melissa handles platform questions", "James handles partnerships", "50,000+ students supported", "Built by nurses for nurses", "Mon–Fri availability"].map(t => (
+                  {["No bots -- real humans only", "Response within 4 hours", "Melissa handles platform questions", "James handles partnerships", "50,000+ students supported", "Built by nurses for nurses", "Mon-Fri availability"].map(t => (
                     <span key={t} className="ticker-item"><span className="ticker-dot" />{t}</span>
                   ))}
                 </span>
@@ -232,7 +232,7 @@ export default function ContactPage() {
             <div style={{ textAlign: "center", marginBottom: "52px" }}>
               <p style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Who to Contact</p>
               <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>Choose who to reach.</h2>
-              <p style={{ fontSize: "15px", color: "#64748b", marginTop: "10px" }}>Hover over each card — then click to email directly.</p>
+              <p style={{ fontSize: "15px", color: "#64748b", marginTop: "10px" }}>Hover over each card -- then click to email directly.</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))", gap: "20px" }}>
               {contacts.map(c => <ContactCard key={c.name} c={c} />)}
@@ -327,7 +327,7 @@ export default function ContactPage() {
                   style={{ width: "100%", padding: "15px", borderRadius: "12px", background: !formData.name || !formData.email || !formData.message ? "rgba(14,165,233,.25)" : `linear-gradient(135deg,${selectedContact.color},${selectedContact.color}cc)`, color: "#fff", fontSize: "15px", fontWeight: 700, border: "none", cursor: !formData.name || !formData.email || !formData.message ? "not-allowed" : "pointer", transition: "all .2s", fontFamily: "inherit", boxShadow: formData.name && formData.email && formData.message ? `0 8px 28px ${selectedContact.color}35` : "none" }}
                   onMouseEnter={e => { if (formData.name && formData.email && formData.message) e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Sending..." : `Send message to ${selectedContact.name} →`}
+                  {loading ? "Sending..." : `Send message to ${selectedContact.name} ->`}
                 </button>
               </div>
             )}
@@ -374,13 +374,13 @@ export default function ContactPage() {
               <span style={{ color: "#38bdf8", fontStyle: "italic" }}>We're here for you.</span>
             </h2>
             <p style={{ fontSize: "16px", color: "#64748b", lineHeight: 1.85, marginBottom: "36px" }}>
-              Whether you have a question or just want to begin — we're one click away.
+              Whether you have a question or just want to begin -- we're one click away.
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "15px 36px", borderRadius: "12px", fontSize: "15px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 28px rgba(14,165,233,.35)", transition: "all .3s cubic-bezier(.34,1.56,.64,1)" }}
                 onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.04)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; }}>
-                Start free today →
+                Start free today ->
               </Link>
               <Link href="/courses" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.07)", color: "#e2e8f0", padding: "15px 28px", borderRadius: "12px", fontSize: "15px", fontWeight: 600, textDecoration: "none", border: "1px solid rgba(255,255,255,.12)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.13)"; }}
@@ -457,7 +457,7 @@ function ContactCard({ c }: { c: typeof contacts[0] }) {
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
         </svg>
-        Email {c.name} · {c.email}
+        Email {c.name} . {c.email}
       </a>
     </div>
   );

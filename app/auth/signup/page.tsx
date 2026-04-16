@@ -91,10 +91,10 @@ type Step = "details" | "verify";
 const examOptions = [
   { label: "Pre-Nursing (TEAS / HESI)", value: "pre-nursing", icon: "📚" },
   { label: "Nursing School", value: "nursing-school", icon: "🎓" },
-  { label: "NCLEX-RN®", value: "nclex-rn", icon: "🏥" },
-  { label: "NCLEX-PN®", value: "nclex-pn", icon: "📋" },
+  { label: "NCLEX-RN(R)", value: "nclex-rn", icon: "🏥" },
+  { label: "NCLEX-PN(R)", value: "nclex-pn", icon: "📋" },
   { label: "Nurse Practitioner", value: "np", icon: "🩺" },
-  { label: "CCRN®", value: "ccrn", icon: "❤️" },
+  { label: "CCRN(R)", value: "ccrn", icon: "❤️" },
 ];
 
 export default function SignupPage() {
@@ -323,7 +323,7 @@ export default function SignupPage() {
                 <p className="mb-6 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   Already have an account?{" "}
                   <Link href="/auth/login" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign in →
+                    Sign in ->
                   </Link>
                 </p>
 
@@ -450,9 +450,9 @@ export default function SignupPage() {
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {[
                         { key: "length", label: "8+ chars" },
-                        { key: "upper", label: "A–Z" },
-                        { key: "lower", label: "a–z" },
-                        { key: "number", label: "0–9" },
+                        { key: "upper", label: "A-Z" },
+                        { key: "lower", label: "a-z" },
+                        { key: "number", label: "0-9" },
                         { key: "special", label: "!@#$%" },
                         { key: "long", label: "12+ chars" },
                       ].map(({ key, label }) => {
@@ -464,7 +464,7 @@ export default function SignupPage() {
                               border: `1px solid ${ok ? "rgba(52,211,153,0.3)" : "rgba(255,255,255,0.07)"}`,
                               color: ok ? "#34d399" : "#475569",
                             }}>
-                            {ok ? "✓" : "·"} {label}
+                            {ok ? "✓" : "."} {label}
                           </span>
                         );
                       })}
@@ -571,7 +571,7 @@ export default function SignupPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Creating account..." : "Create free account →"}
+                  {loading ? "Creating account..." : "Create free account ->"}
                 </button>
 
                 <p className="text-center text-xs mt-5" style={{ color: "#1e293b" }}>
@@ -628,7 +628,7 @@ export default function SignupPage() {
                     style={{ background: "#34d399", color: "#080d1a", fontWeight: 600 }}
                     onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                     onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                    Go to login →
+                    Go to login ->
                   </Link>
                   <button onClick={() => setStep("details")}
                     className="text-xs hover:underline" style={{ color: "#475569" }}>

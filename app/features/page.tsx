@@ -53,13 +53,13 @@ const features = [
     icon: "🔒",
     title: "Your data stays yours",
     description:
-      "Every attempt is saved securely to your account. Your history, scores, and progress are private and tied only to your login — never shared.",
+      "Every attempt is saved securely to your account. Your history, scores, and progress are private and tied only to your login -- never shared.",
     color: "bg-slate-50 border-slate-200",
     iconBg: "bg-slate-700",
   },
   {
     icon: "🤖",
-    title: "AI tutor — coming soon",
+    title: "AI tutor -- coming soon",
     description:
       "Our upcoming AI layer will explain exactly why you keep missing certain questions, generate personalised study plans, and adapt your exam to your weak areas.",
     color: "bg-cyan-50 border-cyan-100",
@@ -108,7 +108,7 @@ export default function FeaturesPage() {
           Everything you need to pass
         </h1>
         <p className="text-slate-400 text-lg max-w-2xl mx-auto mb-8">
-          Pre-NCLEX Review is built around one goal — helping you think like a
+          Pre-NCLEX Review is built around one goal -- helping you think like a
           nurse, not just memorise answers.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
             Built for how nurses actually learn
           </h2>
           <p className="text-slate-500 mt-3 max-w-xl mx-auto">
-            Every feature was designed around the way nursing students study —
+            Every feature was designed around the way nursing students study --
             not around what was easiest to build.
           </p>
         </div>

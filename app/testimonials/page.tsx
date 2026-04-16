@@ -44,7 +44,7 @@ const testimonials = [
     score: "Passed 110Q",
     attempt: "2nd attempt",
     stars: 5,
-    quote: "After failing once with another platform I switched here and passed comfortably. The adaptive questions made all the difference. I finally understood why wrong answers were wrong — not just why the right answer was right.",
+    quote: "After failing once with another platform I switched here and passed comfortably. The adaptive questions made all the difference. I finally understood why wrong answers were wrong -- not just why the right answer was right.",
   },
   {
     name: "Priya M.",
@@ -104,7 +104,7 @@ const testimonials = [
     score: "Passed 1st try",
     attempt: "1st attempt",
     stars: 5,
-    quote: "The PN content is thorough and the interface is clean. No clutter, no distraction — just focused practice. I loved that every wrong answer came with a proper explanation not just a label.",
+    quote: "The PN content is thorough and the interface is clean. No clutter, no distraction -- just focused practice. I loved that every wrong answer came with a proper explanation not just a label.",
   },
   {
     name: "Carlos M.",
@@ -204,7 +204,7 @@ export default function TestimonialsPage() {
               style={{ color: "#94a3b8", fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.75, maxWidth: "500px" }}
             >
               Every story here is from a real student who chose a smarter
-              way to prepare — and passed.
+              way to prepare -- and passed.
             </p>
 
             {/* filter pills */}
@@ -274,7 +274,7 @@ export default function TestimonialsPage() {
                 {/* stars */}
                 <div className="flex items-center gap-0.5 mb-4">
                   {[...Array(t.stars)].map((_, si) => (
-                    <span key={si} style={{ color: "#fbbf24", fontSize: "0.9rem" }}>★</span>
+                    <span key={si} style={{ color: "#fbbf24", fontSize: "0.9rem" }}>*</span>
                   ))}
                 </div>
 
@@ -363,7 +363,7 @@ export default function TestimonialsPage() {
               </div>
               <div className="text-left">
                 <p className="font-medium text-sm text-white">Amara N.</p>
-                <p className="text-xs" style={{ color: "#64748b" }}>NCLEX-RN · Passed 110Q · 2nd attempt</p>
+                <p className="text-xs" style={{ color: "#64748b" }}>NCLEX-RN . Passed 110Q . 2nd attempt</p>
               </div>
             </div>
           </div>
@@ -392,7 +392,7 @@ export default function TestimonialsPage() {
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
-              Share my story →
+              Share my story ->
             </Link>
             <Link
               href="/courses/nclex-rn"
@@ -432,7 +432,7 @@ export default function TestimonialsPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start free today →
+                Start free today ->
               </Link>
               <Link
                 href="/courses"

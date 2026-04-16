@@ -1,4 +1,4 @@
-﻿"use client";
+﻿﻿"use client";
 
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState, useRef } from "react";
@@ -250,7 +250,7 @@ useEffect(() => {
       <style>{fontStyle}</style>
       <main style={{ background: "#0d2137", minHeight: "100vh", color: "#f1f5f9" }}>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO */}
+        {/* ---------------------- HERO */}
         <section style={{ position: "relative", minHeight: "96vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>
 
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center right", opacity: .13 }} />
@@ -265,7 +265,7 @@ useEffect(() => {
             <div style={{ maxWidth: "680px" }}>
               <div className="live-badge" style={{ marginBottom: "28px" }}>
                 <span className="live-dot" />
-                NCLEX-RN Â· Live Now
+                NCLEX-RN . Live Now
               </div>
 
               <h1 className="fd" style={{ fontSize: "clamp(3rem,6vw,5.2rem)", fontWeight: 700, lineHeight: 1.08, color: "#f8fafc", marginBottom: "24px", letterSpacing: "-.01em" }}>
@@ -311,7 +311,7 @@ useEffect(() => {
           </svg>
         </div>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TICKER */}
+        {/* ---------------------- TICKER */}
         <div style={{ background: "#0a1e32", borderTop: "1px solid rgba(14,165,233,.1)", borderBottom: "1px solid rgba(14,165,233,.1)", padding: "16px 0" }}>
           <div className="ticker-wrap">
             <div className="ticker-inner">
@@ -329,7 +329,7 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ANIMATED STATS */}
+        {/* ---------------------- ANIMATED STATS */}
         <section ref={statsRef} style={{ background: "#0a1e32", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
@@ -353,7 +353,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0a1e32" />
         </svg>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• BENTO GRID */}
+        {/* ---------------------- BENTO GRID */}
         <section style={{ background: "#112a40", padding: "20px 40px 80px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
 
@@ -378,7 +378,7 @@ useEffect(() => {
                         LIVE NOW
                       </span>
                     </div>
-                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#38bdf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>NCLEX-RNÂ®</p>
+                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#38bdf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>NCLEX-RN(R)</p>
                     <h3 className="fd" style={{ fontSize: "clamp(1.6rem,2.5vw,2.2rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "14px" }}>NCLEX-RN<br />Success Tools</h3>
                     <p style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.75, marginBottom: "24px" }}>
                       Adaptive questions across all 8 client needs categories. Full NGN support with Bowtie, Matrix, and SATA formats.
@@ -417,7 +417,7 @@ useEffect(() => {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(248,113,113,.18) 0%,rgba(13,31,53,.92) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "30px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
-                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#f87171", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>CCRNÂ®</p>
+                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#f87171", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>CCRN(R)</p>
                     <h3 className="fd" style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "10px" }}>Critical Care<br />Certification</h3>
                     <p style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.65 }}>ICU-level questions covering cardiovascular, pulmonary, and multisystem critical care.</p>
                   </div>
@@ -458,7 +458,7 @@ useEffect(() => {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(129,140,248,.15) 0%,rgba(13,31,53,.9) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "28px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
-                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#818cf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "6px" }}>NCLEX-PNÂ®</p>
+                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#818cf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "6px" }}>NCLEX-PN(R)</p>
                     <h3 className="fd" style={{ fontSize: "1.3rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "8px" }}>PN Licensure<br />Preparation</h3>
                     <p style={{ fontSize: "13px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.65 }}>Full coverage of all PN client needs with NGN-ready questions.</p>
                   </div>
@@ -476,7 +476,7 @@ useEffect(() => {
                   <div>
                     <p style={{ fontSize: "11px", fontWeight: 700, color: "#34d399", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "5px" }}>Nursing School</p>
                     <h3 className="fd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>School Companion</h3>
-                    <p style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 400, marginTop: "5px" }}>6 core subjects Â· 100% NCLEX aligned</p>
+                    <p style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 400, marginTop: "5px" }}>6 core subjects . 100% NCLEX aligned</p>
                   </div>
                   <Link href="/courses/nursing-school" className="btn-sm" style={{ background: "rgba(52,211,153,.12)", color: "#6ee7b7", border: "1px solid rgba(52,211,153,.25)", alignSelf: "flex-start", marginTop: "12px" }}>
                     Learn more <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -505,7 +505,7 @@ useEffect(() => {
           <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#112a40" />
         </svg>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• WHY US */}
+        {/* ---------------------- WHY US */}
         <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
 
@@ -567,7 +567,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0d2a40" />
         </svg>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• DASHBOARD */}
+        {/* ---------------------- DASHBOARD */}
         <section style={{ background: "#112a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -734,7 +734,7 @@ useEffect(() => {
           <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#112a40" />
         </svg>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TESTIMONIALS */}
+        {/* ---------------------- TESTIMONIALS */}
         <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -746,7 +746,7 @@ useEffect(() => {
                 <div key={t.name} className="bento-card" style={{ padding: "28px", display: "flex", flexDirection: "column" }}>
                   <div style={{ width: "100%", height: "3px", background: t.color, borderRadius: "2px", marginBottom: "20px" }} />
                   <div style={{ display: "flex", gap: "2px", marginBottom: "16px" }}>
-                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "15px" }}>â˜…</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "15px" }}>*</span>)}
                   </div>
                   <p style={{ fontSize: "15px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.75, fontStyle: "italic", flex: 1, marginBottom: "20px" }}>"{t.text}"</p>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,.07)" }}>
@@ -773,7 +773,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0d2a40" />
         </svg>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FINAL CTA */}
+        {/* ---------------------- FINAL CTA */}
         <section style={{ position: "relative", padding: "120px 40px", overflow: "hidden", background: "#112a40" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center", opacity: .14 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,#112a40 0%,rgba(17,42,64,.93) 100%)" }} />
@@ -799,6 +799,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 

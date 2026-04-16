@@ -431,7 +431,7 @@ function QuizPageInner() {
               )}
               {!mode.tutorMode && (
                 <div className="mb-6 rounded-3xl border border-sky-200 bg-sky-50 p-4 text-sky-800">
-                  Timed exam mode is active — {activeQuestions.length} question{activeQuestions.length !== 1 ? "s" : ""}, {activeQuestions.length} minute{activeQuestions.length !== 1 ? "s" : ""}.
+                  Timed exam mode is active -- {activeQuestions.length} question{activeQuestions.length !== 1 ? "s" : ""}, {activeQuestions.length} minute{activeQuestions.length !== 1 ? "s" : ""}.
                 </div>
               )}
 
