@@ -656,3 +656,4 @@ function LegendItem({ tone, label, dark = false }: { tone: string; label: string
 
 
 export default function QuizPage() { return <Suspense fallback={<div style={{minHeight:'100vh',background:'#060f1e'}}/>}><QuizPageInner /></Suspense>; }
+
