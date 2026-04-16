@@ -1,6 +1,5 @@
 ﻿"use client";
 import { Suspense } from "react";
-
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,7 +10,6 @@ import {
   type ExamModeId,
   getExamMode,
 } from "@/lib/quiz-config";
-
 
 type SelectedMap = Record<number, number>;
 type CheckedMap = Record<number, boolean>;
@@ -35,8 +33,6 @@ type ExamHistoryItem = {
   mode: ExamModeId;
 };
 
-const DEFAULT_TIMED_SECONDS = 15 * 60;
-
 function getCorrectAnswer(question: any) {
   if (typeof question?.correct_answer === "number") return question.correct_answer;
   if (typeof question?.correctAnswer === "number") return question.correctAnswer;
@@ -45,50 +41,33 @@ function getCorrectAnswer(question: any) {
 
 function QuizPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [mounted, setMounted] = useState(false);
   const [modeId, setModeId] = useState<ExamModeId>(DEFAULT_MODE_ID);
-  const searchParams = useSearchParams();
   const [questions, setQuestions] = useState<any[]>([]);
   const [questionsLoading, setQuestionsLoading] = useState(true);
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedMap, setSelectedMap] = useState<SelectedMap>({});
   const [checkedMap, setCheckedMap] = useState<CheckedMap>({});
   const [answerRecords, setAnswerRecords] = useState<AnswerRecordMap>({});
   const [flaggedQuestions, setFlaggedQuestions] = useState<number[]>([]);
-  const [timeLeft, setTimeLeft] = useState(DEFAULT_TIMED_SECONDS);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [examFinished, setExamFinished] = useState(false);
 
   useEffect(() => {
     setMounted(true);
 
-    // Fetch questions from Supabase via API
-    fetch(`/api/questions?${searchParams.toString()}`)
-      .then((res) => res.json())
-     .then((json) => {
-        const loaded = json.questions ?? [];
-        setQuestions(loaded);
-        setQuestionsLoading(false);
-        const storedMode2 = localStorage.getItem(STORAGE_KEYS.mode);
-        const resolvedMode2 = getExamMode(storedMode2 as ExamModeId);
-        const savedTimeLeft2 = Number(localStorage.getItem(STORAGE_KEYS.timeLeft));
-        if (resolvedMode2.timerEnabled) {
-          setTimeLeft(savedTimeLeft2 > 0 ? savedTimeLeft2 : loaded.length * 60);
-        }
-      })
-      .catch(() => setQuestionsLoading(false));
+    // Clear any saved timer from previous session
+    localStorage.removeItem(STORAGE_KEYS.timeLeft);
 
     const storedMode = localStorage.getItem(STORAGE_KEYS.mode);
     const resolvedModeId = (storedMode as ExamModeId) || DEFAULT_MODE_ID;
-    const resolvedMode = getExamMode(resolvedModeId);
-
     const savedCurrentIndex = Number(localStorage.getItem(STORAGE_KEYS.currentIndex));
     const savedAnswers = localStorage.getItem(STORAGE_KEYS.answers);
     const savedChecked = localStorage.getItem("quiz_checkedMap");
     const savedReviewRecords = localStorage.getItem("quiz_reviewRecords");
     const savedFlagged = localStorage.getItem(STORAGE_KEYS.flagged);
-    const savedTimeLeft = Number(localStorage.getItem(STORAGE_KEYS.timeLeft));
 
     setModeId(resolvedModeId);
     setCurrentIndex(Number.isFinite(savedCurrentIndex) ? savedCurrentIndex : 0);
@@ -97,16 +76,23 @@ function QuizPageInner() {
     setAnswerRecords(savedReviewRecords ? JSON.parse(savedReviewRecords) : {});
     setFlaggedQuestions(savedFlagged ? JSON.parse(savedFlagged) : []);
 
-    if (resolvedMode.timerEnabled) {
-      setTimeLeft(
-        savedTimeLeft > 0
-          ? savedTimeLeft
-          : resolvedMode.duration ?? DEFAULT_TIMED_SECONDS
-      );
-    } else {
-      setTimeLeft(0);
-    }
-  }, []);
+    // Fetch questions and set timer based on question count
+    fetch(`/api/questions?${searchParams.toString()}`)
+      .then((res) => res.json())
+      .then((json) => {
+        const loaded = json.questions ?? [];
+        setQuestions(loaded);
+        setQuestionsLoading(false);
+        const resolvedMode = getExamMode(resolvedModeId);
+        if (resolvedMode.timerEnabled) {
+          // 1 minute per question
+          setTimeLeft(loaded.length * 60);
+        } else {
+          setTimeLeft(0);
+        }
+      })
+      .catch(() => setQuestionsLoading(false));
+  }, [searchParams]);
 
   const mode = useMemo(() => getExamMode(modeId), [modeId]);
 
@@ -119,9 +105,10 @@ function QuizPageInner() {
   const selected = selectedMap[currentIndex] ?? null;
   const showFeedback = checkedMap[currentIndex] ?? false;
 
+  // Timer countdown
   useEffect(() => {
     if (!mounted || examFinished || !mode.timerEnabled) return;
-    if (timeLeft <= 0) {
+    if (timeLeft <= 0 && activeQuestions.length > 0) {
       finishExam(true);
       return;
     }
@@ -129,8 +116,9 @@ function QuizPageInner() {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, [mounted, timeLeft, examFinished, mode.timerEnabled]);
+  }, [mounted, timeLeft, examFinished, mode.timerEnabled, activeQuestions.length]);
 
+  // Save session state
   useEffect(() => {
     if (!mounted) return;
     localStorage.setItem(STORAGE_KEYS.mode, modeId);
@@ -139,12 +127,7 @@ function QuizPageInner() {
     localStorage.setItem("quiz_checkedMap", JSON.stringify(checkedMap));
     localStorage.setItem("quiz_reviewRecords", JSON.stringify(answerRecords));
     localStorage.setItem(STORAGE_KEYS.flagged, JSON.stringify(flaggedQuestions));
-    if (mode.timerEnabled) {
-      localStorage.setItem(STORAGE_KEYS.timeLeft, String(timeLeft));
-    } else {
-      localStorage.removeItem(STORAGE_KEYS.timeLeft);
-    }
-  }, [mounted, mode.timerEnabled, modeId, currentIndex, selectedMap, checkedMap, answerRecords, flaggedQuestions, timeLeft]);
+  }, [mounted, modeId, currentIndex, selectedMap, checkedMap, answerRecords, flaggedQuestions]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -270,9 +253,7 @@ function QuizPageInner() {
   const finishExam = async (autoSubmitted = false) => {
     const total = activeQuestions.length;
     const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
-    const timeUsed = mode.timerEnabled && mode.duration !== null
-      ? Math.max(0, mode.duration - timeLeft)
-      : 0;
+    const timeUsed = activeQuestions.length * 60 - timeLeft;
 
     const reviewAnswers: ReviewAnswer[] = mode.tutorMode
       ? Object.keys(answerRecords)
@@ -309,36 +290,26 @@ function QuizPageInner() {
       mode: modeId === "timed" || modeId === "quick" || modeId === "tutor" ? modeId : "standard",
       reviewAnswers,
     });
-    // Save to Supabase
+
     try {
       const { createClient } = await import("@/lib/supabase/client");
       const supabaseClient = createClient();
       const { data: { user } } = await supabaseClient.auth.getUser();
-      const { error } = await supabaseClient
-        .from("exam_attempts")
-        .insert([{
-          user_id: user?.id ?? null,
-          exam_type: "NCLEX-RN",
-          mode: modeId,
-          total_questions: total,
-          correct: score,
-          time_used: timeUsed,
-          time_remaining: mode.timerEnabled ? timeLeft : 0,
-          answers: selectedMap,
-          flagged_questions: flaggedQuestions,
-          status: "completed",
-        }]);
-      if (error) console.error("âŒ INSERT ERROR:", error);
-      else console.log("âœ… Attempt saved to Supabase");
+      await supabaseClient.from("exam_attempts").insert([{
+        user_id: user?.id ?? null,
+        exam_type: searchParams.get("examType") ?? "RN",
+        mode: modeId,
+        total_questions: total,
+        correct: score,
+        time_used: timeUsed,
+        time_remaining: mode.timerEnabled ? timeLeft : 0,
+        answers: selectedMap,
+        flagged_questions: flaggedQuestions,
+        status: "completed",
+      }]);
     } catch (err) {
-      console.error("ðŸ’¥ INSERT CRASH:", err);
+      console.error("Save error:", err);
     }
-
-    localStorage.setItem(STORAGE_KEYS.lastAttemptMeta, JSON.stringify({
-      autoSubmitted,
-      completedAt: new Date().toISOString(),
-      mode: modeId,
-    }));
 
     saveLegacyReviewProgress(answerRecords);
     setExamFinished(true);
@@ -351,7 +322,7 @@ function QuizPageInner() {
     setCheckedMap({});
     setAnswerRecords({});
     setFlaggedQuestions([]);
-    setTimeLeft(mode.timerEnabled ? mode.duration ?? DEFAULT_TIMED_SECONDS : 0);
+    setTimeLeft(activeQuestions.length * 60);
     setExamFinished(false);
     localStorage.removeItem("quizReview");
     localStorage.removeItem("quizScore");
@@ -372,11 +343,23 @@ function QuizPageInner() {
   const performanceBadgeClass = performanceTone === "excellent" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : performanceTone === "good" ? "border-sky-200 bg-sky-50 text-sky-700" : performanceTone === "warning" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-rose-200 bg-rose-50 text-rose-700";
   const completionBarClass = performanceTone === "excellent" ? "bg-emerald-500" : performanceTone === "good" ? "bg-sky-500" : performanceTone === "warning" ? "bg-amber-500" : "bg-slate-900";
 
-  if (!mounted || questionsLoading || !currentQuestion) {
+  if (!mounted || questionsLoading) {
     return (
       <main className="px-4 py-8 md:px-8 md:py-10">
         <div className="mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-10 text-center text-slate-900 shadow-xl">
-          {questionsLoading ? "Loading questions..." : "Loading exam workspace..."}
+          Loading questions...
+        </div>
+      </main>
+    );
+  }
+
+  if (!currentQuestion) {
+    return (
+      <main className="px-4 py-8 md:px-8 md:py-10">
+        <div className="mx-auto max-w-4xl rounded-[2rem] border border-slate-200 bg-white p-10 text-center text-slate-900 shadow-xl">
+          <h2 className="text-2xl font-bold mb-4">No questions found</h2>
+          <p className="text-slate-600 mb-6">No questions available for this topic yet.</p>
+          <Link href="/quiz/select" className="rounded-2xl bg-slate-900 px-6 py-3 font-semibold text-white">Back to Course Select</Link>
         </div>
       </main>
     );
@@ -404,6 +387,9 @@ function QuizPageInner() {
                 <Link href="/review" className="rounded-2xl border border-slate-300 bg-white px-5 py-3 text-center font-semibold text-slate-900 transition hover:bg-slate-50">Review Answers</Link>
                 <button onClick={handleRestart} className="rounded-2xl border border-slate-300 bg-slate-50 px-5 py-3 font-semibold text-slate-900 transition hover:bg-slate-100">Restart Exam</button>
               </div>
+              <div className="mt-4">
+                <Link href="/quiz/select" className="block w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-center font-semibold text-slate-700 transition hover:bg-slate-100">Choose Different Course/Topic</Link>
+              </div>
             </div>
           </div>
         </div>
@@ -421,7 +407,8 @@ function QuizPageInner() {
                 <div>
                   <div className="mb-3 flex flex-wrap gap-2">
                     <ModeBadge>{mode.name}</ModeBadge>
-                    <ModeBadge>{mode.tutorMode ? "Guided feedback" : "Exam simulation"}</ModeBadge>
+                    {searchParams.get("examType") && <ModeBadge>{searchParams.get("examType")}</ModeBadge>}
+                    {searchParams.get("topic") && <ModeBadge>{searchParams.get("topic")}</ModeBadge>}
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">NCLEX Practice Workspace</p>
                   <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Question {currentIndex + 1}</h1>
@@ -444,7 +431,7 @@ function QuizPageInner() {
               )}
               {!mode.tutorMode && (
                 <div className="mb-6 rounded-3xl border border-sky-200 bg-sky-50 p-4 text-sky-800">
-                  Timed exam mode is active. You can select answers, navigate the session, and submit when ready.
+                  Timed exam mode is active — {activeQuestions.length} question{activeQuestions.length !== 1 ? "s" : ""}, {activeQuestions.length} minute{activeQuestions.length !== 1 ? "s" : ""}.
                 </div>
               )}
 
@@ -528,8 +515,8 @@ function QuizPageInner() {
                   )}
                   <p className="mt-3 text-sm leading-7 text-slate-700"><span className="font-semibold">Correct answer:</span> {currentQuestion.options[getCorrectAnswer(currentQuestion)]}</p>
                   <p className="mt-3 text-sm leading-7 text-slate-700"><span className="font-semibold">Rationale:</span> {currentQuestion.rationale}</p>
-                  {currentQuestion.nclex_tip && (
-                    <p className="mt-3 text-sm leading-7 text-slate-700"><span className="font-semibold">NCLEX tip:</span> {currentQuestion.nclex_tip}</p>
+                  {currentQuestion.nclexThinkingTip && (
+                    <p className="mt-3 text-sm leading-7 text-slate-700"><span className="font-semibold">NCLEX tip:</span> {currentQuestion.nclexThinkingTip}</p>
                   )}
                 </div>
               )}
@@ -584,6 +571,7 @@ function QuizPageInner() {
               </div>
             </div>
             <div className="mt-6 space-y-3">
+              <Link href="/quiz/select" className="block w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-center font-medium text-slate-800 transition hover:bg-slate-50">Change Topic</Link>
               <button onClick={handleRestart} className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 font-medium text-slate-800 transition hover:bg-slate-50">Restart Exam</button>
               <button onClick={() => finishExam(false)} className="w-full rounded-2xl bg-slate-900 px-4 py-3 font-medium text-white transition hover:opacity-90">Submit Now</button>
               <Link href="/review" className="block w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-center font-medium text-slate-800 transition hover:bg-slate-100">Open Review Page</Link>
@@ -658,12 +646,10 @@ function LegendItem({ tone, label, dark = false }: { tone: string; label: string
   );
 }
 
-
-
-
-
-export default function QuizPage() { return <Suspense fallback={<div style={{minHeight:'100vh',background:'#060f1e'}}/>}><QuizPageInner /></Suspense>; }
-
-
-
-
+export default function QuizPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: "100vh", background: "#060f1e" }} />}>
+      <QuizPageInner />
+    </Suspense>
+  );
+}
