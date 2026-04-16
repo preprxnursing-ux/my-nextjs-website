@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
@@ -203,8 +203,8 @@ const testimonials = [
 
 export default function HomePage() {
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
-    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
+    const supabase = createClient(); supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
+    const { data: listener } = createClient().auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
     return () => listener.subscription.unsubscribe();
   }, []);
   const [user, setUser] = useState<any>(null);
@@ -231,8 +231,7 @@ export default function HomePage() {
 
 useEffect(() => {
     const fetchLatest = async () => {
-      if (!supabase) return;
-      const { data } = await supabase
+      const supabase = createClient(); if (!supabase) return; const { data } = await supabase
         .from("exam_attempts")
         .select("*")
         .order("created_at", { ascending: false })
@@ -800,6 +799,10 @@ useEffect(() => {
     </>
   );
 }
+
+
+
+
 
 
 
