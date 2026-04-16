@@ -35,11 +35,6 @@ const navStyle = `
   }
   .nav-dropdown { animation: dropIn .18s ease both; }
 
-  @media (max-width: 768px) {
-    #desktop-nav { display: none !important; }
-    .mobile-hamburger { display: flex !important; }
-    .nav-right-desktop { display: none !important; }
-  }
   .nav-btn {
     display: inline-flex;
     align-items: center;
@@ -399,15 +394,6 @@ export default function Navbar() {
             <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={130} height={34} style={{ objectFit: "contain" }} />
           </Link>
 
-          {/* HAMBURGER - mobile only */}
-          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "8px" }}>
-            <button
-              onClick={() => setMobileOpen(prev => !prev)}
-              style={{ display: "none", alignItems: "center", justifyContent: "center", width: "36px", height: "36px", borderRadius: "8px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer", color: "#94a3b8" }}
-              className="mobile-hamburger">
-              {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
-            </button>
-          </div>
           {/* DESKTOP NAV */}
           <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "1px", flex: 1, justifyContent: "center" }}>
 
@@ -661,5 +647,3 @@ export default function Navbar() {
     </>
   );
 }
-
-
