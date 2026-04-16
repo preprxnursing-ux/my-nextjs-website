@@ -194,3 +194,16 @@ section, header, footer, main {
   max-width: 100vw !important;
 }
 
+
+/* -- Force Navbar Above All Content -- */
+header {
+  z-index: 9999 !important;
+  position: sticky !important;
+}
+header * {
+  z-index: inherit;
+}
+.nav-dropdown, [class*="nav-dropdown"] {
+  z-index: 99999 !important;
+}
+
