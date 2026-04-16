@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const examsCovered = [
@@ -8,7 +8,7 @@ const examsCovered = [
     color: "#8b5cf6",
     bg: "#f5f3ff",
     border: "#ddd6fe",
-    icon: "🩺",
+    icon: "ðŸ©º",
     sections: [
       {
         name: "Health Promotion and Disease Prevention",
@@ -50,7 +50,7 @@ const examsCovered = [
     color: "#6366f1",
     bg: "#eef2ff",
     border: "#c7d2fe",
-    icon: "👨‍⚕️",
+    icon: "ðŸ‘¨â€âš•ï¸",
     sections: [
       {
         name: "Adult Health",
@@ -101,7 +101,7 @@ export default async function NursePractitionerPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-2xl">
-              🩺
+              ðŸ©º
             </div>
             <div>
               <p className="text-xs font-bold text-violet-400 uppercase tracking-widest">
@@ -123,10 +123,10 @@ export default async function NursePractitionerPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=NP" : "/auth/signup"}
               className="bg-violet-500 hover:bg-violet-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising â†’" : "Get notified â†’"}
             </Link>
             <Link
               href="/pricing"
@@ -260,7 +260,7 @@ export default async function NursePractitionerPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "⏱️",
+                icon: "â±ï¸",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate real certification exam pressure. Build the speed and stamina NP exams demand.",
@@ -268,7 +268,7 @@ export default async function NursePractitionerPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "🧠",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Detailed rationales after every question. Understand the advanced clinical reasoning behind each answer.",
@@ -276,7 +276,7 @@ export default async function NursePractitionerPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "⚡",
+                icon: "âš¡",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints to stay sharp between clinical rotations and study sessions.",
@@ -319,7 +319,7 @@ export default async function NursePractitionerPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-violet-500 hover:bg-violet-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free â†’"}
             </Link>
             <Link
               href="/courses/nclex-rn"

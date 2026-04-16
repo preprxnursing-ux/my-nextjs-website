@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const examCovered = [
@@ -8,7 +8,7 @@ const examCovered = [
     color: "#f59e0b",
     bg: "#fffbeb",
     border: "#fde68a",
-    icon: "📚",
+    icon: "ðŸ“š",
     sections: [
       {
         name: "Reading",
@@ -50,7 +50,7 @@ const examCovered = [
     color: "#10b981",
     bg: "#ecfdf5",
     border: "#a7f3d0",
-    icon: "🩺",
+    icon: "ðŸ©º",
     sections: [
       {
         name: "Reading Comprehension",
@@ -125,7 +125,7 @@ export default async function PreNursingPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-2xl">
-              📚
+              ðŸ“š
             </div>
             <div>
               <p className="text-xs font-bold text-amber-400 uppercase tracking-widest">
@@ -147,10 +147,10 @@ export default async function PreNursingPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=TEAS" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising â†’" : "Get notified â†’"}
             </Link>
             <Link
               href="/pricing"
@@ -293,7 +293,7 @@ export default async function PreNursingPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "⏱️",
+                icon: "â±ï¸",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate real exam conditions. Build the speed and stamina both entrance exams demand.",
@@ -301,7 +301,7 @@ export default async function PreNursingPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "🧠",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Get instant feedback after every question with full rationales so you truly understand the material.",
@@ -309,7 +309,7 @@ export default async function PreNursingPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "⚡",
+                icon: "âš¡",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints for daily practice. Keep your knowledge fresh between study sessions.",
@@ -352,7 +352,7 @@ export default async function PreNursingPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free â†’"}
             </Link>
             <Link
               href="/courses/nclex-rn"

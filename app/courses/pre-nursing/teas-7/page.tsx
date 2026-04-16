@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const fontStyle = `
@@ -129,7 +129,7 @@ const studyPlan = [
     color: "#10b981",
     tasks: [
       "Dosage calculations daily -- at least 20 problems per day.",
-      "Unit conversions: metric ↔ imperial, military time, Roman numerals.",
+      "Unit conversions: metric â†” imperial, military time, Roman numerals.",
       "Ratio and proportion word problems.",
       "Data interpretation: graphs, tables, and basic statistics.",
     ],
@@ -186,7 +186,7 @@ export default async function TEAS7Page() {
       <style>{fontStyle}</style>
       <main style={{ background: "#f6f8fc", minHeight: "100vh" }}>
 
-        {/* ── HERO ── */}
+        {/* â”€â”€ HERO â”€â”€ */}
         <section style={{ background: "linear-gradient(160deg,#1a1200 0%,#2d1f00 50%,#1a2d10 100%)", padding: "80px 40px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center", opacity: .1 }} />
           <div style={{ position: "absolute", top: "-80px", right: "8%", width: "500px", height: "500px", background: "radial-gradient(circle,rgba(245,158,11,.14) 0%,transparent 65%)", pointerEvents: "none" }} />
@@ -198,7 +198,7 @@ export default async function TEAS7Page() {
               <Link href="/courses/pre-nursing" style={{ fontSize: "13px", color: "#78716c", textDecoration: "none", fontWeight: 500, transition: "color .15s" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#fbbf24")}
                 onMouseLeave={e => (e.currentTarget.style.color = "#78716c")}>Pre-Nursing</Link>
-              <span style={{ color: "#57534e", fontSize: "13px" }}>›</span>
+              <span style={{ color: "#57534e", fontSize: "13px" }}>â€º</span>
               <span style={{ fontSize: "13px", color: "#fbbf24", fontWeight: 600 }}>TEAS 7 Deep Dive</span>
             </div>
 
@@ -216,7 +216,7 @@ export default async function TEAS7Page() {
                   The definitive breakdown of every TEAS 7 section -- Reading, Mathematics, Science, and English -- with 2026 score requirements, topic-by-topic content guides, a 6-week study plan, and strategy tips from nurses who scored in the 90th percentile.
                 </p>
                 <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                  <Link href={user ? "/quiz" : "/auth/signup"}
+                  <Link href={user ? "/quiz/select?examType=TEAS" : "/auth/signup"}
                     style={{ background: "#f59e0b", color: "#1c1400", padding: "14px 28px", borderRadius: "12px", fontSize: "14px", fontWeight: 800, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", boxShadow: "0 8px 24px rgba(245,158,11,.35)", transition: "all .2s" }}
                     onMouseEnter={e => { e.currentTarget.style.background = "#fbbf24"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.background = "#f59e0b"; e.currentTarget.style.transform = "translateY(0)"; }}>
@@ -233,7 +233,7 @@ export default async function TEAS7Page() {
                     style={{ background: "rgba(255,255,255,.07)", color: "#e7e5e4", border: "1px solid rgba(255,255,255,.14)", padding: "14px 28px", borderRadius: "12px", fontSize: "14px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}
                     onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.13)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                    Compare with HESI A2 →
+                    Compare with HESI A2 â†’
                   </Link>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export default async function TEAS7Page() {
 
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "60px 40px" }}>
 
-          {/* ── SECTION OVERVIEW ── */}
+          {/* â”€â”€ SECTION OVERVIEW â”€â”€ */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#d97706", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Exam Structure</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -366,7 +366,7 @@ export default async function TEAS7Page() {
             </div>
           </section>
 
-          {/* ── SCORE LEVELS ── */}
+          {/* â”€â”€ SCORE LEVELS â”€â”€ */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#d97706", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Scoring</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -418,7 +418,7 @@ export default async function TEAS7Page() {
             </div>
           </section>
 
-          {/* ── 6-WEEK STUDY PLAN ── */}
+          {/* â”€â”€ 6-WEEK STUDY PLAN â”€â”€ */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#d97706", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Study Plan</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -459,7 +459,7 @@ export default async function TEAS7Page() {
             </div>
           </section>
 
-          {/* ── RETAKE RULES ── */}
+          {/* â”€â”€ RETAKE RULES â”€â”€ */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#d97706", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Retake Policy</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "24px" }}>
@@ -489,7 +489,7 @@ export default async function TEAS7Page() {
             </div>
           </section>
 
-          {/* ── CTA ── */}
+          {/* â”€â”€ CTA â”€â”€ */}
           <section style={{ background: "linear-gradient(160deg,#1a1200 0%,#2d1f00 60%,#1a2800 100%)", borderRadius: "24px", padding: "60px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "500px", height: "500px", background: "radial-gradient(circle,rgba(245,158,11,.12) 0%,transparent 65%)", pointerEvents: "none" }} />
             <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80')`, backgroundSize: "cover", backgroundPosition: "center", opacity: .07 }} />
@@ -502,17 +502,17 @@ export default async function TEAS7Page() {
                 Start practising with real TEAS 7 style questions -- Reading, Maths, Science, and English -- all with full rationales. Free to begin, no credit card needed.
               </p>
               <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
-                <Link href={user ? "/quiz" : "/auth/signup"}
+                <Link href={user ? "/quiz/select?examType=TEAS" : "/auth/signup"}
                   style={{ background: "#f59e0b", color: "#1c1400", padding: "16px 36px", borderRadius: "13px", fontSize: "15px", fontWeight: 800, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", boxShadow: "0 8px 28px rgba(245,158,11,.35)", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#fbbf24"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#f59e0b"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {user ? "Go to practice questions →" : "Start free -- no card needed →"}
+                  {user ? "Go to practice questions â†’" : "Start free -- no card needed â†’"}
                 </Link>
                 <Link href="/courses/pre-nursing/hesi-a2"
                   style={{ background: "rgba(255,255,255,.08)", color: "#e7e5e4", border: "1px solid rgba(255,255,255,.15)", padding: "16px 32px", borderRadius: "13px", fontSize: "15px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.14)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.08)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  Compare with HESI A2 →
+                  Compare with HESI A2 â†’
                 </Link>
               </div>
             </div>

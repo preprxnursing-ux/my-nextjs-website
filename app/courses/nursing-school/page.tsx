@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const topicAreas = [
@@ -108,7 +108,7 @@ export default async function NursingSchoolPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-2xl">
-              🎓
+              ðŸŽ“
             </div>
             <div>
               <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest">
@@ -130,10 +130,10 @@ export default async function NursingSchoolPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=NURSING_SCHOOL" : "/auth/signup"}
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising â†’" : "Get notified â†’"}
             </Link>
             <Link
               href="/pricing"
@@ -259,7 +259,7 @@ export default async function NursingSchoolPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "⏱️",
+                icon: "â±ï¸",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate nursing school exam pressure with a countdown timer. Build speed and accuracy.",
@@ -267,7 +267,7 @@ export default async function NursingSchoolPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "🧠",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "See the rationale immediately after each question. Understand the clinical reasoning behind every answer.",
@@ -275,7 +275,7 @@ export default async function NursingSchoolPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "⚡",
+                icon: "âš¡",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints between classes. Keep content fresh without needing a full study session.",
@@ -318,7 +318,7 @@ export default async function NursingSchoolPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free →"}
+              {user ? "Go to dashboard" : "Sign up for free â†’"}
             </Link>
             <Link
               href="/courses/nclex-rn"

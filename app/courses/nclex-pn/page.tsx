@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const clientNeeds = [
@@ -143,7 +143,7 @@ export default async function NCLEXPNPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-2xl">
-              📋
+              ðŸ“‹
             </div>
             <div>
               <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest">
@@ -165,10 +165,10 @@ export default async function NCLEXPNPage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=PN" : "/auth/signup"}
               className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Get notified →"}
+              {user ? "Start practising â†’" : "Get notified â†’"}
             </Link>
             <Link
               href="/pricing"
@@ -299,7 +299,7 @@ export default async function NCLEXPNPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "⏱️",
+                icon: "â±ï¸",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate real exam conditions with a countdown timer. Build the mental endurance the NCLEX-PN demands.",
@@ -307,7 +307,7 @@ export default async function NCLEXPNPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "🧠",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Get instant feedback after every question. Read the rationale, understand why, then move forward confidently.",
@@ -315,7 +315,7 @@ export default async function NCLEXPNPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "⚡",
+                icon: "âš¡",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints for daily practice. Perfect for building momentum and keeping knowledge sharp.",
@@ -354,7 +354,7 @@ export default async function NCLEXPNPage() {
               href="/courses/nclex-rn"
               className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              Try NCLEX-RN instead →
+              Try NCLEX-RN instead â†’
             </Link>
             <Link
               href={user ? "/dashboard" : "/auth/signup"}
