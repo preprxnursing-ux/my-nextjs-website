@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const clientNeeds = [
@@ -10,7 +10,7 @@ const clientNeeds = [
     subcategories: [
       {
         name: "Management of Care",
-        weight: "15–21%",
+        weight: "15â€“21%",
         topics: [
           "Advance directives", "Advocacy", "Case management",
           "Client rights", "Collaboration", "Confidentiality",
@@ -21,7 +21,7 @@ const clientNeeds = [
       },
       {
         name: "Safety and Infection Control",
-        weight: "9–15%",
+        weight: "9â€“15%",
         topics: [
           "Accident prevention", "Error prevention", "Ergonomic principles",
           "Handling hazardous materials", "Home safety", "Reporting incidents",
@@ -39,7 +39,7 @@ const clientNeeds = [
     subcategories: [
       {
         name: "Health Promotion",
-        weight: "6–12%",
+        weight: "6â€“12%",
         topics: [
           "Ante/intra/postpartum care", "Developmental stages",
           "Family planning", "Growth and development",
@@ -57,7 +57,7 @@ const clientNeeds = [
     subcategories: [
       {
         name: "Psychosocial Integrity",
-        weight: "6–12%",
+        weight: "6â€“12%",
         topics: [
           "Abuse and neglect", "Behavioural interventions",
           "Chemical dependency", "Coping mechanisms", "Crisis intervention",
@@ -76,7 +76,7 @@ const clientNeeds = [
     subcategories: [
       {
         name: "Basic Care and Comfort",
-        weight: "6–12%",
+        weight: "6â€“12%",
         topics: [
           "Assistive devices", "Elimination", "Mobility",
           "Non-pharmacological comfort", "Nutrition", "Oral hygiene",
@@ -85,7 +85,7 @@ const clientNeeds = [
       },
       {
         name: "Pharmacological Therapies",
-        weight: "12–18%",
+        weight: "12â€“18%",
         topics: [
           "Adverse effects", "Blood products", "Central venous access",
           "Dosage calculations", "Expected effects", "Medication administration",
@@ -95,7 +95,7 @@ const clientNeeds = [
       },
       {
         name: "Reduction of Risk Potential",
-        weight: "9–15%",
+        weight: "9â€“15%",
         topics: [
           "Changes in vital signs", "Diagnostic tests", "Lab values",
           "Pathophysiology", "Potential complications",
@@ -104,7 +104,7 @@ const clientNeeds = [
       },
       {
         name: "Physiological Adaptation",
-        weight: "11–17%",
+        weight: "11â€“17%",
         topics: [
           "Alterations in body systems", "Fluid imbalances",
           "Haemodynamics", "Illness management",
@@ -118,7 +118,7 @@ const clientNeeds = [
 
 const examFacts = [
   { label: "Question format", value: "Next Generation NCLEX (NGN)" },
-  { label: "Total questions", value: "85–150 items" },
+  { label: "Total questions", value: "85â€“150 items" },
   { label: "Time limit", value: "5 hours" },
   { label: "Passing standard", value: "Logit score based" },
   { label: "Question types", value: "MCQ, SATA, Bowtie, Matrix" },
@@ -145,11 +145,11 @@ export default async function NCLEXRNPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-2xl">
-              🏥
+              ðŸ¥
             </div>
             <div>
               <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-                NCLEX-RN®
+                NCLEX-RNÂ®
               </p>
               <span className="text-xs font-semibold bg-cyan-500 text-white px-2 py-0.5 rounded-full">
                 Live Now
@@ -163,14 +163,14 @@ export default async function NCLEXRNPage() {
           <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
             Master clinical reasoning with questions built around all 8 NCLEX
             client needs categories. Our platform prepares you to think like a
-            nurse — not just memorise answers.
+            nurse â€” not just memorise answers.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
               className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising →" : "Start free today →"}
+              {user ? "Start practising â†’" : "Start free today â†’"}
             </Link>
             <Link
               href="/pricing"
@@ -208,7 +208,7 @@ export default async function NCLEXRNPage() {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">3</p>
             <p className="text-sm text-slate-600 mt-1 font-medium">Exam modes</p>
-            <p className="text-xs text-slate-400 mt-1">Timed · Tutor · Quick</p>
+            <p className="text-xs text-slate-400 mt-1">Timed Â· Tutor Â· Quick</p>
           </div>
           <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
             <p className="text-4xl font-bold text-slate-900">8</p>
@@ -227,7 +227,7 @@ export default async function NCLEXRNPage() {
               licensed registered nurses in the United States and Canada.
             </p>
             <p>
-              The exam uses <strong className="text-slate-800">Computer Adaptive Testing (CAT)</strong> —
+              The exam uses <strong className="text-slate-800">Computer Adaptive Testing (CAT)</strong> â€”
               meaning the difficulty of each question adjusts based on your previous answers.
               The 2024 Next Generation NCLEX (NGN) introduced new question formats including
               Bowtie, Matrix, and Extended Drag-and-Drop items that test clinical judgement more deeply.
@@ -302,7 +302,7 @@ export default async function NCLEXRNPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "⏱️",
+                icon: "â±ï¸",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate real exam conditions with a countdown timer. Build the mental endurance NCLEX demands.",
@@ -310,7 +310,7 @@ export default async function NCLEXRNPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "🧠",
+                icon: "ðŸ§ ",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Get instant feedback after every question. Read the rationale, understand why, then move forward with confidence.",
@@ -318,7 +318,7 @@ export default async function NCLEXRNPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "⚡",
+                icon: "âš¡",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints for daily practice. Perfect for building momentum and keeping your knowledge sharp.",
@@ -354,10 +354,10 @@ export default async function NCLEXRNPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link
-              href={user ? "/quiz" : "/auth/signup"}
+              href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
               className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to Quiz →" : "Start free →"}
+              {user ? "Go to Quiz â†’" : "Start free â†’"}
             </Link>
             <Link
               href="/pricing"
