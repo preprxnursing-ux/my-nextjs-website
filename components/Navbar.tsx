@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,12 +8,12 @@ import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 const courseItems = [
-  { exam: "Pre-Nursing", title: "TEAS 7 & HESI A2 Success Toolkit", color: "#f59e0b", href: "/courses/pre-nursing", available: false, tag: "TEAS 7 · HESI A2 entrance exams" },
+  { exam: "Pre-Nursing", title: "TEAS 7 & HESI A2 Success Toolkit", color: "#f59e0b", href: "/courses/pre-nursing", available: false, tag: "TEAS 7 Â· HESI A2 entrance exams" },
   { exam: "Nursing School", title: "Your Nursing School Companion", color: "#10b981", href: "/courses/nursing-school", available: false, tag: "Fundamentals to advanced topics" },
-  { exam: "NCLEX-RN®", title: "NCLEX-RN Success Tools", color: "#0ea5e9", href: "/courses/nclex-rn", available: true, tag: "3,100+ questions · All 8 categories" },
-  { exam: "NCLEX-PN®", title: "Effective NCLEX-PN Prep", color: "#6366f1", href: "/courses/nclex-pn", available: false, tag: "Full PN test plan coverage" },
-  { exam: "Nurse Practitioner", title: "Expert NP Exam Resources", color: "#8b5cf6", href: "/courses/nurse-practitioner", available: false, tag: "FNP · AGPCNP certification prep" },
-  { exam: "CCRN®", title: "Essential CCRN Success Resources", color: "#ef4444", href: "/courses/ccrn", available: false, tag: "ICU-level critical care prep" },
+  { exam: "NCLEX-RNÂ®", title: "NCLEX-RN Success Tools", color: "#0ea5e9", href: "/courses/nclex-rn", available: true, tag: "3,100+ questions Â· All 8 categories" },
+  { exam: "NCLEX-PNÂ®", title: "Effective NCLEX-PN Prep", color: "#6366f1", href: "/courses/nclex-pn", available: false, tag: "Full PN test plan coverage" },
+  { exam: "Nurse Practitioner", title: "Expert NP Exam Resources", color: "#8b5cf6", href: "/courses/nurse-practitioner", available: false, tag: "FNP Â· AGPCNP certification prep" },
+  { exam: "CCRNÂ®", title: "Essential CCRN Success Resources", color: "#ef4444", href: "/courses/ccrn", available: false, tag: "ICU-level critical care prep" },
 ];
 
 const appLinks = [
@@ -95,7 +95,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     { title: "Performance Dashboard", desc: "Track every attempt, spot weak topics, measure improvement", color: "#10b981", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
     { title: "Flag & Review System", desc: "Flag tough questions and study them with full breakdowns", color: "#f59e0b", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>) },
     { title: "Adaptive Timer", desc: "Build mental endurance NCLEX demands with real timed pressure", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
-    { title: "AI Tutor — Coming Soon", desc: "Personalised study plans that adapt to where you struggle", color: "#c084fc", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
+    { title: "AI Tutor â€” Coming Soon", desc: "Personalised study plans that adapt to where you struggle", color: "#c084fc", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
   ];
 
   return (
@@ -105,7 +105,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -134,7 +134,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             <div style={{ margin: "0 10px 10px", padding: "14px 18px", background: "linear-gradient(135deg,rgba(14,165,233,.07) 0%,rgba(139,92,246,.05) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>See every feature in detail</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Interactive demos · Comparison table · Full breakdown</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Interactive demos Â· Comparison table Â· Full breakdown</p>
               </div>
               <Link href="/features"
                 style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
@@ -174,15 +174,15 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 50, paddingTop: "10px", width: "580px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.07)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Student Stories</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 500 }}>Real nurses · Real results · Verified</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 500 }}>Real nurses Â· Real results Â· Verified</p>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "4px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", borderRadius: "100px", padding: "5px 12px" }}>
-                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>★</span>)}
+                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>â˜…</span>)}
                 <span style={{ fontSize: "11px", color: "#92400e", fontWeight: 800, marginLeft: "4px" }}>4.9</span>
               </div>
             </div>
@@ -206,14 +206,14 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px", transition: "background .3s ease" }} />
                   <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>
-                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>★</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>â˜…</span>)}
                   </div>
                   <p style={{ fontSize: "13px", color: "#334155", fontStyle: "italic", lineHeight: 1.8, marginBottom: "16px", fontWeight: 500 }}>"{active.quote}"</p>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}15`, border: `2px solid ${active.color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0 }}>{active.initials}</div>
                     <div style={{ flex: 1 }}>
                       <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{active.name}</p>
-                      <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>{active.exam} · {active.attempt}</p>
+                      <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>{active.exam} Â· {active.attempt}</p>
                     </div>
                     <span style={{ fontSize: "10px", fontWeight: 700, background: `${active.color}12`, color: active.color, border: `1px solid ${active.color}30`, padding: "5px 12px", borderRadius: "100px", whiteSpace: "nowrap" }}>{active.score}</span>
                   </div>
@@ -224,14 +224,14 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(14,165,233,.05)"; e.currentTarget.style.transform = "translateY(0)"; }}>
                   <div>
                     <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Read all 22+ stories</p>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>NCLEX-RN · NCLEX-PN · Nursing School</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>NCLEX-RN Â· NCLEX-PN Â· Nursing School</p>
                   </div>
                   <svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </Link>
               </div>
             </div>
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
-              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9★", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
+              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9â˜…", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
                   <p style={{ fontSize: "14px", fontWeight: 800, color: s.color, margin: "0 0 2px" }}>{s.val}</p>
                   <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 600 }}>{s.label}</p>
@@ -252,8 +252,8 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
 
   const people = [
-    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80", topics: "Platform · Courses · Account", response: "Within 4 hours" },
-    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&q=80", topics: "Partnerships · Media · Strategy", response: "Within 24 hours" },
+    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80", topics: "Platform Â· Courses Â· Account", response: "Within 4 hours" },
+    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&q=80", topics: "Partnerships Â· Media Â· Strategy", response: "Within 24 hours" },
   ];
 
   return (
@@ -263,12 +263,12 @@ function ContactDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 50, paddingTop: "10px", width: "480px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "480px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Talk to a real person</p>
-                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>No bots · Real humans · Fast responses</p>
+                <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>No bots Â· Real humans Â· Fast responses</p>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(34,197,94,.08)", border: "1px solid rgba(34,197,94,.2)", borderRadius: "100px", padding: "5px 12px" }}>
                 <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e" }} />
@@ -293,7 +293,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                       <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
-                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>⏱ {p.response}</p>
+                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>â± {p.response}</p>
                   </div>
                   <a href={`mailto:${p.email}`}
                     style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0 }}
@@ -314,7 +314,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                Contact page →
+                Contact page â†’
               </Link>
             </div>
           </div>
@@ -384,7 +384,7 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "linear-gradient(to bottom,#0a1929 0%,#0d1f35 100%)", borderBottom: "1px solid rgba(14,165,233,.12)", backdropFilter: "blur(12px)" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "linear-gradient(to bottom,#0a1929 0%,#0d1f35 100%)", borderBottom: "1px solid rgba(14,165,233,.12)", backdropFilter: "blur(12px)" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 20px", height: "60px", gap: "8px" }}>
 
           {/* LOGO */}
@@ -404,7 +404,7 @@ export default function Navbar() {
                 <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
               {coursesOpen && (
-                <div className="nav-dropdown" style={{ position: "absolute", left: 0, top: "100%", zIndex: 50, paddingTop: "10px", width: "720px" }}
+                <div className="nav-dropdown" style={{ position: "absolute", left: 0, top: "100%", zIndex: 1001, paddingTop: "10px", width: "720px" }}
                   onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
                   <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
                     <div style={{ padding: "12px 18px", borderBottom: "1px solid rgba(0,0,0,.07)", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(14,165,233,.04)" }}>
@@ -412,7 +412,7 @@ export default function Navbar() {
                         <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9" }} />
                         <span style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".18em", textTransform: "uppercase" }}>Certification Paths</span>
                       </div>
-                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all →</Link>
+                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all â†’</Link>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", padding: "12px" }}>
                       {courseItems.map((course, i) => {
@@ -442,10 +442,10 @@ export default function Navbar() {
                     </div>
                     <div style={{ margin: "0 12px 12px", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <div>
-                        <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN — it's free</p>
-                        <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 500 }}>No credit card · No commitment · Live now</p>
+                        <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN â€” it's free</p>
+                        <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 500 }}>No credit card Â· No commitment Â· Live now</p>
                       </div>
-                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free →</Link>
+                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free â†’</Link>
                     </div>
                   </div>
                 </div>
@@ -486,7 +486,7 @@ export default function Navbar() {
                 <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
               {moreOpen && (
-                <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+                <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
                   <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0 }}>More from Pre-NCLEX Nursing</p>
                     <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(14,165,233,.1)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.2)", padding: "3px 10px", borderRadius: "100px" }}>Resources</span>
@@ -515,13 +515,13 @@ export default function Navbar() {
                   <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <div>
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
-                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free · No credit card · Live now</p>
+                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free Â· No credit card Â· Live now</p>
                     </div>
                     <Link href="/auth/signup"
                       style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                       onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                      Get started →
+                      Get started â†’
                     </Link>
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export default function Navbar() {
                 {avatarOpen && (
                   <>
                     <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setAvatarOpen(false)} />
-                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 20, marginTop: "8px", width: "200px", background: "linear-gradient(160deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
+                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "200px", background: "linear-gradient(160deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
                       <div style={{ padding: "12px 14px", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
                         <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>Signed in as</p>
                         <p style={{ fontSize: "12px", fontWeight: 600, color: "#e2e8f0", margin: "3px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
@@ -647,3 +647,5 @@ export default function Navbar() {
     </>
   );
 }
+
+
