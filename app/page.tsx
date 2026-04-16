@@ -279,10 +279,7 @@ useEffect(() => {
               </p>
 
               <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "48px" }}>
-                <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-primary">
-                  Start free today
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </Link>
+                {!user && (<Link href="/auth/signup" className="btn-primary">Start free today<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>)}
                 <Link href="/courses" className="btn-outline">Explore courses</Link>
                 <Link href="/quiz" className="btn-dark">Try a question</Link>
               </div>
@@ -404,7 +401,7 @@ useEffect(() => {
                         Start practising
                         <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                       </Link>
-                      <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-dark" style={{ fontSize: "13px", padding: "11px 20px" }}>Free trial</Link>
+                      {!user && <Link href="/auth/signup" className="btn-dark" style={{ fontSize: "13px", padding: "11px 20px" }}>Free trial</Link>}
                     </div>
                   </div>
                 </div>
@@ -791,10 +788,7 @@ useEffect(() => {
               Join thousands of nursing students who chose a smarter way to prepare. No credit card. No commitment. Just results.
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
-              <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-primary" style={{ fontSize: "16px", padding: "17px 38px" }}>
-                Start free today
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </Link>
+              {!user && (<Link href="/auth/signup" className="btn-primary" style={{ fontSize: "16px", padding: "17px 38px" }}>Start free today<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></Link>)}
               <Link href="/pricing" className="btn-outline" style={{ fontSize: "16px", padding: "17px 34px" }}>
                 View pricing
               </Link>
@@ -806,6 +800,12 @@ useEffect(() => {
     </>
   );
 }
+
+
+
+
+
+
 
 
 
