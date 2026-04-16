@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState, useRef } from "react";
@@ -202,6 +202,17 @@ const testimonials = [
 ];
 
 export default function HomePage() {
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
+    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
+    return () => listener.subscription.unsubscribe();
+  }, []);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setUser(data.session?.user ?? null));
+    const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => setUser(session?.user ?? null));
+    return () => listener.subscription.unsubscribe();
+  }, []);
+  const [user, setUser] = useState<any>(null);
   const [latestScore, setLatestScore] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
@@ -245,7 +256,7 @@ useEffect(() => {
       <style>{fontStyle}</style>
       <main style={{ background: "#0d2137", minHeight: "100vh", color: "#f1f5f9" }}>
 
-        {/* ══════════════════════ HERO */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO */}
         <section style={{ position: "relative", minHeight: "96vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>
 
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center right", opacity: .13 }} />
@@ -260,7 +271,7 @@ useEffect(() => {
             <div style={{ maxWidth: "680px" }}>
               <div className="live-badge" style={{ marginBottom: "28px" }}>
                 <span className="live-dot" />
-                NCLEX-RN · Live Now
+                NCLEX-RN Â· Live Now
               </div>
 
               <h1 className="fd" style={{ fontSize: "clamp(3rem,6vw,5.2rem)", fontWeight: 700, lineHeight: 1.08, color: "#f8fafc", marginBottom: "24px", letterSpacing: "-.01em" }}>
@@ -269,11 +280,11 @@ useEffect(() => {
               </h1>
 
               <p style={{ fontSize: "clamp(1rem,1.4vw,1.15rem)", color: "#94a3b8", fontWeight: 400, lineHeight: 1.8, marginBottom: "40px", maxWidth: "520px" }}>
-                The most advanced nursing exam platform. Adaptive questions, deep clinical rationales, and real exam simulation — built by licensed RNs for nurses who pass on the first try.
+                The most advanced nursing exam platform. Adaptive questions, deep clinical rationales, and real exam simulation â€” built by licensed RNs for nurses who pass on the first try.
               </p>
 
               <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "48px" }}>
-                <Link href="/auth/signup" className="btn-primary">
+                <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-primary">
                   Start free today
                   <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </Link>
@@ -288,7 +299,7 @@ useEffect(() => {
                   { text: "Live in under 60 seconds" },
                 ].map(t => (
                   <div key={t.text} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#64748b", fontWeight: 500 }}>
-                    <span style={{ color: "#0ea5e9", fontWeight: 800, fontSize: "15px" }}>✓</span>
+                    <span style={{ color: "#0ea5e9", fontWeight: 800, fontSize: "15px" }}>âœ“</span>
                     {t.text}
                   </div>
                 ))}
@@ -309,13 +320,13 @@ useEffect(() => {
           </svg>
         </div>
 
-        {/* ══════════════════════ TICKER */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TICKER */}
         <div style={{ background: "#0a1e32", borderTop: "1px solid rgba(14,165,233,.1)", borderBottom: "1px solid rgba(14,165,233,.1)", padding: "16px 0" }}>
           <div className="ticker-wrap">
             <div className="ticker-inner">
               {[...Array(2)].map((_, ri) => (
                 <span key={ri} style={{ display: "inline-flex" }}>
-                  {["98% first-attempt pass rate","50,000+ students preparing","3,100+ practice questions","6 certification paths","Built by licensed RNs","Free to start — no credit card","Adaptive CAT exam simulation","Full NGN question support"].map(t => (
+                  {["98% first-attempt pass rate","50,000+ students preparing","3,100+ practice questions","6 certification paths","Built by licensed RNs","Free to start â€” no credit card","Adaptive CAT exam simulation","Full NGN question support"].map(t => (
                     <span key={t} className="ticker-item">
                       <span className="ticker-dot" />
                       {t}
@@ -327,7 +338,7 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* ══════════════════════ ANIMATED STATS */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ANIMATED STATS */}
         <section ref={statsRef} style={{ background: "#0a1e32", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "20px" }}>
@@ -351,7 +362,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0a1e32" />
         </svg>
 
-        {/* ══════════════════════ BENTO GRID */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• BENTO GRID */}
         <section style={{ background: "#112a40", padding: "20px 40px 80px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
 
@@ -376,7 +387,7 @@ useEffect(() => {
                         LIVE NOW
                       </span>
                     </div>
-                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#38bdf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>NCLEX-RN®</p>
+                    <p style={{ fontSize: "12px", fontWeight: 700, color: "#38bdf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>NCLEX-RNÂ®</p>
                     <h3 className="fd" style={{ fontSize: "clamp(1.6rem,2.5vw,2.2rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "14px" }}>NCLEX-RN<br />Success Tools</h3>
                     <p style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.75, marginBottom: "24px" }}>
                       Adaptive questions across all 8 client needs categories. Full NGN support with Bowtie, Matrix, and SATA formats.
@@ -398,7 +409,7 @@ useEffect(() => {
                         Start practising
                         <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                       </Link>
-                      <Link href="/auth/signup" className="btn-dark" style={{ fontSize: "13px", padding: "11px 20px" }}>Free trial</Link>
+                      <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-dark" style={{ fontSize: "13px", padding: "11px 20px" }}>Free trial</Link>
                     </div>
                   </div>
                 </div>
@@ -415,7 +426,7 @@ useEffect(() => {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(248,113,113,.18) 0%,rgba(13,31,53,.92) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "30px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
-                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#f87171", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>CCRN®</p>
+                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#f87171", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "8px" }}>CCRNÂ®</p>
                     <h3 className="fd" style={{ fontSize: "1.5rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "10px" }}>Critical Care<br />Certification</h3>
                     <p style={{ fontSize: "14px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.65 }}>ICU-level questions covering cardiovascular, pulmonary, and multisystem critical care.</p>
                   </div>
@@ -456,7 +467,7 @@ useEffect(() => {
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,rgba(129,140,248,.15) 0%,rgba(13,31,53,.9) 65%)" }} />
                 <div style={{ position: "relative", zIndex: 1, padding: "28px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                   <div>
-                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#818cf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "6px" }}>NCLEX-PN®</p>
+                    <p style={{ fontSize: "11px", fontWeight: 700, color: "#818cf8", letterSpacing: ".14em", textTransform: "uppercase", marginBottom: "6px" }}>NCLEX-PNÂ®</p>
                     <h3 className="fd" style={{ fontSize: "1.3rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2, marginBottom: "8px" }}>PN Licensure<br />Preparation</h3>
                     <p style={{ fontSize: "13px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.65 }}>Full coverage of all PN client needs with NGN-ready questions.</p>
                   </div>
@@ -474,7 +485,7 @@ useEffect(() => {
                   <div>
                     <p style={{ fontSize: "11px", fontWeight: 700, color: "#34d399", letterSpacing: ".12em", textTransform: "uppercase", marginBottom: "5px" }}>Nursing School</p>
                     <h3 className="fd" style={{ fontSize: "1.15rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.2 }}>School Companion</h3>
-                    <p style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 400, marginTop: "5px" }}>6 core subjects · 100% NCLEX aligned</p>
+                    <p style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 400, marginTop: "5px" }}>6 core subjects Â· 100% NCLEX aligned</p>
                   </div>
                   <Link href="/courses/nursing-school" className="btn-sm" style={{ background: "rgba(52,211,153,.12)", color: "#6ee7b7", border: "1px solid rgba(52,211,153,.25)", alignSelf: "flex-start", marginTop: "12px" }}>
                     Learn more <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -503,7 +514,7 @@ useEffect(() => {
           <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#112a40" />
         </svg>
 
-        {/* ══════════════════════ WHY US */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• WHY US */}
         <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
 
@@ -539,7 +550,7 @@ useEffect(() => {
                   "Instant rationales explaining every answer choice",
                   "Adaptive difficulty mirroring the real CAT exam",
                   "Track weak areas and close knowledge gaps fast",
-                  "Three practice modes — Timed, Tutor, and Quick",
+                  "Three practice modes â€” Timed, Tutor, and Quick",
                 ].map(item => (
                   <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                     <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "rgba(14,165,233,.15)", border: "1px solid rgba(14,165,233,.32)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>
@@ -565,7 +576,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0d2a40" />
         </svg>
 
-        {/* ══════════════════════ DASHBOARD */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• DASHBOARD */}
         <section style={{ background: "#112a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -732,7 +743,7 @@ useEffect(() => {
           <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#112a40" />
         </svg>
 
-        {/* ══════════════════════ TESTIMONIALS */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TESTIMONIALS */}
         <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
@@ -744,7 +755,7 @@ useEffect(() => {
                 <div key={t.name} className="bento-card" style={{ padding: "28px", display: "flex", flexDirection: "column" }}>
                   <div style={{ width: "100%", height: "3px", background: t.color, borderRadius: "2px", marginBottom: "20px" }} />
                   <div style={{ display: "flex", gap: "2px", marginBottom: "16px" }}>
-                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "15px" }}>★</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#fbbf24", fontSize: "15px" }}>â˜…</span>)}
                   </div>
                   <p style={{ fontSize: "15px", color: "#94a3b8", fontWeight: 400, lineHeight: 1.75, fontStyle: "italic", flex: 1, marginBottom: "20px" }}>"{t.text}"</p>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "16px", borderTop: "1px solid rgba(255,255,255,.07)" }}>
@@ -771,7 +782,7 @@ useEffect(() => {
           <path d="M0,0 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0d2a40" />
         </svg>
 
-        {/* ══════════════════════ FINAL CTA */}
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FINAL CTA */}
         <section style={{ position: "relative", padding: "120px 40px", overflow: "hidden", background: "#112a40" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center", opacity: .14 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg,#112a40 0%,rgba(17,42,64,.93) 100%)" }} />
@@ -785,7 +796,7 @@ useEffect(() => {
               Join thousands of nursing students who chose a smarter way to prepare. No credit card. No commitment. Just results.
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: "14px", flexWrap: "wrap" }}>
-              <Link href="/auth/signup" className="btn-primary" style={{ fontSize: "16px", padding: "17px 38px" }}>
+              <Link href={user ? "/dashboard" : "/auth/signup"} className="btn-primary" style={{ fontSize: "16px", padding: "17px 38px" }}>
                 Start free today
                 <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
@@ -800,3 +811,8 @@ useEffect(() => {
     </>
   );
 }
+
+
+
+
+
