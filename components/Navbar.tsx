@@ -294,7 +294,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                       <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
-                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>â± {p.response}</p>
+                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>ÃƒÂ¢Ã‚ÂÃ‚Â± {p.response}</p>
                   </div>
                   <a href={`mailto:${p.email}`}
                     style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0 }}
@@ -315,7 +315,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                Contact page ï¿½'
+                Contact page ÃƒÂ¯Ã‚Â¿Ã‚Â½'
               </Link>
             </div>
           </div>
@@ -414,7 +414,7 @@ export default function Navbar() {
                         <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9" }} />
                         <span style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".18em", textTransform: "uppercase" }}>Certification Paths</span>
                       </div>
-                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all ï¿½'</Link>
+                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all ÃƒÂ¯Ã‚Â¿Ã‚Â½'</Link>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", padding: "12px" }}>
                       {courseItems.map((course, i) => {
@@ -447,7 +447,7 @@ export default function Navbar() {
                         <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN - it's free</p>
                         <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 500 }}>No credit card . No commitment . Live now</p>
                       </div>
-                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free ï¿½'</Link>
+                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free ÃƒÂ¯Ã‚Â¿Ã‚Â½'</Link>
                     </div>
                   </div>
                 </div>
@@ -518,7 +518,7 @@ export default function Navbar() {
                       style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                       onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                      Get started ï¿½'
+                      Get started ÃƒÂ¯Ã‚Â¿Ã‚Â½'
                     </Link>
                   </div>
                 </div>
@@ -613,9 +613,14 @@ export default function Navbar() {
                     {link.label}
                   </Link>
                 ))}
-              </div>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>App</p>
+              {user && (
+              <>
+              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>My Portal</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)}
+                  style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, "/dashboard") ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, "/dashboard") ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, "/dashboard") ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                  Dashboard
+                </Link>
                 {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
                     style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
@@ -623,6 +628,8 @@ export default function Navbar() {
                   </Link>
                 ))}
               </div>
+              </>
+              )}
               <div style={{ display: "flex", gap: "8px", marginTop: "8px", flexWrap: "wrap" }}>
                 {user ? (
                   <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "rgba(248,113,113,.1)", border: "1px solid rgba(248,113,113,.2)", fontSize: "13px", fontWeight: 600, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
@@ -633,9 +640,11 @@ export default function Navbar() {
                     Sign in
                   </Link>
                 )}
+                {!user && (
                 <Link href="/auth/signup" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "#0ea5e9", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 4px 14px rgba(14,165,233,.3)" }}>
                   Get started
                 </Link>
+                )}
               </div>
             </div>
           </div>
