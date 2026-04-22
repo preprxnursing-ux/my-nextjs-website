@@ -24,7 +24,7 @@ export default function JamesProfile() {
         <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "48px", alignItems: "start", marginBottom: "40px" }}>
           <div>
             <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", aspectRatio: "4/5", border: "1px solid rgba(139,92,246,.2)", boxShadow: "0 32px 80px rgba(0,0,0,.4)" }}>
-              <Image src="/james.jpg" alt="James" fill style={{ objectFit: "cover" }} />
+              <Image src="/james2.jpg" alt="James" fill style={{ objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,15,30,.6) 0%, transparent 60%)" }} />
               <div style={{ position: "absolute", bottom: "20px", left: "20px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(139,92,246,.15)", border: "1px solid rgba(139,92,246,.3)", borderRadius: "100px", padding: "5px 14px", fontSize: "11px", fontWeight: 700, color: "#c084fc" }}>
