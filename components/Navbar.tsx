@@ -296,13 +296,13 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
                     <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}> {p.response}</p>
                   </div>
-                  <a href={`mailto:${p.email}`}
+                  <button onClick={() => window.open('mailto:' + p.email)}
                     style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0, position: "relative", zIndex: 10 }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
                     <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     Email
-                  </a>
+                  </button>
                 </div>
               ))}
             </div>
