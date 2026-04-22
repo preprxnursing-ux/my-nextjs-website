@@ -49,10 +49,26 @@ export default function MelissaProfile() {
           </div>
 
           <div style={{ paddingTop: "8px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Student Success Lead . BSN, RN</p>
+            <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Student Success Lead · Nursing Educator</p>
             <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.5rem,5vw,4rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.1, marginBottom: "20px" }}>
-              Melissa Ainsley
+              Melissa Ainsley, RN, MSN, CCRN
             </h1>
+
+            {/* Credential Badges */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: "28px" }}>
+              {[
+                { label: "RN", desc: "Registered Nurse", color: "#0ea5e9" },
+                { label: "MSN", desc: "Master of Science in Nursing", color: "#8b5cf6" },
+                { label: "CCRN", desc: "Critical Care RN", color: "#ef4444" },
+                { label: "ANCC", desc: "Board Certified", color: "#10b981" },
+                { label: "NE-BC", desc: "Nurse Executive", color: "#f59e0b" },
+              ].map(b => (
+                <div key={b.label} title={b.desc} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "100px", padding: "5px 14px", cursor: "default" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#38bdf8", letterSpacing: ".08em" }}>{b.label}</span>
+                  <span style={{ fontSize: "10px", color: "#64748b", fontWeight: 500 }}>{b.desc}</span>
+                </div>
+              ))}
+            </div>
             <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.85, marginBottom: "28px" }}>
               A licensed Registered Nurse with a Bachelor of Science in Nursing, Melissa Ainsley brings both clinical expertise and deep empathy to her role as Student Success Lead. Having navigated the NCLEX herself -- and supported hundreds of students through the same journey -- she understands exactly what it takes to pass on the first attempt.
             </p>
@@ -117,3 +133,5 @@ export default function MelissaProfile() {
     </main>
   );
 }
+
+
