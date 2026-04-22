@@ -296,7 +296,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
                     <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}> {p.response}</p>
                   </div>
-                  <button onClick={() => window.open('mailto:' + p.email)}
+                  <button onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=' + p.email, '_blank')}
                     style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0, position: "relative", zIndex: 10 }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
