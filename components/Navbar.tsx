@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useCart } from "@/lib/cartContext";
 
 import Link from "next/link";
@@ -342,19 +342,21 @@ export default function Navbar() {
 
   useEffect(() => {
     const supabase = createClient();
+    const otpVerified = () => document.cookie.includes("otp_verified=true");
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) {
+      if (data.user && otpVerified()) {
         setUser(data.user);
         setInitials(getInitials(data.user.user_metadata?.full_name ?? data.user.email ?? ""));
       }
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session?.user) {
+      if (session?.user && otpVerified()) {
         setUser(session.user);
         setInitials(getInitials(session.user.user_metadata?.full_name ?? session.user.email ?? ""));
       } else { setUser(null); setInitials("?"); }
     });
     return () => listener.subscription.unsubscribe();
+  }, []);
   }, []);
 
   function getInitials(name: string) {
@@ -646,7 +648,6 @@ export default function Navbar() {
     </>
   );
 }
-
 
 
 
