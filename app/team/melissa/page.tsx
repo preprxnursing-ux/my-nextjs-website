@@ -1,8 +1,24 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-
 export default function MelissaProfile() {
+  const badges = [
+    { label: "RN", desc: "Registered Nurse", color: "#0ea5e9" },
+    { label: "MSN", desc: "Master of Science in Nursing", color: "#8b5cf6" },
+    { label: "CCRN", desc: "Critical Care RN", color: "#ef4444" },
+    { label: "ANCC", desc: "Board Certified", color: "#10b981" },
+    { label: "NE-BC", desc: "Nurse Executive", color: "#f59e0b" },
+  ];
+  const stats = [
+    { val: "4hrs", label: "Avg response time" },
+    { val: "98%", label: "Student satisfaction" },
+    { val: "3yrs", label: "In nursing education" },
+  ];
+  const expertise = [
+    { title: "Student Support", desc: "From first login to exam day, Melissa is available to guide students through every step of the platform.", color: "#0ea5e9" },
+    { title: "Course Guidance", desc: "Helping students choose the right certification path and study approach based on their background and goals.", color: "#8b5cf6" },
+    { title: "Account & Billing", desc: "Plan upgrades, access issues, and account questions handled with care and fast turnaround.", color: "#10b981" },
+  ];
   return (
     <main style={{ minHeight: "100vh", background: "linear-gradient(135deg,#060f1e 0%,#0d1f35 50%,#0e2540 100%)", fontFamily: "'Plus Jakarta Sans',sans-serif", color: "#e2e8f0" }}>
       <style>{`
@@ -11,16 +27,11 @@ export default function MelissaProfile() {
         .card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; transition: border-color .2s; }
         .card:hover { border-color: rgba(14,165,233,.25); }
       `}</style>
-
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "60px 24px" }}>
-
-        {/* Back */}
         <Link href="/" className="fade-up" style={{ display: "inline-flex", alignItems: "center", gap: "6px", color: "#64748b", textDecoration: "none", fontSize: "13px", fontWeight: 600, marginBottom: "40px" }}>
           <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
           Back to Pre-NCLEX Nursing
         </Link>
-
-        {/* Hero */}
         <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "48px", alignItems: "start", marginBottom: "40px" }}>
           <div>
             <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", aspectRatio: "4/5", border: "1px solid rgba(14,165,233,.2)", boxShadow: "0 32px 80px rgba(0,0,0,.4)" }}>
@@ -33,8 +44,6 @@ export default function MelissaProfile() {
                 </span>
               </div>
             </div>
-
-            {/* Contact card */}
             <div className="card" style={{ padding: "24px", marginTop: "20px" }}>
               <p style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", letterSpacing: ".16em", textTransform: "uppercase", marginBottom: "16px" }}>Get in touch</p>
               <button onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=preprxnursing@gmail.com', '_blank')}
@@ -47,22 +56,13 @@ export default function MelissaProfile() {
               </Link>
             </div>
           </div>
-
           <div style={{ paddingTop: "8px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Student Success Lead · Nursing Educator</p>
+            <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Student Success Lead Â· Nursing Educator</p>
             <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.5rem,5vw,4rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.1, marginBottom: "20px" }}>
               Melissa Ainsley, RN, MSN, CCRN
             </h1>
-
-            {/* Credential Badges */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginBottom: "28px" }}>
-              {[
-                { label: "RN", desc: "Registered Nurse", color: "#0ea5e9" },
-                { label: "MSN", desc: "Master of Science in Nursing", color: "#8b5cf6" },
-                { label: "CCRN", desc: "Critical Care RN", color: "#ef4444" },
-                { label: "ANCC", desc: "Board Certified", color: "#10b981" },
-                { label: "NE-BC", desc: "Nurse Executive", color: "#f59e0b" },
-              ].map(b => (
+              {badges.map(b => (
                 <div key={b.label} title={b.desc} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", borderRadius: "100px", padding: "5px 14px", cursor: "default" }}>
                   <span style={{ fontSize: "11px", fontWeight: 800, color: "#38bdf8", letterSpacing: ".08em" }}>{b.label}</span>
                   <span style={{ fontSize: "10px", color: "#64748b", fontWeight: 500 }}>{b.desc}</span>
@@ -75,38 +75,24 @@ export default function MelissaProfile() {
             <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.85, marginBottom: "36px" }}>
               With a background in medical-surgical nursing and academic coaching, Melissa oversees every touchpoint of the student experience at Pre-NCLEX Nursing. From onboarding and course guidance to performance support and account help, she ensures that no student feels alone in their preparation. Her clinical foundation means she speaks the language of nursing -- not just customer service.
             </p>
-
-            {/* Stats */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px", marginBottom: "36px" }}>
-              {[
-                { val: "4hrs", label: "Avg response time" },
-                { val: "98%", label: "Student satisfaction" },
-                { val: "3yrs", label: "In nursing education" },
-              ].map(s => (
+              {stats.map(s => (
                 <div key={s.label} className="card" style={{ padding: "20px", textAlign: "center" }}>
                   <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 700, color: "#0ea5e9", marginBottom: "4px" }}>{s.val}</p>
                   <p style={{ fontSize: "11px", color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: ".1em" }}>{s.label}</p>
                 </div>
               ))}
             </div>
-
-            {/* Quote */}
             <div style={{ padding: "24px 28px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px" }}>
               <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", fontStyle: "italic", color: "#e2e8f0", lineHeight: 1.7, margin: 0 }}>
                 "Every student who reaches out to me deserves to feel heard. Passing NCLEX is hard enough -- navigating the platform should never be the hard part."
               </p>
-              <p style={{ fontSize: "12px", color: "#0ea5e9", fontWeight: 700, marginTop: "14px", margin: "14px 0 0" }}>-- Melissa Ainsley Carter, BSN, RN, Student Success Lead</p>
+              <p style={{ fontSize: "12px", color: "#0ea5e9", fontWeight: 700, marginTop: "14px" }}>-- Melissa Ainsley Carter, BSN, RN, Student Success Lead</p>
             </div>
           </div>
         </div>
-
-        {/* Expertise */}
         <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "16px", marginBottom: "40px" }}>
-          {[
-            { title: "Student Support", desc: "From first login to exam day, Melissa is available to guide students through every step of the platform.", color: "#0ea5e9" },
-            { title: "Course Guidance", desc: "Helping students choose the right certification path and study approach based on their background and goals.", color: "#8b5cf6" },
-            { title: "Account & Billing", desc: "Plan upgrades, access issues, and account questions handled with care and fast turnaround.", color: "#10b981" },
-          ].map(e => (
+          {expertise.map(e => (
             <div key={e.title} className="card" style={{ padding: "28px" }}>
               <div style={{ width: "40px", height: "4px", background: e.color, borderRadius: "2px", marginBottom: "16px" }} />
               <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", fontWeight: 700, color: "#f8fafc", marginBottom: "10px" }}>{e.title}</h3>
@@ -114,8 +100,6 @@ export default function MelissaProfile() {
             </div>
           ))}
         </div>
-
-        {/* CTA */}
         <div className="fade-up card" style={{ padding: "40px", textAlign: "center" }}>
           <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 700, color: "#f8fafc", marginBottom: "12px" }}>Ready to start your NCLEX journey?</h2>
           <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "24px" }}>Melissa and the team are here to support you every step of the way.</p>
@@ -128,10 +112,7 @@ export default function MelissaProfile() {
             </Link>
           </div>
         </div>
-
       </div>
     </main>
   );
 }
-
-
