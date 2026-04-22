@@ -275,10 +275,10 @@ export default function LoginPage() {
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
                   {loading ? "Signing in..." : "Sign in →"}
                 </button>
-                <p className="text-center text-xs mt-6" style={{ color: "#1e293b" }}>
+                <p className="text-center text-xs mt-6" style={{ color: "#64748b" }}>
                   By continuing you agree to our{" "}
-                  <Link href="/terms" className="hover:underline" style={{ color: "#334155" }}>Terms</Link>{" "}and{" "}
-                  <Link href="/privacy" className="hover:underline" style={{ color: "#334155" }}>Privacy Policy</Link>
+                  <Link href="/terms" className="hover:underline" style={{ color: "#94a3b8" }}>Terms</Link>{" "}and{" "}
+                  <Link href="/privacy" className="hover:underline" style={{ color: "#94a3b8" }}>Privacy Policy</Link>
                 </p>
               </>
             )}
