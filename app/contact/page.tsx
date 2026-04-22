@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef } from "react";
 import Link from "next/link";
@@ -253,7 +253,7 @@ export default function ContactPage() {
               <div style={{ textAlign: "center", padding: "60px 0" }}>
                 <div style={{ position: "relative", width: "80px", height: "80px", margin: "0 auto 24px" }}>
                   <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(52,211,153,.15)", animation: "pulseRing 2s ease-out infinite" }} />
-                  <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "rgba(52,211,153,.12)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px" }}>âœ“</div>
+                  <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "rgba(52,211,153,.12)", border: "1px solid rgba(52,211,153,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "32px" }}></div>
                 </div>
                 <h3 className="fd" style={{ fontSize: "2.2rem", fontWeight: 700, color: "#f8fafc", marginBottom: "12px" }}>Message sent!</h3>
                 <p style={{ color: "#64748b", lineHeight: 1.8, maxWidth: "400px", margin: "0 auto 28px" }}>

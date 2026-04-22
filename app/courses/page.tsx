@@ -14,7 +14,7 @@ const courses = [
     exam: "Pre-Nursing",
     title: "TEAS 7 & HESI A2 Success Toolkit",
     description: "Ace your nursing school entrance exam. Covers Reading, Maths, Science, and English for both TEAS 7 and HESI A2.",
-    icon: "📚",
+    icon: "",
     color: "#d97706",
     bg: "#fffbeb",
     border: "#fde68a",
@@ -28,7 +28,7 @@ const courses = [
     exam: "Nursing School",
     title: "Your Nursing School Companion",
     description: "Master fundamentals, med-surg, pharmacology, maternal, paediatric, and mental health nursing -- all NCLEX aligned.",
-    icon: "🎓",
+    icon: "",
     color: "#059669",
     bg: "#ecfdf5",
     border: "#a7f3d0",
@@ -42,7 +42,7 @@ const courses = [
     exam: "NCLEX-RN(R)",
     title: "NCLEX-RN Success Tools",
     description: "The gold standard for RN licensure prep. Adaptive questions across all 8 client needs categories with full NGN support.",
-    icon: "🏥",
+    icon: "",
     color: "#0891b2",
     bg: "#ecfeff",
     border: "#a5f3fc",
@@ -56,7 +56,7 @@ const courses = [
     exam: "NCLEX-PN(R)",
     title: "Effective NCLEX-PN Prep",
     description: "Built for LPN and LVN candidates. Covers all PN client needs categories with the same adaptive question engine.",
-    icon: "📋",
+    icon: "",
     color: "#4f46e5",
     bg: "#eef2ff",
     border: "#c7d2fe",
@@ -70,7 +70,7 @@ const courses = [
     exam: "Nurse Practitioner",
     title: "Expert NP Exam Resources",
     description: "Prepare for FNP-C, FNP-BC, and AGPCNP-BC with advanced practice questions covering diagnosis, pharmacotherapy, and more.",
-    icon: "🩺",
+    icon: "",
     color: "#7c3aed",
     bg: "#f5f3ff",
     border: "#ddd6fe",
@@ -84,7 +84,7 @@ const courses = [
     exam: "CCRN(R)",
     title: "Essential CCRN Success Resources",
     description: "Critical care certification prep. ICU-level questions covering cardiovascular, pulmonary, neuro, and multisystem topics.",
-    icon: "❤️",
+    icon: "",
     color: "#dc2626",
     bg: "#fff1f2",
     border: "#fecdd3",
@@ -132,7 +132,7 @@ export default function CoursesPage() {
       <style>{fontStyle}</style>
       <main className="min-h-screen" style={{ background: "#f6f7f9" }}>
 
-        {/* ── HERO ── */}
+        {/*  HERO  */}
         <section
           className="relative min-h-[60vh] flex items-center overflow-hidden"
           style={{ background: "#0a0f1e" }}
@@ -195,14 +195,14 @@ export default function CoursesPage() {
                     transform: filter === f ? "scale(1.04)" : "scale(1)",
                   }}
                 >
-                  {f === "all" ? "All courses" : f === "live" ? "🟢 Live now" : "⏳ Coming soon"}
+                  {f === "all" ? "All courses" : f === "live" ? " Live now" : " Coming soon"}
                 </button>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── COURSE CARDS GRID ── */}
+        {/*  COURSE CARDS GRID  */}
         <section className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((course, i) => (
@@ -320,7 +320,7 @@ export default function CoursesPage() {
                       style={{ color: course.color }}
                     >
                       {course.available ? "Start practising" : "Learn more"}
-                      <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
+                      <span className="inline-block group-hover:translate-x-1 transition-transform"></span>
                     </span>
                     {course.available && (
                       <span
@@ -338,13 +338,13 @@ export default function CoursesPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-2xl mb-3">🔍</p>
+              <p className="text-2xl mb-3"></p>
               <p style={{ color: "#64748b" }}>No courses match that filter.</p>
             </div>
           )}
         </section>
 
-        {/* ── FIND YOUR PATH ── */}
+        {/*  FIND YOUR PATH  */}
         <section
           style={{ background: "#0a0f1e", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
           className="py-20 px-6"
@@ -372,7 +372,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Find my course →
+                Find my course 
               </button>
             )}
 
@@ -437,7 +437,7 @@ export default function CoursesPage() {
                     onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                     onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                   >
-                    Go to {courses[finderResult].exam} →
+                    Go to {courses[finderResult].exam} 
                   </Link>
                   <button
                     onClick={() => { setFinderResult(null); setFinderOpen(true); }}
@@ -454,7 +454,7 @@ export default function CoursesPage() {
           </div>
         </section>
 
-        {/* ── JOURNEY TIMELINE ── */}
+        {/*  JOURNEY TIMELINE  */}
         <section className="mx-auto max-w-5xl px-6 py-24">
           <div className="text-center mb-14">
             <p className="text-xs font-medium uppercase mb-3" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>
@@ -526,7 +526,7 @@ export default function CoursesPage() {
                     className="text-sm flex-shrink-0 self-center group-hover:translate-x-1 transition-transform"
                     style={{ color: "#94a3b8" }}
                   >
-                    →
+                    
                   </span>
                 </Link>
               ))}
@@ -534,7 +534,7 @@ export default function CoursesPage() {
           </div>
         </section>
 
-        {/* ── BOTTOM CTA ── */}
+        {/*  BOTTOM CTA  */}
         <section
           className="relative py-24 px-6 overflow-hidden bg-cover bg-center"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1800&q=80')` }}
@@ -560,7 +560,7 @@ export default function CoursesPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start NCLEX-RN free →
+                Start NCLEX-RN free 
               </Link>
               <Link
                 href="/auth/signup"

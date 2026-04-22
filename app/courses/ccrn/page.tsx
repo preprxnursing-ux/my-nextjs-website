@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const topicAreas = [
@@ -110,7 +110,7 @@ export default async function CCRNPage() {
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-2xl">
-              â¤ï¸
+              
             </div>
             <div>
               <p className="text-xs font-bold text-red-400 uppercase tracking-widest">
@@ -136,7 +136,7 @@ export default async function CCRNPage() {
               href={user ? "/quiz/select?examType=CCRN" : "/auth/signup"}
               className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
             >
-              {user ? "Start practising â†’" : "Get notified â†’"}
+              {user ? "Start practising " : "Get notified "}
             </Link>
             <Link
               href="/pricing"
@@ -263,7 +263,7 @@ export default async function CCRNPage() {
             {[
               {
                 mode: "Timed Mode",
-                icon: "â±ï¸",
+                icon: "",
                 color: "#3b82f6",
                 bg: "#eff6ff",
                 description: "Simulate the 3-hour CCRN exam. Build the speed and focus the real test demands.",
@@ -271,7 +271,7 @@ export default async function CCRNPage() {
               },
               {
                 mode: "Tutor Mode",
-                icon: "ðŸ§ ",
+                icon: "",
                 color: "#10b981",
                 bg: "#ecfdf5",
                 description: "Detailed critical care rationales after every question. Understand the clinical reasoning behind each answer.",
@@ -279,7 +279,7 @@ export default async function CCRNPage() {
               },
               {
                 mode: "Quick Mode",
-                icon: "âš¡",
+                icon: "",
                 color: "#f59e0b",
                 bg: "#fffbeb",
                 description: "10-question sprints between shifts. Keep your critical care knowledge sharp without a full study session.",
@@ -322,7 +322,7 @@ export default async function CCRNPage() {
               href={user ? "/dashboard" : "/auth/signup"}
               className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
             >
-              {user ? "Go to dashboard" : "Sign up for free â†’"}
+              {user ? "Go to dashboard" : "Sign up for free "}
             </Link>
             <Link
               href="/courses/nclex-rn"

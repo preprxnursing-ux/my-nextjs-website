@@ -157,7 +157,7 @@ export default function ReviewPage() {
 
     const topicLabel = topicFilter === "all" ? "all topics" : topicFilter;
 
-    return `${filteredQuestions.length} shown • ${filterLabel} • ${topicLabel}`;
+    return `${filteredQuestions.length} shown  ${filterLabel}  ${topicLabel}`;
   }, [filteredQuestions.length, filter, topicFilter]);
 
   if (!attempt) {

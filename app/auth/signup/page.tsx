@@ -49,7 +49,7 @@ const fontStyle = `
   }
 `;
 
-/* ── password strength ── */
+/*  password strength  */
 function getStrength(pw: string) {
   const checks = {
     length: pw.length >= 8,
@@ -89,12 +89,12 @@ function generateStrongPassword() {
 type Step = "details" | "verify";
 
 const examOptions = [
-  { label: "Pre-Nursing (TEAS / HESI)", value: "pre-nursing", icon: "📚" },
-  { label: "Nursing School", value: "nursing-school", icon: "🎓" },
-  { label: "NCLEX-RN(R)", value: "nclex-rn", icon: "🏥" },
-  { label: "NCLEX-PN(R)", value: "nclex-pn", icon: "📋" },
-  { label: "Nurse Practitioner", value: "np", icon: "🩺" },
-  { label: "CCRN(R)", value: "ccrn", icon: "❤️" },
+  { label: "Pre-Nursing (TEAS / HESI)", value: "pre-nursing", icon: "" },
+  { label: "Nursing School", value: "nursing-school", icon: "" },
+  { label: "NCLEX-RN(R)", value: "nclex-rn", icon: "" },
+  { label: "NCLEX-PN(R)", value: "nclex-pn", icon: "" },
+  { label: "Nurse Practitioner", value: "np", icon: "" },
+  { label: "CCRN(R)", value: "ccrn", icon: "" },
 ];
 
 export default function SignupPage() {
@@ -195,7 +195,7 @@ export default function SignupPage() {
 
       <main className="min-h-screen flex" style={{ background: "#080d1a" }}>
 
-        {/* ══ LEFT PANEL ══ */}
+        {/*  LEFT PANEL  */}
         <div className="hidden lg:flex lg:w-[46%] relative overflow-hidden flex-col justify-between p-12">
 
           {/* nurse bg */}
@@ -235,7 +235,7 @@ export default function SignupPage() {
                 style={{ background: "rgba(16,185,129,0.15)", animation: "pulse-ring 2s ease-out infinite" }} />
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl"
                 style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)" }}>
-                🎓
+                
               </div>
             </div>
 
@@ -252,11 +252,11 @@ export default function SignupPage() {
             {/* perks */}
             <div className="space-y-3">
               {[
-                { icon: "✅", text: "Free access to NCLEX-RN questions" },
-                { icon: "📊", text: "Personal dashboard and score tracking" },
-                { icon: "💡", text: "Full rationales after every question" },
-                { icon: "🎯", text: "Adaptive difficulty that matches your level" },
-                { icon: "🔒", text: "Your data is private and encrypted" },
+                { icon: "", text: "Free access to NCLEX-RN questions" },
+                { icon: "", text: "Personal dashboard and score tracking" },
+                { icon: "", text: "Full rationales after every question" },
+                { icon: "", text: "Adaptive difficulty that matches your level" },
+                { icon: "", text: "Your data is private and encrypted" },
               ].map((p) => (
                 <div key={p.text} className="flex items-center gap-3">
                   <span style={{ fontSize: "0.9rem" }}>{p.icon}</span>
@@ -282,7 +282,7 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* ══ RIGHT PANEL ══ */}
+        {/*  RIGHT PANEL  */}
         <div
           className="flex-1 flex items-center justify-center px-6 py-10 relative overflow-y-auto"
           style={{
@@ -301,7 +301,7 @@ export default function SignupPage() {
 
           <div className="w-full max-w-[420px] relative z-10 py-4">
 
-            {/* ── STEP: DETAILS ── */}
+            {/*  STEP: DETAILS  */}
             {step === "details" && (
               <>
                 {/* mobile logo */}
@@ -323,7 +323,7 @@ export default function SignupPage() {
                 <p className="mb-6 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   Already have an account?{" "}
                   <Link href="/auth/login" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign in →
+                    Sign in 
                   </Link>
                 </p>
 
@@ -464,7 +464,7 @@ export default function SignupPage() {
                               border: `1px solid ${ok ? "rgba(52,211,153,0.3)" : "rgba(255,255,255,0.07)"}`,
                               color: ok ? "#34d399" : "#475569",
                             }}>
-                            {ok ? "✓" : "."} {label}
+                            {ok ? "" : "."} {label}
                           </span>
                         );
                       })}
@@ -535,7 +535,7 @@ export default function SignupPage() {
                     <p className="text-xs mt-1" style={{ color: "#ef4444" }}>Passwords do not match</p>
                   )}
                   {passwordsMatch && (
-                    <p className="text-xs mt-1" style={{ color: "#34d399" }}>✓ Passwords match</p>
+                    <p className="text-xs mt-1" style={{ color: "#34d399" }}> Passwords match</p>
                   )}
                 </div>
 
@@ -548,7 +548,7 @@ export default function SignupPage() {
                       background: agreed ? "rgba(52,211,153,0.15)" : "rgba(255,255,255,0.04)",
                       border: agreed ? "1px solid rgba(52,211,153,0.4)" : "1px solid rgba(255,255,255,0.09)",
                     }}>
-                    {agreed && <span style={{ color: "#34d399", fontSize: "0.65rem" }}>✓</span>}
+                    {agreed && <span style={{ color: "#34d399", fontSize: "0.65rem" }}></span>}
                   </button>
                   <p className="text-xs leading-relaxed" style={{ color: "#475569" }}>
                     I agree to the{" "}
@@ -571,16 +571,16 @@ export default function SignupPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Creating account..." : "Create free account →"}
+                  {loading ? "Creating account..." : "Create free account "}
                 </button>
 
                 <p className="text-center text-xs mt-5" style={{ color: "#1e293b" }}>
-                  🔒 Your data is encrypted and secure
+                   Your data is encrypted and secure
                 </p>
               </>
             )}
 
-            {/* ── STEP: VERIFY EMAIL ── */}
+            {/*  STEP: VERIFY EMAIL  */}
             {step === "verify" && (
               <div className="text-center">
                 <div className="relative w-24 h-24 mx-auto mb-7 flex items-center justify-center">
@@ -588,7 +588,7 @@ export default function SignupPage() {
                     style={{ background: "rgba(52,211,153,0.15)", animation: "pulse-ring 2s ease-out infinite" }} />
                   <div className="w-20 h-20 rounded-full flex items-center justify-center text-4xl"
                     style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.25)" }}>
-                    ✉️
+                    
                   </div>
                 </div>
 
@@ -628,11 +628,11 @@ export default function SignupPage() {
                     style={{ background: "#34d399", color: "#080d1a", fontWeight: 600 }}
                     onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                     onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                    Go to login →
+                    Go to login 
                   </Link>
                   <button onClick={() => setStep("details")}
                     className="text-xs hover:underline" style={{ color: "#475569" }}>
-                    ← Use a different email
+                     Use a different email
                   </button>
                 </div>
               </div>

@@ -64,7 +64,7 @@ export default function CartPage() {
 
         {!cartPlan || !plan ? (
           <div style={{ textAlign: "center", padding: "80px 24px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "20px" }}>
-            <div style={{ fontSize: "48px", marginBottom: "20px" }}>🛒</div>
+            <div style={{ fontSize: "48px", marginBottom: "20px" }}></div>
             <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", fontWeight: 700, color: "#f8fafc", marginBottom: "12px" }}>Your cart is empty</h2>
             <p style={{ color: "#64748b", marginBottom: "28px" }}>Choose a plan to get started with Pre-NCLEX Nursing.</p>
             <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg, #0ea5e9, #38bdf8)", color: "#fff", padding: "14px 32px", borderRadius: "10px", fontWeight: 700, fontSize: "15px", textDecoration: "none" }}>

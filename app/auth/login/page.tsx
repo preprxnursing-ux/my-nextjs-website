@@ -119,7 +119,7 @@ export default function LoginPage() {
 
   useEffect(() => { setTimeout(() => setVisible(true), 80); }, []);
 
-  /* ── login ── */
+  /*  login  */
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -136,7 +136,7 @@ export default function LoginPage() {
     }
   }
 
-  /* ── google ── */
+  /*  google  */
   async function handleGoogle() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
@@ -145,7 +145,7 @@ export default function LoginPage() {
     });
   }
 
-  /* ── 2FA OTP input ── */
+  /*  2FA OTP input  */
   function handleOtp(i: number, val: string) {
     if (!/^\d?$/.test(val)) return;
     const next = [...otp];
@@ -166,7 +166,7 @@ export default function LoginPage() {
     router.refresh();
   }
 
-  /* ── forgot password ── */
+  /*  forgot password  */
   async function handleForgot(e: React.FormEvent) {
     e.preventDefault();
     setForgotLoading(true);
@@ -180,7 +180,7 @@ export default function LoginPage() {
     else setStep("forgot-sent");
   }
 
-  /* ── suggest password ── */
+  /*  suggest password  */
   function handleSuggest() {
     const pw = generateStrongPassword();
     setSuggested(pw);
@@ -199,7 +199,7 @@ export default function LoginPage() {
     setTimeout(() => setCopied(false), 2000);
   }
 
-  /* ── shared input style ── */
+  /*  shared input style  */
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 16px",
@@ -219,7 +219,7 @@ export default function LoginPage() {
 
       <main className="min-h-screen flex" style={{ background: "#080d1a" }}>
 
-        {/* ══ LEFT PANEL ══ */}
+        {/*  LEFT PANEL  */}
         <div className="hidden lg:flex lg:w-[48%] relative overflow-hidden flex-col justify-between p-12">
 
           {/* nurse bg */}
@@ -259,7 +259,7 @@ export default function LoginPage() {
                 style={{ background: "rgba(6,182,212,0.15)", animation: "pulse-ring 2s ease-out infinite" }} />
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl"
                 style={{ background: "rgba(6,182,212,0.12)", border: "1px solid rgba(6,182,212,0.3)" }}>
-                🏥
+                
               </div>
             </div>
 
@@ -295,7 +295,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* ══ RIGHT PANEL ══ */}
+        {/*  RIGHT PANEL  */}
         <div
           className="flex-1 flex items-center justify-center px-6 py-12 relative"
           style={{
@@ -314,7 +314,7 @@ export default function LoginPage() {
 
           <div className="w-full max-w-[400px] relative z-10">
 
-            {/* ── STEP: LOGIN ── */}
+            {/*  STEP: LOGIN  */}
             {step === "login" && (
               <>
                 {/* mobile logo */}
@@ -336,7 +336,7 @@ export default function LoginPage() {
                 <p className="mb-7 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   No account?{" "}
                   <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">
-                    Sign up free →
+                    Sign up free 
                   </Link>
                 </p>
 
@@ -394,7 +394,7 @@ export default function LoginPage() {
                       type={showPw ? "text" : "password"}
                       value={password}
                       onChange={e => setPassword(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder=""
                       style={{ ...inputStyle, paddingRight: "80px" }}
                       onFocus={e => (e.currentTarget.style.borderColor = "#06b6d4")}
                       onBlur={e => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)")}
@@ -452,7 +452,7 @@ export default function LoginPage() {
                               border: `1px solid ${ok ? "rgba(16,185,129,0.3)" : "rgba(255,255,255,0.07)"}`,
                               color: ok ? "#34d399" : "#475569",
                             }}>
-                            {ok ? "✓" : "."} {label}
+                            {ok ? "" : "."} {label}
                           </span>
                         );
                       })}
@@ -499,7 +499,7 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Signing in..." : "Sign in →"}
+                  {loading ? "Signing in..." : "Sign in "}
                 </button>
 
                 <p className="text-center text-xs mt-6" style={{ color: "#1e293b" }}>
@@ -511,13 +511,13 @@ export default function LoginPage() {
               </>
             )}
 
-            {/* ── STEP: 2FA ── */}
+            {/*  STEP: 2FA  */}
             {step === "2fa" && (
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
                     style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>
-                    🔐
+                    
                   </div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>
                     Two-Step Verification
@@ -570,13 +570,13 @@ export default function LoginPage() {
                   style={{ background: "#06b6d4", color: "#fff", boxShadow: "0 8px 24px rgba(6,182,212,0.22)" }}
                   onMouseEnter={e => (e.currentTarget.style.transform = "translateY(-1px)")}
                   onMouseLeave={e => (e.currentTarget.style.transform = "translateY(0)")}>
-                  Verify & continue →
+                  Verify & continue 
                 </button>
 
                 <div className="flex items-center justify-between">
                   <button onClick={() => { setStep("login"); setOtp(["","","","","",""]); setError(""); }}
                     className="text-xs hover:underline" style={{ color: "#475569" }}>
-                    ← Back to login
+                     Back to login
                   </button>
                   <button className="text-xs hover:underline" style={{ color: "#06b6d4" }}>
                     Resend code
@@ -585,19 +585,19 @@ export default function LoginPage() {
 
                 <div className="mt-6 p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
                   <p className="text-xs" style={{ color: "#334155" }}>
-                    🔒 This extra step keeps your account secure. The code expires in <span style={{ color: "#06b6d4" }}>10 minutes</span>.
+                     This extra step keeps your account secure. The code expires in <span style={{ color: "#06b6d4" }}>10 minutes</span>.
                   </p>
                 </div>
               </>
             )}
 
-            {/* ── STEP: FORGOT ── */}
+            {/*  STEP: FORGOT  */}
             {step === "forgot" && (
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
                     style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>
-                    📧
+                    
                   </div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>
                     Account Recovery
@@ -638,22 +638,22 @@ export default function LoginPage() {
                   }}
                   onMouseEnter={e => { if (!forgotLoading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {forgotLoading ? "Sending..." : "Send reset link →"}
+                  {forgotLoading ? "Sending..." : "Send reset link "}
                 </button>
 
                 <button onClick={() => { setStep("login"); setForgotError(""); }}
                   className="w-full text-xs hover:underline" style={{ color: "#475569" }}>
-                  ← Back to login
+                   Back to login
                 </button>
               </>
             )}
 
-            {/* ── STEP: FORGOT SENT ── */}
+            {/*  STEP: FORGOT SENT  */}
             {step === "forgot-sent" && (
               <div className="text-center">
                 <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6"
                   style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)" }}>
-                  ✉️
+                  
                 </div>
                 <p className="text-xs font-medium uppercase mb-2" style={{ color: "#34d399", letterSpacing: "0.2em" }}>
                   Email sent
@@ -677,7 +677,7 @@ export default function LoginPage() {
                 </div>
                 <button onClick={() => { setStep("login"); setForgotEmail(""); setOtp(["","","","","",""]); }}
                   className="text-xs hover:underline" style={{ color: "#475569" }}>
-                  ← Back to login
+                   Back to login
                 </button>
               </div>
             )}

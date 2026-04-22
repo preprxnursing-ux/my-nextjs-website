@@ -161,7 +161,7 @@ export default function TestimonialsPage() {
       <style>{fontStyle}</style>
       <main className="min-h-screen" style={{ background: "#f6f7f9" }}>
 
-        {/* ── HERO ── */}
+        {/*  HERO  */}
         <section
           className="relative min-h-[55vh] flex items-center overflow-hidden"
           style={{ background: "#0a0f1e" }}
@@ -228,7 +228,7 @@ export default function TestimonialsPage() {
           </div>
         </section>
 
-        {/* ── STATS BAR ── */}
+        {/*  STATS BAR  */}
         <section style={{ background: "#0d1425", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
           <div className="mx-auto max-w-7xl px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((s) => (
@@ -245,7 +245,7 @@ export default function TestimonialsPage() {
           </div>
         </section>
 
-        {/* ── TESTIMONIALS GRID ── */}
+        {/*  TESTIMONIALS GRID  */}
         <section className="mx-auto max-w-7xl px-6 py-20">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visible.map((t, i) => (
@@ -332,13 +332,13 @@ export default function TestimonialsPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-3xl mb-3">💬</p>
+              <p className="text-3xl mb-3"></p>
               <p style={{ color: "#64748b" }}>No stories for that filter yet.</p>
             </div>
           )}
         </section>
 
-        {/* ── FEATURED QUOTE ── */}
+        {/*  FEATURED QUOTE  */}
         <section
           className="relative py-20 px-6 overflow-hidden"
           style={{ background: "#0a0f1e" }}
@@ -369,7 +369,7 @@ export default function TestimonialsPage() {
           </div>
         </section>
 
-        {/* ── SUBMIT YOUR STORY ── */}
+        {/*  SUBMIT YOUR STORY  */}
         <section className="mx-auto max-w-3xl px-6 py-20 text-center">
           <p className="text-xs font-medium uppercase mb-3" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>
             Share Your Win
@@ -392,7 +392,7 @@ export default function TestimonialsPage() {
               onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
             >
-              Share my story →
+              Share my story 
             </Link>
             <Link
               href="/courses/nclex-rn"
@@ -406,7 +406,7 @@ export default function TestimonialsPage() {
           </div>
         </section>
 
-        {/* ── BOTTOM CTA ── */}
+        {/*  BOTTOM CTA  */}
         <section
           className="relative py-24 px-6 overflow-hidden bg-cover bg-center"
           style={{ backgroundImage: `url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1800&q=80')` }}
@@ -432,7 +432,7 @@ export default function TestimonialsPage() {
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                Start free today →
+                Start free today 
               </Link>
               <Link
                 href="/courses"

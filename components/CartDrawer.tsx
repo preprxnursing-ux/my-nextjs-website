@@ -46,7 +46,7 @@ export default function CartDrawer() {
         <div style={{ flex: 1, overflowY: "auto", padding: "24px" }}>
           {!cartPlan ? (
             <div style={{ textAlign: "center", paddingTop: "60px" }}>
-              <div style={{ fontSize: "48px", marginBottom: "16px" }}>🛒</div>
+              <div style={{ fontSize: "48px", marginBottom: "16px" }}></div>
               <p style={{ color: "#64748b", fontSize: "15px", marginBottom: "24px" }}>Your cart is empty</p>
               <Link href="/pricing" onClick={() => setCartOpen(false)}
                 style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", color: "#38bdf8", padding: "12px 24px", borderRadius: "10px", fontWeight: 700, fontSize: "14px", textDecoration: "none" }}>

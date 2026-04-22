@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const features = [
   {
-    icon: "🎯",
+    icon: "",
     title: "Three exam modes",
     description:
       "Choose how you learn. Timed mode simulates real NCLEX pressure. Tutor mode gives you instant feedback after every question. Quick mode is a 10-question sprint for daily practice.",
@@ -10,7 +10,7 @@ const features = [
     iconBg: "bg-cyan-500",
   },
   {
-    icon: "🧠",
+    icon: "",
     title: "Deep clinical rationales",
     description:
       "Every question comes with a full explanation of why the correct answer is right and why each wrong answer is wrong. You learn the reasoning, not just the answer.",
@@ -18,7 +18,7 @@ const features = [
     iconBg: "bg-indigo-500",
   },
   {
-    icon: "📊",
+    icon: "",
     title: "Personal performance dashboard",
     description:
       "Track your scores, spot weak topics, and watch your accuracy improve over time. Your dashboard shows every attempt with detailed breakdowns.",
@@ -26,7 +26,7 @@ const features = [
     iconBg: "bg-emerald-500",
   },
   {
-    icon: "🚩",
+    icon: "",
     title: "Flag and review system",
     description:
       "Flag any question during an exam and come back to it. After submitting, filter your review by incorrect answers, flagged questions, or specific topics.",
@@ -34,7 +34,7 @@ const features = [
     iconBg: "bg-amber-500",
   },
   {
-    icon: "⏱️",
+    icon: "",
     title: "Adaptive timer",
     description:
       "Timed exams build the mental endurance NCLEX demands. Quick mode sprints build daily momentum. Tutor mode removes the clock so you can focus on learning.",
@@ -42,7 +42,7 @@ const features = [
     iconBg: "bg-rose-500",
   },
   {
-    icon: "📱",
+    icon: "",
     title: "Works on any device",
     description:
       "Study on your phone on the bus, your tablet at the library, or your laptop at home. The platform is fully responsive and feels native on every screen.",
@@ -50,7 +50,7 @@ const features = [
     iconBg: "bg-purple-500",
   },
   {
-    icon: "🔒",
+    icon: "",
     title: "Your data stays yours",
     description:
       "Every attempt is saved securely to your account. Your history, scores, and progress are private and tied only to your login -- never shared.",
@@ -58,7 +58,7 @@ const features = [
     iconBg: "bg-slate-700",
   },
   {
-    icon: "🤖",
+    icon: "",
     title: "AI tutor -- coming soon",
     description:
       "Our upcoming AI layer will explain exactly why you keep missing certain questions, generate personalised study plans, and adapt your exam to your weak areas.",
@@ -66,7 +66,7 @@ const features = [
     iconBg: "bg-cyan-500",
   },
   {
-    icon: "🎓",
+    icon: "",
     title: "Built for NCLEX-RN, FNP and CCRN",
     description:
       "We cover more than just NCLEX-RN. Premium subscribers get access to FNP certification and CCRN critical care question sets as they launch.",

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const fontStyle = `
@@ -125,7 +125,7 @@ const plans = [
     hoursPerDay: "2-3",
     questionsPerDay: "50-75",
     restDays: "3 per week",
-    ideal: "Working 3Ã—12 shifts . Want thorough review . More time available",
+    ideal: "Working 312 shifts . Want thorough review . More time available",
     phases: [
       { week: "Week 1-2", title: "Foundations", color: "#8b5cf6", days: [
         { day: "Week 1", focus: "Diagnostic + Lab Values + Safety", detail: "Baseline assessment . Critical lab values . Infection control protocols . Legal/ethical" },
@@ -181,7 +181,7 @@ export default async function NCLEXStudyPlanPage() {
       <style>{fontStyle}</style>
       <main style={{ background: "#f6f8fc", minHeight: "100vh" }}>
 
-        {/* â”€â”€ HERO â”€â”€ */}
+        {/*  HERO  */}
         <section style={{ background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)", padding: "80px 40px", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: `url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1800&q=80')`, backgroundSize: "cover", backgroundPosition: "center", opacity: .1 }} />
           <div style={{ position: "absolute", top: "-60px", right: "5%", width: "400px", height: "400px", background: "radial-gradient(circle,rgba(14,165,233,.15) 0%,transparent 65%)", pointerEvents: "none" }} />
@@ -193,7 +193,7 @@ export default async function NCLEXStudyPlanPage() {
                 onMouseLeave={e => (e.currentTarget.style.color = "#64748b")}>
                 NCLEX-RN
               </Link>
-              <span style={{ color: "#334155", fontSize: "13px" }}>â€º</span>
+              <span style={{ color: "#334155", fontSize: "13px" }}></span>
               <span style={{ fontSize: "13px", color: "#38bdf8", fontWeight: 600 }}>Study Plan</span>
             </div>
 
@@ -258,7 +258,7 @@ export default async function NCLEXStudyPlanPage() {
 
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "60px 40px" }}>
 
-          {/* â”€â”€ DAILY STRUCTURE â”€â”€ */}
+          {/*  DAILY STRUCTURE  */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Daily Study Structure</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -283,7 +283,7 @@ export default async function NCLEXStudyPlanPage() {
             </div>
           </section>
 
-          {/* â”€â”€ STUDY PLANS â”€â”€ */}
+          {/*  STUDY PLANS  */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Choose Your Plan</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -360,7 +360,7 @@ export default async function NCLEXStudyPlanPage() {
             ))}
           </section>
 
-          {/* â”€â”€ NGN QUESTION FORMATS â”€â”€ */}
+          {/*  NGN QUESTION FORMATS  */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>NGN Question Types</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -390,7 +390,7 @@ export default async function NCLEXStudyPlanPage() {
             </div>
           </section>
 
-          {/* â”€â”€ READINESS MILESTONES â”€â”€ */}
+          {/*  READINESS MILESTONES  */}
           <section style={{ marginBottom: "80px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Readiness Milestones</p>
             <h2 className="fd" style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.2, marginBottom: "8px" }}>
@@ -419,7 +419,7 @@ export default async function NCLEXStudyPlanPage() {
             </div>
           </section>
 
-          {/* â”€â”€ CTA â”€â”€ */}
+          {/*  CTA  */}
           <section style={{ background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 100%)", borderRadius: "24px", padding: "60px 48px", textAlign: "center", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "500px", height: "500px", background: "radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 65%)", pointerEvents: "none" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
@@ -435,7 +435,7 @@ export default async function NCLEXStudyPlanPage() {
                   style={{ background: "#0ea5e9", color: "#fff", padding: "16px 36px", borderRadius: "13px", fontSize: "15px", fontWeight: 700, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", boxShadow: "0 8px 28px rgba(14,165,233,.3)", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {user ? "Go to quiz â†’" : "Start free -- no card needed â†’"}
+                  {user ? "Go to quiz " : "Start free -- no card needed "}
                 </Link>
                 <Link href="/courses/nclex-rn"
                   style={{ background: "rgba(255,255,255,.08)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,.15)", padding: "16px 32px", borderRadius: "13px", fontSize: "15px", fontWeight: 600, textDecoration: "none", transition: "all .2s" }}

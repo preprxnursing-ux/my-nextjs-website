@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -111,7 +111,7 @@ function QuizSelectInner() {
         <div style={{ marginBottom: "40px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "18px" }}>
             <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: step1Done ? "#0ea5e9" : "rgba(255,255,255,0.08)", border: step1Done ? "none" : "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: step1Done ? "#fff" : "#475569", flexShrink: 0 }}>
-              {step1Done ? "✓" : "1"}
+              {step1Done ? "" : "1"}
             </div>
             <p style={{ fontSize: "13px", fontWeight: 700, color: step1Done ? "#f8fafc" : "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", margin: 0 }}>
               Select Course {!step1Done && <span style={{ color: "#ef4444", marginLeft: "4px" }}>*Required</span>}
@@ -142,7 +142,7 @@ function QuizSelectInner() {
         <div style={{ marginBottom: "40px", opacity: step1Done ? 1 : 0.35, pointerEvents: step1Done ? "auto" : "none", transition: "opacity 0.3s" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "18px" }}>
             <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: step2Done ? "#0ea5e9" : "rgba(255,255,255,0.08)", border: step2Done ? "none" : "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: step2Done ? "#fff" : "#475569", flexShrink: 0 }}>
-              {step2Done ? "✓" : "2"}
+              {step2Done ? "" : "2"}
             </div>
             <p style={{ fontSize: "13px", fontWeight: 700, color: step2Done ? "#f8fafc" : "#64748b", textTransform: "uppercase", letterSpacing: "0.1em", margin: 0 }}>
               Select Topic {step1Done && !step2Done && <span style={{ color: "#ef4444", marginLeft: "4px" }}>*Required</span>}
