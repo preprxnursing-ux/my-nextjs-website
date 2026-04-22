@@ -72,7 +72,7 @@ const contacts = [
     bg: "rgba(14,165,233,.06)",
     border: "rgba(14,165,233,.2)",
     initials: "M",
-    avatar: "/melissa2.jpg",
+    avatar: "/melissa-new.png",
     tagline: "Questions about the platform, courses, or getting started? Melissa is your first stop.",
     topics: ["Platform questions", "Course guidance", "Getting started", "Account support"],
     availability: "Mon - Fri . 8am - 6pm EAT",

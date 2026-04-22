@@ -24,7 +24,7 @@ export default function MelissaProfile() {
         <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "48px", alignItems: "start", marginBottom: "40px" }}>
           <div>
             <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", aspectRatio: "4/5", border: "1px solid rgba(14,165,233,.2)", boxShadow: "0 32px 80px rgba(0,0,0,.4)" }}>
-              <Image src="/melissa2.jpg" alt="Melissa Ainsley" fill style={{ objectFit: "cover" }} />
+              <Image src="/melissa-new.png" alt="Melissa Ainsley" fill style={{ objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,15,30,.6) 0%, transparent 60%)" }} />
               <div style={{ position: "absolute", bottom: "20px", left: "20px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(14,165,233,.15)", border: "1px solid rgba(14,165,233,.3)", borderRadius: "100px", padding: "5px 14px", fontSize: "11px", fontWeight: 700, color: "#38bdf8" }}>
