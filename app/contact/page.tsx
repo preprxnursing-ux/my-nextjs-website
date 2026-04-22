@@ -64,7 +64,7 @@ const fontStyle = `
 
 const contacts = [
   {
-    name: "Melissa Carter",
+    name: "Melissa Ainsley",
     role: "Student Success Lead",
     email: "preprxnursing@gmail.com",
     color: "#0ea5e9",

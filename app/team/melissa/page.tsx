@@ -24,7 +24,7 @@ export default function MelissaProfile() {
         <div className="fade-up" style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: "48px", alignItems: "start", marginBottom: "40px" }}>
           <div>
             <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", aspectRatio: "4/5", border: "1px solid rgba(14,165,233,.2)", boxShadow: "0 32px 80px rgba(0,0,0,.4)" }}>
-              <Image src="/melissa2.jpg" alt="Melissa Carter" fill style={{ objectFit: "cover" }} />
+              <Image src="/melissa2.jpg" alt="Melissa Ainsley" fill style={{ objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(6,15,30,.6) 0%, transparent 60%)" }} />
               <div style={{ position: "absolute", bottom: "20px", left: "20px" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(14,165,233,.15)", border: "1px solid rgba(14,165,233,.3)", borderRadius: "100px", padding: "5px 14px", fontSize: "11px", fontWeight: 700, color: "#38bdf8" }}>
@@ -40,7 +40,7 @@ export default function MelissaProfile() {
               <button onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=preprxnursing@gmail.com', '_blank')}
                 style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "13px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", borderRadius: "12px", fontWeight: 700, fontSize: "14px", border: "none", cursor: "pointer", fontFamily: "inherit", marginBottom: "10px", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
                 <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Email Melissa Carter
+                Email Melissa Ainsley
               </button>
               <Link href="/contact" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "13px", background: "rgba(255,255,255,.05)", color: "#94a3b8", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none", border: "1px solid rgba(255,255,255,.1)" }}>
                 Contact form
@@ -51,7 +51,7 @@ export default function MelissaProfile() {
           <div style={{ paddingTop: "8px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>Student Success Lead</p>
             <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.5rem,5vw,4rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.1, marginBottom: "20px" }}>
-              Melissa Carter, BSN, RN
+              Melissa Ainsley
             </h1>
             <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.85, marginBottom: "28px" }}>
               Melissa is the heartbeat of the Pre-NCLEX Nursing student experience. Having walked the path of nursing education herself, she understands the pressure, the sleepless nights, and the quiet terror of sitting down to an NCLEX exam. That lived experience is exactly what she brings to every student interaction.
@@ -79,7 +79,7 @@ export default function MelissaProfile() {
               <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", fontStyle: "italic", color: "#e2e8f0", lineHeight: 1.7, margin: 0 }}>
                 "Every student who reaches out to me deserves to feel heard. Passing NCLEX is hard enough -- navigating the platform should never be the hard part."
               </p>
-              <p style={{ fontSize: "12px", color: "#0ea5e9", fontWeight: 700, marginTop: "14px", margin: "14px 0 0" }}>-- Melissa Carter, BSN, RN Carter, BSN, RN, Student Success Lead</p>
+              <p style={{ fontSize: "12px", color: "#0ea5e9", fontWeight: 700, marginTop: "14px", margin: "14px 0 0" }}>-- Melissa Ainsley Carter, BSN, RN, Student Success Lead</p>
             </div>
           </div>
         </div>
