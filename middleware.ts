@@ -7,9 +7,7 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
+        getAll() { return request.cookies.getAll(); },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({ request });
@@ -21,12 +19,20 @@ export async function middleware(request: NextRequest) {
     }
   );
   const { data: { user } } = await supabase.auth.getUser();
+  const otpVerified = request.cookies.get("otp_verified")?.value === "true";
   const protectedPaths = ["/dashboard", "/quiz", "/results", "/review", "/history"];
   const isProtected = protectedPaths.some(p => request.nextUrl.pathname.startsWith(p));
-  if (isProtected && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/auth/login";
-    return NextResponse.redirect(loginUrl);
+  if (isProtected) {
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/auth/login";
+      return NextResponse.redirect(url);
+    }
+    if (!otpVerified) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/auth/verify";
+      return NextResponse.redirect(url);
+    }
   }
   return supabaseResponse;
 }
