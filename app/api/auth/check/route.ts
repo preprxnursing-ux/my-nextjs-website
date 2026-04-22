@@ -5,8 +5,11 @@ export async function POST(request: Request) {
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    return NextResponse.json({ valid: false, message: error.message }, { status: 401 });
+    return NextResponse.json({ valid: false, message: "Invalid email or password." }, { status: 401 });
   }
   await supabase.auth.signOut();
-  return NextResponse.json({ valid: true });
+  const response = NextResponse.json({ valid: true });
+  response.cookies.delete("sb-ijpfpdnepvmyvaiwgbht-auth-token");
+  response.cookies.delete("sb-ijpfpdnepvmyvaiwgbht-auth-token-code-verifier");
+  return response;
 }
