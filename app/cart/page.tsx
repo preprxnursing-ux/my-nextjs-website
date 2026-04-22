@@ -164,7 +164,7 @@ export default function CartPage() {
                 </div>
               )}
 
-              <Link href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "16px", background: `linear-gradient(135deg, ${plan.color}, ${plan.color}cc)`, color: "#fff", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: `0 8px 28px ${plan.color}40`, marginBottom: "10px" }}>
+              <Link href="/checkout" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "16px", background: `linear-gradient(135deg, ${plan.color}, ${plan.color}cc)`, color: "#fff", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: `0 8px 28px ${plan.color}40`, marginBottom: "10px" }}>
                 {plan.price === 0 ? "Get Started Free" : "Proceed to Checkout"}
                 <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
