@@ -7,8 +7,8 @@ const fontStyle = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
   .font-display { font-family: 'Playfair Display', Georgia, serif; }
   body { font-family: 'DM Sans', sans-serif; }
-  @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-18px) rotate(3deg); } }
-  @keyframes floatB { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(-2deg); } }
+  @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+  @keyframes floatB { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
   @keyframes pulse-ring { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(1.6); opacity: 0; } }
   input::placeholder { color: #334155; }
   input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #0d1829 inset !important; -webkit-text-fill-color: #e2e8f0 !important; }
@@ -36,11 +36,11 @@ export default function LoginPage() {
     if (step !== "otp") return;
     setResendTimer(60);
     setCanResend(false);
+    let c = 60;
     const interval = setInterval(() => {
-      setResendTimer(t => {
-        if (t <= 1) { clearInterval(interval); setCanResend(true); return 0; }
-        return t - 1;
-      });
+      c -= 1;
+      setResendTimer(c);
+      if (c <= 0) { clearInterval(interval); setCanResend(true); }
     }, 1000);
     return () => clearInterval(interval);
   }, [step]);
@@ -48,13 +48,18 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const supabase = createClient();
-    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-    if (signInError) {
-      setError(signInError.message);
+    const res = await fetch("/api/auth/check", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.message || "Invalid email or password.");
       setLoading(false);
       return;
     }
+    const supabase = createClient();
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email,
       options: { shouldCreateUser: false },
@@ -68,6 +73,7 @@ export default function LoginPage() {
     setLoading(false);
   }
   async function handleGoogle() {
+    if (loading) return;
     setLoading(true);
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
@@ -210,20 +216,20 @@ export default function LoginPage() {
                 </h1>
                 <p className="mb-7 text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
                   No account?{" "}
-                  <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">Sign up free →</Link>
+                  <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">Sign up free</Link>
                 </p>
                 <button onClick={handleGoogle} disabled={loading}
                   className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 mb-5"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "#e2e8f0" }}
-                  onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.09)"}
-                  onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}>
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "#e2e8f0", cursor: loading ? "not-allowed" : "pointer" }}
+                  onMouseEnter={e => { if (!loading) e.currentTarget.style.background = "rgba(255,255,255,0.09)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}>
                   <svg width="18" height="18" viewBox="0 0 18 18">
                     <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/>
                     <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
                     <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
                     <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
                   </svg>
-                  {loading ? "Redirecting to Google..." : "Continue with Google"}
+                  {loading ? "Redirecting..." : "Continue with Google"}
                 </button>
                 <div className="flex items-center gap-3 mb-5">
                   <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.07)" }} />
@@ -274,7 +280,7 @@ export default function LoginPage() {
                   style={{ background: loading ? "rgba(6,182,212,0.45)" : "#06b6d4", color: "#fff", boxShadow: loading ? "none" : "0 8px 24px rgba(6,182,212,0.22)", cursor: loading ? "not-allowed" : "pointer" }}
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
-                  {loading ? "Signing in..." : "Sign in →"}
+                  {loading ? "Checking credentials..." : "Sign in"}
                 </button>
                 <p className="text-center text-xs mt-6" style={{ color: "#64748b" }}>
                   By continuing you agree to our{" "}
@@ -316,11 +322,11 @@ export default function LoginPage() {
                 <button onClick={handleVerifyOtp} disabled={otpLoading}
                   className="w-full py-3.5 rounded-xl text-sm font-medium transition-all duration-200 mb-4"
                   style={{ background: otpLoading ? "rgba(6,182,212,0.45)" : "#06b6d4", color: "#fff", boxShadow: "0 8px 24px rgba(6,182,212,0.22)", cursor: otpLoading ? "not-allowed" : "pointer" }}>
-                  {otpLoading ? "Verifying..." : "Verify & continue →"}
+                  {otpLoading ? "Verifying..." : "Verify & continue"}
                 </button>
                 <div className="flex items-center justify-between mb-4">
                   <button onClick={() => { setStep("login"); setOtp(["","","","","",""]); setError(""); }}
-                    className="text-xs hover:underline" style={{ color: "#475569" }}>← Back to login</button>
+                    className="text-xs hover:underline" style={{ color: "#475569" }}>Back to login</button>
                   {canResend ? (
                     <button onClick={handleResend} className="text-xs hover:underline" style={{ color: "#06b6d4" }}>Resend code</button>
                   ) : (
@@ -329,7 +335,7 @@ export default function LoginPage() {
                 </div>
                 <div className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
                   <p className="text-xs" style={{ color: "#334155" }}>
-                    🔒 This code keeps your account secure. It expires in <span style={{ color: "#06b6d4" }}>10 minutes</span>.
+                    This code keeps your account secure. It expires in <span style={{ color: "#06b6d4" }}>10 minutes</span>.
                   </p>
                 </div>
               </>
@@ -361,10 +367,10 @@ export default function LoginPage() {
                 <button onClick={handleForgot} disabled={forgotLoading}
                   className="w-full py-3.5 rounded-xl text-sm font-medium transition-all duration-200 mb-4"
                   style={{ background: forgotLoading ? "rgba(6,182,212,0.45)" : "#06b6d4", color: "#fff", cursor: forgotLoading ? "not-allowed" : "pointer" }}>
-                  {forgotLoading ? "Sending..." : "Send reset link →"}
+                  {forgotLoading ? "Sending..." : "Send reset link"}
                 </button>
                 <button onClick={() => { setStep("login"); setForgotError(""); }}
-                  className="w-full text-xs hover:underline" style={{ color: "#475569" }}>← Back to login</button>
+                  className="w-full text-xs hover:underline" style={{ color: "#475569" }}>Back to login</button>
               </>
             )}
             {/* STEP: FORGOT SENT */}
@@ -386,7 +392,7 @@ export default function LoginPage() {
                   </p>
                 </div>
                 <button onClick={() => { setStep("login"); setForgotEmail(""); }}
-                  className="text-xs hover:underline" style={{ color: "#475569" }}>← Back to login</button>
+                  className="text-xs hover:underline" style={{ color: "#475569" }}>Back to login</button>
               </div>
             )}
           </div>
