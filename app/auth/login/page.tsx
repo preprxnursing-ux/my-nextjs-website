@@ -68,6 +68,7 @@ export default function LoginPage() {
     setLoading(false);
   }
   async function handleGoogle() {
+    setLoading(true);
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -211,7 +212,7 @@ export default function LoginPage() {
                   No account?{" "}
                   <Link href="/auth/signup" style={{ color: "#06b6d4" }} className="hover:underline font-medium">Sign up free →</Link>
                 </p>
-                <button onClick={handleGoogle}
+                <button onClick={handleGoogle} disabled={loading}
                   className="w-full flex items-center justify-center gap-3 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 mb-5"
                   style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "#e2e8f0" }}
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.09)"}
