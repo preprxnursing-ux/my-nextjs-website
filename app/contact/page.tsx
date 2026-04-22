@@ -106,7 +106,7 @@ const faqs = [
 ];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", to: "melissa" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", to: "preprxnursing@gmail.com" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -137,7 +137,7 @@ export default function ContactPage() {
     boxSizing: "border-box",
   };
 
-  const selectedContact = contacts.find(c => c.name.toLowerCase() === formData.to)!;
+  const selectedContact = contacts.find(c => c.email === formData.to)!;
 
   return (
     <>
@@ -259,7 +259,7 @@ export default function ContactPage() {
                 <p style={{ color: "#64748b", lineHeight: 1.8, maxWidth: "400px", margin: "0 auto 28px" }}>
                   {selectedContact.name} will get back to you {selectedContact.responseTime.toLowerCase()}.
                 </p>
-                <button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", subject: "", message: "", to: "melissa" }); }}
+                <button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", subject: "", message: "", to: "preprxnursing@gmail.com" }); }}
                   style={{ padding: "12px 28px", borderRadius: "12px", background: "rgba(14,165,233,.15)", border: "1px solid rgba(14,165,233,.3)", color: "#38bdf8", fontSize: "14px", fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>
                   Send another message
                 </button>
@@ -272,17 +272,17 @@ export default function ContactPage() {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                     {contacts.map(c => (
                       <button key={c.name} onClick={() => setFormData(prev => ({ ...prev, to: c.name.toLowerCase() }))}
-                        style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", borderRadius: "16px", background: formData.to === c.name.toLowerCase() ? c.accentLight : "rgba(255,255,255,.03)", border: `1px solid ${formData.to === c.name.toLowerCase() ? c.border : "rgba(255,255,255,.07)"}`, cursor: "pointer", transition: "all .25s", fontFamily: "inherit", position: "relative", overflow: "hidden" }}>
-                        {formData.to === c.name.toLowerCase() && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: c.color }} />}
-                        <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${formData.to === c.name.toLowerCase() ? c.color + "60" : c.color + "25"}`, flexShrink: 0 }}>
+                        style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", borderRadius: "16px", background: formData.to === c.email ? c.accentLight : "rgba(255,255,255,.03)", border: `1px solid ${formData.to === c.email ? c.border : "rgba(255,255,255,.07)"}`, cursor: "pointer", transition: "all .25s", fontFamily: "inherit", position: "relative", overflow: "hidden" }}>
+                        {formData.to === c.email && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: c.color }} />}
+                        <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${formData.to === c.email ? c.color + "60" : c.color + "25"}`, flexShrink: 0 }}>
                           <img src={c.avatar} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }} onClick={() => window.location.href = c.href} />
                         </div>
                         <div style={{ textAlign: "left", flex: 1 }}>
-                          <p style={{ fontSize: "14px", fontWeight: 700, color: formData.to === c.name.toLowerCase() ? "#f8fafc" : "#94a3b8", margin: "0 0 3px" }}>{c.name}</p>
-                          <p style={{ fontSize: "11px", color: formData.to === c.name.toLowerCase() ? c.color : "#334155", margin: 0, fontWeight: 600 }}>{c.role}</p>
+                          <p style={{ fontSize: "14px", fontWeight: 700, color: formData.to === c.email ? "#f8fafc" : "#94a3b8", margin: "0 0 3px" }}>{c.name}</p>
+                          <p style={{ fontSize: "11px", color: formData.to === c.email ? c.color : "#334155", margin: 0, fontWeight: 600 }}>{c.role}</p>
                           <p style={{ fontSize: "10px", color: "#334155", margin: "2px 0 0" }}>{c.responseTime}</p>
                         </div>
-                        {formData.to === c.name.toLowerCase() && (
+                        {formData.to === c.email && (
                           <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: c.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                             <svg width="10" height="10" fill="none" stroke="#fff" strokeWidth="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
                           </div>
