@@ -253,8 +253,8 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 800); }
 
   const people = [
-    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "/melissa2.jpg", topics: "Platform . Courses . Account", response: "Within 4 hours", href: "/team/melissa" },
-    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "/james2.jpg", topics: "Partnerships . Media . Strategy", response: "Within 24 hours", href: "/team/james" },
+    { name: "Melissa Carter", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "/melissa2.jpg", topics: "Platform . Courses . Account", response: "Within 4 hours", href: "/team/melissa" },
+    { name: "Dr. James Whitfield", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "/james2.jpg", topics: "Partnerships . Media . Strategy", response: "Within 24 hours", href: "/team/james" },
   ];
 
   return (

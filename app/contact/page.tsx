@@ -64,7 +64,7 @@ const fontStyle = `
 
 const contacts = [
   {
-    name: "Melissa",
+    name: "Melissa Carter",
     role: "Student Success Lead",
     email: "preprxnursing@gmail.com",
     color: "#0ea5e9",
@@ -80,7 +80,7 @@ const contacts = [
     accentLight: "rgba(14,165,233,.08)", href: "/team/melissa",
   },
   {
-    name: "James",
+    name: "Dr. James Whitfield",
     role: "Founder & Lead Educator",
     email: "prenclexreview@gmail.com",
     color: "#8b5cf6",
