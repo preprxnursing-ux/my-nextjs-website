@@ -1,3 +1,4 @@
+$content = @'
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -42,9 +43,9 @@ export default async function DashboardPage() {
 
   const stats = [
     { label: "Total Exams", value: String(totalAttempts), sub: "Sessions completed", accent: "#0ea5e9", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>) },
-    { label: "Average Score", value: totalAttempts > 0 ? `${averageScore}%` : "â€”", sub: "Across all attempts", accent: "#8b5cf6", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
-    { label: "Best Score", value: totalAttempts > 0 ? `${Math.round(bestScore)}%` : "â€”", sub: "Your personal best", accent: "#10b981", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>) },
-    { label: "Latest Score", value: totalAttempts > 0 ? `${latestScore}%` : "â€”", sub: "Most recent exam", accent: "#f59e0b", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
+    { label: "Average Score", value: totalAttempts > 0 ? `${averageScore}%` : "—", sub: "Across all attempts", accent: "#8b5cf6", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
+    { label: "Best Score", value: totalAttempts > 0 ? `${Math.round(bestScore)}%` : "—", sub: "Your personal best", accent: "#10b981", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>) },
+    { label: "Latest Score", value: totalAttempts > 0 ? `${latestScore}%` : "—", sub: "Most recent exam", accent: "#f59e0b", icon: (<svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
   ];
 
   return (
@@ -72,11 +73,11 @@ export default async function DashboardPage() {
             <div>
               <p style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "8px" }}>{greeting}</p>
               <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.15, marginBottom: "10px" }}>
-                Welcome back, {firstName} ðŸ‘‹
+                Welcome back, {firstName} 👋
               </h1>
               <p style={{ fontSize: "15px", color: "#94a3b8", maxWidth: "480px" }}>
                 {totalAttempts === 0
-                  ? "You haven't taken any exams yet â€” start your first one below."
+                  ? "You haven't taken any exams yet — start your first one below."
                   : `${totalAttempts} exam${totalAttempts > 1 ? "s" : ""} completed. Average score: ${averageScore}%. Keep pushing!`}
               </p>
               <div style={{ display: "flex", gap: "12px", marginTop: "24px", flexWrap: "wrap" }}>
@@ -99,7 +100,7 @@ export default async function DashboardPage() {
                     style={{ filter: `drop-shadow(0 0 8px ${scoreColor})` }}/>
                 </svg>
                 <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                  <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.8rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1 }}>{totalAttempts > 0 ? `${latestScore}%` : "â€”"}</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.8rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1 }}>{totalAttempts > 0 ? `${latestScore}%` : "—"}</p>
                   <p style={{ fontSize: "10px", color: "#64748b", fontWeight: 600, marginTop: "4px" }}>LATEST</p>
                 </div>
               </div>
@@ -131,7 +132,7 @@ export default async function DashboardPage() {
                 <p style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", letterSpacing: ".16em", textTransform: "uppercase", marginBottom: "4px" }}>Performance</p>
                 <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.6rem", fontWeight: 700, color: "#f8fafc" }}>Recent Attempts</h2>
               </div>
-              <Link href="/history" style={{ fontSize: "13px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>View all â†’</Link>
+              <Link href="/history" style={{ fontSize: "13px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>View all →</Link>
             </div>
             {totalAttempts === 0 ? (
               <div style={{ textAlign: "center", padding: "60px 24px" }}>
@@ -139,7 +140,7 @@ export default async function DashboardPage() {
                   <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                 </div>
                 <p style={{ fontSize: "16px", fontWeight: 600, color: "#94a3b8", marginBottom: "8px" }}>No exams yet</p>
-                <Link href="/quiz/select" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "10px 24px", borderRadius: "10px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>Start First Exam â†’</Link>
+                <Link href="/quiz/select" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "10px 24px", borderRadius: "10px", fontWeight: 700, fontSize: "13px", textDecoration: "none" }}>Start First Exam →</Link>
               </div>
             ) : (
               <div>
@@ -153,7 +154,7 @@ export default async function DashboardPage() {
                         <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: `${ac}15`, border: `1px solid ${ac}30`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", fontWeight: 700, color: ac, flexShrink: 0 }}>{totalAttempts - index}</div>
                         <div>
                           <p style={{ fontSize: "14px", fontWeight: 600, color: "#e2e8f0", marginBottom: "2px" }}>Attempt {totalAttempts - index}</p>
-                          <p style={{ fontSize: "11px", color: "#475569" }}>{date} Â· {attempt.mode ?? "Standard"}</p>
+                          <p style={{ fontSize: "11px", color: "#475569" }}>{date} · {attempt.mode ?? "Standard"}</p>
                         </div>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -163,7 +164,7 @@ export default async function DashboardPage() {
                           </div>
                           <p style={{ fontSize: "13px", fontWeight: 700, color: ac }}>{score}%</p>
                         </div>
-                        <Link href="/results" style={{ fontSize: "12px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>Review â†’</Link>
+                        <Link href="/results" style={{ fontSize: "12px", color: "#0ea5e9", textDecoration: "none", fontWeight: 600 }}>Review →</Link>
                       </div>
                     </div>
                   );
@@ -220,3 +221,7 @@ export default async function DashboardPage() {
     </main>
   );
 }
+'@
+
+[System.IO.File]::WriteAllText("$PWD\app\dashboard\page.tsx", $content, [System.Text.UTF8Encoding]::new($false))
+Write-Host "Done! Lines: $((Get-Content app\dashboard\page.tsx).Count)"
