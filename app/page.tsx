@@ -1,4 +1,4 @@
-﻿﻿"use client";
+﻿"use client";
 
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState, useRef } from "react";
@@ -561,6 +561,7 @@ useEffect(() => {
             </div>
           </div>
         </section>
+{user && (<>
 
         {/* wave */}
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: "60px", background: "#112a40" }}>
@@ -733,6 +734,7 @@ useEffect(() => {
         <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: "60px", background: "#0d2a40" }}>
           <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#112a40" />
         </svg>
+</>)}
 
         {/* ---------------------- TESTIMONIALS */}
         <section style={{ background: "#0d2a40", padding: "80px 40px" }}>
