@@ -31,13 +31,13 @@ export default function CheckoutPage() {
           Payment Coming Soon
         </h1>
         <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.75, marginBottom: "32px", maxWidth: "420px", margin: "0 auto 32px" }}>
-          We are finalising our secure payment system. Leave your email and we will notify you the moment checkout goes live â€” your selected plan will be waiting.
+          We are finalising our secure payment system. Leave your email and we will notify you the moment checkout goes live  your selected plan will be waiting.
         </p>
 
         {/* Plan badge */}
         <div style={{ display: "inline-flex", alignItems: "center", gap: "10px", background: `${plan.color}12`, border: `1px solid ${plan.color}30`, borderRadius: "100px", padding: "8px 20px", marginBottom: "32px" }}>
           <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: plan.color }} />
-          <span style={{ fontSize: "13px", fontWeight: 700, color: plan.color }}>{plan.name} â€” {plan.price === 0 ? "Free" : `$${plan.price}/mo`}</span>
+          <span style={{ fontSize: "13px", fontWeight: 700, color: plan.color }}>{plan.name}  {plan.price === 0 ? "Free" : `$${plan.price}/mo`}</span>
         </div>
 
         {/* Email capture */}
