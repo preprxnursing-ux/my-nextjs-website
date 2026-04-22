@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import CartDrawer from "../components/CartDrawer";
 import { CartProvider } from "@/lib/cartContext";
+import SessionGuard from "../components/SessionGuard";
 export const metadata: Metadata = {
   metadataBase: new URL("https://prenclex.com"),
   title: "Pre-NCLEX Nursing | Pass NCLEX First Attempt",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CartProvider>
           <Navbar />
           <CartDrawer />
+          <SessionGuard />
           <div style={{ maxWidth: "100vw", overflowX: "hidden" }}>
             {children}
           </div>
