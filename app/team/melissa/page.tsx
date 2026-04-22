@@ -54,10 +54,10 @@ export default function MelissaProfile() {
               Melissa Ainsley
             </h1>
             <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.85, marginBottom: "28px" }}>
-              Melissa is the heartbeat of the Pre-NCLEX Nursing student experience. Having walked the path of nursing education herself, she understands the pressure, the sleepless nights, and the quiet terror of sitting down to an NCLEX exam. That lived experience is exactly what she brings to every student interaction.
+              A licensed Registered Nurse with a Bachelor of Science in Nursing, Melissa Ainsley brings both clinical expertise and deep empathy to her role as Student Success Lead. Having navigated the NCLEX herself -- and supported hundreds of students through the same journey -- she understands exactly what it takes to pass on the first attempt.
             </p>
             <p style={{ fontSize: "16px", color: "#94a3b8", lineHeight: 1.85, marginBottom: "36px" }}>
-              As Student Success Lead, Melissa oversees everything that touches the learner journey -- from onboarding and platform support to course guidance and account help. She believes that behind every exam attempt is a real person with a real dream, and she treats every question and concern with that same care.
+              With a background in medical-surgical nursing and academic coaching, Melissa oversees every touchpoint of the student experience at Pre-NCLEX Nursing. From onboarding and course guidance to performance support and account help, she ensures that no student feels alone in their preparation. Her clinical foundation means she speaks the language of nursing -- not just customer service.
             </p>
 
             {/* Stats */}
