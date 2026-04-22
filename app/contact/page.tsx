@@ -72,12 +72,12 @@ const contacts = [
     bg: "rgba(14,165,233,.06)",
     border: "rgba(14,165,233,.2)",
     initials: "M",
-    avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&q=80",
+    avatar: "/melissa.jpg",
     tagline: "Questions about the platform, courses, or getting started? Melissa is your first stop.",
     topics: ["Platform questions", "Course guidance", "Getting started", "Account support"],
     availability: "Mon - Fri . 8am - 6pm EAT",
     responseTime: "Usually within 4 hours",
-    accentLight: "rgba(14,165,233,.08)",
+    accentLight: "rgba(14,165,233,.08)", href: "/team/melissa",
   },
   {
     name: "James",
@@ -88,12 +88,12 @@ const contacts = [
     bg: "rgba(139,92,246,.06)",
     border: "rgba(139,92,246,.2)",
     initials: "J",
-    avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80",
+    avatar: "/james.jpg",
     tagline: "Partnerships, educator access, media inquiries, or strategic conversations go to James.",
     topics: ["Partnerships", "Educator access", "Media & press", "Strategic inquiries"],
     availability: "Mon - Fri . 9am - 5pm EAT",
     responseTime: "Usually within 24 hours",
-    accentLight: "rgba(139,92,246,.08)",
+    accentLight: "rgba(139,92,246,.08)", href: "/team/james",
   },
 ];
 
@@ -168,7 +168,7 @@ export default function ContactPage() {
                 </p>
                 <div className="fade-up" style={{ display: "flex", gap: "12px", flexWrap: "wrap", animationDelay: ".3s" }}>
                   {contacts.map(c => (
-                    <a key={c.name} href={`mailto:${c.email}`}
+                    <button key={c.name} onClick={() => window.open(`https://mail.google.com/mail/?view=cm&to=${c.email}`, "_blank")}
                       style={{ display: "inline-flex", alignItems: "center", gap: "10px", padding: "12px 20px", borderRadius: "14px", background: c.bg, border: `1px solid ${c.border}`, textDecoration: "none", transition: "all .3s cubic-bezier(.34,1.56,.64,1)" }}
                       onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.04)"; e.currentTarget.style.boxShadow = `0 12px 32px ${c.color}30`; }}
                       onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; }}>
@@ -179,7 +179,7 @@ export default function ContactPage() {
                         <p style={{ fontSize: "13px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>Email {c.name}</p>
                         <p style={{ fontSize: "10px", color: c.color, margin: 0, fontWeight: 600 }}>{c.email}</p>
                       </div>
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -275,7 +275,7 @@ export default function ContactPage() {
                         style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", borderRadius: "16px", background: formData.to === c.name.toLowerCase() ? c.accentLight : "rgba(255,255,255,.03)", border: `1px solid ${formData.to === c.name.toLowerCase() ? c.border : "rgba(255,255,255,.07)"}`, cursor: "pointer", transition: "all .25s", fontFamily: "inherit", position: "relative", overflow: "hidden" }}>
                         {formData.to === c.name.toLowerCase() && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: c.color }} />}
                         <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${formData.to === c.name.toLowerCase() ? c.color + "60" : c.color + "25"}`, flexShrink: 0 }}>
-                          <img src={c.avatar} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          <img src={c.avatar} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }} onClick={() => window.location.href = c.href} />
                         </div>
                         <div style={{ textAlign: "left", flex: 1 }}>
                           <p style={{ fontSize: "14px", fontWeight: 700, color: formData.to === c.name.toLowerCase() ? "#f8fafc" : "#94a3b8", margin: "0 0 3px" }}>{c.name}</p>
@@ -423,7 +423,7 @@ function ContactCard({ c }: { c: typeof contacts[0] }) {
 
       <div style={{ position: "relative", display: "inline-block", marginBottom: "24px" }}>
         <div style={{ width: "80px", height: "80px", borderRadius: "50%", overflow: "hidden", border: `3px solid ${c.color}${hovered ? "80" : "30"}`, transition: "all .4s cubic-bezier(.34,1.56,.64,1)", transform: hovered ? "scale(1.1)" : "scale(1)", boxShadow: hovered ? `0 0 36px ${c.color}40` : "none" }}>
-          <img src={c.avatar} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src={c.avatar} alt={c.name} style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }} onClick={() => window.location.href = c.href} />
         </div>
         <div style={{ position: "absolute", bottom: "2px", right: "2px", width: "20px", height: "20px", borderRadius: "50%", background: "#22c55e", border: "3px solid #0e2540", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#fff" }} />
@@ -451,14 +451,14 @@ function ContactCard({ c }: { c: typeof contacts[0] }) {
         </div>
       </div>
 
-      <a href={`mailto:${c.email}`}
+      <button onClick={() => window.open(`https://mail.google.com/mail/?view=cm&to=${c.email}`, "_blank")}
         style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "14px", borderRadius: "14px", background: hovered ? c.color : `${c.color}15`, color: hovered ? "#fff" : c.color, border: `1px solid ${c.color}${hovered ? "ff" : "40"}`, textDecoration: "none", fontSize: "13px", fontWeight: 700, transition: "all .35s cubic-bezier(.34,1.56,.64,1)", boxShadow: hovered ? `0 8px 28px ${c.color}40` : "none" }}>
         <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
         </svg>
         Email {c.name} . {c.email}
-      </a>
+      </button>
     </div>
   );
 }

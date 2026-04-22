@@ -253,8 +253,8 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 800); }
 
   const people = [
-    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80", topics: "Platform . Courses . Account", response: "Within 4 hours" },
-    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&q=80", topics: "Partnerships . Media . Strategy", response: "Within 24 hours" },
+    { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "/melissa.jpg", topics: "Platform . Courses . Account", response: "Within 4 hours", href: "/team/melissa" },
+    { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "/james.jpg", topics: "Partnerships . Media . Strategy", response: "Within 24 hours", href: "/team/james" },
   ];
 
   return (
@@ -284,13 +284,13 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; }}>
                   <div style={{ position: "relative" }}>
                     <div style={{ width: "48px", height: "48px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${p.color}30` }}>
-                      <img src={p.avatar} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <img src={p.avatar} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }} onClick={() => window.location.href = p.href} />
                     </div>
                     <div style={{ position: "absolute", bottom: "1px", right: "1px", width: "12px", height: "12px", borderRadius: "50%", background: "#22c55e", border: "2px solid white" }} />
                   </div>
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
-                      <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0 }}>{p.name}</p>
+                      <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0, cursor: "pointer", textDecoration: "underline", textDecorationColor: "transparent" }} onClick={() => window.location.href = p.href} onMouseEnter={e => (e.currentTarget.style.textDecorationColor = p.color)} onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "transparent")}>{p.name}</p>
                       <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
