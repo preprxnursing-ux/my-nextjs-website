@@ -250,7 +250,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
-  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 400); }
 
   const people = [
     { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&q=80", topics: "Platform . Courses . Account", response: "Within 4 hours" },
