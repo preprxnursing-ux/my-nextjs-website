@@ -162,7 +162,7 @@ export default function LoginPage() {
               <div className="absolute inset-0 rounded-full"
                 style={{ background: "rgba(6,182,212,0.15)", animation: "pulse-ring 2s ease-out infinite" }} />
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl"
-                style={{ background: "rgba(6,182,212,0.12)", border: "1px solid rgba(6,182,212,0.3)" }}>Ã°Å¸ÂÂ¥</div>
+                style={{ background: "rgba(6,182,212,0.12)", border: "1px solid rgba(6,182,212,0.3)" }}>ÃƒÂ°Ã…Â¸Ã‚ÂÃ‚Â¥</div>
             </div>
             <div className="flex gap-2 mb-6">
               {["98%", "50K+", "6"].map((v, i) => (
@@ -295,7 +295,7 @@ export default function LoginPage() {
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
-                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>Ã¢Å“â€°Ã¯Â¸Â</div>
+                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>ÃƒÂ¢Ã…â€œÃ¢â‚¬Â°ÃƒÂ¯Ã‚Â¸Ã‚Â</div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>Two-Step Verification</p>
                   <h2 className="font-display text-white mb-2" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Check your email</h2>
                   <p className="text-sm" style={{ color: "#64748b", fontWeight: 300 }}>
@@ -346,7 +346,7 @@ export default function LoginPage() {
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
-                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>Ã°Å¸â€â€˜</div>
+                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬Ëœ</div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>Account Recovery</p>
                   <h2 className="font-display text-white mb-2" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Reset your password</h2>
                   <p className="text-sm" style={{ color: "#64748b", fontWeight: 300 }}>Enter your email and we will send you a secure reset link.</p>
@@ -378,7 +378,7 @@ export default function LoginPage() {
             {step === "forgot-sent" && (
               <div className="text-center">
                 <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6"
-                  style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)" }}>Ã¢Å“â€¦</div>
+                  style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)" }}>ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦</div>
                 <p className="text-xs font-medium uppercase mb-2" style={{ color: "#34d399", letterSpacing: "0.2em" }}>Email sent</p>
                 <h2 className="font-display text-white mb-3" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Check your inbox</h2>
                 <p className="text-sm mb-6" style={{ color: "#64748b", fontWeight: 300, lineHeight: 1.7 }}>

@@ -62,14 +62,13 @@ export default function VerifyPage() {
     const { error: verifyError } = await supabase.auth.verifyOtp({ email, token: code, type: "email" });
     if (verifyError) { setError(verifyError.message); setLoading(false); return; }
     await fetch("/api/auth/verify-otp", { method: "POST" });
-    router.push("/dashboard");
-    router.refresh();
+    window.location.href = "/dashboard";
   }
   return (
     <main style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#080d1a", fontFamily: "'Plus Jakarta Sans',sans-serif", padding: "24px" }}>
       <div style={{ width: "100%", maxWidth: "420px", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "all 0.8s ease" }}>
         <div style={{ background: "linear-gradient(135deg,#0d1829,#0e2540)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "24px", padding: "40px 36px", textAlign: "center", boxShadow: "0 32px 80px rgba(0,0,0,0.5)" }}>
-          <div style={{ width: "64px", height: "64px", borderRadius: "18px", background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.8rem", margin: "0 auto 20px" }}>âœ‰ï¸</div>
+          <div style={{ width: "64px", height: "64px", borderRadius: "18px", background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.8rem", margin: "0 auto 20px" }}>Ã¢Å“â€°Ã¯Â¸Â</div>
           <p style={{ fontSize: "11px", fontWeight: 700, color: "#06b6d4", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "10px" }}>Security Verification</p>
           <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2rem", fontWeight: 700, color: "#f8fafc", marginBottom: "12px", lineHeight: 1.2 }}>Check your email</h1>
           <p style={{ fontSize: "14px", color: "#64748b", lineHeight: 1.7, marginBottom: "28px" }}>
@@ -93,12 +92,12 @@ export default function VerifyPage() {
           </div>
           <button onClick={handleVerify} disabled={loading || sending}
             style={{ width: "100%", padding: "14px", borderRadius: "12px", fontSize: "14px", fontWeight: 700, cursor: loading || sending ? "not-allowed" : "pointer", fontFamily: "inherit", background: loading || sending ? "rgba(6,182,212,0.4)" : "linear-gradient(135deg,#06b6d4,#0ea5e9)", border: "none", color: "#fff", boxShadow: "0 8px 24px rgba(6,182,212,0.25)", marginBottom: "16px", transition: "all .2s" }}>
-            {loading ? "Verifying..." : "Verify & continue â†’"}
+            {loading ? "Verifying..." : "Verify & continue Ã¢â€ â€™"}
           </button>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <button onClick={() => router.push("/auth/login")}
               style={{ fontSize: "12px", color: "#475569", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
-              â† Back to login
+              Ã¢â€ Â Back to login
             </button>
             {canResend ? (
               <button onClick={handleResend}
@@ -111,7 +110,7 @@ export default function VerifyPage() {
           </div>
         </div>
         <p style={{ textAlign: "center", fontSize: "11px", color: "#475569", marginTop: "20px" }}>
-          ðŸ”’ Your account is protected with two-step verification
+          Ã°Å¸â€â€™ Your account is protected with two-step verification
         </p>
       </div>
     </main>
