@@ -9,7 +9,6 @@ export async function POST(request: Request) {
   }
   await supabase.auth.signOut();
   const response = NextResponse.json({ valid: true });
-  response.cookies.delete("sb-ijpfpdnepvmyvaiwgbht-auth-token");
-  response.cookies.delete("sb-ijpfpdnepvmyvaiwgbht-auth-token-code-verifier");
+  response.cookies.delete("otp_verified");
   return response;
 }
