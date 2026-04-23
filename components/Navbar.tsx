@@ -357,7 +357,6 @@ export default function Navbar() {
     });
     return () => listener.subscription.unsubscribe();
   }, []);
-  }, []);
 
   function getInitials(name: string) {
     const parts = name.trim().split(" ");
@@ -648,7 +647,6 @@ export default function Navbar() {
     </>
   );
 }
-
 
 
 
