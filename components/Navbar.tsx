@@ -1,9 +1,8 @@
 "use client";
 import { useCart } from "@/lib/cartContext";
-
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, ChevronDown, X, Menu, LogOut, User } from "lucide-react";
+import { ChevronDown, X, Menu, LogOut, User } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -34,50 +33,33 @@ const navStyle = `
     from { opacity: 0; transform: translateY(-8px) scale(.98); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
   }
+  @keyframes cartBounce {
+    0% { transform: scale(1) translateY(0); }
+    40% { transform: scale(1.2) translateY(-4px); }
+    70% { transform: scale(0.95) translateY(0); }
+    100% { transform: scale(1) translateY(0); }
+  }
   .nav-dropdown { animation: dropIn .18s ease both; }
-
   .nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 8px 12px;
-    border-radius: 9px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: #cbd5e1;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: background .15s, color .15s;
-    font-family: inherit;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 8px 12px; border-radius: 9px; font-size: 12.5px; font-weight: 600;
+    color: #cbd5e1; background: transparent; border: none; cursor: pointer;
+    text-decoration: none; white-space: nowrap; flex-shrink: 0;
+    transition: background .15s, color .15s; font-family: inherit;
   }
   .nav-btn:hover { background: rgba(255,255,255,.08); color: #f1f5f9; }
   .nav-btn.active { background: rgba(14,165,233,.15); color: #38bdf8; }
-
   .nav-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    border-radius: 9px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    background: #0ea5e9;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all .18s;
-    box-shadow: 0 4px 14px rgba(14,165,233,.3);
-    font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px; border-radius: 9px; font-size: 13px; font-weight: 700;
+    color: #fff; background: #0ea5e9; border: none; cursor: pointer;
+    text-decoration: none; white-space: nowrap; flex-shrink: 0;
+    transition: all .18s; box-shadow: 0 4px 14px rgba(14,165,233,.3); font-family: inherit;
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
-
+  .cart-btn { transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease; }
+  .cart-btn:hover { transform: scale(1.18) translateY(-3px); filter: drop-shadow(0 6px 16px rgba(14,165,233,0.5)); }
+  .cart-btn.has-item { animation: cartBounce 0.5s cubic-bezier(.34,1.56,.64,1); }
   @media (max-width: 767px) {
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
@@ -89,7 +71,6 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
-
   const featureItems = [
     { title: "Three Exam Modes", desc: "Timed, Tutor, and Quick practice modes built for real NCLEX pressure", color: "#0ea5e9", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
     { title: "Deep Clinical Rationales", desc: "Every answer explained with full clinical reasoning", color: "#8b5cf6", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>) },
@@ -98,7 +79,6 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     { title: "Adaptive Timer", desc: "Build mental endurance NCLEX demands with real timed pressure", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
     { title: "AI Tutor - Coming Soon", desc: "Personalised study plans that adapt to where you struggle", color: "#c084fc", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
   ];
-
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/features" className={`nav-btn${isActive(pathname, "/features") ? " active" : ""}`}>
@@ -137,8 +117,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>See every feature in detail</p>
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Interactive demos . Comparison table . Full breakdown</p>
               </div>
-              <Link href="/features"
-                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
+              <Link href="/features" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
                 See all features
@@ -158,16 +137,13 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
-
   const previews = [
-    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", attempt: "1st attempt", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically. This platform is unreal." },
+    { initials: "SG", name: "Stephanie G.", score: "Passed 85Q", exam: "NCLEX-RN", attempt: "1st attempt", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically." },
     { initials: "MT", name: "Marcus T.", score: "1st attempt", exam: "NCLEX-RN", attempt: "1st attempt", color: "#059669", quote: "Three weeks of study using only this platform. I felt completely calm walking into the exam." },
     { initials: "AN", name: "Amara N.", score: "Passed 110Q", exam: "NCLEX-RN", attempt: "2nd attempt", color: "#7c3aed", quote: "After failing once with another platform, I switched here and passed comfortably." },
-    { initials: "DW", name: "Denise W.", score: "Passed 85Q", exam: "NCLEX-PN", attempt: "1st attempt", color: "#4f46e5", quote: "Quick mode 10-question sprints were perfect for my schedule. I passed my PN on the first attempt." },
+    { initials: "DW", name: "Denise W.", score: "Passed 85Q", exam: "NCLEX-PN", attempt: "1st attempt", color: "#4f46e5", quote: "Quick mode 10-question sprints were perfect for my schedule." },
   ];
-
   const active = previews[activeCard];
-
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/testimonials" className={`nav-btn${isActive(pathname, "/testimonials") ? " active" : ""}`}>
@@ -251,12 +227,10 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 800); }
-
   const people = [
     { name: "Melissa Ainsley", role: "Student Success Lead", email: "preprxnursing@gmail.com", color: "#0ea5e9", initials: "M", avatar: "/melissa-new.png", topics: "Platform . Courses . Account", response: "Within 4 hours", href: "/team/melissa" },
     { name: "Dr. James Whitfield", role: "Founder & Educator", email: "prenclexreview@gmail.com", color: "#8b5cf6", initials: "J", avatar: "/james2.jpg", topics: "Partnerships . Media . Strategy", response: "Within 24 hours", href: "/team/james" },
   ];
-
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/contact" className={`nav-btn${isActive(pathname, "/contact") ? " active" : ""}`}>
@@ -294,10 +268,10 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                       <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
-                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}> {p.response}</p>
+                    <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{p.response}</p>
                   </div>
                   <button onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=' + p.email, '_blank')}
-                    style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0, position: "relative", zIndex: 10 }}
+                    style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0, position: "relative", zIndex: 10, border: "none", cursor: "pointer", fontFamily: "inherit" }}
                     onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
                     <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -311,11 +285,10 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Prefer a contact form?</p>
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Send us a detailed message on the contact page</p>
               </div>
-              <Link href="/contact"
-                style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                Contact page '
+                Contact page
               </Link>
             </div>
           </div>
@@ -328,7 +301,6 @@ function ContactDropdown({ pathname }: { pathname: string }) {
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-
   const [moreOpen, setMoreOpen] = useState(false);
   const { cartPlan, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -336,9 +308,18 @@ export default function Navbar() {
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
-
+  const [cartAnimating, setCartAnimating] = useState(false);
   const coursesTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const moreTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevCartPlan = useRef<any>(null);
+
+  useEffect(() => {
+    if (cartPlan && !prevCartPlan.current) {
+      setCartAnimating(true);
+      setTimeout(() => setCartAnimating(false), 500);
+    }
+    prevCartPlan.current = cartPlan;
+  }, [cartPlan]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -350,7 +331,8 @@ export default function Navbar() {
       }
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session?.user && otpVerified()) {
+      const verified = document.cookie.includes("otp_verified=true");
+      if (session?.user && verified) {
         setUser(session.user);
         setInitials(getInitials(session.user.user_metadata?.full_name ?? session.user.email ?? ""));
       } else { setUser(null); setInitials("?"); }
@@ -367,9 +349,9 @@ export default function Navbar() {
   async function handleLogout() {
     const supabase = createClient();
     await supabase.auth.signOut();
+    await fetch("/api/auth/logout", { method: "POST" });
     setAvatarOpen(false);
-    router.push("/auth/login");
-    router.refresh();
+    window.location.href = "/auth/login";
   }
 
   function handleCoursesEnter() { if (coursesTimeout.current) clearTimeout(coursesTimeout.current); setCoursesOpen(true); }
@@ -389,7 +371,6 @@ export default function Navbar() {
       <style>{navStyle}</style>
       <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "linear-gradient(to bottom,#0a1929 0%,#0d1f35 100%)", borderBottom: "1px solid rgba(14,165,233,.12)", backdropFilter: "blur(12px)" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 20px", height: "60px", gap: "8px" }}>
-
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
@@ -399,7 +380,6 @@ export default function Navbar() {
 
           {/* DESKTOP NAV */}
           <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "1px", flex: 1, justifyContent: "center" }}>
-
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
@@ -415,7 +395,7 @@ export default function Navbar() {
                         <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0ea5e9" }} />
                         <span style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".18em", textTransform: "uppercase" }}>Certification Paths</span>
                       </div>
-                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all '</Link>
+                      <Link href="/courses" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>View all</Link>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", padding: "12px" }}>
                       {courseItems.map((course, i) => {
@@ -445,22 +425,21 @@ export default function Navbar() {
                     </div>
                     <div style={{ margin: "0 12px 12px", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.12)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <div>
-                        <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN - it's free</p>
+                        <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: 0 }}>Start with NCLEX-RN - it is free</p>
                         <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 500 }}>No credit card . No commitment . Live now</p>
                       </div>
-                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free '</Link>
+                      <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free</Link>
                     </div>
                   </div>
                 </div>
               )}
             </div>
+
             {user ? (
               <>
                 <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
                 {appLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>
-                    {link.label}
-                  </Link>
+                  <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
                 <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
                 <ContactDropdown pathname={pathname} />
@@ -517,11 +496,10 @@ export default function Navbar() {
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
                       <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free . No credit card . Live now</p>
                     </div>
-                    <Link href="/auth/signup"
-                      style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+                    <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                       onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                      Get started '
+                      Get started
                     </Link>
                   </div>
                 </div>
@@ -530,22 +508,24 @@ export default function Navbar() {
           </div>
 
           {/* FAR RIGHT */}
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            {/* ANIMATED CART BUTTON */}
             <button onClick={() => setCartOpen(true)}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", position: "relative" }}
-              onMouseEnter={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1.18) translateY(-3px)"; el.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; } }}
-              onMouseLeave={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1) translateY(0)"; el.style.filter = "none"; } }}>
-                <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 1h3.5l2.1 10.5M6.6 11.5h15.9l-2 8H8.6l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="10" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="19" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
+              <div className={`cart-btn${cartAnimating ? " has-item" : ""}`} style={{ position: "relative" }}>
+                <svg width="26" height="24" viewBox="0 0 26 24" fill="none">
+                  <path d="M1 1h4l2.5 11.5" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                  <path d="M7.5 12.5h14l-2 8h-10l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} fill={cartPlan ? "rgba(14,165,233,0.1)" : "none"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
+                  <circle cx="10" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+                  <circle cx="18" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
                 </svg>
                 {cartPlan && (
-                  <span style={{ position: "absolute", top: "0px", right: "0px", width: "14px", height: "14px", borderRadius: "50%", background: "#0ea5e9", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(14,165,233,0.6)" }}>1</span>
+                  <span style={{ position: "absolute", top: "-4px", right: "-6px", width: "15px", height: "15px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(14,165,233,0.6)", animation: cartAnimating ? "cartBounce 0.5s ease" : "none" }}>1</span>
                 )}
-                </svg>
-                <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
               </div>
+              <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
+
             {user ? (
               <div style={{ position: "relative" }}>
                 <button onClick={() => setAvatarOpen(!avatarOpen)}
@@ -659,5 +639,3 @@ export default function Navbar() {
     </>
   );
 }
-
-
