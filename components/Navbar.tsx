@@ -531,7 +531,7 @@ export default function Navbar() {
 
           {/* FAR RIGHT */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
-            <button className="nav-btn" style={{ gap: "5px" }}>
+            <button className="nav-btn" style={{ gap: "5px", position: "relative" }} onClick={() => setCartOpen(true)}>
               <ShoppingCart style={{ width: 13, height: 13 }} /> Cart
             </button>
             {user ? (
