@@ -509,34 +509,126 @@ export default function Navbar() {
 
           {/* FAR RIGHT */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            {/* ANIMATED CART BUTTON */}
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "scale(1) translateY(0)"; e.currentTarget.style.filter = "none"; }}>
-              <div style={{ position: "relative" }}>
-                <svg width="38" height="36" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="20" y1="20" x2="38" y2="20" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <line x1="38" y1="20" x2="55" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <path d="M55 100 L55 148 L168 148 L185 75 L55 75 Z" fill={cartPlan ? "rgba(14,165,233,0.08)" : "rgba(71,85,105,0.08)"} stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="8" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
-                  <line x1="57" y1="100" x2="181" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="58" y1="120" x2="176" y2="120" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="85" y1="75" x2="80" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="115" y1="75" x2="110" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="145" y1="75" x2="138" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <circle cx="82" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="82" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="148" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="148" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="138" cy="68" r="32" fill="#060f1e" stroke="#f59e0b" strokeWidth="5"/>
-                  <path d="M152 52 A20 20 0 1 0 152 84" fill="none" stroke="#f59e0b" strokeWidth="7" strokeLinecap="round"/>
-                  <polyline points="126,68 134,78 154,56" fill="none" stroke="#0ea5e9" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg width="36" height="34" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="20" y1="20" x2="38" y2="20" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                <line x1="38" y1="20" x2="55" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                <path d="M55 100 L55 148 L168 148 L185 75 L55 75 Z" fill={cartPlan ? "rgba(14,165,233,0.08)" : "rgba(71,85,105,0.08)"} stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="8" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
+                <line x1="57" y1="100" x2="181" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                <line x1="58" y1="120" x2="176" y2="120" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                <line x1="85" y1="75" x2="80" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                <line x1="115" y1="75" x2="110" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                <line x1="145" y1="75" x2="138" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                <circle cx="82" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
+                <circle cx="82" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
+                <circle cx="148" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
+                <circle cx="148" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
+                <circle cx="138" cy="68" r="32" fill="#0d1f35" stroke="#f59e0b" strokeWidth="5"/>
+                <path d="M152 52 A20 20 0 1 0 152 84" fill="none" stroke="#f59e0b" strokeWidth="7" strokeLinecap="round"/>
+                <polyline points="126,68 134,78 154,56" fill="none" stroke="#0ea5e9" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+                {cartPlan && (
+                  <circle cx="178" cy="30" r="14" fill="#ef4444"/>
+                )}
+                {cartPlan && (
+                  <text x="178" y="35" textAnchor="middle" fill="white" fontSize="14" fontWeight="800" fontFamily="Plus Jakarta Sans, sans-serif">1</text>
+                )}
+              </svg>
+              <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
+            </button>
+
+            {user ? (
+              <>
+                <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
+                {appLinks.map((link) => (
+                  <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
+                ))}
+                <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
+                <ContactDropdown pathname={pathname} />
+                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
+              </>
+            ) : (
+              <>
+                <Link href="/educators" className={`nav-btn${isActive(pathname, "/educators") ? " active" : ""}`}>For Educators</Link>
+                <FeaturesDropdown pathname={pathname} />
+                <TestimonialsDropdown pathname={pathname} />
+                <ContactDropdown pathname={pathname} />
+                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
+                <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
+              </>
+            )}
+
+            {/* MORE DROPDOWN */}
+            <div style={{ position: "relative" }}
+              onMouseEnter={() => { if (moreTimeout.current) clearTimeout(moreTimeout.current); setMoreOpen(true); }}
+              onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false), 140); }}>
+              <button className="nav-btn">
+                More
+                <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+              </button>
+              {moreOpen && (
+                <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+                  <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0 }}>More from Pre-NCLEX Nursing</p>
+                    <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(14,165,233,.1)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.2)", padding: "3px 10px", borderRadius: "100px" }}>Resources</span>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
+                    {[
+                      { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>), color: "#0ea5e9" },
+                      { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
+                      { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
+                      { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
+                      { href: "/educators", label: "For Educators", desc: "Tools and access for institutions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
+                      { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
+                    ].map((item) => (
+                      <Link key={item.label} href={item.href}
+                        style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px", borderRadius: "12px", textDecoration: "none", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.05)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)" }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = `0 8px 24px rgba(0,0,0,.08)`; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.05)"; e.currentTarget.style.boxShadow = "none"; }}>
+                        <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>{item.icon}</div>
+                        <div style={{ minWidth: 0 }}>
+                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px", lineHeight: 1.3 }}>{item.label}</p>
+                          <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.4 }}>{item.desc}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div>
+                      <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
+                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free . No credit card . Live now</p>
+                    </div>
+                    <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                      Get started
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* FAR RIGHT */}
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            {/* ANIMATED CART BUTTON */}
+            <button onClick={() => setCartOpen(true)}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
+              <div className={`cart-btn${cartAnimating ? " has-item" : ""}`} style={{ position: "relative" }}>
+                <svg width="26" height="24" viewBox="0 0 26 24" fill="none">
+                  <path d="M1 1h4l2.5 11.5" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                  <path d="M7.5 12.5h14l-2 8h-10l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} fill={cartPlan ? "rgba(14,165,233,0.1)" : "none"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
+                  <circle cx="10" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+                  <circle cx="18" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
                 </svg>
                 {cartPlan && (
-                  <span style={{ position: "absolute", top: "-2px", right: "-4px", width: "15px", height: "15px", borderRadius: "50%", background: "#ef4444", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(239,68,68,0.6)" }}>1</span>
+                  <span style={{ position: "absolute", top: "-4px", right: "-6px", width: "15px", height: "15px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(14,165,233,0.6)", animation: cartAnimating ? "cartBounce 0.5s ease" : "none" }}>1</span>
                 )}
               </div>
               <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
-            </button>
             </button>
 
             {user ? (
