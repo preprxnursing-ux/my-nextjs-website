@@ -541,7 +541,6 @@ export default function Navbar() {
                 <span style={{ position: "absolute", top: "-5px", right: "-5px", width: "16px", height: "16px", borderRadius: "50%", background: "#0ea5e9", color: "#fff", fontSize: "9px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(14,165,233,0.5)" }}>1</span>
               )}
             </button>
-            </button>
             {user ? (
               <div style={{ position: "relative" }}>
                 <button onClick={() => setAvatarOpen(!avatarOpen)}
@@ -655,7 +654,6 @@ export default function Navbar() {
     </>
   );
 }
-
 
 
 
