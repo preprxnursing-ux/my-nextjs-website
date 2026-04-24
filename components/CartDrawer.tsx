@@ -110,7 +110,7 @@ export default function CartDrawer() {
               View Full Cart
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </Link>
-            <Link href="/auth/signup" onClick={() => setCartOpen(false)}
+            <Link href="/checkout" onClick={() => setCartOpen(false)}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", padding: "12px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "#94a3b8", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none" }}>
               {cartPlan.price === 0 ? "Get Started Free" : "Proceed to Checkout"}
             </Link>
