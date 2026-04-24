@@ -537,7 +537,6 @@ export default function Navbar() {
               </div>
               <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
-            </button>
 
             {user ? (
               <div style={{ position: "relative" }}>
