@@ -372,7 +372,7 @@ export default function Navbar() {
     <>
       <style>{navStyle}</style>
       <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(6,15,30,0.97)", borderBottom: "1px solid rgba(14,165,233,0.1)", backdropFilter: "blur(20px)", boxShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 20px", height: "68px", gap: "4px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 28px", height: "64px", gap: "4px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
