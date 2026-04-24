@@ -530,16 +530,24 @@ export default function Navbar() {
           </div>
 
           {/* FAR RIGHT */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
-              style={{ display: "inline-flex", alignItems: "center", gap: "7px", padding: "7px 14px", borderRadius: "9px", background: cartPlan ? "rgba(14,165,233,0.12)" : "rgba(255,255,255,0.05)", border: cartPlan ? "1px solid rgba(14,165,233,0.3)" : "1px solid rgba(255,255,255,0.08)", color: cartPlan ? "#38bdf8" : "#94a3b8", cursor: "pointer", fontFamily: "inherit", fontSize: "12.5px", fontWeight: 600, transition: "all .2s", position: "relative" }}>
-              <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-              </svg>
-              Cart
-              {cartPlan && (
-                <span style={{ position: "absolute", top: "-5px", right: "-5px", width: "16px", height: "16px", borderRadius: "50%", background: "#0ea5e9", color: "#fff", fontSize: "9px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(14,165,233,0.5)" }}>1</span>
-              )}
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", position: "relative" }}
+              onMouseEnter={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1.18) translateY(-3px)"; el.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; } }}
+              onMouseLeave={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1) translateY(0)"; el.style.filter = "none"; } }}>
+              <div className="cart-wrap" style={{ transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease", display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+                <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1h3.5l2.1 10.5M6.6 11.5h15.9l-2 8H8.6l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "stroke 0.3s" }}/>
+                  <circle cx="10" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+                  <circle cx="19" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+                  {cartPlan && (
+                    <>
+                      <circle cx="22" cy="6" r="5.5" fill="#0ea5e9"/>
+                      <text x="22" y="9.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="800" fontFamily="Plus Jakarta Sans, sans-serif">1</text>
+                    </>
+                  )}
+                </svg>
+                <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
+              </div>
             </button>
             {user ? (
               <div style={{ position: "relative" }}>
@@ -654,7 +662,6 @@ export default function Navbar() {
     </>
   );
 }
-
 
 
 
