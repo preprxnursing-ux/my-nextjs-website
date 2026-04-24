@@ -534,17 +534,14 @@ export default function Navbar() {
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px", position: "relative" }}
               onMouseEnter={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1.18) translateY(-3px)"; el.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; } }}
               onMouseLeave={e => { const el = e.currentTarget.querySelector(".cart-wrap") as HTMLElement; if(el) { el.style.transform = "scale(1) translateY(0)"; el.style.filter = "none"; } }}>
-              <div className="cart-wrap" style={{ transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease", display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
                 <svg width="28" height="26" viewBox="0 0 28 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1h3.5l2.1 10.5M6.6 11.5h15.9l-2 8H8.6l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "stroke 0.3s" }}/>
                   <circle cx="10" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
                   <circle cx="19" cy="23" r="1.5" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
-                  {cartPlan && (
-                    <>
-                      <circle cx="22" cy="6" r="5.5" fill="#0ea5e9"/>
-                      <text x="22" y="9.5" textAnchor="middle" fill="white" fontSize="7" fontWeight="800" fontFamily="Plus Jakarta Sans, sans-serif">1</text>
-                    </>
-                  )}
+                </svg>
+                {cartPlan && (
+                  <span style={{ position: "absolute", top: "0px", right: "0px", width: "14px", height: "14px", borderRadius: "50%", background: "#0ea5e9", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(14,165,233,0.6)" }}>1</span>
+                )}
                 </svg>
                 <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
               </div>
@@ -662,6 +659,5 @@ export default function Navbar() {
     </>
   );
 }
-
 
 
