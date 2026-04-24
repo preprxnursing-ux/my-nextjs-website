@@ -130,7 +130,7 @@ export default function CartDrawer() {
         {cartPlan && (
           <div style={{ padding: "20px 24px", borderTop: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
             <Link href="/checkout" onClick={() => setCartOpen(false)}
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "15px", background: `linear-gradient(135deg, ${cartPlan.color}, ${cartPlan.color}cc)`, color: "#fff", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", marginBottom: "10px", boxShadow: `0 8px 24px ${cartPlan.color}40`, transition: "all .2s" }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "15px", background: "linear-gradient(135deg, #8b5cf6, #a855f7)", color: "#fff", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", marginBottom: "10px", boxShadow: `0 8px 24px ${cartPlan.color}40`, transition: "all .2s" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}>
               {cartPlan.price === 0 ? "Get Started Free" : "Proceed to Checkout"}

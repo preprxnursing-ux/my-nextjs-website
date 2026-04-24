@@ -517,18 +517,18 @@ export default function Navbar() {
               onMouseLeave={e => { e.currentTarget.style.transform = "scale(1) translateY(0)"; e.currentTarget.style.filter = "none"; }}>
               <div style={{ position: "relative" }}>
                 <svg width="38" height="36" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="20" y1="20" x2="38" y2="20" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <line x1="38" y1="20" x2="55" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <path d="M55 100 L55 148 L168 148 L185 75 L55 75 Z" fill={cartPlan ? "rgba(14,165,233,0.08)" : "rgba(71,85,105,0.08)"} stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="8" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
-                  <line x1="57" y1="100" x2="181" y2="100" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="58" y1="120" x2="176" y2="120" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="85" y1="75" x2="80" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="115" y1="75" x2="110" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="145" y1="75" x2="138" y2="148" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="3" opacity="0.5"/>
-                  <circle cx="82" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="82" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="148" cy="166" r="14" fill="none" stroke={cartPlan ? "#0ea5e9" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="148" cy="166" r="4" fill={cartPlan ? "#0ea5e9" : "#475569"} style={{ transition: "fill 0.3s" }}/>
+                  <line x1="20" y1="20" x2="38" y2="20" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                  <line x1="38" y1="20" x2="55" y2="100" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                  <path d="M55 100 L55 148 L168 148 L185 75 L55 75 Z" fill={cartPlan ? "rgba(139,92,246,0.08)" : "rgba(71,85,105,0.08)"} stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="8" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
+                  <line x1="57" y1="100" x2="181" y2="100" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                  <line x1="58" y1="120" x2="176" y2="120" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                  <line x1="85" y1="75" x2="80" y2="148" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                  <line x1="115" y1="75" x2="110" y2="148" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                  <line x1="145" y1="75" x2="138" y2="148" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="3" opacity="0.5"/>
+                  <circle cx="82" cy="166" r="14" fill="none" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
+                  <circle cx="82" cy="166" r="4" fill={cartPlan ? "#8b5cf6" : "#475569"} style={{ transition: "fill 0.3s" }}/>
+                  <circle cx="148" cy="166" r="14" fill="none" stroke={cartPlan ? "#8b5cf6" : "#475569"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
+                  <circle cx="148" cy="166" r="4" fill={cartPlan ? "#8b5cf6" : "#475569"} style={{ transition: "fill 0.3s" }}/>
                   <circle cx="138" cy="68" r="32" fill="#060f1e" stroke="#f59e0b" strokeWidth="5"/>
                   <path d="M152 52 A20 20 0 1 0 152 84" fill="none" stroke="#f59e0b" strokeWidth="7" strokeLinecap="round"/>
                   <polyline points="126,68 134,78 154,56" fill="none" stroke="#0ea5e9" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -537,7 +537,7 @@ export default function Navbar() {
                   <span style={{ position: "absolute", top: "-2px", right: "-4px", width: "15px", height: "15px", borderRadius: "50%", background: "#ef4444", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(239,68,68,0.6)" }}>1</span>
                 )}
               </div>
-              <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
+              <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#8b5cf6" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
 
             {user ? (
