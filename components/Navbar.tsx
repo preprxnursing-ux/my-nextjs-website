@@ -57,6 +57,8 @@ const navStyle = `
     transition: all .18s; box-shadow: 0 4px 14px rgba(14,165,233,.3); font-family: inherit;
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
+  .hamburger-btn { display: none !important; }
+  @media (max-width: 767px) { .hamburger-btn { display: flex !important; } }
   .cart-btn { transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease; }
   .cart-btn:hover { transform: scale(1.18) translateY(-3px); filter: drop-shadow(0 6px 16px rgba(14,165,233,0.5)); }
   .cart-btn.has-item { animation: cartBounce 0.5s cubic-bezier(.34,1.56,.64,1); }
@@ -582,7 +584,7 @@ export default function Navbar() {
           {/* MOBILE HAMBURGER */}
           <button
             style={{ marginLeft: "auto", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
-            className="md:hidden"
+            className="hamburger-btn"
             onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X style={{ width: 17, height: 17 }} /> : <Menu style={{ width: 17, height: 17 }} />}
           </button>
