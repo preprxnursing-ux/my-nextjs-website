@@ -103,7 +103,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
               {featureItems.map((f) => (
                 <Link key={f.title} href="/features"
-                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "18px 16px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
+                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "22px 18px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${f.color}08`; e.currentTarget.style.transform = "translateX(3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
                   <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: `${f.color}12`, border: `1px solid ${f.color}25`, display: "flex", alignItems: "center", justifyContent: "center", color: f.color, flexShrink: 0 }}>{f.icon}</div>
@@ -365,10 +365,10 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             </div>
 
             {/* CHANNELS */}
-            <div style={{ padding: "20px 24px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+            <div style={{ padding: "24px 24px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
               {groups[activeGroup].channels.map(c => (
                 <Link key={c.title} href="/nursing-tv"
-                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "18px 16px", borderRadius: "12px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "22px 18px", borderRadius: "12px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${c.color}08`; e.currentTarget.style.borderColor = `${c.color}30`; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#f8f9fb"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                   <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "3px", background: c.color, borderRadius: "3px 0 0 3px" }} />
@@ -387,7 +387,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             </div>
 
             {/* FOOTER */}
-            <div style={{ padding: "12px 16px", borderTop: "1px solid rgba(0,0,0,.06)", background: "#f8f9fb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ padding: "16px 24px", borderTop: "1px solid rgba(0,0,0,.06)", background: "#f8f9fb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                 {[{ val: "10", label: "Channels" }, { val: "140+", label: "Lessons" }, { val: "Free", label: "Forever" }].map(s => (
                   <div key={s.label} style={{ display: "flex", alignItems: "baseline", gap: "3px" }}>
