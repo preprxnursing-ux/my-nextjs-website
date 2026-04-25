@@ -88,7 +88,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-300px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "700px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-400px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "700px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -103,7 +103,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
               {featureItems.map((f) => (
                 <Link key={f.title} href="/features"
-                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px 16px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
+                  style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "18px 16px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${f.color}08`; e.currentTarget.style.transform = "translateX(3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
                   <div style={{ width: "38px", height: "38px", borderRadius: "10px", background: `${f.color}12`, border: `1px solid ${f.color}25`, display: "flex", alignItems: "center", justifyContent: "center", color: f.color, flexShrink: 0 }}>{f.icon}</div>
@@ -336,7 +336,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-300px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "700px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-400px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "700px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
 
             {/* HEADER */}
@@ -365,10 +365,10 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             </div>
 
             {/* CHANNELS */}
-            <div style={{ padding: "16px 20px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+            <div style={{ padding: "20px 24px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
               {groups[activeGroup].channels.map(c => (
                 <Link key={c.title} href="/nursing-tv"
-                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "14px 16px", borderRadius: "12px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "18px 16px", borderRadius: "12px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${c.color}08`; e.currentTarget.style.borderColor = `${c.color}30`; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#f8f9fb"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                   <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "3px", background: c.color, borderRadius: "3px 0 0 3px" }} />
