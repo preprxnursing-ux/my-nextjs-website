@@ -196,7 +196,7 @@ export default function NursingTVPage() {
       </div>
 
       {/* â”€â”€ CHANNEL GUIDE â”€â”€ */}
-      <div style={{ background: "#ffffff", borderTop: "1px solid rgba(0,0,0,.06)", borderBottom: "1px solid rgba(0,0,0,.06)", padding: "28px 32px" }}>
+      <div style={{ background: "linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%)", borderTop: "1px solid rgba(0,0,0,.06)", borderBottom: "1px solid rgba(0,0,0,.06)", padding: "28px 32px" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
             <div>
@@ -354,5 +354,6 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
 
 
