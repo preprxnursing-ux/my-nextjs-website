@@ -42,7 +42,7 @@ const navStyle = `
   .nav-dropdown { animation: dropIn .18s ease both; }
   .nav-btn {
     display: inline-flex; align-items: center; gap: 5px;
-    padding: 9px 14px; border-radius: 9px; font-size: 13.5px; font-weight: 600;
+    padding: 10px 16px; border-radius: 9px; font-size: 14px; font-weight: 600;
     color: #cbd5e1; background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; flex-shrink: 0;
     transition: background .15s, color .15s; font-family: inherit;
@@ -372,7 +372,7 @@ export default function Navbar() {
     <>
       <style>{navStyle}</style>
       <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(6,15,30,0.97)", borderBottom: "1px solid rgba(14,165,233,0.1)", backdropFilter: "blur(20px)", boxShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 24px", height: "62px", gap: "4px" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "62px", gap: "0px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
@@ -381,7 +381,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "4px", flex: 1, justifyContent: "center" }}>
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0px", flex: 1, justifyContent: "space-evenly" }}>
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
