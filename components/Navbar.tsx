@@ -1,4 +1,4 @@
-ï»¿"use client";
+"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -346,7 +346,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels Â· 140+ lessons Â· Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels · 140+ lessons · Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
@@ -368,7 +368,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             <div style={{ padding: "14px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
               {groups[activeGroup].channels.map(c => (
                 <Link key={c.title} href="/nursing-tv"
-                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "11px 13px", borderRadius: "12px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px 16px", borderRadius: "14px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${c.color}08`; e.currentTarget.style.borderColor = `${c.color}30`; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "#f8f9fb"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                   <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "3px", background: c.color, borderRadius: "3px 0 0 3px" }} />
@@ -377,10 +377,10 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "2px" }}>
-                      <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
+                      <p style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
                       {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.2)", padding: "1px 5px", borderRadius: "100px" }}>LIVE</span>}
                     </div>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} Â· {c.lessons} lessons</p>
+                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>{c.tag} · {c.lessons} lessons</p>
                   </div>
                 </Link>
               ))}
