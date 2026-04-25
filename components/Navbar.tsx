@@ -416,7 +416,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   </div>
                 ))}
               </div>
-              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "7px 14px", borderRadius: "8px", fontSize: "11px", fontWeight: 700, textDecoration: "none" }}>
+              <Link href="/nursing-tv" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "7px 14px", borderRadius: "8px", fontSize: "11px", fontWeight: 700, textDecoration: "none" }}>
                 Watch free
               </Link>
             </div>
