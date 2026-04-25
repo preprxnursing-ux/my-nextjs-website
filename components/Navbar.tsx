@@ -353,7 +353,7 @@ export default function Navbar() {
     await supabase.auth.signOut();
     await fetch("/api/auth/logout", { method: "POST" });
     setAvatarOpen(false);
-    window.location.href = "/auth/login";
+    window.location.href = "/";
   }
 
   function handleCoursesEnter() { if (coursesTimeout.current) clearTimeout(coursesTimeout.current); setCoursesOpen(true); }
