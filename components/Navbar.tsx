@@ -449,7 +449,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/educators") ? " active" : ""}`}>For Educators</Link>
+                <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>Nursing TV</Link>
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
