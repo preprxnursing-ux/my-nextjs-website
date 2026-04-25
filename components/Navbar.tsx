@@ -360,7 +360,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#334155" }}>10 exam channels · 140+ lessons · Free forever</span>
+                <span style={{ fontSize: "11px", color: "#334155" }}>10 exam channels Â· 140+ lessons Â· Free forever</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
@@ -453,7 +453,6 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
       )}
     </div>
   );
-}
 }
 export default function Navbar() {
   const pathname = usePathname();
