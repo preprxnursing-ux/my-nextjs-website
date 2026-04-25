@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -337,7 +337,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", top: "100%", zIndex: 1001, paddingTop: "10px", width: "720px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", right: "-80px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "720px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
             {/* HEADER */}
             <div style={{ padding: "14px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(239,68,68,.05),rgba(14,165,233,.04))", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -794,3 +794,4 @@ export default function Navbar() {
     </>
   );
 }
+
