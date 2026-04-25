@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -7,15 +7,15 @@ const channels = [
   {
     id: "nclex-rn", name: "NCLEX-RN TV", tag: "Registered Nurse", color: "#0ea5e9",
     live: true, episodes: 24, hours: "18h",
-    desc: "Full NCLEX-RN prep — NGN questions, rationales, and live walkthroughs by licensed RNs.",
+    desc: "Full NCLEX-RN prep â€” NGN questions, rationales, and live walkthroughs by licensed RNs.",
     icon: "M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18",
     playlist: [
-      { id: 1, title: "NCLEX-RN Orientation & CAT Strategy", duration: "18:42", level: "Foundation", views: "8.2K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Safe & Effective Care Environment", duration: "22:15", level: "Foundation", views: "6.1K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Health Promotion & Maintenance", duration: "16:30", level: "Intermediate", views: "9.3K", yt: "dQw4w9WgXcQ" },
-      { id: 4, title: "Psychosocial Integrity Deep Dive", duration: "28:10", level: "Intermediate", views: "12.4K", yt: "dQw4w9WgXcQ" },
-      { id: 5, title: "Physiological Integrity Masterclass", duration: "20:45", level: "Advanced", views: "15.1K", yt: "dQw4w9WgXcQ" },
-      { id: 6, title: "NGN Question Formats Explained", duration: "24:30", level: "Advanced", views: "11.8K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "NCLEX-RN Orientation & CAT Strategy", duration: "18:42", level: "Foundation", views: "8.2K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Safe & Effective Care Environment", duration: "22:15", level: "Foundation", views: "6.1K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Health Promotion & Maintenance", duration: "16:30", level: "Intermediate", views: "9.3K", yt: "Odzpo_vnp14" },
+      { id: 4, title: "Psychosocial Integrity Deep Dive", duration: "28:10", level: "Intermediate", views: "12.4K", yt: "Odzpo_vnp14" },
+      { id: 5, title: "Physiological Integrity Masterclass", duration: "20:45", level: "Advanced", views: "15.1K", yt: "Odzpo_vnp14" },
+      { id: 6, title: "NGN Question Formats Explained", duration: "24:30", level: "Advanced", views: "11.8K", yt: "Odzpo_vnp14" },
     ]
   },
   {
@@ -24,11 +24,11 @@ const channels = [
     desc: "Targeted PN content covering pharmacology, safety, and clinical decision-making for LPN/LVN candidates.",
     icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
     playlist: [
-      { id: 1, title: "NCLEX-PN Overview & Test Plan", duration: "15:20", level: "Foundation", views: "5.4K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Coordinated Care & Safety", duration: "19:45", level: "Foundation", views: "4.8K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Pharmacology for PN Candidates", duration: "26:10", level: "Intermediate", views: "7.2K", yt: "dQw4w9WgXcQ" },
-      { id: 4, title: "Physiological Adaptation", duration: "22:30", level: "Advanced", views: "6.1K", yt: "dQw4w9WgXcQ" },
-      { id: 5, title: "Reduction of Risk Potential", duration: "18:55", level: "Intermediate", views: "5.9K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "NCLEX-PN Overview & Test Plan", duration: "15:20", level: "Foundation", views: "5.4K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Coordinated Care & Safety", duration: "19:45", level: "Foundation", views: "4.8K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Pharmacology for PN Candidates", duration: "26:10", level: "Intermediate", views: "7.2K", yt: "Odzpo_vnp14" },
+      { id: 4, title: "Physiological Adaptation", duration: "22:30", level: "Advanced", views: "6.1K", yt: "Odzpo_vnp14" },
+      { id: 5, title: "Reduction of Risk Potential", duration: "18:55", level: "Intermediate", views: "5.9K", yt: "Odzpo_vnp14" },
     ]
   },
   {
@@ -37,12 +37,12 @@ const channels = [
     desc: "ICU-focused content covering hemodynamics, ventilators, and high-acuity clinical scenarios.",
     icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
     playlist: [
-      { id: 1, title: "Hemodynamic Monitoring Essentials", duration: "32:15", level: "Advanced", views: "14.3K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Mechanical Ventilator Management", duration: "38:40", level: "Advanced", views: "16.8K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Sepsis Recognition & Surviving Sepsis Bundle", duration: "26:20", level: "Advanced", views: "19.2K", yt: "dQw4w9WgXcQ" },
-      { id: 4, title: "ACLS Algorithms Explained", duration: "44:10", level: "Advanced", views: "21.5K", yt: "dQw4w9WgXcQ" },
-      { id: 5, title: "Arterial Blood Gas Interpretation", duration: "28:30", level: "Intermediate", views: "17.9K", yt: "dQw4w9WgXcQ" },
-      { id: 6, title: "Shock States & Management", duration: "35:45", level: "Advanced", views: "13.6K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "Hemodynamic Monitoring Essentials", duration: "32:15", level: "Advanced", views: "14.3K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Mechanical Ventilator Management", duration: "38:40", level: "Advanced", views: "16.8K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Sepsis Recognition & Surviving Sepsis Bundle", duration: "26:20", level: "Advanced", views: "19.2K", yt: "Odzpo_vnp14" },
+      { id: 4, title: "ACLS Algorithms Explained", duration: "44:10", level: "Advanced", views: "21.5K", yt: "Odzpo_vnp14" },
+      { id: 5, title: "Arterial Blood Gas Interpretation", duration: "28:30", level: "Intermediate", views: "17.9K", yt: "Odzpo_vnp14" },
+      { id: 6, title: "Shock States & Management", duration: "35:45", level: "Advanced", views: "13.6K", yt: "Odzpo_vnp14" },
     ]
   },
   {
@@ -51,10 +51,10 @@ const channels = [
     desc: "Family nurse practitioner board prep with pharmacology, diagnostics, and clinical management.",
     icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
     playlist: [
-      { id: 1, title: "FNP Board Exam Overview", duration: "20:10", level: "Foundation", views: "4.2K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Advanced Pharmacology for NPs", duration: "34:20", level: "Advanced", views: "6.8K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Differential Diagnosis Framework", duration: "28:45", level: "Advanced", views: "5.1K", yt: "dQw4w9WgXcQ" },
-      { id: 4, title: "Chronic Disease Management", duration: "31:10", level: "Advanced", views: "4.7K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "FNP Board Exam Overview", duration: "20:10", level: "Foundation", views: "4.2K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Advanced Pharmacology for NPs", duration: "34:20", level: "Advanced", views: "6.8K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Differential Diagnosis Framework", duration: "28:45", level: "Advanced", views: "5.1K", yt: "Odzpo_vnp14" },
+      { id: 4, title: "Chronic Disease Management", duration: "31:10", level: "Advanced", views: "4.7K", yt: "Odzpo_vnp14" },
     ]
   },
   {
@@ -63,10 +63,10 @@ const channels = [
     desc: "ATI TEAS 7 prep covering science, math, reading, and English for nursing school admission.",
     icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
     playlist: [
-      { id: 1, title: "TEAS 7 Test Structure & Strategy", duration: "14:30", level: "Foundation", views: "7.8K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Science: Human Body Systems", duration: "24:15", level: "Intermediate", views: "6.2K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Math: Ratios & Dosage Calculations", duration: "19:40", level: "Intermediate", views: "5.4K", yt: "dQw4w9WgXcQ" },
-      { id: 4, title: "Reading Comprehension Strategies", duration: "16:20", level: "Foundation", views: "4.9K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "TEAS 7 Test Structure & Strategy", duration: "14:30", level: "Foundation", views: "7.8K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Science: Human Body Systems", duration: "24:15", level: "Intermediate", views: "6.2K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Math: Ratios & Dosage Calculations", duration: "19:40", level: "Intermediate", views: "5.4K", yt: "Odzpo_vnp14" },
+      { id: 4, title: "Reading Comprehension Strategies", duration: "16:20", level: "Foundation", views: "4.9K", yt: "Odzpo_vnp14" },
     ]
   },
   {
@@ -75,9 +75,9 @@ const channels = [
     desc: "HESI A2 exam prep with subject-specific lessons and practice to secure your nursing school spot.",
     icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
     playlist: [
-      { id: 1, title: "HESI A2 Overview & Scoring", duration: "12:20", level: "Foundation", views: "3.8K", yt: "dQw4w9WgXcQ" },
-      { id: 2, title: "Anatomy & Physiology Essentials", duration: "22:45", level: "Intermediate", views: "4.1K", yt: "dQw4w9WgXcQ" },
-      { id: 3, title: "Vocabulary & Grammar for HESI", duration: "15:10", level: "Foundation", views: "3.2K", yt: "dQw4w9WgXcQ" },
+      { id: 1, title: "HESI A2 Overview & Scoring", duration: "12:20", level: "Foundation", views: "3.8K", yt: "Odzpo_vnp14" },
+      { id: 2, title: "Anatomy & Physiology Essentials", duration: "22:45", level: "Intermediate", views: "4.1K", yt: "Odzpo_vnp14" },
+      { id: 3, title: "Vocabulary & Grammar for HESI", duration: "15:10", level: "Foundation", views: "3.2K", yt: "Odzpo_vnp14" },
     ]
   },
 ];
@@ -131,7 +131,7 @@ export default function NursingTVPage() {
         .tv-screen::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,.08); animation: scan 3s linear infinite; pointer-events: none; }
       `}</style>
 
-      {/* ── HERO BROADCAST BAR ── */}
+      {/* â”€â”€ HERO BROADCAST BAR â”€â”€ */}
       <div style={{ background: "linear-gradient(90deg,#060f1e 0%,#0a1628 50%,#060f1e 100%)", borderBottom: "1px solid rgba(255,255,255,.06)", padding: "12px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.25)", borderRadius: "100px", padding: "5px 16px" }}>
@@ -139,7 +139,7 @@ export default function NursingTVPage() {
             <span style={{ fontSize: "10px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>ON AIR</span>
           </div>
           <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
-            {channels.filter(c => c.live).length} channels live · {channels.reduce((a, c) => a + c.episodes, 0)} episodes · Free forever
+            {channels.filter(c => c.live).length} channels live Â· {channels.reduce((a, c) => a + c.episodes, 0)} episodes Â· Free forever
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -152,14 +152,14 @@ export default function NursingTVPage() {
         </div>
       </div>
 
-      {/* ── HERO ── */}
+      {/* â”€â”€ HERO â”€â”€ */}
       <div style={{ background: "linear-gradient(160deg,#060f1e 0%,#0a1830 60%,#0d1f35 100%)", padding: "52px 32px 40px", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", top: 0, right: 0, width: "60%", height: "100%", background: "radial-gradient(ellipse at top right,rgba(14,165,233,.07) 0%,transparent 60%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", bottom: 0, left: "20%", width: "50%", height: "50%", background: "radial-gradient(ellipse at bottom,rgba(139,92,246,.05) 0%,transparent 60%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "48px", alignItems: "center" }}>
             <div className="fade-up">
-              <p style={{ fontSize: "11px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "16px" }}>Pre-NCLEX Nursing · Nursing TV</p>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "16px" }}>Pre-NCLEX Nursing Â· Nursing TV</p>
               <h1 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "clamp(2.6rem,5vw,4.2rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.06, marginBottom: "20px" }}>
                 Your nursing education,<br />
                 <span style={{ background: "linear-gradient(135deg,#0ea5e9,#38bdf8,#818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>on air.</span>
@@ -170,7 +170,7 @@ export default function NursingTVPage() {
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                 <button onClick={() => { setActiveChannel(0); setActiveEpisode(0); scrollToPlayer(); }} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(14,165,233,.3)", fontFamily: "inherit" }}>
                   <svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  Tune in now — free
+                  Tune in now â€” free
                 </button>
                 <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", color: "#94a3b8", padding: "13px 24px", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none" }}>
                   Practice questions instead
@@ -195,7 +195,7 @@ export default function NursingTVPage() {
         </div>
       </div>
 
-      {/* ── CHANNEL GUIDE ── */}
+      {/* â”€â”€ CHANNEL GUIDE â”€â”€ */}
       <div style={{ background: "#070e1c", borderTop: "1px solid rgba(255,255,255,.04)", borderBottom: "1px solid rgba(255,255,255,.04)", padding: "28px 32px" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
@@ -235,7 +235,7 @@ export default function NursingTVPage() {
         </div>
       </div>
 
-      {/* ── NOW PLAYING ── */}
+      {/* â”€â”€ NOW PLAYING â”€â”€ */}
       <div ref={playerRef} style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 32px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
           <div style={{ width: "4px", height: "28px", background: ch.color, borderRadius: "4px" }} />
@@ -275,7 +275,7 @@ export default function NursingTVPage() {
                     <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>Ep {ep.id} of {ch.playlist.length}</span>
                   </div>
                   <h3 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "1.4rem", fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>{ep.title}</h3>
-                  <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.name} · {ep.duration} · {ep.views} views</p>
+                  <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.name} Â· {ep.duration} Â· {ep.views} views</p>
                 </div>
                 <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
                   {activeEpisode > 0 && (
@@ -300,7 +300,7 @@ export default function NursingTVPage() {
           <div style={{ background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.06)", borderRadius: "16px", overflow: "hidden" }}>
             <div style={{ padding: "16px 18px", borderBottom: "1px solid rgba(255,255,255,.05)", background: ch.color + "0e" }}>
               <p style={{ fontSize: "11px", fontWeight: 800, color: ch.color, letterSpacing: ".15em", textTransform: "uppercase", margin: "0 0 2px" }}>Episode List</p>
-              <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.playlist.length} episodes · {ch.hours} total</p>
+              <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.playlist.length} episodes Â· {ch.hours} total</p>
             </div>
             <div style={{ padding: "8px" }}>
               {ch.playlist.map((e, i) => (
@@ -317,7 +317,7 @@ export default function NursingTVPage() {
                     <p style={{ fontSize: "12px", fontWeight: activeEpisode === i ? 700 : 500, color: activeEpisode === i ? "#f8fafc" : "#94a3b8", margin: "0 0 2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", transition: "color .18s" }}>{e.title}</p>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <span style={{ fontSize: "10px", color: levelColors[e.level], fontWeight: 600 }}>{e.level}</span>
-                      <span style={{ fontSize: "10px", color: "#1e293b" }}>·</span>
+                      <span style={{ fontSize: "10px", color: "#1e293b" }}>Â·</span>
                       <span style={{ fontSize: "10px", color: "#334155", fontWeight: 500 }}>{e.duration}</span>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default function NursingTVPage() {
         </div>
       </div>
 
-      {/* ── MORE CHANNELS CTA ── */}
+      {/* â”€â”€ MORE CHANNELS CTA â”€â”€ */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,.05)", background: "linear-gradient(135deg,rgba(14,165,233,.04),rgba(139,92,246,.04))", padding: "48px 32px", textAlign: "center" }}>
         <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <p style={{ fontSize: "10px", fontWeight: 800, color: "#334155", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "12px" }}>All Access</p>
@@ -354,3 +354,4 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
