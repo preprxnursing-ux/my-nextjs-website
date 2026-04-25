@@ -304,15 +304,24 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
-  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
-  const rooms = [
-    { title: "NCLEX-RN Prep", color: "#0ea5e9", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>), count: 24, href: "/nursing-tv" },
-    { title: "Pharmacology", color: "#8b5cf6", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>), count: 32, href: "/nursing-tv" },
-    { title: "Critical Care", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>), count: 20, href: "/nursing-tv" },
-    { title: "Clinical Skills", color: "#10b981", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>), count: 18, href: "/nursing-tv" },
-    { title: "Case Studies", color: "#f59e0b", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>), count: 15, href: "/nursing-tv" },
-    { title: "Exam Strategy", color: "#06b6d4", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>), count: 12, href: "/nursing-tv" },
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 200); }
+
+  const channels = [
+    { id: "nclex-rn", title: "NCLEX-RN TV", tag: "RN Licensure", color: "#0ea5e9", lessons: 24, live: true, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>) },
+    { id: "nclex-pn", title: "NCLEX-PN TV", tag: "PN Licensure", color: "#6366f1", lessons: 18, live: false, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>) },
+    { id: "ccrn", title: "CCRN TV", tag: "Critical Care", color: "#ef4444", lessons: 20, live: true, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>) },
+    { id: "np", title: "NP TV", tag: "Nurse Practitioner", color: "#8b5cf6", lessons: 15, live: false, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>) },
+    { id: "teas", title: "TEAS 7 TV", tag: "Pre-Nursing", color: "#f59e0b", lessons: 12, live: false, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>) },
+    { id: "hesi", title: "HESI A2 TV", tag: "Pre-Nursing", color: "#10b981", lessons: 10, live: false, icon: (<svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
   ];
+
+  const topics = [
+    { title: "Pharmacology", color: "#8b5cf6", lessons: 32, icon: (<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>) },
+    { title: "Clinical Skills", color: "#10b981", lessons: 18, icon: (<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>) },
+    { title: "Case Studies", color: "#f59e0b", lessons: 15, icon: (<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>) },
+    { title: "Exam Strategy", color: "#06b6d4", lessons: 12, icon: (<svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>) },
+  ];
+
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>
@@ -321,38 +330,93 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-20px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "520px" }}>
-          <div style={{ background: "#0d1829", border: "1px solid rgba(14,165,233,.15)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.5)", overflow: "hidden" }}>
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(255,255,255,.06)", background: "linear-gradient(135deg,rgba(239,68,68,.08) 0%,rgba(14,165,233,.05) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-80px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "680px" }}>
+          <div style={{ background: "#0a1628", border: "1px solid rgba(14,165,233,.12)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.6)", overflow: "hidden" }}>
+
+            {/* HEADER */}
+            <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(255,255,255,.05)", background: "linear-gradient(135deg,rgba(239,68,68,.06) 0%,rgba(14,165,233,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.25)", borderRadius: "100px", padding: "3px 10px" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", animation: "pulse 1.5s ease infinite" }} />
-                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".18em" }}>NURSING TV</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.22)", borderRadius: "100px", padding: "3px 10px" }}>
+                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
+                  <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>121 lessons Ãƒâ€šÃ‚Â· Free</span>
+                <span style={{ fontSize: "11px", color: "#334155" }}>121 lessons · 6 exam channels · Free</span>
               </div>
-              <Link href="/nursing-tv" style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>Watch now</Link>
+              <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
+                View all
+                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
-              {rooms.map(r => (
-                <Link key={r.title} href={r.href}
-                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", textDecoration: "none", background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.04)", transition: "all .2s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = `${r.color}10`; e.currentTarget.style.borderColor = `${r.color}30`; e.currentTarget.style.transform = "translateX(3px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.04)"; e.currentTarget.style.transform = "translateX(0)"; }}>
-                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${r.color}15`, border: `1px solid ${r.color}25`, display: "flex", alignItems: "center", justifyContent: "center", color: r.color, flexShrink: 0 }}>{r.icon}</div>
-                  <div>
-                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#e2e8f0", margin: 0 }}>{r.title}</p>
-                    <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.count} lessons</p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 200px", gap: "0" }}>
+
+              {/* LEFT — EXAM CHANNELS */}
+              <div style={{ padding: "14px" }}>
+                <p style={{ fontSize: "9px", fontWeight: 800, color: "#334155", letterSpacing: ".18em", textTransform: "uppercase", margin: "0 4px 10px" }}>Exam Channels</p>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px" }}>
+                  {channels.map(c => (
+                    <Link key={c.id} href="/nursing-tv"
+                      style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "11px", textDecoration: "none", background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.04)", transition: "all .2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = `${c.color}10`; e.currentTarget.style.borderColor = `${c.color}25`; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.04)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+                      <div style={{ width: "32px", height: "32px", borderRadius: "9px", background: `${c.color}12`, border: `1px solid ${c.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: c.color, flexShrink: 0 }}>
+                        {c.icon}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "1px" }}>
+                          <p style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0", margin: 0 }}>{c.title}</p>
+                          {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.15)", color: "#ef4444", border: "1px solid rgba(239,68,68,.25)", padding: "1px 5px", borderRadius: "100px", letterSpacing: ".08em" }}>LIVE</span>}
+                        </div>
+                        <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{c.tag} · {c.lessons} lessons</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* RIGHT — TOPIC ROOMS */}
+              <div style={{ borderLeft: "1px solid rgba(255,255,255,.05)", padding: "14px", background: "rgba(255,255,255,.01)" }}>
+                <p style={{ fontSize: "9px", fontWeight: 800, color: "#334155", letterSpacing: ".18em", textTransform: "uppercase", margin: "0 4px 10px" }}>Topic Rooms</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                  {topics.map(t => (
+                    <Link key={t.title} href="/nursing-tv"
+                      style={{ display: "flex", alignItems: "center", gap: "9px", padding: "9px 10px", borderRadius: "10px", textDecoration: "none", transition: "all .2s" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = `${t.color}10`; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                      <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: `${t.color}12`, border: `1px solid ${t.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: t.color, flexShrink: 0 }}>
+                        {t.icon}
+                      </div>
+                      <div>
+                        <p style={{ fontSize: "12px", fontWeight: 600, color: "#cbd5e1", margin: 0 }}>{t.title}</p>
+                        <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{t.lessons} lessons</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* SPRINT BADGE */}
+                <div style={{ marginTop: "10px", padding: "10px 12px", background: "linear-gradient(135deg,rgba(239,68,68,.08),rgba(139,92,246,.06))", border: "1px solid rgba(239,68,68,.15)", borderRadius: "10px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
+                    <svg width="12" height="12" fill="none" stroke="#ef4444" strokeWidth="2.5" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span style={{ fontSize: "10px", fontWeight: 800, color: "#ef4444" }}>Sprint Mode</span>
                   </div>
-                </Link>
-              ))}
-            </div>
-            <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.06))", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div>
-                <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>Start your learning streak today</p>
-                <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>Free forever Ãƒâ€šÃ‚Â· No credit card needed</p>
+                  <p style={{ fontSize: "10px", color: "#475569", margin: "0 0 6px" }}>5-min micro-lessons</p>
+                  <Link href="/nursing-tv" style={{ fontSize: "10px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>Start sprinting</Link>
+                </div>
               </div>
-              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            </div>
+
+            {/* FOOTER */}
+            <div style={{ padding: "12px 14px", borderTop: "1px solid rgba(255,255,255,.04)", background: "rgba(255,255,255,.01)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                {[{ val: "121", label: "Lessons" }, { val: "6", label: "Channels" }, { val: "Free", label: "Forever" }].map(s => (
+                  <div key={s.label}>
+                    <span style={{ fontSize: "13px", fontWeight: 800, color: "#0ea5e9", fontFamily: "'Cormorant Garamond',serif" }}>{s.val}</span>
+                    <span style={{ fontSize: "10px", color: "#334155", marginLeft: "4px" }}>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "7px 14px", borderRadius: "8px", fontSize: "11px", fontWeight: 700, textDecoration: "none" }}>
                 Watch free
               </Link>
             </div>
@@ -361,6 +425,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
       )}
     </div>
   );
+}
 }
 export default function Navbar() {
   const pathname = usePathname();
