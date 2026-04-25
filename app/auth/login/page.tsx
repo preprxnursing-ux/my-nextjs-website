@@ -85,6 +85,17 @@ export default function LoginPage() {
     setOtp(next);
     if (val && i < 5) otpRefs.current[i + 1]?.focus();
   }
+  function handleOtpPaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (!pasted) return;
+    const next = ["", "", "", "", "", ""];
+    pasted.split("").forEach((d, i) => { next[i] = d; });
+    setOtp(next);
+    const lastFilled = Math.min(pasted.length, 5);
+    otpRefs.current[lastFilled]?.focus();
+    if (pasted.length === 6) setTimeout(() => handleVerifyOtp(), 100);
+  }
   function handleOtpKey(i: number, e: React.KeyboardEvent) {
     if (e.key === "Backspace" && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus();
   }
@@ -264,7 +275,7 @@ export default function LoginPage() {
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
-                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>✉️</div>
+                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>âœ‰ï¸</div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>Two-Step Verification</p>
                   <h2 className="font-display text-white mb-2" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Check your email</h2>
                   <p className="text-sm" style={{ color: "#64748b" }}>
@@ -282,7 +293,7 @@ export default function LoginPage() {
                     <input key={i} ref={el => { otpRefs.current[i] = el; }}
                       type="text" inputMode="numeric" maxLength={1} value={digit}
                       onChange={e => handleOtpInput(i, e.target.value)}
-                      onKeyDown={e => handleOtpKey(i, e)}
+                      onKeyDown={e => handleOtpKey(i, e)} onPaste={handleOtpPaste}
                       className="text-center text-xl font-bold rounded-xl outline-none transition-all duration-200"
                       style={{ width: "48px", height: "56px", background: digit ? "rgba(6,182,212,0.1)" : "rgba(255,255,255,0.04)", border: digit ? "1px solid rgba(6,182,212,0.4)" : "1px solid rgba(255,255,255,0.09)", color: "#06b6d4", caretColor: "#06b6d4" }}
                       onFocus={e => (e.currentTarget.style.borderColor = "#06b6d4")}
@@ -314,7 +325,7 @@ export default function LoginPage() {
               <>
                 <div className="text-center mb-8">
                   <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5"
-                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>🔑</div>
+                    style={{ background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)" }}>ðŸ”‘</div>
                   <p className="text-xs font-medium uppercase mb-2" style={{ color: "#06b6d4", letterSpacing: "0.2em" }}>Account Recovery</p>
                   <h2 className="font-display text-white mb-2" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Reset your password</h2>
                   <p className="text-sm" style={{ color: "#64748b" }}>Enter your email and we will send a reset link.</p>
@@ -345,7 +356,7 @@ export default function LoginPage() {
             {step === "forgot-sent" && (
               <div className="text-center">
                 <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl mx-auto mb-6"
-                  style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)" }}>✅</div>
+                  style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)" }}>âœ…</div>
                 <p className="text-xs font-medium uppercase mb-2" style={{ color: "#34d399", letterSpacing: "0.2em" }}>Email sent</p>
                 <h2 className="font-display text-white mb-3" style={{ fontSize: "1.7rem", fontWeight: 700 }}>Check your inbox</h2>
                 <p className="text-sm mb-6" style={{ color: "#64748b", lineHeight: 1.7 }}>

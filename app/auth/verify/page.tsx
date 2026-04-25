@@ -64,6 +64,17 @@ export default function VerifyPage() {
       handleVerify(next.join(""));
     }
   }
+  function handleOtpPaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (!pasted) return;
+    const next = ["", "", "", "", "", ""];
+    pasted.split("").forEach((d, i) => { next[i] = d; });
+    setOtp(next);
+    const lastFilled = Math.min(pasted.length, 5);
+    otpRefs.current[lastFilled]?.focus();
+    if (pasted.length === 6) setTimeout(() => handleVerify(next.join("")), 100);
+  }
   function handleOtpKey(i: number, e: React.KeyboardEvent) {
     if (e.key === "Backspace" && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus();
   }
@@ -97,7 +108,7 @@ export default function VerifyPage() {
               <input key={i} ref={el => { otpRefs.current[i] = el; }}
                 type="text" inputMode="numeric" maxLength={1} value={digit}
                 onChange={e => handleOtpInput(i, e.target.value)}
-                onKeyDown={e => handleOtpKey(i, e)}
+                onKeyDown={e => handleOtpKey(i, e)} onPaste={handleOtpPaste}
                 disabled={loading}
                 style={{ width: "48px", height: "56px", textAlign: "center", fontSize: "1.3rem", fontWeight: 800, borderRadius: "12px", outline: "none", background: digit ? "rgba(6,182,212,0.1)" : "rgba(255,255,255,0.04)", border: digit ? "1px solid rgba(6,182,212,0.4)" : "1px solid rgba(255,255,255,0.09)", color: "#06b6d4", caretColor: "#06b6d4", transition: "all .2s" }}
                 onFocus={e => (e.currentTarget.style.borderColor = "#06b6d4")}
