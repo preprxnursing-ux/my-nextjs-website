@@ -169,7 +169,7 @@ export default function NursingTVPage() {
                   <span className="live-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "10px", fontWeight: 800, color: "#ef4444", letterSpacing: ".22em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "12px", color: "#334155", fontWeight: 500 }}>121 lessons ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· 6 categories ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Free forever</span>
+                <span style={{ fontSize: "12px", color: "#334155", fontWeight: 500 }}>121 lessons ƒ’‚ƒ€š‚ 6 categories ƒ’‚ƒ€š‚ Free forever</span>
               </div>
 
               <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.4rem,4.5vw,4rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.08, marginBottom: "16px" }}>
@@ -215,7 +215,7 @@ export default function NursingTVPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 20px", borderRadius: "10px 10px 0 0", background: mode === m.id ? "rgba(14,165,233,0.1)" : "transparent", border: `1px solid ${mode === m.id ? "rgba(14,165,233,.2)" : "transparent"}`, borderBottom: mode === m.id ? "2px solid #0ea5e9" : "2px solid transparent", color: mode === m.id ? "#38bdf8" : "#475569", fontSize: "13px", fontWeight: 700, marginBottom: "-1px" }}>
                 <span style={{ color: mode === m.id ? "#38bdf8" : "#475569" }}>{m.icon}</span>
                 {m.label}
-                <span style={{ fontSize: "10px", color: "#334155", fontWeight: 400 }}>ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· {m.desc}</span>
+                <span style={{ fontSize: "10px", color: "#334155", fontWeight: 400 }}>ƒ’‚ƒ€š‚ {m.desc}</span>
               </button>
             ))}
           </div>
@@ -276,9 +276,9 @@ export default function NursingTVPage() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "12px" }}>
               {[
-                { phase: "Phase 1", title: "Foundation Review", time: "Hour 0 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â 24", desc: "Core concepts, priority setting, safety" },
-                { phase: "Phase 2", title: "High-Yield Topics", time: "Hour 24 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â 48", desc: "Pharmacology, critical care, case studies" },
-                { phase: "Phase 3", title: "Exam Strategy", time: "Hour 48 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â 72", desc: "Test-taking, elimination, mindset" },
+                { phase: "Phase 1", title: "Foundation Review", time: "Hour 0 ƒ’‚ƒ‚‚ƒ€š‚ 24", desc: "Core concepts, priority setting, safety" },
+                { phase: "Phase 2", title: "High-Yield Topics", time: "Hour 24 ƒ’‚ƒ‚‚ƒ€š‚ 48", desc: "Pharmacology, critical care, case studies" },
+                { phase: "Phase 3", title: "Exam Strategy", time: "Hour 48 ƒ’‚ƒ‚‚ƒ€š‚ 72", desc: "Test-taking, elimination, mindset" },
               ].map((p, i) => (
                 <div key={p.phase} style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)", borderRadius: "14px", padding: "22px" }}>
                   <span style={{ fontSize: "10px", fontWeight: 700, color: "#ef4444", letterSpacing: ".12em", display: "block", marginBottom: "8px" }}>{p.phase}</span>
@@ -307,7 +307,7 @@ export default function NursingTVPage() {
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ fontSize: "13px", fontWeight: 700, color: activeRoom === i ? "#f8fafc" : "#64748b", margin: 0, transition: "color .2s" }}>{r.title}</p>
-                      <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.totalVideos} lessons ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· {r.totalHours}</p>
+                      <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.totalVideos} lessons ƒ’‚ƒ€š‚ {r.totalHours}</p>
                     </div>
                     {activeRoom === i && <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: r.color, flexShrink: 0, boxShadow: `0 0 8px ${r.color}` }} />}
                   </button>
