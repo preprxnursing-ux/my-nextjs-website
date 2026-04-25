@@ -209,7 +209,7 @@ export default function NursingTVPage() {
             {channels.map((c, i) => (
               <div key={c.id} className="ch-card"
                 onClick={() => { setActiveChannel(i); setActiveEpisode(0); scrollToPlayer(); }}
-                style={{ background: activeChannel === i ? c.color + "18" : "rgba(255,255,255,.03)", border: "1px solid " + (activeChannel === i ? c.color + "40" : "rgba(255,255,255,.06)"), borderRadius: "16px", padding: "18px 16px", position: "relative", overflow: "hidden" }}>
+                style={{ background: activeChannel === i ? c.color + "18" : "rgba(255,255,255,.04)", border: "1px solid " + (activeChannel === i ? c.color + "40" : "rgba(255,255,255,.06)"), borderRadius: "16px", padding: "18px 16px", position: "relative", overflow: "hidden" }}>
                 {activeChannel === i && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: c.color }} />}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
                   <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: c.color + "18", border: "1px solid " + c.color + "30", display: "flex", alignItems: "center", justifyContent: "center" }}>
