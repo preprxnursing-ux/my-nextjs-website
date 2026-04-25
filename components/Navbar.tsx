@@ -306,17 +306,17 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
   function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
   const rooms = [
-    { title: "NCLEX-RN Prep", color: "#0ea5e9", emoji: "🏥", count: 24, href: "/nursing-tv" },
-    { title: "Pharmacology", color: "#8b5cf6", emoji: "💊", count: 32, href: "/nursing-tv" },
-    { title: "Critical Care", color: "#ef4444", emoji: "❤️", count: 20, href: "/nursing-tv" },
-    { title: "Clinical Skills", color: "#10b981", emoji: "🩺", count: 18, href: "/nursing-tv" },
-    { title: "Case Studies", color: "#f59e0b", emoji: "📋", count: 15, href: "/nursing-tv" },
-    { title: "Exam Strategy", color: "#06b6d4", emoji: "🎯", count: 12, href: "/nursing-tv" },
+    { title: "NCLEX-RN Prep", color: "#0ea5e9", emoji: "ðŸ¥", count: 24, href: "/nursing-tv" },
+    { title: "Pharmacology", color: "#8b5cf6", emoji: "ðŸ’Š", count: 32, href: "/nursing-tv" },
+    { title: "Critical Care", color: "#ef4444", emoji: "â¤ï¸", count: 20, href: "/nursing-tv" },
+    { title: "Clinical Skills", color: "#10b981", emoji: "ðŸ©º", count: 18, href: "/nursing-tv" },
+    { title: "Case Studies", color: "#f59e0b", emoji: "ðŸ“‹", count: 15, href: "/nursing-tv" },
+    { title: "Exam Strategy", color: "#06b6d4", emoji: "ðŸŽ¯", count: 12, href: "/nursing-tv" },
   ];
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>
-        <span style={{ fontSize: "12px" }}>🎬</span>
+        <span style={{ fontSize: "12px" }}>ðŸŽ¬</span>
         Nursing TV
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
@@ -329,7 +329,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", animation: "pulse 1.5s ease infinite" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".18em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>121 lessons · Free</span>
+                <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>121 lessons Â· Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>Watch now</Link>
             </div>
@@ -339,7 +339,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", textDecoration: "none", background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.04)", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${r.color}10`; e.currentTarget.style.borderColor = `${r.color}30`; e.currentTarget.style.transform = "translateX(3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.02)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.04)"; e.currentTarget.style.transform = "translateX(0)"; }}>
-                  <span style={{ fontSize: "22px", flexShrink: 0 }}>{r.emoji}</span>
+                  <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${r.color}15`, border: `1px solid ${r.color}25`, display: "flex", alignItems: "center", justifyContent: "center", color: r.color, flexShrink: 0 }}>{r.icon}</div>
                   <div>
                     <p style={{ fontSize: "13px", fontWeight: 700, color: "#e2e8f0", margin: 0 }}>{r.title}</p>
                     <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.count} lessons</p>
@@ -350,7 +350,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.06))", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>Start your learning streak today</p>
-                <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>Free forever · No credit card needed</p>
+                <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>Free forever Â· No credit card needed</p>
               </div>
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
                 Watch free
