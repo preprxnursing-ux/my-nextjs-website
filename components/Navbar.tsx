@@ -88,7 +88,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", right: "0px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -336,7 +336,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", right: "0px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
 
             {/* HEADER */}
