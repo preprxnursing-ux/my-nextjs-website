@@ -346,7 +346,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÂ· 140+ lessons ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÂ· Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â· 140+ lessons ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â· Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
@@ -380,7 +380,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                       <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
                       {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.2)", padding: "1px 5px", borderRadius: "100px" }}>LIVE</span>}
                     </div>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÂ· {c.lessons} lessons</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â· {c.lessons} lessons</p>
                   </div>
                 </Link>
               ))}
@@ -760,4 +760,3 @@ export default function Navbar() {
       </header>
     </>
   );
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-220px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
