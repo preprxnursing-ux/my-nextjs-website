@@ -330,7 +330,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
 
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>
+      <button onClick={() => window.location.href="/nursing-tv"} className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" style={{ flexShrink: 0 }}><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
         Nursing TV
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
@@ -406,7 +406,6 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
       )}
     </div>
   );
-}
 }
 export default function Navbar() {
   const pathname = usePathname();
@@ -762,3 +761,4 @@ export default function Navbar() {
     </>
   );
 }
+
