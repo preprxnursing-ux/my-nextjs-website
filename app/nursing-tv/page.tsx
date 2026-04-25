@@ -160,7 +160,7 @@ export default function NursingTVPage() {
                   <span className="live-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "10px", fontWeight: 800, color: "#ef4444", letterSpacing: ".22em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "12px", color: "#334155", fontWeight: 500 }}>121 lessons · 6 categories · Free forever</span>
+                <span style={{ fontSize: "12px", color: "#334155", fontWeight: 500 }}>121 lessons Â· 6 categories Â· Free forever</span>
               </div>
 
               <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(2.4rem,4.5vw,4rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.08, marginBottom: "16px" }}>
@@ -173,11 +173,11 @@ export default function NursingTVPage() {
               </p>
 
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
+                <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
                   <PlayIcon size={15} color="#fff" />
                   Start watching free
                 </Link>
-                <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", color: "#94a3b8", padding: "13px 24px", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none" }}>
+                <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", color: "#94a3b8", padding: "13px 24px", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none" }}>
                   Practice questions instead
                 </Link>
               </div>
@@ -206,7 +206,7 @@ export default function NursingTVPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 20px", borderRadius: "10px 10px 0 0", background: mode === m.id ? "rgba(14,165,233,0.1)" : "transparent", border: `1px solid ${mode === m.id ? "rgba(14,165,233,.2)" : "transparent"}`, borderBottom: mode === m.id ? "2px solid #0ea5e9" : "2px solid transparent", color: mode === m.id ? "#38bdf8" : "#475569", fontSize: "13px", fontWeight: 700, marginBottom: "-1px" }}>
                 <span style={{ color: mode === m.id ? "#38bdf8" : "#475569" }}>{m.icon}</span>
                 {m.label}
-                <span style={{ fontSize: "10px", color: "#334155", fontWeight: 400 }}>· {m.desc}</span>
+                <span style={{ fontSize: "10px", color: "#334155", fontWeight: 400 }}>Â· {m.desc}</span>
               </button>
             ))}
           </div>
@@ -235,7 +235,7 @@ export default function NursingTVPage() {
                   <p style={{ fontSize: "12px", color: "#475569", marginBottom: "20px", lineHeight: 1.6 }}>{p.desc}</p>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span style={{ fontSize: "11px", color: p.color, fontWeight: 600 }}>{p.count} videos</span>
-                    <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: p.color, color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}>
+                    <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: p.color, color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}>
                       <PlayIcon size={11} color="#fff" />
                       Start
                     </Link>
@@ -260,16 +260,16 @@ export default function NursingTVPage() {
                 </div>
               </div>
               <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "24px", lineHeight: 1.7 }}>Exam in 3 days? This curated sequence covers the highest-yield topics in the exact right order. Used by thousands of nurses who passed on their first attempt.</p>
-              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.3)" }}>
+              <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.3)" }}>
                 <PlayIcon size={14} color="#fff" />
                 Start emergency prep
               </Link>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "12px" }}>
               {[
-                { phase: "Phase 1", title: "Foundation Review", time: "Hour 0 — 24", desc: "Core concepts, priority setting, safety" },
-                { phase: "Phase 2", title: "High-Yield Topics", time: "Hour 24 — 48", desc: "Pharmacology, critical care, case studies" },
-                { phase: "Phase 3", title: "Exam Strategy", time: "Hour 48 — 72", desc: "Test-taking, elimination, mindset" },
+                { phase: "Phase 1", title: "Foundation Review", time: "Hour 0 â€” 24", desc: "Core concepts, priority setting, safety" },
+                { phase: "Phase 2", title: "High-Yield Topics", time: "Hour 24 â€” 48", desc: "Pharmacology, critical care, case studies" },
+                { phase: "Phase 3", title: "Exam Strategy", time: "Hour 48 â€” 72", desc: "Test-taking, elimination, mindset" },
               ].map((p, i) => (
                 <div key={p.phase} style={{ background: "rgba(255,255,255,.03)", border: "1px solid rgba(255,255,255,.07)", borderRadius: "14px", padding: "22px" }}>
                   <span style={{ fontSize: "10px", fontWeight: 700, color: "#ef4444", letterSpacing: ".12em", display: "block", marginBottom: "8px" }}>{p.phase}</span>
@@ -298,7 +298,7 @@ export default function NursingTVPage() {
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <p style={{ fontSize: "13px", fontWeight: 700, color: activeRoom === i ? "#f8fafc" : "#64748b", margin: 0, transition: "color .2s" }}>{r.title}</p>
-                      <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.totalVideos} lessons · {r.totalHours}</p>
+                      <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{r.totalVideos} lessons Â· {r.totalHours}</p>
                     </div>
                     {activeRoom === i && <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: r.color, flexShrink: 0, boxShadow: `0 0 8px ${r.color}` }} />}
                   </button>
@@ -347,7 +347,7 @@ export default function NursingTVPage() {
                       <span style={{ fontSize: "12px", color: "#475569", display: "flex", alignItems: "center", gap: "4px" }}><EyeIcon /> {room.featured.views} views</span>
                     </div>
                   </div>
-                  <Link href="/auth/signup"
+                  <Link href={ctaHref}
                     style={{ width: "60px", height: "60px", borderRadius: "50%", background: `linear-gradient(135deg,${room.color},${room.color}cc)`, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", boxShadow: `0 8px 24px ${room.color}40`, transition: "all .3s cubic-bezier(.34,1.56,.64,1)", flexShrink: 0 }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1.1)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}>
@@ -390,7 +390,7 @@ export default function NursingTVPage() {
                   <p style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>Ready to watch? It is completely free.</p>
                   <p style={{ fontSize: "12px", color: "#475569", margin: 0 }}>Create your account to track progress, earn badges and unlock all lessons</p>
                 </div>
-                <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.28)" }}>
+                <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.28)" }}>
                   <PlayIcon size={13} color="#fff" />
                   Start watching free
                 </Link>
