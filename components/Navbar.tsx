@@ -334,7 +334,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" style={{ flexShrink: 0 }}><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
         Nursing TV
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
-      </Link>
+      </button>
       {open && (
         <div className="nav-dropdown" style={{ position: "absolute", right: "0px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
@@ -346,7 +346,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels · 140+ lessons · Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels Â· 140+ lessons Â· Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
@@ -380,7 +380,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                       <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
                       {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.2)", padding: "1px 5px", borderRadius: "100px" }}>LIVE</span>}
                     </div>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} · {c.lessons} lessons</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} Â· {c.lessons} lessons</p>
                   </div>
                 </Link>
               ))}
@@ -761,4 +761,3 @@ export default function Navbar() {
     </>
   );
 }
-
