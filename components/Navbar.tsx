@@ -316,7 +316,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>
-        <span style={{ fontSize: "12px" }}>Ã°Å¸Å½Â¬</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" style={{ flexShrink: 0 }}><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
         Nursing TV
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
@@ -329,7 +329,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", animation: "pulse 1.5s ease infinite" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".18em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>121 lessons Ã‚Â· Free</span>
+                <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>121 lessons Ãƒâ€šÃ‚Â· Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "12px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>Watch now</Link>
             </div>
@@ -350,7 +350,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
             <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08),rgba(139,92,246,.06))", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>Start your learning streak today</p>
-                <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>Free forever Ã‚Â· No credit card needed</p>
+                <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>Free forever Ãƒâ€šÃ‚Â· No credit card needed</p>
               </div>
               <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
                 Watch free
@@ -541,7 +541,7 @@ export default function Navbar() {
                       { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
                       { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
                       { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
-                      { href: "/educators", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
+                      { href: "/nursing-tv", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
                       { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
                     ].map((item) => (
                       <Link key={item.label} href={item.href}
@@ -678,7 +678,7 @@ export default function Navbar() {
                   { href: "/pricing", label: "Pricing" },
                   { href: "/faq", label: "FAQ" },
                   { href: "/blog", label: "Blog" },
-                  { href: "/educators", label: "Nursing TV" },
+                  { href: "/nursing-tv", label: "Nursing TV" },
                 ].map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
                     style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>

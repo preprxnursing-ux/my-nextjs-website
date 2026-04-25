@@ -207,7 +207,7 @@ export default function NursingTVPage() {
                   <span style={{ fontSize: "32px", display: "block", marginBottom: "12px" }}>{p.icon}</span>
                   <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1.3rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>{p.title}</h3>
                   <p style={{ fontSize: "12px", color: "#475569", marginBottom: "16px" }}>{p.count} videos · under 5 min each</p>
-                  <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: p.color, color: "#fff", padding: "8px 18px", borderRadius: "10px", fontSize: "13px", fontWeight: 700, textDecoration: "none" }}>
+                  <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: p.color, color: "#fff", padding: "8px 18px", borderRadius: "10px", fontSize: "13px", fontWeight: 700, textDecoration: "none" }}>
                     <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     Start sprint
                   </Link>
@@ -224,7 +224,7 @@ export default function NursingTVPage() {
               <span style={{ fontSize: "48px", display: "block", marginBottom: "12px" }}>🚨</span>
               <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "2.5rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>72-Hour Emergency Protocol</h2>
               <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "24px" }}>Exam in 3 days? This curated sequence covers the highest-yield topics in the right order.</p>
-              <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.35)" }}>
+              <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "14px 32px", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.35)" }}>
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 Start emergency prep
               </Link>
@@ -298,7 +298,7 @@ export default function NursingTVPage() {
                       <span style={{ fontSize: "12px", color: "#475569" }}>👁 {room.featured.views} views</span>
                     </div>
                   </div>
-                  <Link href="/auth/signup" className="play-btn"
+                  <Link href="/dashboard" className="play-btn"
                     style={{ width: "64px", height: "64px", borderRadius: "50%", background: `linear-gradient(135deg,${room.color},${room.color}cc)`, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", boxShadow: `0 8px 24px ${room.color}50`, flexShrink: 0 }}>
                     <svg width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   </Link>
@@ -339,7 +339,7 @@ export default function NursingTVPage() {
                   <p style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>Ready to watch? It is completely free.</p>
                   <p style={{ fontSize: "12px", color: "#475569", margin: 0 }}>Create your account to track progress, earn badges and unlock all lessons</p>
                 </div>
-                <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
+                <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
                   <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                   Start watching free
                 </Link>
