@@ -173,7 +173,7 @@ export default function NursingTVPage() {
               </p>
 
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
+                <Link href="/quiz" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(14,165,233,.3)" }}>
                   <PlayIcon size={15} color="#fff" />
                   Start watching free
                 </Link>
@@ -235,7 +235,7 @@ export default function NursingTVPage() {
                   <p style={{ fontSize: "12px", color: "#475569", marginBottom: "20px", lineHeight: 1.6 }}>{p.desc}</p>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <span style={{ fontSize: "11px", color: p.color, fontWeight: 600 }}>{p.count} videos</span>
-                    <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: p.color, color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}>
+                    <Link href="/quiz" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: p.color, color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}>
                       <PlayIcon size={11} color="#fff" />
                       Start
                     </Link>
@@ -260,7 +260,7 @@ export default function NursingTVPage() {
                 </div>
               </div>
               <p style={{ fontSize: "15px", color: "#64748b", marginBottom: "24px", lineHeight: 1.7 }}>Exam in 3 days? This curated sequence covers the highest-yield topics in the exact right order. Used by thousands of nurses who passed on their first attempt.</p>
-              <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.3)" }}>
+              <Link href="/quiz" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#ef4444,#f87171)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", boxShadow: "0 8px 24px rgba(239,68,68,.3)" }}>
                 <PlayIcon size={14} color="#fff" />
                 Start emergency prep
               </Link>
@@ -347,7 +347,7 @@ export default function NursingTVPage() {
                       <span style={{ fontSize: "12px", color: "#475569", display: "flex", alignItems: "center", gap: "4px" }}><EyeIcon /> {room.featured.views} views</span>
                     </div>
                   </div>
-                  <Link href="/dashboard"
+                  <Link href="/quiz"
                     style={{ width: "60px", height: "60px", borderRadius: "50%", background: `linear-gradient(135deg,${room.color},${room.color}cc)`, display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", boxShadow: `0 8px 24px ${room.color}40`, transition: "all .3s cubic-bezier(.34,1.56,.64,1)", flexShrink: 0 }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1.1)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}>
@@ -390,7 +390,7 @@ export default function NursingTVPage() {
                   <p style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>Ready to watch? It is completely free.</p>
                   <p style={{ fontSize: "12px", color: "#475569", margin: 0 }}>Create your account to track progress, earn badges and unlock all lessons</p>
                 </div>
-                <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.28)" }}>
+                <Link href="/quiz" style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "12px 24px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 8px 24px rgba(14,165,233,.28)" }}>
                   <PlayIcon size={13} color="#fff" />
                   Start watching free
                 </Link>
