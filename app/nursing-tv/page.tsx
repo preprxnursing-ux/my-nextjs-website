@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -196,7 +196,7 @@ export default function NursingTVPage() {
       </div>
 
       {/* â”€â”€ CHANNEL GUIDE â”€â”€ */}
-      <div style={{ background: "#070e1c", borderTop: "1px solid rgba(255,255,255,.04)", borderBottom: "1px solid rgba(255,255,255,.04)", padding: "28px 32px" }}>
+      <div style={{ background: "#ffffff", borderTop: "1px solid rgba(255,255,255,.04)", borderBottom: "1px solid rgba(255,255,255,.04)", padding: "28px 32px" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
             <div>
@@ -354,4 +354,5 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
 
