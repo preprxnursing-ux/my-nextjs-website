@@ -346,7 +346,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels � 140+ lessons � Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels · 140+ lessons · Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
