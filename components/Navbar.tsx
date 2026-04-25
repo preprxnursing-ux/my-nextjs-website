@@ -42,7 +42,7 @@ const navStyle = `
   .nav-dropdown { animation: dropIn .18s ease both; }
   .nav-btn {
     display: inline-flex; align-items: center; gap: 5px;
-    padding: 8px 12px; border-radius: 9px; font-size: 12.5px; font-weight: 600;
+    padding: 9px 14px; border-radius: 9px; font-size: 13.5px; font-weight: 600;
     color: #cbd5e1; background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; flex-shrink: 0;
     transition: background .15s, color .15s; font-family: inherit;
@@ -372,7 +372,7 @@ export default function Navbar() {
     <>
       <style>{navStyle}</style>
       <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(6,15,30,0.97)", borderBottom: "1px solid rgba(14,165,233,0.1)", backdropFilter: "blur(20px)", boxShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 28px", height: "64px", gap: "4px" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 24px", height: "62px", gap: "4px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
@@ -381,7 +381,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center" }}>
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "4px", flex: 1, justifyContent: "center" }}>
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
@@ -510,7 +510,7 @@ export default function Navbar() {
           </div>
 
           {/* FAR RIGHT */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
