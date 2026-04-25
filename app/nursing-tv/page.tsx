@@ -196,20 +196,20 @@ export default function NursingTVPage() {
       </div>
 
       {/* â”€â”€ CHANNEL GUIDE â”€â”€ */}
-      <div style={{ background: "#ffffff", borderTop: "1px solid rgba(255,255,255,.04)", borderBottom: "1px solid rgba(255,255,255,.04)", padding: "28px 32px" }}>
+      <div style={{ background: "#ffffff", borderTop: "1px solid rgba(0,0,0,.06)", borderBottom: "1px solid rgba(0,0,0,.06)", padding: "28px 32px" }}>
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
             <div>
-              <p style={{ fontSize: "10px", fontWeight: 800, color: "#334155", letterSpacing: ".2em", textTransform: "uppercase", margin: "0 0 4px" }}>Channel Guide</p>
-              <h2 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "1.6rem", fontWeight: 700, color: "#f8fafc", margin: 0 }}>Choose your channel</h2>
+              <p style={{ fontSize: "10px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", margin: "0 0 4px" }}>Channel Guide</p>
+              <h2 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "1.6rem", fontWeight: 700, color: "#0f172a", margin: 0 }}>Choose your channel</h2>
             </div>
-            <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>{channels.length} channels available</span>
+            <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>{channels.length} channels available</span>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: "10px" }}>
             {channels.map((c, i) => (
               <div key={c.id} className="ch-card"
                 onClick={() => { setActiveChannel(i); setActiveEpisode(0); scrollToPlayer(); }}
-                style={{ background: activeChannel === i ? c.color + "18" : ["rgba(255,255,255,.05)","rgba(248,248,252,.04)","rgba(242,242,248,.04)","rgba(236,236,244,.03)","rgba(230,230,240,.03)","rgba(224,224,236,.03)"][i % 6], border: "1px solid " + (activeChannel === i ? c.color + "40" : ["rgba(255,255,255,.08)","rgba(255,255,255,.07)","rgba(255,255,255,.06)","rgba(255,255,255,.05)","rgba(255,255,255,.05)","rgba(255,255,255,.04)"][i % 6]), borderRadius: "16px", padding: "18px 16px", position: "relative", overflow: "hidden" }}>
+                style={{ background: activeChannel === i ? c.color : ["#f8fafc","#f1f5f9","#f0fdf4","#fefce8","#fdf4ff","#f0f9ff"][i % 6], border: "1px solid " + (activeChannel === i ? c.color : ["#e2e8f0","#cbd5e1","#bbf7d0","#fde68a","#e9d5ff","#bae6fd"][i % 6]), borderRadius: "16px", padding: "18px 16px", position: "relative", overflow: "hidden" }}>
                 {activeChannel === i && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: c.color }} />}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
                   <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: c.color + "18", border: "1px solid " + c.color + "30", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -222,10 +222,10 @@ export default function NursingTVPage() {
                     </div>
                   )}
                 </div>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: activeChannel === i ? "#f8fafc" : "#94a3b8", margin: "0 0 3px", transition: "color .2s" }}>{c.name}</p>
-                <p style={{ fontSize: "10px", color: activeChannel === i ? c.color : "#334155", margin: "0 0 10px", fontWeight: 500, transition: "color .2s" }}>{c.tag}</p>
+                <p style={{ fontSize: "13px", fontWeight: 700, color: activeChannel === i ? "#ffffff" : "#0f172a", margin: "0 0 3px", transition: "color .2s" }}>{c.name}</p>
+                <p style={{ fontSize: "10px", color: activeChannel === i ? "#ffffffcc" : "#64748b", margin: "0 0 10px", fontWeight: 500, transition: "color .2s" }}>{c.tag}</p>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "10px", color: "#475569", fontWeight: 500 }}>{c.episodes} eps</span>
+                  <span style={{ fontSize: "10px", color: "#475569", fontWeight: 600 }}>{c.episodes} eps</span>
                   <span style={{ width: "3px", height: "3px", borderRadius: "50%", background: "#1e293b", display: "inline-block" }} />
                   <span style={{ fontSize: "10px", color: "#475569", fontWeight: 500 }}>{c.hours}</span>
                 </div>
