@@ -1,4 +1,4 @@
-﻿import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { questions as localQuestions } from "@/lib/questions";
 
@@ -27,8 +27,8 @@ export async function GET(request: Request) {
     .select("*")
     .eq("is_published", true);
 
-  if (userRole === "free") query = query.eq("access_level", "free");
-  if (topic && tGet-Content components\Navbar.tsx | Select-Object -Index (755..762) !== "all") query = query.eq("topic", topic);
+  if (topic && topic !== "all") query = query.eq("topic", topic);
+  if (topic && topic !== "all") query = query.eq("topic", topic);
   if (difficulty && difficulty !== "all") query = query.eq("difficulty", difficulty);
   if (examType && examType !== "all") query = query.eq("exam_type", examType);
   if (limit) query = query.limit(Number(limit));
