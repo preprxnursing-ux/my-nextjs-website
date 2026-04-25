@@ -88,7 +88,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", right: "0px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-180px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -336,7 +336,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", right: "0px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-180px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
 
             {/* HEADER */}
@@ -346,7 +346,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels Ã‚Â· 140+ lessons Ã‚Â· Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels Ã‚Â� 140+ lessons Ã‚Â� Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all
@@ -380,7 +380,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                       <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
                       {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.2)", padding: "1px 5px", borderRadius: "100px" }}>LIVE</span>}
                     </div>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} Ã‚Â· {c.lessons} lessons</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{c.tag} Ã‚Â� {c.lessons} lessons</p>
                   </div>
                 </Link>
               ))}
