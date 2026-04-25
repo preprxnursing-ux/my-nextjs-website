@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     .eq("is_published", true);
 
   if (userRole === "free") query = query.eq("access_level", "free");
-  if (topic && topic !== "all") query = query.eq("topic", topic);
+  if (topic && tGet-Content components\Navbar.tsx | Select-Object -Index (755..762) !== "all") query = query.eq("topic", topic);
   if (difficulty && difficulty !== "all") query = query.eq("difficulty", difficulty);
   if (examType && examType !== "all") query = query.eq("exam_type", examType);
   if (limit) query = query.limit(Number(limit));
