@@ -340,7 +340,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#334155" }}>121 lessons · 6 exam channels · Free</span>
+                <span style={{ fontSize: "11px", color: "#334155" }}>121 lessons Â· 6 exam channels Â· Free</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 View all
@@ -350,7 +350,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 200px", gap: "0" }}>
 
-              {/* LEFT — EXAM CHANNELS */}
+              {/* LEFT â€” EXAM CHANNELS */}
               <div style={{ padding: "14px" }}>
                 <p style={{ fontSize: "9px", fontWeight: 800, color: "#334155", letterSpacing: ".18em", textTransform: "uppercase", margin: "0 4px 10px" }}>Exam Channels</p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px" }}>
@@ -367,14 +367,14 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                           <p style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0", margin: 0 }}>{c.title}</p>
                           {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.15)", color: "#ef4444", border: "1px solid rgba(239,68,68,.25)", padding: "1px 5px", borderRadius: "100px", letterSpacing: ".08em" }}>LIVE</span>}
                         </div>
-                        <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{c.tag} · {c.lessons} lessons</p>
+                        <p style={{ fontSize: "10px", color: "#334155", margin: 0 }}>{c.tag} Â· {c.lessons} lessons</p>
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* RIGHT — TOPIC ROOMS */}
+              {/* RIGHT â€” TOPIC ROOMS */}
               <div style={{ borderLeft: "1px solid rgba(255,255,255,.05)", padding: "14px", background: "rgba(255,255,255,.01)" }}>
                 <p style={{ fontSize: "9px", fontWeight: 800, color: "#334155", letterSpacing: ".18em", textTransform: "uppercase", margin: "0 4px 10px" }}>Topic Rooms</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
@@ -425,7 +425,6 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
       )}
     </div>
   );
-}
 }
 export default function Navbar() {
   const pathname = usePathname();
