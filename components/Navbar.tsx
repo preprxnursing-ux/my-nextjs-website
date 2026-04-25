@@ -42,7 +42,7 @@ const navStyle = `
   .nav-dropdown { animation: dropIn .18s ease both; }
   .nav-btn {
     display: inline-flex; align-items: center; gap: 5px;
-    padding: 10px 16px; border-radius: 9px; font-size: 14px; font-weight: 600;
+    padding: 8px 12px; border-radius: 9px; font-size: 12.5px; font-weight: 600;
     color: #cbd5e1; background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; flex-shrink: 0;
     transition: background .15s, color .15s; font-family: inherit;
@@ -57,8 +57,6 @@ const navStyle = `
     transition: all .18s; box-shadow: 0 4px 14px rgba(14,165,233,.3); font-family: inherit;
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
-  .hamburger-btn { display: none !important; }
-  @media (max-width: 767px) { .hamburger-btn { display: flex !important; } }
   .cart-btn { transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease; }
   .cart-btn:hover { transform: scale(1.18) translateY(-3px); filter: drop-shadow(0 6px 16px rgba(14,165,233,0.5)); }
   .cart-btn.has-item { animation: cartBounce 0.5s cubic-bezier(.34,1.56,.64,1); }
@@ -88,7 +86,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-220px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -167,7 +165,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "190px 1fr", minHeight: "240px" }}>
               <div style={{ background: "rgba(248,249,251,1)", borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px" }}>
-                <p style={{ fontSize: "0px", fontWeight: 800, color: "#94a3b8", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 10px" }}>Hover to preview</p>
+                <p style={{ fontSize: "9px", fontWeight: 800, color: "#94a3b8", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 10px" }}>Hover to preview</p>
                 {previews.map((p, i) => (
                   <div key={p.name} onMouseEnter={() => setActiveCard(i)}
                     style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? "#ffffff" : "transparent", border: `1px solid ${activeCard === i ? "rgba(0,0,0,.08)" : "transparent"}`, boxShadow: activeCard === i ? "0 2px 8px rgba(0,0,0,.06)" : "none", cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
@@ -267,7 +265,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
                       <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0, cursor: "pointer", textDecoration: "underline", textDecorationColor: "transparent" }} onClick={() => window.location.href = p.href} onMouseEnter={e => (e.currentTarget.style.textDecorationColor = p.color)} onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "transparent")}>{p.name}</p>
-                      <span style={{ fontSize: "0px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
+                      <span style={{ fontSize: "9px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
                     <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{p.response}</p>
@@ -299,6 +297,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
     </div>
   );
 }
+
 
 function NursingTVDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
@@ -336,58 +335,47 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
         <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-220px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "560px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "640px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
-
-            {/* HEADER */}
-            <div style={{ padding: "14px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(239,68,68,.05),rgba(14,165,233,.04))", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(239,68,68,.04),rgba(14,165,233,.03))", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.18)", borderRadius: "100px", padding: "3px 10px" }}>
                   <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#ef4444", display: "inline-block" }} />
                   <span style={{ fontSize: "9px", fontWeight: 800, color: "#ef4444", letterSpacing: ".2em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels · 140+ lessons · Free</span>
+                <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>10 channels Â· 140+ lessons Â· Free</span>
               </div>
-              <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
-                Browse all
-                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </Link>
+              <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>Browse all</Link>
             </div>
-
-            {/* GROUP TABS */}
-            <div style={{ display: "flex", gap: "4px", padding: "10px 14px 0", background: "#f8f9fb", borderBottom: "1px solid rgba(0,0,0,.06)" }}>
+            <div style={{ display: "flex", borderBottom: "1px solid rgba(0,0,0,.06)", background: "#f8f9fb" }}>
               {groups.map((g, i) => (
                 <button key={g.label} onMouseEnter={() => setActiveGroup(i)}
-                  style={{ padding: "7px 14px", borderRadius: "8px 8px 0 0", background: activeGroup === i ? "#ffffff" : "transparent", border: activeGroup === i ? "1px solid rgba(0,0,0,.08)" : "1px solid transparent", borderBottom: activeGroup === i ? "1px solid #fff" : "1px solid transparent", cursor: "pointer", fontFamily: "inherit", fontSize: "12px", fontWeight: activeGroup === i ? 700 : 500, color: activeGroup === i ? g.color : "#94a3b8", transition: "all .15s", marginBottom: "-1px" }}>
+                  style={{ flex: 1, padding: "9px 8px", background: activeGroup === i ? "#ffffff" : "transparent", border: "none", borderBottom: activeGroup === i ? `2px solid ${g.color}` : "2px solid transparent", cursor: "pointer", fontFamily: "inherit", fontSize: "11px", fontWeight: activeGroup === i ? 700 : 500, color: activeGroup === i ? g.color : "#94a3b8", transition: "all .15s" }}>
                   {g.label}
                 </button>
               ))}
             </div>
-
-            {/* CHANNELS */}
-            <div style={{ padding: "14px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+            <div style={{ padding: "16px", background: "#ffffff", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
               {groups[activeGroup].channels.map(c => (
                 <Link key={c.title} href="/nursing-tv"
-                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px 16px", borderRadius: "14px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = `${c.color}08`; e.currentTarget.style.borderColor = `${c.color}30`; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,.08)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "#f8f9fb"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                  <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "3px", background: c.color, borderRadius: "3px 0 0 3px" }} />
-                  <div style={{ width: "34px", height: "34px", borderRadius: "9px", background: `${c.color}12`, border: `1px solid ${c.color}20`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <svg width="14" height="14" fill="none" stroke={c.color} strokeWidth="2" viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px", borderRadius: "14px", textDecoration: "none", background: "#f8f9fb", border: "1px solid rgba(0,0,0,.06)", transition: "all .2s", position: "relative", overflow: "hidden" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = `${c.color}08`; (e.currentTarget as HTMLElement).style.borderColor = `${c.color}30`; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f8f9fb"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,0,0,.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}>
+                  <div style={{ position: "absolute", top: 0, left: 0, bottom: 0, width: "3px", background: c.color }} />
+                  <div style={{ width: "40px", height: "40px", borderRadius: "11px", background: `${c.color}12`, border: `1px solid ${c.color}20`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="13" height="13" fill={c.color} viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "2px" }}>
                       <p style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{c.title}</p>
                       {c.live && <span style={{ fontSize: "7px", fontWeight: 800, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.2)", padding: "1px 5px", borderRadius: "100px" }}>LIVE</span>}
                     </div>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>{c.tag} · {c.lessons} lessons</p>
+                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>{c.tag} Â· {c.lessons} lessons</p>
                   </div>
                 </Link>
               ))}
             </div>
-
-            {/* FOOTER */}
-            <div style={{ padding: "12px 16px", borderTop: "1px solid rgba(0,0,0,.06)", background: "#f8f9fb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ padding: "14px 20px", borderTop: "1px solid rgba(0,0,0,.06)", background: "#f8f9fb", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
                 {[{ val: "10", label: "Channels" }, { val: "140+", label: "Lessons" }, { val: "Free", label: "Forever" }].map(s => (
                   <div key={s.label} style={{ display: "flex", alignItems: "baseline", gap: "3px" }}>
@@ -396,8 +384,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   </div>
                 ))}
               </div>
-              <Link href="/nursing-tv" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "11px", fontWeight: 700, textDecoration: "none", boxShadow: "0 4px 12px rgba(14,165,233,.25)" }}>
-                <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <Link href="/nursing-tv" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "7px 16px", borderRadius: "8px", fontSize: "11px", fontWeight: 700, textDecoration: "none" }}>
                 Watch free
               </Link>
             </div>
@@ -407,6 +394,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
     </div>
   );
 }
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -460,7 +448,7 @@ export default function Navbar() {
     await supabase.auth.signOut();
     await fetch("/api/auth/logout", { method: "POST" });
     setAvatarOpen(false);
-    window.location.href = "/";
+    window.location.href = "/auth/login";
   }
 
   function handleCoursesEnter() { if (coursesTimeout.current) clearTimeout(coursesTimeout.current); setCoursesOpen(true); }
@@ -478,8 +466,8 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(6,15,30,0.97)", borderBottom: "1px solid rgba(14,165,233,0.1)", backdropFilter: "blur(20px)", boxShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
-        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "62px", gap: "0px" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "linear-gradient(to bottom,#0a1929 0%,#0d1f35 100%)", borderBottom: "1px solid rgba(14,165,233,.12)", backdropFilter: "blur(12px)" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 20px", height: "60px", gap: "8px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
@@ -488,7 +476,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0px", flex: 1, justifyContent: "space-evenly" }}>
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "1px", flex: 1, justifyContent: "center" }}>
             {/* COURSES DROPDOWN */}
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
@@ -521,9 +509,9 @@ export default function Navbar() {
                                 <span style={{ fontSize: "13px", fontWeight: 800, color: course.color }}>{course.exam}</span>
                               </div>
                               {course.available ? (
-                                <span style={{ fontSize: "0px", fontWeight: 800, background: "rgba(14,165,233,.12)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.25)", padding: "2px 7px", borderRadius: "100px" }}>LIVE</span>
+                                <span style={{ fontSize: "9px", fontWeight: 800, background: "rgba(14,165,233,.12)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.25)", padding: "2px 7px", borderRadius: "100px" }}>LIVE</span>
                               ) : (
-                                <span style={{ fontSize: "0px", fontWeight: 600, background: "rgba(0,0,0,.04)", color: "#94a3b8", border: "1px solid rgba(0,0,0,.06)", padding: "2px 7px", borderRadius: "100px" }}>SOON</span>
+                                <span style={{ fontSize: "9px", fontWeight: 600, background: "rgba(0,0,0,.04)", color: "#94a3b8", border: "1px solid rgba(0,0,0,.06)", padding: "2px 7px", borderRadius: "100px" }}>SOON</span>
                               )}
                             </div>
                             <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", lineHeight: 1.4, marginBottom: "4px" }}>{course.title}</p>
@@ -552,12 +540,11 @@ export default function Navbar() {
                 ))}
                 <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
                 <ContactDropdown pathname={pathname} />
-                <NursingTVDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
               <>
-                <NursingTVDropdown pathname={pathname} />
+                <Link href="/nursing-tv" className={`nav-btn${isActive(pathname, "/educators") ? " active" : ""}`}>Nursing TV</Link>
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
@@ -586,7 +573,7 @@ export default function Navbar() {
                       { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
                       { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
                       { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
-                      { href: "/nursing-tv", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
+                      { href: "/educators", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
                       { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
                     ].map((item) => (
                       <Link key={item.label} href={item.href}
@@ -606,7 +593,7 @@ export default function Navbar() {
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
                       <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free . No credit card . Live now</p>
                     </div>
-                    <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
+                    <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
                       onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                       onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
                       Get started
@@ -618,34 +605,22 @@ export default function Navbar() {
           </div>
 
           {/* FAR RIGHT */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            {/* ANIMATED CART BUTTON */}
             <button onClick={() => setCartOpen(true)}
-              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "scale(1) translateY(0)"; e.currentTarget.style.filter = "none"; }}>
-              <div style={{ position: "relative" }}>
-                <svg width="38" height="36" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="20" y1="20" x2="38" y2="20" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <line x1="38" y1="20" x2="55" y2="100" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="10" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
-                  <path d="M55 100 L55 148 L168 148 L185 75 L55 75 Z" fill={cartPlan ? "rgba(139,92,246,0.08)" : "rgba(14,165,233,0.08)"} stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="8" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
-                  <line x1="57" y1="100" x2="181" y2="100" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="58" y1="120" x2="176" y2="120" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="85" y1="75" x2="80" y2="148" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="115" y1="75" x2="110" y2="148" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="3" opacity="0.5"/>
-                  <line x1="145" y1="75" x2="138" y2="148" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="3" opacity="0.5"/>
-                  <circle cx="82" cy="166" r="14" fill="none" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="82" cy="166" r="4" fill={cartPlan ? "#8b5cf6" : "#0ea5e9"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="148" cy="166" r="14" fill="none" stroke={cartPlan ? "#8b5cf6" : "#0ea5e9"} strokeWidth="7" style={{ transition: "stroke 0.3s" }}/>
-                  <circle cx="148" cy="166" r="4" fill={cartPlan ? "#8b5cf6" : "#0ea5e9"} style={{ transition: "fill 0.3s" }}/>
-                  <circle cx="138" cy="68" r="32" fill="#060f1e" stroke="#f59e0b" strokeWidth="5"/>
-                  <path d="M152 52 A20 20 0 1 0 152 84" fill="none" stroke="#f59e0b" strokeWidth="7" strokeLinecap="round"/>
-                  <polyline points="126,68 134,78 154,56" fill="none" stroke="#0ea5e9" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+              style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px" }}>
+              <div className={`cart-btn${cartAnimating ? " has-item" : ""}`} style={{ position: "relative" }}>
+                <svg width="26" height="24" viewBox="0 0 26 24" fill="none">
+                  <path d="M1 1h4l2.5 11.5" stroke={cartPlan ? "#0ea5e9" : "#64748b"} strokeWidth="1.8" strokeLinecap="round" style={{ transition: "stroke 0.3s" }}/>
+                  <path d="M7.5 12.5h14l-2 8h-10l-2-8z" stroke={cartPlan ? "#0ea5e9" : "#64748b"} fill={cartPlan ? "rgba(14,165,233,0.1)" : "none"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "all 0.3s" }}/>
+                  <circle cx="10" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
+                  <circle cx="18" cy="23" r="1.2" fill={cartPlan ? "#0ea5e9" : "#64748b"} style={{ transition: "fill 0.3s" }}/>
                 </svg>
                 {cartPlan && (
-                  <span style={{ position: "absolute", top: "-2px", right: "-4px", width: "15px", height: "15px", borderRadius: "50%", background: "#ef4444", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(239,68,68,0.6)" }}>1</span>
+                  <span style={{ position: "absolute", top: "-4px", right: "-6px", width: "15px", height: "15px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", fontSize: "8px", fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(14,165,233,0.6)", animation: cartAnimating ? "cartBounce 0.5s ease" : "none" }}>1</span>
                 )}
               </div>
-              <span style={{ fontSize: "0px", fontWeight: 700, color: cartPlan ? "#8b5cf6" : "#0ea5e9", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
+              <span style={{ fontSize: "9px", fontWeight: 700, color: cartPlan ? "#0ea5e9" : "#475569", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
 
             {user ? (
@@ -692,7 +667,7 @@ export default function Navbar() {
           {/* MOBILE HAMBURGER */}
           <button
             style={{ marginLeft: "auto", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
-            className="hamburger-btn"
+            className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X style={{ width: 17, height: 17 }} /> : <Menu style={{ width: 17, height: 17 }} />}
           </button>
@@ -711,7 +686,7 @@ export default function Navbar() {
                     <p style={{ fontSize: "13px", fontWeight: 700, color: course.color, margin: 0 }}>{course.exam}</p>
                     <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>{course.title}</p>
                   </div>
-                  {course.available && <span style={{ fontSize: "0px", fontWeight: 800, background: "rgba(14,165,233,.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.3)", padding: "2px 8px", borderRadius: "100px" }}>LIVE</span>}
+                  {course.available && <span style={{ fontSize: "9px", fontWeight: 800, background: "rgba(14,165,233,.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.3)", padding: "2px 8px", borderRadius: "100px" }}>LIVE</span>}
                 </Link>
               ))}
               <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>Pages</p>
@@ -723,7 +698,7 @@ export default function Navbar() {
                   { href: "/pricing", label: "Pricing" },
                   { href: "/faq", label: "FAQ" },
                   { href: "/blog", label: "Blog" },
-                  { href: "/nursing-tv", label: "Nursing TV" },
+                  { href: "/educators", label: "Nursing TV" },
                 ].map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
                     style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
