@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
@@ -139,7 +139,7 @@ export default function NursingTVPage() {
             <span style={{ fontSize: "10px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>ON AIR</span>
           </div>
           <span style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
-            {channels.filter(c => c.live).length} channels live Â· {channels.reduce((a, c) => a + c.episodes, 0)} episodes Â· Free forever
+            {channels.filter(c => c.live).length} channels live · {channels.reduce((a, c) => a + c.episodes, 0)} episodes · Free forever
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -159,7 +159,7 @@ export default function NursingTVPage() {
         <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "48px", alignItems: "center" }}>
             <div className="fade-up">
-              <p style={{ fontSize: "11px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "16px" }}>Pre-NCLEX Nursing Â· Nursing TV</p>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", marginBottom: "16px" }}>Pre-NCLEX Nursing · Nursing TV</p>
               <h1 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "clamp(2.6rem,5vw,4.2rem)", fontWeight: 700, color: "#f8fafc", lineHeight: 1.06, marginBottom: "20px" }}>
                 Your nursing education,<br />
                 <span style={{ background: "linear-gradient(135deg,#0ea5e9,#38bdf8,#818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>on air.</span>
@@ -275,7 +275,7 @@ export default function NursingTVPage() {
                     <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>Ep {ep.id} of {ch.playlist.length}</span>
                   </div>
                   <h3 style={{ fontFamily: "\'Cormorant Garamond\',serif", fontSize: "1.4rem", fontWeight: 700, color: "#f8fafc", margin: "0 0 4px" }}>{ep.title}</h3>
-                  <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.name} Â· {ep.duration} Â· {ep.views} views</p>
+                  <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.name} · {ep.duration} · {ep.views} views</p>
                 </div>
                 <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
                   {activeEpisode > 0 && (
@@ -300,7 +300,7 @@ export default function NursingTVPage() {
           <div style={{ background: "rgba(255,255,255,.02)", border: "1px solid rgba(255,255,255,.06)", borderRadius: "16px", overflow: "hidden" }}>
             <div style={{ padding: "16px 18px", borderBottom: "1px solid rgba(255,255,255,.05)", background: ch.color + "0e" }}>
               <p style={{ fontSize: "11px", fontWeight: 800, color: ch.color, letterSpacing: ".15em", textTransform: "uppercase", margin: "0 0 2px" }}>Episode List</p>
-              <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.playlist.length} episodes Â· {ch.hours} total</p>
+              <p style={{ fontSize: "12px", color: "#475569", margin: 0, fontWeight: 500 }}>{ch.playlist.length} episodes · {ch.hours} total</p>
             </div>
             <div style={{ padding: "8px" }}>
               {ch.playlist.map((e, i) => (
@@ -317,7 +317,7 @@ export default function NursingTVPage() {
                     <p style={{ fontSize: "12px", fontWeight: activeEpisode === i ? 700 : 500, color: activeEpisode === i ? "#f8fafc" : "#94a3b8", margin: "0 0 2px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", transition: "color .18s" }}>{e.title}</p>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                       <span style={{ fontSize: "10px", color: levelColors[e.level], fontWeight: 600 }}>{e.level}</span>
-                      <span style={{ fontSize: "10px", color: "#1e293b" }}>Â·</span>
+                      <span style={{ fontSize: "10px", color: "#1e293b" }}>·</span>
                       <span style={{ fontSize: "10px", color: "#334155", fontWeight: 500 }}>{e.duration}</span>
                     </div>
                   </div>
