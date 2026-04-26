@@ -298,7 +298,7 @@ useEffect(() => {
             </div>
 
             {/* NURSING TV PROMO CARD */}
-            <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", width: "440px", zIndex: 2 }}>
+            <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", width: "528px", zIndex: 2 }}>
               <div style={{ background: "linear-gradient(160deg,#ffffff 0%,#f0f7ff 60%,#e8f4fd 100%)", borderRadius: "24px", padding: "36px", boxShadow: "0 40px 100px rgba(0,0,0,.25), 0 0 0 1px rgba(14,165,233,.15)", position: "relative", overflow: "hidden" }}>
 
                 {/* Decorative background circle */}
@@ -865,6 +865,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
