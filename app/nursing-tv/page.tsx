@@ -92,6 +92,7 @@ export default function NursingTVPage() {
   const [activeChannel, setActiveChannel] = useState(0);
   const [activeEpisode, setActiveEpisode] = useState(0);
   const [ctaHref, setCtaHref] = useState("/auth/signup");
+  const [user, setUser] = useState<any>(null);
   const [ticker, setTicker] = useState(0);
   const playerRef = useRef<HTMLDivElement>(null);
 
@@ -99,7 +100,7 @@ export default function NursingTVPage() {
     const supabase = createClient();
     const otpVerified = document.cookie.includes("otp_verified=true");
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user && otpVerified) setCtaHref("/dashboard");
+      if (data.user && otpVerified) { setCtaHref("/dashboard"); setUser(data.user); }
     });
   }, []);
 
@@ -365,6 +366,8 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
+
 
 
 
