@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import CartDrawer from "../components/CartDrawer";
@@ -6,7 +6,7 @@ import { CartProvider } from "@/lib/cartContext";
 import SessionGuard from "../components/SessionGuard";
 export const metadata: Metadata = {
   metadataBase: new URL("https://prenclex.com"),
-  title: "Pre-NCLEX Nursing | Pass NCLEX First Attempt",
+  title: "Pre-NCLEX-Review | Pass NCLEX First Attempt",
   description: "Adaptive NCLEX-RN, NCLEX-PN, CCRN and nursing exam preparation platform.",
 };
 export const viewport = {
