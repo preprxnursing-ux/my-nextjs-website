@@ -319,7 +319,7 @@ useEffect(() => {
 
                 {/* Grey div with Nursing TV button */}
                 <div style={{ background: "#f1f5f9", borderRadius: "12px", padding: "16px 20px", marginBottom: "22px" }}>
-                  <p style={{ fontSize: "15px", color: "#334155", lineHeight: 1.8, margin: 0, fontWeight: 500 }}>
+                  <p style={{ fontSize: "20px", color: "#1e293b", lineHeight: 1.7, margin: 0, fontWeight: 800 }}>
                     to excel using the only{" "}
                     <a href="/nursing-tv" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "#ff0000", color: "white", padding: "3px 12px 3px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 900, textDecoration: "none", verticalAlign: "middle", margin: "0 3px" }}>
                       <svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
@@ -860,6 +860,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
