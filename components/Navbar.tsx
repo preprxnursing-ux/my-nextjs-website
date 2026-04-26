@@ -590,7 +590,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}><button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>Courses<ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} /></button></div>
+                
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
@@ -799,6 +799,7 @@ export default function Navbar() {
     </>
   );
 }
+
 
 
 
