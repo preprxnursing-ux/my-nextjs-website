@@ -1,51 +1,49 @@
-import re
-
 with open(r'app\nursing-tv\page.tsx', 'r', encoding='utf-8') as f:
     content = f.read()
 
-old = '''<div style={{ background: "#ffffff", borderTop: "1px solid rgba(255,255,255,.04)", borderBottom: "1px solid rgba(255,255,255,.04)", padding: "28px 32px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-            <div>
-              <p style={{ fontSize: "10px", fontWeight: 800, color: "#334155", letterSpacing: ".2em", textTransform: "uppercase", margin: "0 0 4px" }}>Channel Guide</p>
-              <h2 style={{ fontFamily: "\\'Cormorant Garamond\\',serif", fontSize: "1.6rem", fontWeight: 700, color: "#f8fafc", margin: 0 }}>Choose your channel</h2>
-            </div>
-            <span style={{ fontSize: "11px", color: "#334155", fontWeight: 500 }}>{channels.length} channels available</span>
-          </div>'''
+old = '''            <div style={{ padding: "8px" }}>
+              {ch.playlist.map((e, i) => (
+                <div key={e.id} className="ep-row"
+                  onClick={() => setActiveEpisode(i)}
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 10px", background: activeEpisode === i ? ch.color + "12" : "transparent", border: "1px solid " + (activeEpisode === i ? ch.color + "25" : "transparent"), marginBottom: "2px" }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: activeEpisode === i ? ch.color : "rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .18s" }}>
+                    {activeEpisode === i'''
 
-new = '''<div style={{ background: "#ffffff", borderTop: "1px solid rgba(0,0,0,.06)", borderBottom: "1px solid rgba(0,0,0,.06)", padding: "28px 32px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-            <div>
-              <p style={{ fontSize: "10px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".2em", textTransform: "uppercase", margin: "0 0 4px" }}>Channel Guide</p>
-              <h2 style={{ fontFamily: "\\'Cormorant Garamond\\',serif", fontSize: "1.6rem", fontWeight: 700, color: "#0f172a", margin: 0 }}>Choose your channel</h2>
-            </div>
-            <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>{channels.length} channels available</span>
-          </div>'''
+new = '''            <div style={{ padding: "8px" }}>
+              {ch.playlist.map((e, i) => {
+                const locked = i > 0 && !user;
+                return (
+                <div key={e.id} className="ep-row"
+                  onClick={() => { if (!locked) setActiveEpisode(i); }}
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 10px", background: activeEpisode === i ? ch.color + "12" : "transparent", border: "1px solid " + (activeEpisode === i ? ch.color + "25" : "transparent"), marginBottom: "2px", opacity: locked ? 0.6 : 1, cursor: locked ? "default" : "pointer", position: "relative" }}>
+                  {locked && (
+                    <div style={{ position: "absolute", inset: 0, borderRadius: "10px", background: "rgba(6,15,30,.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, backdropFilter: "blur(2px)" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                        <svg width="12" height="12" fill="none" stroke="#94a3b8" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        <span style={{ fontSize: "10px", color: "#94a3b8", fontWeight: 600 }}>Sign in to watch</span>
+                      </div>
+                    </div>
+                  )}
+                  <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: activeEpisode === i ? ch.color : "rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .18s" }}>
+                    {activeEpisode === i'''
 
 content = content.replace(old, new)
 
-# Fix channel card text colors for white background
-content = content.replace(
-    'color: activeChannel === i ? "#f8fafc" : "#94a3b8", margin: "0 0 3px"',
-    'color: activeChannel === i ? "#ffffff" : "#0f172a", margin: "0 0 3px"'
-)
-content = content.replace(
-    'color: activeChannel === i ? c.color : "#334155", margin: "0 0 10px"',
-    'color: activeChannel === i ? "#ffffffcc" : "#64748b", margin: "0 0 10px"'
-)
-content = content.replace(
-    'fontSize: "10px", color: "#475569", fontWeight: 500 }}>{c.episodes}',
-    'fontSize: "10px", color: "#475569", fontWeight: 600 }}>{c.episodes}'
-)
+# Close the map with })} instead of ))}
+old2 = '''                </div>
+              ))}
+            </div>
+            <div style={{ padding: "14px 18px", borderTop: "1px solid rgba(255,255,255,.05)" }}>'''
 
-# Fix card backgrounds for white background - use light colored backgrounds
-content = content.replace(
-    '''background: activeChannel === i ? c.color + "18" : ["rgba(255,255,255,.05)","rgba(248,248,252,.04)","rgba(242,242,248,.04)","rgba(236,236,244,.03)","rgba(230,230,240,.03)","rgba(224,224,236,.03)"][i % 6], border: "1px solid " + (activeChannel === i ? c.color + "40" : ["rgba(255,255,255,.08)","rgba(255,255,255,.07)","rgba(255,255,255,.06)","rgba(255,255,255,.05)","rgba(255,255,255,.05)","rgba(255,255,255,.04)"][i % 6])''',
-    '''background: activeChannel === i ? c.color : ["#f8fafc","#f1f5f9","#f0fdf4","#fefce8","#fdf4ff","#f0f9ff"][i % 6], border: "1px solid " + (activeChannel === i ? c.color : ["#e2e8f0","#cbd5e1","#bbf7d0","#fde68a","#e9d5ff","#bae6fd"][i % 6])'''
-)
+new2 = '''                </div>
+                );
+              })}
+            </div>
+            <div style={{ padding: "14px 18px", borderTop: "1px solid rgba(255,255,255,.05)" }}>'''
+
+content = content.replace(old2, new2)
 
 with open(r'app\nursing-tv\page.tsx', 'w', encoding='utf-8', newline='\n') as f:
     f.write(content)
 
-print("SUCCESS: Channel guide colors updated for white background.")
+print("SUCCESS: Episodes 2+ locked behind signup.")
