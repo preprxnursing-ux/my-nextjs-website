@@ -170,7 +170,7 @@ export default function NursingTVPage() {
               <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
                 <button onClick={() => { setActiveChannel(0); setActiveEpisode(0); scrollToPlayer(); }} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "13px 28px", borderRadius: "12px", fontWeight: 700, fontSize: "14px", border: "none", cursor: "pointer", boxShadow: "0 8px 24px rgba(14,165,233,.3)", fontFamily: "inherit" }}>
                   <svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  Tune in now â€” free
+                  Tune in now - free
                 </button>
                 <Link href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)", color: "#94a3b8", padding: "13px 24px", borderRadius: "12px", fontWeight: 600, fontSize: "14px", textDecoration: "none" }}>
                   Practice questions instead
@@ -354,6 +354,7 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
 
 
 
