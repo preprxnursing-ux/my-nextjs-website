@@ -729,30 +729,55 @@ export default function Navbar() {
 
           {/* MOBILE HAMBURGER */}
           <button
-            style={{ marginLeft: "auto", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
+            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0, transition: "all .18s" }}
             className="hamburger-btn"
             onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X style={{ width: 17, height: 17 }} /> : <Menu style={{ width: 17, height: 17 }} />}
+            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
           </button>
         </div>
 
-        {/* MOBILE MENU */}
+        {/* MOBILE DRAWER OVERLAY */}
         {mobileOpen && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", background: "#ffffff" }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 2px" }}>Courses</p>
+          <div className="mobile-drawer-overlay" onClick={() => setMobileOpen(false)} />
+        )}
+
+        {/* MOBILE DRAWER PANEL */}
+        {mobileOpen && (
+          <div className="mobile-drawer">
+
+            {/* Drawer Header */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 20px 16px", borderBottom: "1px solid rgba(14,165,233,0.1)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={32} height={32} style={{ borderRadius: "8px" }} />
+                <span style={{ fontSize: "13px", fontWeight: 700, color: "#e2e8f0", letterSpacing: "0.01em" }}>Pre-NCLEX Nursing</span>
+              </div>
+              <button onClick={() => setMobileOpen(false)}
+                style={{ width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.05)", color: "#64748b", cursor: "pointer" }}>
+                <X style={{ width: 16, height: 16 }} />
+              </button>
+            </div>
+
+            <div style={{ padding: "16px 16px 32px", display: "flex", flexDirection: "column", gap: "4px" }}>
+
+              {/* COURSES SECTION */}
+              <p style={{ fontSize: "10px", fontWeight: 800, color: "#38bdf8", letterSpacing: "0.18em", textTransform: "uppercase", padding: "8px 8px 6px", margin: 0 }}>Courses</p>
               {courseItems.map((course) => (
                 <Link key={course.exam} href={course.href} onClick={() => setMobileOpen(false)}
-                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)", textDecoration: "none" }}>
-                  <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: course.color, flexShrink: 0 }} />
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: "13px", fontWeight: 700, color: course.color, margin: 0 }}>{course.exam}</p>
-                    <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>{course.title}</p>
+                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "11px 12px", borderRadius: "12px", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", textDecoration: "none", transition: "background .15s" }}>
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: course.color, flexShrink: 0, boxShadow: `0 0 8px ${course.color}60` }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: course.color, margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{course.exam}</p>
+                    <p style={{ fontSize: "11px", color: "#64748b", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{course.title}</p>
                   </div>
-                  {course.available && <span style={{ fontSize: "0px", fontWeight: 800, background: "rgba(14,165,233,.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.3)", padding: "2px 8px", borderRadius: "100px" }}>LIVE</span>}
+                  {course.available
+                    ? <span style={{ fontSize: "10px", fontWeight: 800, background: "rgba(14,165,233,0.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,0.3)", padding: "2px 8px", borderRadius: "100px", flexShrink: 0 }}>LIVE</span>
+                    : <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(100,116,139,0.12)", color: "#475569", border: "1px solid rgba(100,116,139,0.15)", padding: "2px 8px", borderRadius: "100px", flexShrink: 0 }}>Soon</span>
+                  }
                 </Link>
               ))}
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>Pages</p>
+
+              {/* PAGES SECTION */}
+              <p style={{ fontSize: "10px", fontWeight: 800, color: "#38bdf8", letterSpacing: "0.18em", textTransform: "uppercase", padding: "16px 8px 6px", margin: 0 }}>Explore</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
                 {[
                   { href: "/features", label: "Our Features" },
@@ -764,34 +789,64 @@ export default function Navbar() {
                   { href: "/nursing-tv", label: "Nursing TV" },
                 ].map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                    style={{
+                      display: "block", padding: "11px 13px", borderRadius: "10px",
+                      background: isActive(pathname, link.href) ? "rgba(14,165,233,0.14)" : "rgba(255,255,255,0.04)",
+                      border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,0.35)" : "rgba(255,255,255,0.07)"}`,
+                      fontSize: "13px", fontWeight: 600,
+                      color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8",
+                      textDecoration: "none"
+                    }}>
                     {link.label}
                   </Link>
                 ))}
               </div>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>App</p>
+
+              {/* APP SECTION */}
+              <p style={{ fontSize: "10px", fontWeight: 800, color: "#38bdf8", letterSpacing: "0.18em", textTransform: "uppercase", padding: "16px 8px 6px", margin: 0 }}>App</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
                 {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
+                    style={{
+                      display: "block", padding: "11px 13px", borderRadius: "10px",
+                      background: isActive(pathname, link.href) ? "rgba(14,165,233,0.14)" : "rgba(255,255,255,0.04)",
+                      border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,0.35)" : "rgba(255,255,255,0.07)"}`,
+                      fontSize: "13px", fontWeight: 600,
+                      color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8",
+                      textDecoration: "none"
+                    }}>
                     {link.label}
                   </Link>
                 ))}
               </div>
-              <div style={{ display: "flex", gap: "8px", marginTop: "8px", flexWrap: "wrap" }}>
-                {user ? (
-                  <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "rgba(248,113,113,.1)", border: "1px solid rgba(248,113,113,.2)", fontSize: "13px", fontWeight: 600, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
-                    <LogOut style={{ width: 13, height: 13 }} /> Sign out
+
+              {/* DIVIDER */}
+              <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", margin: "16px 0 12px" }} />
+
+              {/* ACCOUNT CTAs */}
+              {user ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <Link href="/dashboard" onClick={() => setMobileOpen(false)}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "13px", borderRadius: "12px", background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.2)", fontSize: "14px", fontWeight: 700, color: "#38bdf8", textDecoration: "none" }}>
+                    <User style={{ width: 15, height: 15 }} /> My Dashboard
+                  </Link>
+                  <button onClick={handleLogout}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", padding: "13px", borderRadius: "12px", background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.18)", fontSize: "14px", fontWeight: 700, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
+                    <LogOut style={{ width: 15, height: 15 }} /> Sign out
                   </button>
-                ) : (
-                  <Link href="/auth/login" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)", fontSize: "13px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <Link href="/auth/signup" onClick={() => setMobileOpen(false)}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "14px", borderRadius: "12px", background: "linear-gradient(135deg, #0ea5e9, #38bdf8)", fontSize: "14px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 6px 20px rgba(14,165,233,0.35)", letterSpacing: "0.01em" }}>
+                    Get started free
+                  </Link>
+                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "13px", borderRadius: "12px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "14px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
                     Sign in
                   </Link>
-                )}
-                <Link href="/auth/signup" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "#0ea5e9", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 4px 14px rgba(14,165,233,.3)" }}>
-                  Get started
-                </Link>
-              </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -799,21 +854,3 @@ export default function Navbar() {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
