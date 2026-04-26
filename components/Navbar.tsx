@@ -511,7 +511,7 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "linear-gradient(90deg,#ffffff 0%,#ffffff 40%,#0d1a2e 60%,#060f1e 100%)", borderBottom: "1px solid rgba(0,0,0,0.08)", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "#ffffff", borderBottom: "1px solid rgba(0,0,0,0.08)", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "62px", gap: "0px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -794,5 +794,6 @@ export default function Navbar() {
     </>
   );
 }
+
 
 
