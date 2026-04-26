@@ -324,7 +324,7 @@ useEffect(() => {
                   </div>
                   <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "2.4rem", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, margin: 0 }}>
                     Now you have a chance<br />
-                    <span style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>to learn like never before.</span>
+                    <span style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>using the only Nursing TV<br />built for nurses.</span>
                   </h3>
                 </div>
 
@@ -867,6 +867,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
