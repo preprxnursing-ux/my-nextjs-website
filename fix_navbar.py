@@ -1,45 +1,29 @@
-with open(r'components\Navbar.tsx', 'r', encoding='utf-8') as f:
-    content = f.read()
+# Create sitemap.xml
+sitemap = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://prenclex.com/</loc><priority>1.0</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://prenclex.com/courses</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/courses/nclex-rn</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/courses/nclex-pn</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/courses/ccrn</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/nursing-tv</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/pricing</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/features</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/testimonials</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://prenclex.com/blog</loc><priority>0.7</priority><changefreq>daily</changefreq></url>
+  <url><loc>https://prenclex.com/faq</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://prenclex.com/contact</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+</urlset>'''
 
-# Reorder logged-out nav items and remove Get Started
-old = '''              <>
-                <NursingTVDropdown pathname={pathname} />
-                <FeaturesDropdown pathname={pathname} />
-                <TestimonialsDropdown pathname={pathname} />
-                <ContactDropdown pathname={pathname} />
-                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
-                <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
-              </>'''
+with open(r'public\sitemap.xml', 'w', encoding='utf-8') as f:
+    f.write(sitemap)
 
-new = '''              <>
-                <CoursesDropdown pathname={pathname} />
-                <FeaturesDropdown pathname={pathname} />
-                <TestimonialsDropdown pathname={pathname} />
-                <NursingTVDropdown pathname={pathname} />
-                <ContactDropdown pathname={pathname} />
-                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
-              </>'''
+# Create robots.txt
+robots = '''User-agent: *
+Allow: /
+Sitemap: https://prenclex.com/sitemap.xml'''
 
-content = content.replace(old, new)
+with open(r'public\robots.txt', 'w', encoding='utf-8') as f:
+    f.write(robots)
 
-# Remove Get Started button
-content = content.replace(
-    '{!user && <Link href="/auth/signup" className="nav-btn-primary">Get started</Link>}',
-    ''
-)
-
-# Make Sign In appear as icon + text below
-old_signin = '<Link href="/auth/login" className="nav-btn">Sign in</Link>'
-new_signin = '''<Link href="/auth/login" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", transition: "background .15s", color: "#334155" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
-              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-              <span style={{ fontSize: "11px", fontWeight: 600 }}>Sign in</span>
-            </Link>'''
-
-content = content.replace(old_signin, new_signin)
-
-with open(r'components\Navbar.tsx', 'w', encoding='utf-8', newline='\n') as f:
-    f.write(content)
-
-print("SUCCESS: Navbar reordered and Sign In updated.")
+print("SUCCESS: sitemap.xml and robots.txt created.")
