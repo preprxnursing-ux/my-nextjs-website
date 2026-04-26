@@ -517,7 +517,7 @@ export default function Navbar() {
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
             onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
-            <div style={{ overflow: "hidden", width: "130px", height: "34px", flexShrink: 0 }}><Image src="/logo.png" alt="Pre-NCLEX Nursing" width={130} height={34} style={{ objectFit: "contain", transform: "scale(1.4)", transformOrigin: "center" }} /></div>
+            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={195} height={51} style={{ objectFit: "contain" }} />
           </Link>
 
           {/* DESKTOP NAV */}
@@ -799,6 +799,7 @@ export default function Navbar() {
     </>
   );
 }
+
 
 
 
