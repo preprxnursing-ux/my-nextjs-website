@@ -300,16 +300,11 @@ useEffect(() => {
             {/* NURSING TV PROMO CARD */}
             <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", width: "528px", zIndex: 2 }}>
               <div style={{ background: "linear-gradient(160deg,#ffffff 0%,#f0f7ff 60%,#e8f4fd 100%)", borderRadius: "24px", padding: "36px", boxShadow: "0 40px 100px rgba(0,0,0,.25), 0 0 0 1px rgba(14,165,233,.15)", position: "relative", overflow: "hidden" }}>
-
-                {/* Decorative background circle */}
-                <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: "radial-gradient(circle,rgba(14,165,233,.12) 0%,transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", bottom: "-40px", left: "-40px", width: "160px", height: "160px", borderRadius: "50%", background: "radial-gradient(circle,rgba(99,102,241,.08) 0%,transparent 70%)", pointerEvents: "none" }} />
-
-                {/* Top accent line */}
                 <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", background: "linear-gradient(90deg,#0ea5e9,#6366f1,#ef4444)", borderRadius: "24px 24px 0 0" }} />
+                <div style={{ position: "absolute", top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", background: "radial-gradient(circle,rgba(14,165,233,.12) 0%,transparent 70%)", pointerEvents: "none" }} />
 
-                {/* Header */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "22px", position: "relative" }}>
+                {/* LIVE badge */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "22px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(239,68,68,.08)", border: "1px solid rgba(239,68,68,.2)", borderRadius: "100px", padding: "5px 14px" }}>
                     <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", boxShadow: "0 0 8px #ef4444", animation: "pulseRing 1.8s ease-out infinite" }} />
                     <span style={{ fontSize: "9px", fontWeight: 900, color: "#ef4444", letterSpacing: ".25em" }}>LIVE NOW</span>
@@ -317,21 +312,22 @@ useEffect(() => {
                   <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>6 channels · 100+ episodes</span>
                 </div>
 
-                {/* Heading */}
-                <div style={{ position: "relative", marginBottom: "18px" }}>
-                  <div style={{ background: "#f1f5f9", borderRadius: "8px", padding: "8px 14px", marginBottom: "14px", display: "inline-block" }}>
-                    <span style={{ fontSize: "12px", fontWeight: 600, color: "#64748b", fontStyle: "italic" }}>The only Nursing TV of its kind.</span>
-                  </div>
-                  <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "2.4rem", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, margin: 0 }}>
-                    Now you have a chance<br />
-                    
-                  </h3>
-                </div>
+                {/* Main heading */}
+                <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "2.6rem", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, margin: "0 0 18px" }}>
+                  Now you have a chance
+                </h3>
 
-                {/* Description */}
-                <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.8, marginBottom: "24px", fontWeight: 400 }}>
-                  
-                </p>
+                {/* Grey div with Nursing TV button */}
+                <div style={{ background: "#f1f5f9", borderRadius: "12px", padding: "16px 20px", marginBottom: "22px" }}>
+                  <p style={{ fontSize: "15px", color: "#334155", lineHeight: 1.8, margin: 0, fontWeight: 500 }}>
+                    to excel using the only{" "}
+                    <a href="/nursing-tv" style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: "#ff0000", color: "white", padding: "3px 12px 3px 8px", borderRadius: "6px", fontSize: "13px", fontWeight: 900, textDecoration: "none", verticalAlign: "middle", margin: "0 3px" }}>
+                      <svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+                      Nursing TV
+                    </a>{" "}
+                    of its kind.
+                  </p>
+                </div>
 
                 {/* Channel pills */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "24px" }}>
@@ -349,20 +345,17 @@ useEffect(() => {
                 </div>
 
                 {/* CTA */}
-                <a href="/nursing-tv" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "14px 20px", borderRadius: "14px", fontSize: "14px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 32px rgba(14,165,233,.35)", letterSpacing: ".01em" }}>
+                <a href="/nursing-tv" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", color: "#fff", padding: "14px 20px", borderRadius: "14px", fontSize: "14px", fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 32px rgba(14,165,233,.35)" }}>
                   <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     Tune in free — watch now
                   </span>
                   <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-
-                {/* Footer note */}
                 <p style={{ fontSize: "11px", color: "#94a3b8", textAlign: "center", margin: "14px 0 0", fontWeight: 500 }}>Free forever · No signup required to watch</p>
               </div>
             </div>
-
-          </div>
+            </div>
 
           <div style={{ position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
             <span style={{ fontSize: "10px", letterSpacing: ".18em", color: "#2d5a7a", textTransform: "uppercase" }}>Scroll</span>
