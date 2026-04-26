@@ -43,12 +43,12 @@ const navStyle = `
   .nav-btn {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 10px 16px; border-radius: 9px; font-size: 14px; font-weight: 600;
-    color: #cbd5e1; background: transparent; border: none; cursor: pointer;
+    color: #334155; background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; flex-shrink: 0;
     transition: background .15s, color .15s; font-family: inherit;
   }
-  .nav-btn:hover { background: rgba(255,255,255,.08); color: #f1f5f9; }
-  .nav-btn.active { background: rgba(14,165,233,.15); color: #38bdf8; }
+  .nav-btn:hover { background: rgba(14,165,233,.08); color: #0ea5e9; }
+  .nav-btn.active { background: rgba(14,165,233,.1); color: #0ea5e9; }
   .nav-btn-primary {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 18px; border-radius: 9px; font-size: 13px; font-weight: 700;
@@ -511,7 +511,7 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "rgba(6,15,30,0.97)", borderBottom: "1px solid rgba(14,165,233,0.1)", backdropFilter: "blur(20px)", boxShadow: "0 4px 32px rgba(0,0,0,0.3)" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "#ffffff", borderBottom: "1px solid rgba(0,0,0,0.08)", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "62px", gap: "0px" }}>
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -693,7 +693,7 @@ export default function Navbar() {
                 {avatarOpen && (
                   <>
                     <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setAvatarOpen(false)} />
-                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "200px", background: "linear-gradient(160deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
+                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "200px", background: "#ffffff", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
                       <div style={{ padding: "12px 14px", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
                         <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>Signed in as</p>
                         <p style={{ fontSize: "12px", fontWeight: 600, color: "#e2e8f0", margin: "3px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
@@ -733,7 +733,7 @@ export default function Navbar() {
 
         {/* MOBILE MENU */}
         {mobileOpen && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", background: "linear-gradient(160deg,#0d1f35,#0f2540)" }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", background: "#ffffff" }}>
             <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
               <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 2px" }}>Courses</p>
               {courseItems.map((course) => (
