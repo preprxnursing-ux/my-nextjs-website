@@ -330,7 +330,7 @@ useEffect(() => {
 
                 {/* Description */}
                 <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.8, marginBottom: "24px", fontWeight: 400 }}>
-                  Cinematic lessons built exclusively for nurses who refuse to settle. Your certification. Your timeline. Your channel. The learning experience your competitors simply cannot match.
+                  Cinematic lessons built exclusively for nurses who refuse to settle. Your certification. Your timeline. Your channel.
                 </p>
 
                 {/* Channel pills */}
@@ -867,6 +867,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
