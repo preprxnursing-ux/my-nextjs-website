@@ -590,12 +590,12 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <NursingTVDropdown pathname={pathname} />
+                <CoursesDropdown pathname={pathname} />
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
+                <NursingTVDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
-                <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
               </>
             )}
 
@@ -717,9 +717,14 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <Link href="/auth/login" className="nav-btn">Sign in</Link>
+              <Link href="/auth/login" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", transition: "background .15s", color: "#334155" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
+              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <span style={{ fontSize: "11px", fontWeight: 600 }}>Sign in</span>
+            </Link>
             )}
-            {!user && <Link href="/auth/signup" className="nav-btn-primary">Get started</Link>}
+            
           </div>
 
           {/* MOBILE HAMBURGER */}
