@@ -298,20 +298,20 @@ useEffect(() => {
             </div>
 
             {/* NURSING TV PROMO CARD */}
-            <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", width: "340px", zIndex: 2 }}>
-              <div style={{ background: "rgba(6,15,30,.85)", border: "1px solid rgba(14,165,233,.2)", borderRadius: "20px", padding: "28px", backdropFilter: "blur(20px)", boxShadow: "0 32px 80px rgba(0,0,0,.4)" }}>
+            <div style={{ position: "absolute", right: "40px", top: "50%", transform: "translateY(-50%)", width: "420px", zIndex: 2 }}>
+              <div style={{ background: "linear-gradient(145deg,#ffffff,#f0f6ff)", border: "1px solid rgba(14,165,233,.2)", borderRadius: "20px", padding: "32px", backdropFilter: "blur(20px)", boxShadow: "0 32px 80px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.8)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "18px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.25)", borderRadius: "100px", padding: "5px 12px" }}>
                     <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", boxShadow: "0 0 6px #ef4444", animation: "pulseRing 1.8s ease-out infinite" }} />
                     <span style={{ fontSize: "9px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>LIVE NOW</span>
                   </div>
-                  <span style={{ fontSize: "10px", color: "#475569", fontWeight: 500 }}>6 channels · 100+ episodes</span>
+                  <span style={{ fontSize: "10px", color: "#64748b", fontWeight: 500 }}>6 channels · 100+ episodes</span>
                 </div>
-                <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", fontWeight: 700, color: "#f8fafc", lineHeight: 1.15, marginBottom: "10px" }}>
+                <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "1.8rem", fontWeight: 700, color: "#0f172a", lineHeight: 1.15, marginBottom: "10px" }}>
                   The only Nursing TV<br />
                   <span style={{ color: "#38bdf8" }}>of its kind.</span>
                 </h3>
-                <p style={{ fontSize: "13px", color: "#64748b", lineHeight: 1.7, marginBottom: "20px" }}>
+                <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.7, marginBottom: "20px" }}>
                   Cinematic video lessons. One dedicated channel per certification path. Learn the way nurses were never taught before.
                 </p>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "20px" }}>
@@ -834,6 +834,12 @@ useEffect(() => {
     </>
   );
 }
+
+
+
+
+
+
 
 
 
