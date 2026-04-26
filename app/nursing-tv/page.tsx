@@ -260,7 +260,7 @@ export default function NursingTVPage() {
               {activeEpisode === 0 ? (
                 <iframe
                   key={ch.id + "-" + ep.id}
-                  src={"https://www.youtube.com/embed/" + ep.yt + "?autoplay=0&rel=0&modestbranding=1"}
+                  src={"https://www.youtube.com/embed/" + ep.yt + "?autoplay=0&rel=0&modestbranding=1&controls=1"}
                   title={ep.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -303,7 +303,7 @@ export default function NursingTVPage() {
               ) : (
                 <iframe
                   key={ch.id + "-" + ep.id}
-                  src={"https://www.youtube.com/embed/" + ep.yt + "?autoplay=0&rel=0&modestbranding=1"}
+                  src={"https://www.youtube.com/embed/" + ep.yt + "?autoplay=0&rel=0&modestbranding=1&controls=1"}
                   title={ep.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -411,6 +411,7 @@ export default function NursingTVPage() {
     </main>
   );
 }
+
 
 
 
