@@ -318,11 +318,13 @@ useEffect(() => {
                 </div>
 
                 {/* Heading */}
-                <div style={{ position: "relative", marginBottom: "14px" }}>
-                  <p style={{ fontSize: "11px", fontWeight: 800, color: "#0ea5e9", letterSpacing: ".18em", textTransform: "uppercase", marginBottom: "8px" }}>Nursing TV</p>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.2rem", fontWeight: 700, color: "#0f172a", lineHeight: 1.1, margin: 0 }}>
-                    The only Nursing TV<br />
-                    <span style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>of its kind.</span>
+                <div style={{ position: "relative", marginBottom: "18px" }}>
+                  <div style={{ background: "#f1f5f9", borderRadius: "8px", padding: "8px 14px", marginBottom: "14px", display: "inline-block" }}>
+                    <span style={{ fontSize: "12px", fontWeight: 600, color: "#64748b", fontStyle: "italic" }}>The only Nursing TV of its kind.</span>
+                  </div>
+                  <h3 style={{ fontFamily: "Cormorant Garamond, serif", fontSize: "2.4rem", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, margin: 0 }}>
+                    Now you have a chance<br />
+                    <span style={{ background: "linear-gradient(135deg,#0ea5e9,#6366f1)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>to learn like never before.</span>
                   </h3>
                 </div>
 
@@ -865,6 +867,7 @@ useEffect(() => {
     </>
   );
 }
+
 
 
 
