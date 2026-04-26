@@ -7,7 +7,7 @@ import SessionGuard from "../components/SessionGuard";
 export const metadata: Metadata = {
   metadataBase: new URL("https://prenclex.com"),
   title: "Pre-NCLEX-Review | Pass NCLEX First Attempt",
-  description: "Adaptive NCLEX-RN, NCLEX-PN, CCRN and nursing exam preparation platform.",
+  description: "Pre-NCLEX-Review — Adaptive NCLEX-RN, NCLEX-PN, CCRN and nursing exam preparation platform. Pass first attempt.",
 };
 export const viewport = {
   width: "device-width",
@@ -30,3 +30,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
