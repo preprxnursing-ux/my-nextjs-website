@@ -40,7 +40,7 @@ const MOB_CSS = `
     #desktop-actions { display: none !important; }
     .hamburger-btn { display: none !important; }
     .mob-hide-on-mobile { display: none !important; }
-    .mob-shell { display: block; width: 100%; background: #f8fafc; }
+    .mob-shell { display: block; width: 100%; background: #f8fafc; position: relative; z-index: 100; }
 
     .mob-topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9; }
     .mob-live { display: flex; align-items: center; gap: 6px; padding: 5px 16px; background: #fff7ed; border-left: 3px solid #ef4444; border-bottom: 1px solid #fed7aa; }
@@ -49,12 +49,12 @@ const MOB_CSS = `
     .mob-hero-visitor { padding: 14px 16px 10px; background: #f8fafc; }
     
     /* LOGGED IN WELCOME */
-    .mob-hero-user { padding: 12px 16px 10px; background: #f8fafc; }
+    .mob-hero-user { padding: 6px 16px 6px; background: #f8fafc; }
 
-    .mob-stats { display: flex; gap: 8px; padding: 0 16px 10px; }
+    .mob-stats { display: flex; gap: 8px; padding: 0 16px 8px; }
     .mob-tv-card { margin: 0 16px 10px; background: #0d1f35; border-radius: 10px; padding: 11px 14px; border-left: 4px solid #ef4444; }
 
-    .mob-section { padding: 0 16px 8px; }
+    .mob-section { padding: 0 16px 6px; }
     .mob-section-label { font-size: 9px; font-weight: 700; color: #94a3b8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: block; }
     
     .mob-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -107,8 +107,7 @@ const MOB_CSS = `
     main { padding-bottom: 80px !important; }
     body { padding-bottom: 58px !important; }
     .mob-page-content-home { display: none !important; }
-    /* pages load normally on navigation */
-    header { background: transparent !important; border: none !important; box-shadow: none !important; height: auto !important; }
+    header { position: static !important; background: transparent !important; border: none !important; box-shadow: none !important; }
     header { display: none !important; }
   }
 `;
