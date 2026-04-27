@@ -233,7 +233,7 @@ export default function HomePage() {
           <div className="float" style={{ position: "absolute", bottom: "-60px", left: "5%", width: "clamp(160px,28vw,340px)", height: "clamp(160px,28vw,340px)", background: "radial-gradient(circle,rgba(56,189,248,.1) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(14,165,233,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.05) 1px,transparent 1px)", backgroundSize: "64px 64px", pointerEvents: "none" }} />
 
-          <div className={`hero-pad${heroVisible ? " hero-visible" : ""}`} style={{ position: "relative", zIndex: 1, maxWidth: "1280px", margin: "0 auto", width: "100%", opacity: heroVisible ? 1 : 0, paddingTop: "100px", paddingBottom: "80px" }}>
+          <div className={`hero-pad${heroVisible ? " hero-visible" : ""}`} style={{ position: "relative", zIndex: 1, maxWidth: "1280px", margin: "0 auto", width: "100%", opacity: heroVisible ? 1 : 0, paddingTop: "56px", paddingBottom: "60px" }}>
 
             {/* TEXT CONTENT */}
             <div style={{ maxWidth: "640px" }}>
@@ -247,7 +247,7 @@ export default function HomePage() {
                 <span style={{ color: "#38bdf8", fontStyle: "italic" }}>Your last exam.</span>
               </h1>
 
-              <p style={{ fontSize: "clamp(14px,2vw,1.1rem)", color: "#94a3b8", fontWeight: 400, lineHeight: 1.8, marginBottom: "32px", maxWidth: "520px" }}>
+              <p style={{ fontSize: "clamp(13px,1.4vw,0.95rem)", color: "#94a3b8", fontWeight: 400, lineHeight: 1.75, marginBottom: "28px", maxWidth: "520px" }}>
                 The most advanced nursing exam platform. Adaptive questions, deep clinical rationales, and real exam simulation built by licensed RNs for nurses who pass on the first try.
               </p>
 
