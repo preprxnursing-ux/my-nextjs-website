@@ -227,7 +227,7 @@ export default function HomePage() {
       <main style={{ background: "#0d2137", minHeight: "100vh", color: "#f1f5f9", overflowX: "hidden" }}>
 
         {/* ── HERO ── */}
-        <section style={{ position: "relative", minHeight: "96vh", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>
+        <section style={{ position: "relative", minHeight: "auto", display: "flex", alignItems: "center", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1800&q=80')", backgroundSize: "cover", backgroundPosition: "center right", opacity: .13 }} />
           <div className="float-slow" style={{ position: "absolute", top: "-80px", right: "10%", width: "clamp(200px,40vw,500px)", height: "clamp(200px,40vw,500px)", background: "radial-gradient(circle,rgba(14,165,233,.16) 0%,transparent 65%)", pointerEvents: "none" }} />
           <div className="float" style={{ position: "absolute", bottom: "-60px", left: "5%", width: "clamp(160px,28vw,340px)", height: "clamp(160px,28vw,340px)", background: "radial-gradient(circle,rgba(56,189,248,.1) 0%,transparent 65%)", pointerEvents: "none" }} />
