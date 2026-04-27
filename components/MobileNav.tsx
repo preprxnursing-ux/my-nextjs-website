@@ -35,17 +35,7 @@ const MOB_HINTS: Record<string, string> = {
 const MOB_CSS = `
   .mob-shell { display: none; }
   .mob-hide-on-mobile { display: none !important; }
-  .mob-hide-on-mobile { display: none !important; }
   @media (max-width: 767px) {
-    #desktop-nav { display: none !important; }
-    #desktop-actions { display: none !important; }
-    .hamburger-btn { display: none !important; }
-    .mob-hide-on-mobile { display: none !important; }
-    #desktop-nav { display: none !important; }
-    #desktop-actions { display: none !important; }
-    .hamburger-btn { display: none !important; }
-    .mob-hide-on-mobile { display: none !important; }
-    .mob-shell { display: block; }
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
     .hamburger-btn { display: none !important; }
@@ -122,6 +112,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
   const [filter, setFilter] = useState("all");
   const showSheet = activeTab === "courses";
   const filtered = filter === "all" ? MOB_COURSES : MOB_COURSES.filter(c => c.cat === filter);
+  const isAuthPage = pathname.startsWith("/auth");
+  if (isAuthPage) return null;
 
   return (
     <>
