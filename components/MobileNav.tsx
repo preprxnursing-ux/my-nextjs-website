@@ -106,6 +106,7 @@ const MOB_CSS = `
 
     main { padding-bottom: 70px !important; }
     .mob-page-content { display: none !important; }
+    header { background: transparent !important; border: none !important; box-shadow: none !important; height: auto !important; }
     header { display: none !important; }
   }
 `;
