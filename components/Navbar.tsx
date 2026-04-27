@@ -58,6 +58,7 @@ const navStyle = `
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
   .hamburger-btn { display: none !important; }
+  @media (max-width: 767px) { .hamburger-btn { display: flex !important; } }
   @media (max-width: 767px) {
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
@@ -460,7 +461,7 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
   const section = drawerSections.find((s) => s.id === activeSection);
 
   return (
-    <div style={{ display: "flex", flex: 1, minHeight: 0, overflow: "hidden" }}>
+    <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
       {/* LEFT RAIL */}
       <div style={{ width: "68px", background: "#040c18", borderRight: "1px solid rgba(14,165,233,0.1)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "10px", gap: "2px", flexShrink: 0 }}>
         {drawerSections.map((s) => {
@@ -541,179 +542,6 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
   );
 }
 
-
-const mobileSections = [
-  {
-    id: "courses", label: "Courses",
-    icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
-    color: "#0ea5e9",
-    items: [
-      { href: "/courses/pre-nursing",        label: "Pre-Nursing",        sub: "TEAS 7 & HESI A2", color: "#f59e0b" },
-      { href: "/courses/nursing-school",     label: "Nursing School",     sub: "School companion",  color: "#10b981" },
-      { href: "/courses/nclex-rn",           label: "NCLEX-RN",           sub: "3,100+ questions",  color: "#0ea5e9" },
-      { href: "/courses/nclex-pn",           label: "NCLEX-PN",           sub: "Full PN coverage",  color: "#6366f1" },
-      { href: "/courses/nurse-practitioner", label: "Nurse Practitioner", sub: "FNP · AGPCNP",      color: "#8b5cf6" },
-      { href: "/courses/ccrn",               label: "CCRN",               sub: "Critical care",     color: "#ef4444" },
-    ],
-  },
-  {
-    id: "explore", label: "Explore",
-    icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
-    color: "#10b981",
-    items: [
-      { href: "/features",     label: "Our Features",  sub: "9 platform features",    color: "#0ea5e9" },
-      { href: "/testimonials", label: "Testimonials",  sub: "Student success stories", color: "#8b5cf6" },
-      { href: "/pricing",      label: "Pricing",       sub: "Free & premium plans",   color: "#f59e0b" },
-      { href: "/nursing-tv",   label: "Nursing TV",    sub: "Video lessons by RNs",   color: "#ef4444" },
-      { href: "/faq",          label: "FAQ",           sub: "Common questions",        color: "#06b6d4" },
-      { href: "/blog",         label: "Blog",          sub: "Nursing tips & guides",   color: "#10b981" },
-      { href: "/contact",      label: "Contact Us",    sub: "Talk to the team",        color: "#38bdf8" },
-    ],
-  },
-  {
-    id: "app", label: "App",
-    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
-    color: "#6366f1",
-    items: [
-      { href: "/quiz",      label: "Quiz",      sub: "Practice questions",   color: "#0ea5e9" },
-      { href: "/results",   label: "Results",   sub: "Your scores",          color: "#10b981" },
-      { href: "/review",    label: "Review",    sub: "Flagged questions",    color: "#f59e0b" },
-      { href: "/history",   label: "History",   sub: "All attempts",         color: "#8b5cf6" },
-      { href: "/dashboard", label: "Dashboard", sub: "Performance overview", color: "#06b6d4" },
-    ],
-  },
-  {
-    id: "account", label: "Account",
-    icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
-    color: "#f87171",
-    items: [],
-  },
-];
-
-function MobileSidebar({ pathname, user, handleLogout }: { pathname: string; user: any; handleLogout: () => void }) {
-  const [activeSection, setActiveSection] = useState("courses");
-  const section = mobileSections.find(s => s.id === activeSection)!;
-
-  return (
-    <div className="mobile-sidebar-layout" style={{ width: "100%", background: "#ffffff", borderTop: "1px solid rgba(14,165,233,0.12)" }}>
-
-      {/* LEFT COLUMN — nav items top-down */}
-      <div style={{ width: "88px", background: "#f8fafc", borderRight: "1px solid rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-
-        {/* Logo top-left */}
-        <div style={{ padding: "12px 8px 10px", borderBottom: "1px solid rgba(0,0,0,0.06)", display: "flex", justifyContent: "center" }}>
-          <Image src="/logo.png" alt="Pre-NCLEX" width={52} height={28} style={{ objectFit: "contain" }} />
-        </div>
-
-        {/* Nav sections listed top-down */}
-        {mobileSections.map(s => {
-          const active = activeSection === s.id;
-          return (
-            <button key={s.id} onClick={() => setActiveSection(s.id)}
-              style={{
-                width: "100%", padding: "13px 6px", border: "none", cursor: "pointer", fontFamily: "inherit",
-                background: active ? "#ffffff" : "transparent",
-                borderLeft: active ? `3px solid ${s.color}` : "3px solid transparent",
-                borderRight: "none", borderTop: "none", borderBottom: "1px solid rgba(0,0,0,0.04)",
-                display: "flex", flexDirection: "column", alignItems: "center", gap: "5px",
-                transition: "all .15s",
-              }}>
-              <svg width="17" height="17" fill="none" stroke={active ? s.color : "#94a3b8"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ transition: "stroke .15s" }}>
-                <path d={s.icon}/>
-              </svg>
-              <span style={{ fontSize: "9px", fontWeight: 700, color: active ? s.color : "#94a3b8", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.2, textAlign: "center", transition: "color .15s" }}>
-                {s.label}
-              </span>
-            </button>
-          );
-        })}
-
-        {/* Spacer */}
-        <div style={{ flex: 1 }} />
-
-        {/* Sign in / avatar at bottom of left col */}
-        <div style={{ padding: "10px 6px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-          {user ? (
-            <button onClick={handleLogout}
-              style={{ width: "100%", padding: "8px 4px", border: "none", background: "transparent", cursor: "pointer", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-              <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "10px", fontWeight: 700, color: "#fff" }}>
-                {user.email?.[0]?.toUpperCase() ?? "U"}
-              </div>
-              <span style={{ fontSize: "8px", color: "#94a3b8", fontWeight: 600 }}>Sign out</span>
-            </button>
-          ) : (
-            <Link href="/auth/login" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", textDecoration: "none", padding: "8px 4px" }}>
-              <svg width="20" height="20" fill="none" stroke="#94a3b8" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-              <span style={{ fontSize: "8px", color: "#94a3b8", fontWeight: 600 }}>Sign in</span>
-            </Link>
-          )}
-        </div>
-      </div>
-
-      {/* RIGHT PANEL — sub-items */}
-      <div style={{ flex: 1, overflowY: "auto", background: "#ffffff" }}>
-
-        {activeSection === "account" ? (
-          <div style={{ padding: "16px 14px" }}>
-            <p style={{ fontSize: "9px", fontWeight: 800, color: "#f87171", letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 12px" }}>Account</p>
-            {user ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <div style={{ padding: "12px", borderRadius: "10px", background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.12)" }}>
-                  <p style={{ fontSize: "10px", color: "#64748b", margin: "0 0 2px" }}>Signed in as</p>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
-                </div>
-                <Link href="/dashboard" style={{ display: "flex", alignItems: "center", gap: "8px", padding: "11px 12px", borderRadius: "10px", background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)", fontSize: "13px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none" }}>
-                  My Dashboard
-                </Link>
-                <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "8px", width: "100%", padding: "11px 12px", borderRadius: "10px", background: "rgba(248,113,113,0.06)", border: "1px solid rgba(248,113,113,0.15)", fontSize: "13px", fontWeight: 700, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
-                  <LogOut style={{ width: 13, height: 13 }} /> Sign out
-                </button>
-              </div>
-            ) : (
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <Link href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "13px", borderRadius: "10px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", fontSize: "13px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 4px 16px rgba(14,165,233,0.25)" }}>
-                  Get started free
-                </Link>
-                <Link href="/auth/login" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "12px", borderRadius: "10px", background: "#f8fafc", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>
-                  Sign in
-                </Link>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div style={{ padding: "12px 10px" }}>
-            <p style={{ fontSize: "9px", fontWeight: 800, color: section.color, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 8px 4px" }}>{section.label}</p>
-            {section.items.map(item => (
-              <Link key={item.label} href={item.href}
-                style={{
-                  display: "flex", alignItems: "center", gap: "10px", padding: "10px 10px", borderRadius: "10px", textDecoration: "none", marginBottom: "4px",
-                  background: isActive(pathname, item.href) ? `${item.color}10` : "transparent",
-                  border: `1px solid ${isActive(pathname, item.href) ? item.color + "25" : "transparent"}`,
-                  transition: "all .15s",
-                }}>
-                <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: item.color, flexShrink: 0, boxShadow: `0 0 5px ${item.color}60` }} />
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: "13px", fontWeight: 700, color: isActive(pathname, item.href) ? item.color : "#0f172a", margin: 0, lineHeight: 1.3 }}>{item.label}</p>
-                  <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{item.sub}</p>
-                </div>
-                <svg width="12" height="12" fill="none" stroke="#cbd5e1" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              </Link>
-            ))}
-          </div>
-        )}
-
-        {/* Get started CTA at bottom of right panel */}
-        {activeSection !== "account" && !user && (
-          <div style={{ padding: "0 10px 14px" }}>
-            <Link href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "11px", borderRadius: "10px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", fontSize: "12px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 4px 14px rgba(14,165,233,0.2)" }}>
-              Get started free
-            </Link>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -980,20 +808,40 @@ export default function Navbar() {
             )}
           </div>
 
+          {/* MOBILE HAMBURGER */}
+          <button
+            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0 }}
+            className="hamburger-btn"
+            onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
+          </button>
         </div>
 
-        {/* MOBILE SIDEBAR LAYOUT */}
-        <MobileSidebar pathname={pathname} user={user} handleLogout={handleLogout} />
+        {/* MOBILE DRAWER OVERLAY */}
+        {mobileOpen && (
+          <div className="mobile-drawer-overlay" onClick={() => setMobileOpen(false)} />
+        )}
+
+        {/* MOBILE DRAWER */}
+        {mobileOpen && (
+          <div className="mobile-drawer">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 16px 14px", borderBottom: "1px solid rgba(14,165,233,0.12)", flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
+                <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={28} height={28} style={{ borderRadius: "7px" }} />
+                <span style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0" }}>Pre-NCLEX Nursing</span>
+              </div>
+              <button onClick={() => setMobileOpen(false)}
+                style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.05)", color: "#64748b", cursor: "pointer" }}>
+                <X style={{ width: 15, height: 15 }} />
+              </button>
+            </div>
+            <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+              <MobileDrawerBody pathname={pathname} user={user} handleLogout={handleLogout} setMobileOpen={setMobileOpen} />
+            </div>
+          </div>
+        )}
       </header>
     </>
   );
 }
-
-
-
-
-
-
-
-
 
