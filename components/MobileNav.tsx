@@ -222,18 +222,16 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
 
           {/* LOGGED IN MODE */}
           {user && (<>
-            <div style={{ padding: "5px 16px 5px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "7px 12px", borderRadius: "10px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
-                <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+            <div style={{ padding: "4px 16px 4px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 12px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
+                <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "14px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
                   {firstName.charAt(0)}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>
-                    {greeting}, <span style={{ color: "#38bdf8" }}>{firstName}</span>
-                  </p>
-                  <p style={{ fontSize: "9px", color: "#475569", margin: 0 }}>Ready to study?</p>
+                  <p style={{ fontSize: "10px", color: "#64748b", margin: "0 0 1px" }}>{greeting}</p>
+                  <p style={{ fontSize: "15px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>{firstName}</p>
                 </div>
-                <Link href="/dashboard" style={{ display: "flex", alignItems: "center", padding: "4px 10px", borderRadius: "20px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", fontSize: "10px", fontWeight: 700, color: "#38bdf8", textDecoration: "none", flexShrink: 0 }}>Dashboard</Link>
+                <Link href="/dashboard" style={{ display: "flex", alignItems: "center", padding: "5px 11px", borderRadius: "20px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", fontSize: "11px", fontWeight: 700, color: "#38bdf8", textDecoration: "none", flexShrink: 0 }}>Dashboard</Link>
               </div>
             </div>
             <div className="mob-section">
