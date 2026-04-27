@@ -107,11 +107,60 @@ const MOB_CSS = `
     main { padding-bottom: 80px !important; }
     body { padding-bottom: 58px !important; }
     .mob-page-content-home { display: none !important; }
+    /* pages load normally on navigation */
     header { background: transparent !important; border: none !important; box-shadow: none !important; height: auto !important; }
     header { display: none !important; }
   }
 `;
 
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+}
+
+function getFirstName(user: any): string {
+  const fullName = user?.user_metadata?.full_name;
+  if (fullName) return fullName.split(" ")[0];
+  const email = user?.email ?? "";
+  const local = email.split("@")[0];
+  // Capitalize first letter, remove numbers/dots
+  return local.replace(/[^a-zA-Z]/g, "").charAt(0).toUpperCase() + local.replace(/[^a-zA-Z]/g, "").slice(1, 10).toLowerCase();
+}
+
+function WelcomeCard({ user }: { user: any }) {
+  const greeting = getGreeting();
+  const name = getFirstName(user);
+  return (
+    <div style={{ padding: "12px 16px 10px", background: "#f8fafc" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 14px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
+        <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+          {name.charAt(0).toUpperCase()}
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{ fontSize: "10px", color: "#64748b", margin: "0 0 2px", fontWeight: 500 }}>{greeting}</p>
+          <p style={{ fontSize: "14px", fontWeight: 700, color: "#f8fafc", margin: 0 }}>{name}</p>
+        </div>
+        <Link href="/dashboard" style={{ display: "flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", fontSize: "11px", fontWeight: 700, color: "#38bdf8", textDecoration: "none", flexShrink: 0 }}>
+          Dashboard
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+const SIDEBAR_CSS = `
+  .mob-sidebar-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.25); z-index: 998; }
+  .mob-sidebar {
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(85vw, 320px);
+    background: #f8fafc; z-index: 999; overflow-y: auto;
+    animation: sidebarIn 0.28s cubic-bezier(0.32,0.72,0,1) forwards;
+    border-left: 1px solid #e2e8f0;
+  }
+  @keyframes sidebarIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+  .mob-sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #f1f5f9; background: #ffffff; position: sticky; top: 0; z-index: 1; }
+`;
 export default function MobileNav({ pathname, user, handleLogout }: { pathname: string; user: any; handleLogout: () => void }) {
   const [activeTab, setActiveTab] = useState("home");
   const [filter, setFilter] = useState("all");
@@ -122,7 +171,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
 
   return (
     <>
-      <style>{MOB_CSS}</style>
+      <style>{MOB_CSS + SIDEBAR_CSS}</style>
       <div className="mob-shell">
 
         {/* ── TOP BAR ── */}
