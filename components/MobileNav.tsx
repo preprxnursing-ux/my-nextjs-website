@@ -112,6 +112,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
   const [filter, setFilter] = useState("all");
   const showSheet = activeTab === "courses";
   const filtered = filter === "all" ? MOB_COURSES : MOB_COURSES.filter(c => c.cat === filter);
+  const isAuthPage = pathname.startsWith("/auth");
+  if (isAuthPage) return null;
 
   return (
     <>
