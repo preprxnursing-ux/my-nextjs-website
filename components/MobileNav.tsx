@@ -140,7 +140,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
               </div>
             ) : (
               <div style={{ display: "flex", gap: "6px" }}>
-                <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "#f1f5f9", border: "1px solid #e2e8f0", fontSize: "11px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
+                <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} style={{ display: "inline-flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "#f1f5f9", border: "1px solid #e2e8f0", fontSize: "11px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
                 <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", padding: "6px 14px", borderRadius: "20px", background: "#0ea5e9", fontSize: "11px", fontWeight: 700, color: "#fff", textDecoration: "none" }}>Get started</Link>
               </div>
             )}
@@ -215,7 +215,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
               </Link>
             </div>
             <div className="mob-account-row">
-              <Link href="/auth/login" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "10px", background: "#ffffff", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
+              <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "10px", background: "#ffffff", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
               <Link href="/auth/signup" style={{ flex: 2, display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "10px", background: "#0ea5e9", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none" }}>Get started free</Link>
             </div>
           </>)}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -75,7 +75,7 @@ export default function LoginPage() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?returnUrl=${encodeURIComponent(new URLSearchParams(window.location.search).get("returnUrl") || "/dashboard")}` },
     });
   }
   function handleOtpInput(i: number, val: string) {
@@ -116,7 +116,8 @@ export default function LoginPage() {
       return;
     }
     await fetch("/api/auth/verify-otp", { method: "POST" });
-    window.location.href = "/dashboard";
+    const returnTo = new URLSearchParams(window.location.search).get("returnUrl") || "/dashboard";
+    window.location.href = returnTo;
   }
   async function handleResend() {
     const supabase = createClient();
