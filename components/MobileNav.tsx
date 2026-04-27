@@ -41,6 +41,10 @@ const MOB_CSS = `
     #desktop-actions { display: none !important; }
     .hamburger-btn { display: none !important; }
     .mob-hide-on-mobile { display: none !important; }
+    #desktop-nav { display: none !important; }
+    #desktop-actions { display: none !important; }
+    .hamburger-btn { display: none !important; }
+    .mob-hide-on-mobile { display: none !important; }
     .mob-shell { display: block; }
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
