@@ -35,7 +35,13 @@ const MOB_HINTS: Record<string, string> = {
 const MOB_CSS = `
   .mob-shell { display: none; }
   .mob-hide-on-mobile { display: none !important; }
+  .mob-hide-on-mobile { display: none !important; }
   @media (max-width: 767px) {
+    #desktop-nav { display: none !important; }
+    #desktop-actions { display: none !important; }
+    .hamburger-btn { display: none !important; }
+    .mob-hide-on-mobile { display: none !important; }
+    .mob-shell { display: block; }
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
     .hamburger-btn { display: none !important; }
