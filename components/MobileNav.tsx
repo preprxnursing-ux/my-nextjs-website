@@ -55,7 +55,7 @@ const MOB_CSS = `
     .mob-hide-on-mobile { display: none !important; }
     .mob-page-content-home { display: none !important; }
     header { background: transparent !important; border: none !important; box-shadow: none !important; }
-    .mob-shell { display: block; width: 100%; background: #f8fafc; }
+    .mob-shell { display: block; width: 100%; background: #f8fafc; overflow-y: auto; padding-bottom: 58px; }
     .mob-topbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9; }
     .mob-live { display: flex; align-items: center; gap: 6px; padding: 4px 16px; background: #fff7ed; border-left: 3px solid #ef4444; border-bottom: 1px solid #fed7aa; }
     .mob-hero-visitor { padding: 12px 16px 8px; background: #f8fafc; }
