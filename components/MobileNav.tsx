@@ -71,6 +71,7 @@ const MOB_CSS = `
     .mob-sheet-tv { margin: 8px 16px; padding: 10px 12px; background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #ef4444; border-radius: 9px; display: flex; align-items: center; gap: 10px; }
     .mob-sheet-cta { margin: 10px 16px 16px; display: flex; align-items: center; justify-content: center; padding: 13px; background: #0ea5e9; border-radius: 10px; font-size: 13px; font-weight: 800; color: white; text-decoration: none; }
     main { padding-bottom: 70px !important; }
+    .mob-hide-on-mobile { display: none !important; }
   }
 `;
 
