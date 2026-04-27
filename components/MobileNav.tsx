@@ -104,8 +104,9 @@ const MOB_CSS = `
     .mob-sheet-tv { margin: 8px 16px; padding: 10px 12px; background: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid #ef4444; border-radius: 9px; display: flex; align-items: center; gap: 10px; }
     .mob-sheet-cta { margin: 10px 16px 16px; display: flex; align-items: center; justify-content: center; padding: 13px; background: #0ea5e9; border-radius: 10px; font-size: 13px; font-weight: 800; color: white; text-decoration: none; }
 
-    main { padding-bottom: 70px !important; }
-    .mob-page-content { display: none !important; }
+    main { padding-bottom: 80px !important; }
+    body { padding-bottom: 58px !important; }
+    .mob-page-content-home { display: none !important; }
     header { background: transparent !important; border: none !important; box-shadow: none !important; height: auto !important; }
     header { display: none !important; }
   }
@@ -260,7 +261,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 2px" }}>Welcome back</p>
-                  <p style={{ fontSize: "13px", fontWeight: 700, color: "#f8fafc", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
+                  <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Signed in securely</p>
                 </div>
                 <Link href="/dashboard" style={{ display: "flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", fontSize: "11px", fontWeight: 700, color: "#38bdf8", textDecoration: "none", flexShrink: 0 }}>
                   Dashboard

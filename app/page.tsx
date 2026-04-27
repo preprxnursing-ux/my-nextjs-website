@@ -224,7 +224,7 @@ export default function HomePage() {
   return (
     <>
       <style>{fontStyle}</style>
-      <main style={{ background: "#0d2137", minHeight: "100vh", color: "#f1f5f9", overflowX: "hidden" }}>
+      <main style={{ background: "#0d2137", minHeight: "100vh", color: "#f1f5f9", overflowX: "hidden" }} className="mob-page-content-home">
 
         {/* ── HERO ── */}
         <section style={{ position: "relative", minHeight: "auto", display: "flex", alignItems: "flex-start", overflow: "hidden", background: "linear-gradient(160deg,#0d1f35 0%,#0f2540 55%,#0a2a45 100%)" }}>

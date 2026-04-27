@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <CartDrawer />
           <SessionGuard />
-          <div className="mob-page-content" style={{ maxWidth: "100vw", overflowX: "hidden" }}>
+          <div style={{ maxWidth: "100vw", overflowX: "hidden" }}>
             {children}
           </div>
         </CartProvider>
