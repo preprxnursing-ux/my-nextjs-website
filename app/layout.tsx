@@ -19,9 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-slate-950 text-white antialiased">
         <CartProvider>
-          <div style={{ position: "sticky", top: 0, zIndex: 1000, width: "100%" }}>
-            <Navbar />
-          </div>
+          <Navbar />
           <CartDrawer />
           <SessionGuard />
           <div style={{ maxWidth: "100vw", overflowX: "hidden" }}>
