@@ -824,7 +824,7 @@ export default function Navbar() {
 
         {/* MOBILE DRAWER */}
         {mobileOpen && (
-          <div className="mobile-drawer">
+          <div className="mobile-drawer" style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 16px 14px", borderBottom: "1px solid rgba(14,165,233,0.12)", flexShrink: 0 }}>
               <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
                 <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={28} height={28} style={{ borderRadius: "7px" }} />
@@ -835,7 +835,7 @@ export default function Navbar() {
                 <X style={{ width: 15, height: 15 }} />
               </button>
             </div>
-            <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+            <div style={{ flex: 1, overflow: "hidden", minHeight: 0, display: "flex" }}>
               <MobileDrawerBody pathname={pathname} user={user} handleLogout={handleLogout} setMobileOpen={setMobileOpen} />
             </div>
           </div>
@@ -844,4 +844,5 @@ export default function Navbar() {
     </>
   );
 }
+
 
