@@ -542,6 +542,289 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
   );
 }
 
+const MOB_COURSES = [
+  { id: "pre-nursing",        label: "Pre-Nursing",        sub: "TEAS 7 & HESI A2",        color: "#f59e0b", live: false, cat: "entrance" },
+  { id: "nursing-school",     label: "Nursing School",     sub: "School companion",          color: "#10b981", live: false, cat: "specialty" },
+  { id: "nclex-rn",           label: "NCLEX-RN",           sub: "3,100+ questions · LIVE",  color: "#0ea5e9", live: true,  cat: "licensure" },
+  { id: "nclex-pn",           label: "NCLEX-PN",           sub: "Full PN coverage",          color: "#6366f1", live: false, cat: "licensure" },
+  { id: "nurse-practitioner", label: "Nurse Practitioner", sub: "FNP · AGPCNP",             color: "#8b5cf6", live: false, cat: "specialty" },
+  { id: "ccrn",               label: "CCRN",               sub: "Critical care",             color: "#ef4444", live: false, cat: "specialty" },
+];
+
+const MOB_FILTERS = [
+  { id: "all",        label: "All" },
+  { id: "licensure",  label: "Licensure" },
+  { id: "specialty",  label: "Specialty" },
+  { id: "entrance",   label: "Entrance" },
+];
+
+const MOB_FILTER_HINTS: Record<string, string> = {
+  all:       "All 6 certification paths",
+  licensure: "Showing: NCLEX-RN · NCLEX-PN",
+  specialty: "Showing: Nursing School · NP · CCRN",
+  entrance:  "Showing: Pre-Nursing · TEAS 7 · HESI A2",
+};
+
+function MobShell({ pathname, user, handleLogout }: { pathname: string; user: any; handleLogout: () => void }) {
+  const [activeTab, setActiveTab] = useState("home");
+  const [filter, setFilter] = useState("all");
+
+  const showSheet = activeTab === "courses";
+  const filtered = filter === "all" ? MOB_COURSES : MOB_COURSES.filter(c => c.cat === filter);
+
+  return (
+    <div className="mob-shell">
+
+      {/* TOP BAR */}
+      <div className="mob-topbar">
+        <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={110} height={30} style={{ objectFit: "contain" }} />
+        {user ? (
+          <button onClick={handleLogout}
+            style={{ display: "flex", alignItems: "center", gap: "5px", padding: "6px 12px", borderRadius: "20px", background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)", fontSize: "11px", fontWeight: 700, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
+            <LogOut style={{ width: 11, height: 11 }} /> Sign out
+          </button>
+        ) : (
+          <Link href="/auth/signup"
+            style={{ display: "inline-flex", alignItems: "center", padding: "7px 16px", borderRadius: "20px", background: "#0ea5e9", fontSize: "11px", fontWeight: 700, color: "#fff", textDecoration: "none" }}>
+            Get started →
+          </Link>
+        )}
+      </div>
+
+      {/* LIVE BANNER */}
+      <div className="mob-live">
+        <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", flexShrink: 0, boxShadow: "0 0 6px #ef4444" }} />
+        <span style={{ fontWeight: 800, color: "#ef4444", fontSize: "10px" }}>LIVE</span>
+        <span style={{ color: "#92400e", fontSize: "11px" }}>Nursing TV — now streaming</span>
+        <Link href="/nursing-tv" style={{ marginLeft: "auto", color: "#0ea5e9", fontWeight: 700, fontSize: "11px", textDecoration: "none", flexShrink: 0 }}>Watch→</Link>
+      </div>
+
+      {/* HERO */}
+      <div className="mob-hero">
+        <p style={{ fontSize: "10px", color: "#94a3b8", fontWeight: 600, marginBottom: "6px" }}>NCLEX-RN · Live Now</p>
+        <h1 style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: "clamp(1.6rem,6vw,2.2rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.15, marginBottom: "4px" }}>
+          Your first attempt.
+        </h1>
+        <p style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: "clamp(1.3rem,5vw,1.8rem)", fontWeight: 700, color: "#0ea5e9", fontStyle: "italic", lineHeight: 1.15, marginBottom: "14px" }}>
+          Your last exam.
+        </p>
+        <Link href="/auth/signup"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "13px", borderRadius: "12px", background: "#0ea5e9", fontSize: "14px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 4px 16px rgba(14,165,233,0.3)", marginBottom: "8px" }}>
+          Start free today →
+        </Link>
+        <Link href="/courses"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "11px", borderRadius: "12px", background: "#f1f5f9", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#475569", textDecoration: "none" }}>
+          Explore courses
+        </Link>
+      </div>
+
+      {/* STATS */}
+      <div className="mob-stats">
+        {[
+          { val: "50K+", label: "Students",  color: "#0ea5e9", bg: "#f0f9ff", border: "#bae6fd" },
+          { val: "98%",  label: "Pass rate", color: "#10b981", bg: "#f0fdf4", border: "#bbf7d0" },
+          { val: "3,100+", label: "Questions", color: "#8b5cf6", bg: "#fdf4ff", border: "#e9d5ff" },
+        ].map(s => (
+          <div key={s.label} style={{ flex: 1, background: s.bg, border: `1px solid ${s.border}`, borderRadius: "8px", padding: "8px 6px", textAlign: "center" }}>
+            <p style={{ fontSize: "14px", fontWeight: 700, color: s.color, margin: 0 }}>{s.val}</p>
+            <p style={{ fontSize: "9px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{s.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* NURSING TV PROMO CARD */}
+      <div className="mob-tv-card">
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", boxShadow: "0 0 6px #ef4444", flexShrink: 0 }} />
+          <span style={{ fontSize: "10px", fontWeight: 900, color: "#ef4444", letterSpacing: "0.15em" }}>LIVE NOW</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <p style={{ fontSize: "13px", fontWeight: 700, color: "#f8fafc", margin: "0 0 2px" }}>Nursing TV</p>
+            <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>6 channels · 140+ episodes · Free forever</p>
+          </div>
+          <Link href="/nursing-tv"
+            style={{ display: "inline-flex", alignItems: "center", padding: "7px 14px", borderRadius: "20px", background: "#ef4444", fontSize: "11px", fontWeight: 700, color: "#fff", textDecoration: "none", flexShrink: 0 }}>
+            Watch free→
+          </Link>
+        </div>
+        <div style={{ display: "flex", gap: "6px", marginTop: "4px" }}>
+          {["#0ea5e9","#6366f1","#ef4444","#f59e0b","#8b5cf6","#10b981"].map((c, i) => (
+            <div key={i} style={{ width: "10px", height: "10px", borderRadius: "50%", background: c, boxShadow: `0 0 4px ${c}80` }} />
+          ))}
+          <span style={{ fontSize: "9px", color: "#64748b", marginLeft: "4px", alignSelf: "center" }}>6 channels</span>
+        </div>
+      </div>
+
+      {/* QUICK ACCESS */}
+      <div className="mob-section">
+        <span className="mob-section-label">Quick Access</span>
+        <div className="mob-grid-2">
+          {[
+            { href: "/features",     label: "Features" },
+            { href: "/testimonials", label: "Testimonials" },
+            { href: "/pricing",      label: "Pricing" },
+            { href: "/contact",      label: "Contact Us" },
+            { href: "/blog",         label: "Blog" },
+            { href: "/faq",          label: "FAQ" },
+          ].map(l => (
+            <Link key={l.label} href={l.href} className="mob-link-pill"
+              style={{ background: isActive(pathname, l.href) ? "#e0f2fe" : "#ffffff", color: isActive(pathname, l.href) ? "#0369a1" : "#334155", borderColor: isActive(pathname, l.href) ? "#bae6fd" : "#e2e8f0" }}>
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* APP LINKS */}
+      <div className="mob-section" style={{ paddingBottom: "6px" }}>
+        <span className="mob-section-label">App</span>
+      </div>
+      <div className="mob-app-row">
+        {[
+          { href: "/quiz",      label: "Quiz" },
+          { href: "/results",   label: "Results" },
+          { href: "/review",    label: "Review" },
+          { href: "/history",   label: "History" },
+          { href: "/dashboard", label: "Dashboard" },
+        ].map(l => (
+          <Link key={l.label} href={l.href} className="mob-app-pill"
+            style={{ background: isActive(pathname, l.href) ? "#0ea5e9" : "#f0f9ff", color: isActive(pathname, l.href) ? "#fff" : "#0369a1", borderColor: isActive(pathname, l.href) ? "#0ea5e9" : "#bae6fd" }}>
+            {l.label}
+          </Link>
+        ))}
+      </div>
+
+      {/* ACCOUNT ROW */}
+      {!user && (
+        <div className="mob-account-row">
+          <Link href="/auth/login"
+            style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "10px", background: "#ffffff", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>
+            Sign in
+          </Link>
+          <Link href="/auth/signup"
+            style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "10px", background: "#0ea5e9", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none" }}>
+            Get started free
+          </Link>
+        </div>
+      )}
+
+      {/* COURSES SHEET OVERLAY */}
+      {showSheet && (
+        <div className="mob-sheet-overlay" onClick={() => setActiveTab("home")} />
+      )}
+
+      {/* COURSES SHEET */}
+      {showSheet && (
+        <div className="mob-sheet">
+          <div className="mob-sheet-handle" />
+          <div className="mob-sheet-header">
+            <span>All Certification Paths</span>
+            <Link href="/courses" style={{ fontSize: "11px", fontWeight: 600, color: "#0ea5e9", textDecoration: "none" }} onClick={() => setActiveTab("home")}>See all →</Link>
+          </div>
+
+          {/* FILTER CHIPS */}
+          <div className="mob-filter-row">
+            {MOB_FILTERS.map(f => (
+              <button key={f.id} onClick={() => setFilter(f.id)}
+                className={`mob-filter-chip${filter === f.id ? " mob-filter-active" : ""}`}>
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <p className="mob-filter-hint">{MOB_FILTER_HINTS[filter]}</p>
+
+          {/* COURSE CARDS */}
+          {filtered.map(c => (
+            <Link key={c.id} href={`/courses/${c.id}`} onClick={() => setActiveTab("home")}
+              className={`mob-course-card${c.live ? " mob-course-card-live" : ""}`}>
+              <div className="mob-course-accent" style={{ background: c.color }} />
+              <div className="mob-course-icon" style={{ background: `${c.color}18`, border: `1px solid ${c.color}30` }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: c.color }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0, paddingLeft: "4px" }}>
+                <p className={`mob-course-name${c.live ? " mob-course-name-live" : ""}`}>{c.label}</p>
+                <p className={`mob-course-sub${c.live ? " mob-course-sub-live" : ""}`}>{c.sub}</p>
+              </div>
+              {c.live
+                ? <span className="mob-live-badge">LIVE</span>
+                : <span className="mob-soon-badge">Soon</span>
+              }
+              <span style={{ marginLeft: "4px", color: c.live ? "#0ea5e9" : "#94a3b8", fontSize: "16px" }}>›</span>
+            </Link>
+          ))}
+
+          {/* NURSING TV CARD IN SHEET */}
+          <div className="mob-sheet-tv">
+            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", flexShrink: 0, boxShadow: "0 0 5px #ef4444" }} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: "12px", fontWeight: 700, color: "#7c2d12", margin: "0 0 2px" }}>Nursing TV — Live Now</p>
+              <p style={{ fontSize: "10px", color: "#92400e", margin: 0 }}>6 channels · 140+ episodes · Free forever</p>
+            </div>
+            <Link href="/nursing-tv" onClick={() => setActiveTab("home")}
+              style={{ fontSize: "11px", fontWeight: 700, color: "#ef4444", textDecoration: "none", flexShrink: 0 }}>Watch→</Link>
+          </div>
+
+          {/* SHEET CTA */}
+          <Link href="/auth/signup" className="mob-sheet-cta" onClick={() => setActiveTab("home")}>
+            Get started free →
+          </Link>
+        </div>
+      )}
+
+      {/* BOTTOM TAB BAR */}
+      <div className="mob-tabbar">
+        {/* Home */}
+        <button className={`mob-tab${activeTab === "home" ? " mob-tab-active" : ""}`} onClick={() => setActiveTab("home")}>
+          {activeTab === "home"
+            ? <div className="mob-tab-pill"><svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            : <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          }
+          <span className="mob-tab-label">Home</span>
+          {activeTab === "home" && <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#0ea5e9" }} />}
+        </button>
+
+        {/* Courses */}
+        <button className={`mob-tab${activeTab === "courses" ? " mob-tab-active" : ""}`} onClick={() => setActiveTab(activeTab === "courses" ? "home" : "courses")}>
+          {activeTab === "courses"
+            ? <div className="mob-tab-pill"><svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24"><path d="M2 7l10-5 10 5-10 5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            : <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" viewBox="0 0 24 24"><path d="M2 7l10-5 10 5-10 5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          }
+          <span className="mob-tab-label">Courses</span>
+          {activeTab === "courses" && <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#0ea5e9" }} />}
+        </button>
+
+        {/* TV LIVE */}
+        <Link href="/nursing-tv" className="mob-tab mob-tab-tv" onClick={() => setActiveTab("home")}>
+          <div className="mob-tab-pill mob-tab-pill-red">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#ef4444"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+          </div>
+          <span className="mob-tab-label">TV · LIVE</span>
+        </Link>
+
+        {/* Quiz */}
+        <Link href="/quiz" className={`mob-tab${isActive(pathname, "/quiz") ? " mob-tab-active" : ""}`}>
+          {isActive(pathname, "/quiz")
+            ? <div className="mob-tab-pill"><svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+            : <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+          }
+          <span className="mob-tab-label">Quiz</span>
+        </Link>
+
+        {/* More — links to pricing */}
+        <Link href="/pricing" className={`mob-tab${isActive(pathname, "/pricing") ? " mob-tab-active" : ""}`}>
+          {isActive(pathname, "/pricing")
+            ? <div className="mob-tab-pill"><svg width="16" height="16" fill="none" stroke="#0ea5e9" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+            : <svg width="16" height="16" fill="none" stroke="#94a3b8" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+          }
+          <span className="mob-tab-label">More</span>
+        </Link>
+      </div>
+
+    </div>
+  );
+}
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -844,4 +1127,5 @@ export default function Navbar() {
     </>
   );
 }
+
 
