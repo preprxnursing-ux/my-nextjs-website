@@ -58,7 +58,6 @@ const navStyle = `
   }
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
   .hamburger-btn { display: none !important; }
-  @media (max-width: 767px) { .hamburger-btn { display: flex !important; } }
   @media (max-width: 767px) {
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
@@ -808,42 +807,82 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* MOBILE HAMBURGER */}
-          <button
-            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0 }}
-            className="hamburger-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
-          </button>
         </div>
 
-        {/* MOBILE DRAWER OVERLAY */}
-        {mobileOpen && (
-          <div className="mobile-drawer-overlay" onClick={() => setMobileOpen(false)} />
-        )}
+        {/* MOBILE NAV ROWS */}
+        <div className="mobile-nav-rows" style={{ borderTop: "1px solid rgba(14,165,233,0.1)", background: "#ffffff" }}>
 
-        {/* MOBILE DRAWER */}
-        {mobileOpen && (
-          <div className="mobile-drawer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 16px 14px", borderBottom: "1px solid rgba(14,165,233,0.12)", flexShrink: 0 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
-                <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={28} height={28} style={{ borderRadius: "7px" }} />
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0" }}>Pre-NCLEX Nursing</span>
-              </div>
-              <button onClick={() => setMobileOpen(false)}
-                style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.05)", color: "#64748b", cursor: "pointer" }}>
-                <X style={{ width: 15, height: 15 }} />
-              </button>
-            </div>
-            <div style={{ flex: 1, overflow: "hidden", minHeight: 0, display: "flex" }}>
-              <MobileDrawerBody pathname={pathname} user={user} handleLogout={handleLogout} setMobileOpen={setMobileOpen} />
+          {/* Row 1: Main pages */}
+          <div style={{ display: "flex", alignItems: "center", overflowX: "auto", gap: "2px", padding: "6px 12px", borderBottom: "1px solid rgba(0,0,0,0.05)", scrollbarWidth: "none" }}>
+            {[
+              { href: "/courses", label: "Courses" },
+              { href: "/features", label: "Features" },
+              { href: "/testimonials", label: "Testimonials" },
+              { href: "/nursing-tv", label: "Nursing TV" },
+              { href: "/pricing", label: "Pricing" },
+              { href: "/contact", label: "Contact" },
+              { href: "/faq", label: "FAQ" },
+              { href: "/blog", label: "Blog" },
+            ].map((link) => (
+              <Link key={link.label} href={link.href}
+                style={{
+                  display: "inline-flex", alignItems: "center", padding: "7px 13px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none", flexShrink: 0,
+                  background: isActive(pathname, link.href) ? "rgba(14,165,233,0.1)" : "transparent",
+                  color: isActive(pathname, link.href) ? "#0ea5e9" : "#334155",
+                  borderBottom: isActive(pathname, link.href) ? "2px solid #0ea5e9" : "2px solid transparent",
+                }}>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Row 2: App links + Account */}
+          <div style={{ display: "flex", alignItems: "center", overflowX: "auto", gap: "2px", padding: "6px 12px", scrollbarWidth: "none" }}>
+            {[
+              { href: "/quiz", label: "Quiz" },
+              { href: "/results", label: "Results" },
+              { href: "/review", label: "Review" },
+              { href: "/history", label: "History" },
+              { href: "/dashboard", label: "Dashboard" },
+            ].map((link) => (
+              <Link key={link.label} href={link.href}
+                style={{
+                  display: "inline-flex", alignItems: "center", padding: "7px 13px", borderRadius: "8px", fontSize: "12px", fontWeight: 600, whiteSpace: "nowrap", textDecoration: "none", flexShrink: 0,
+                  background: isActive(pathname, link.href) ? "rgba(14,165,233,0.1)" : "transparent",
+                  color: isActive(pathname, link.href) ? "#0ea5e9" : "#475569",
+                  borderBottom: isActive(pathname, link.href) ? "2px solid #0ea5e9" : "2px solid transparent",
+                }}>
+                {link.label}
+              </Link>
+            ))}
+            <div style={{ marginLeft: "auto", display: "flex", gap: "6px", flexShrink: 0, paddingLeft: "8px" }}>
+              {user ? (
+                <button onClick={handleLogout}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "5px", padding: "7px 12px", borderRadius: "8px", background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.2)", fontSize: "11px", fontWeight: 700, color: "#f87171", cursor: "pointer", fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                  <LogOut style={{ width: 11, height: 11 }} /> Sign out
+                </button>
+              ) : (
+                <>
+                  <Link href="/auth/login"
+                    style={{ display: "inline-flex", alignItems: "center", padding: "7px 12px", borderRadius: "8px", background: "rgba(255,255,255,0.8)", border: "1px solid rgba(0,0,0,0.1)", fontSize: "11px", fontWeight: 600, color: "#334155", textDecoration: "none", whiteSpace: "nowrap" }}>
+                    Sign in
+                  </Link>
+                  <Link href="/auth/signup"
+                    style={{ display: "inline-flex", alignItems: "center", padding: "7px 12px", borderRadius: "8px", background: "#0ea5e9", fontSize: "11px", fontWeight: 700, color: "#fff", textDecoration: "none", whiteSpace: "nowrap" }}>
+                    Get started
+                  </Link>
+                </>
+              )}
             </div>
           </div>
-        )}
+
+        </div>
       </header>
     </>
   );
 }
+
+
 
 
 
