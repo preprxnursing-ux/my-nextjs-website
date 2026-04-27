@@ -64,7 +64,8 @@ const MOB_CSS = `
     .mob-link-pill-active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; }
 
     /* USER APP CARDS */
-    .mob-app-card { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 8px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; transition: all .15s; }
+    .mob-app-card { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 6px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; transition: all .15s; overflow: hidden; }
+    .mob-app-card-label { font-size: 10px; font-weight: 700; color: #334155; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .mob-app-card-active { background: #e0f2fe; border-color: #0ea5e9; }
     .mob-app-card-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
     .mob-app-card-label { font-size: 10px; font-weight: 700; color: #334155; text-align: center; }
@@ -104,6 +105,7 @@ const MOB_CSS = `
     .mob-sheet-cta { margin: 10px 16px 16px; display: flex; align-items: center; justify-content: center; padding: 13px; background: #0ea5e9; border-radius: 10px; font-size: 13px; font-weight: 800; color: white; text-decoration: none; }
 
     main { padding-bottom: 70px !important; }
+    .mob-page-content { display: none !important; }
   }
 `;
 
