@@ -56,19 +56,19 @@ const MOB_CSS = `
     .mob-page-content-home { display: none !important; }
     header { background: transparent !important; border: none !important; box-shadow: none !important; }
     .mob-shell { display: block; width: 100%; background: #f8fafc; }
-    .mob-topbar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9; }
-    .mob-live { display: flex; align-items: center; gap: 6px; padding: 5px 16px; background: #fff7ed; border-left: 3px solid #ef4444; border-bottom: 1px solid #fed7aa; }
+    .mob-topbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9; }
+    .mob-live { display: flex; align-items: center; gap: 6px; padding: 4px 16px; background: #fff7ed; border-left: 3px solid #ef4444; border-bottom: 1px solid #fed7aa; }
     .mob-hero-visitor { padding: 12px 16px 8px; background: #f8fafc; }
-    .mob-hero-user { padding: 6px 16px 6px; background: #f8fafc; }
-    .mob-stats { display: flex; gap: 8px; padding: 0 16px 8px; }
-    .mob-tv-card { margin: 0 16px 8px; background: #0d1f35; border-radius: 10px; padding: 10px 14px; border-left: 4px solid #ef4444; }
-    .mob-section { padding: 0 16px 6px; }
+    .mob-hero-user { padding: 4px 16px 4px; background: #f8fafc; }
+    .mob-stats { display: flex; gap: 6px; padding: 0 16px 6px; }
+    .mob-tv-card { margin: 0 16px 6px; background: #0d1f35; border-radius: 10px; padding: 8px 12px; border-left: 4px solid #ef4444; }
+    .mob-section { padding: 0 16px 4px; }
     .mob-section-label { font-size: 9px; font-weight: 700; color: #94a3b8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; display: block; }
-    .mob-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .mob-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-    .mob-link-pill { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 9px 10px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 11px; font-weight: 600; color: #334155; text-decoration: none; cursor: pointer; font-family: inherit; }
+    .mob-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .mob-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; }
+    .mob-link-pill { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 8px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 11px; font-weight: 600; color: #334155; text-decoration: none; cursor: pointer; font-family: inherit; }
     .mob-link-pill-active { background: #e0f2fe; border-color: #bae6fd; color: #0369a1; }
-    .mob-app-card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; overflow: hidden; }
+    .mob-app-card { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 6px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; overflow: hidden; }
     .mob-app-card-active { background: #e0f2fe; border-color: #0ea5e9; }
     .mob-app-card-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
     .mob-app-card-label { font-size: 10px; font-weight: 700; color: #334155; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -76,7 +76,7 @@ const MOB_CSS = `
     .mob-app-row { display: flex; gap: 6px; padding: 0 16px 8px; overflow-x: auto; scrollbar-width: none; }
     .mob-app-row::-webkit-scrollbar { display: none; }
     .mob-app-pill { display: inline-flex; align-items: center; padding: 6px 14px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 20px; font-size: 11px; font-weight: 600; color: #0369a1; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
-    .mob-account-row { display: flex; gap: 8px; padding: 8px 16px 12px; border-top: 1px solid #f1f5f9; }
+    .mob-account-row { display: flex; gap: 8px; padding: 6px 16px 8px; border-top: 1px solid #f1f5f9; }
     .mob-tabbar { position: fixed; bottom: 0; left: 0; right: 0; height: 58px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; align-items: stretch; z-index: 997; }
     .mob-tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: transparent; border: none; cursor: pointer; font-family: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; padding: 5px 2px; }
     .mob-tab-label { font-size: 9px; font-weight: 600; color: #94a3b8; }
@@ -203,7 +203,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                 ))}
               </div>
             </div>
-            <div style={{ padding: "0 16px 8px" }}>
+            <div style={{ padding: "0 16px 6px" }}>
               <Link href="/quiz/select" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 14px", borderRadius: "10px", background: "linear-gradient(135deg,rgba(14,165,233,0.08),rgba(99,102,241,0.06))", border: "1px solid rgba(14,165,233,0.2)", textDecoration: "none" }}>
                 <div>
                   <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 1px" }}>Try a practice question</p>
@@ -223,8 +223,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
           {/* LOGGED IN MODE */}
           {user && (<>
             <div className="mob-hero-user">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 14px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
-                <div style={{ width: "38px", height: "38px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 12px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
+                <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
                   {firstName.charAt(0)}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
@@ -253,8 +253,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                 ))}
               </div>
             </div>
-            <div style={{ padding: "0 16px 8px" }}>
-              <Link href="/quiz/select" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderRadius: "12px", background: "#0ea5e9", textDecoration: "none" }}>
+            <div style={{ padding: "0 16px 6px" }}>
+              <Link href="/quiz/select" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", borderRadius: "12px", background: "#0ea5e9", textDecoration: "none" }}>
                 <div>
                   <p style={{ fontSize: "13px", fontWeight: 800, color: "#fff", margin: "0 0 1px" }}>Continue studying</p>
                   <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", margin: 0 }}>Jump back into your NCLEX practice</p>
