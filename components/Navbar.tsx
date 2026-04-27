@@ -461,7 +461,7 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
   const section = drawerSections.find((s) => s.id === activeSection);
 
   return (
-    <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+    <div style={{ display: "flex", flex: 1, minHeight: 0, overflow: "hidden" }}>
       {/* LEFT RAIL */}
       <div style={{ width: "68px", background: "#040c18", borderRight: "1px solid rgba(14,165,233,0.1)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "10px", gap: "2px", flexShrink: 0 }}>
         {drawerSections.map((s) => {
@@ -844,5 +844,7 @@ export default function Navbar() {
     </>
   );
 }
+
+
 
 
