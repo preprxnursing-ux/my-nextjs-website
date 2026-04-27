@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import MobileNav from "./MobileNav";
-import MobileNav from "./MobileNav";
 
 const courseItems = [
   { exam: "Pre-Nursing", title: "TEAS 7 & HESI A2 Success Toolkit", color: "#f59e0b", href: "/courses/pre-nursing", available: false, tag: "TEAS 7 . HESI A2 entrance exams" },
