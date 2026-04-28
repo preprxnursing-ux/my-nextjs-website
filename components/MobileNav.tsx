@@ -243,7 +243,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                   { href: "/results",     label: "Results",    sub: "Scores",     color: "#10b981", bg: "#f0fdf4", icon: <BarChart2 size={15} color="#10b981"/> },
                   { href: "/review",      label: "Review",     sub: "Flagged",    color: "#f59e0b", bg: "#fff7ed", icon: <BookOpen size={15} color="#f59e0b"/> },
                   { href: "/history",     label: "History",    sub: "Attempts",   color: "#8b5cf6", bg: "#fdf4ff", icon: <History size={15} color="#8b5cf6"/> },
-                  { href: "/dashboard",   label: "Dashboard",  sub: "Overview",   color: "#06b6d4", bg: "#ecfeff", icon: <LayoutDashboard size={15} color="#06b6d4"/> },
+                  { href: "#signout",     label: "Sign Out",   sub: "Logout",     color: "#ef4444", bg: "#fff1f2", icon: <LogOut size={15} color="#ef4444"/> },
                   { href: "/nursing-tv",  label: "Nursing TV", sub: "Watch free", color: "#ef4444", bg: "#fff7ed", icon: <Tv size={15} color="#ef4444"/> },
                 ].map(item => (
                   <Link key={item.label} href={item.href} className={"mob-app-card"+(isActiveMob(pathname,item.href)?" mob-app-card-active":"")}>
