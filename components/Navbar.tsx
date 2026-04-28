@@ -100,7 +100,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
               {featureItems.map((f) => (
-                <Link key={f.title} href="/features"
+                <Link key={f.title} href={f.href ?? "/features"}
                   style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "22px 18px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${f.color}08`; e.currentTarget.style.transform = "translateX(3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
