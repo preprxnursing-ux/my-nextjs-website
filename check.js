@@ -1,3 +1,4 @@
 ﻿const fs = require('fs');
-const f = fs.readFileSync('app/quiz/select/page.tsx','utf8');
-console.log(f.slice(0,1800));
+const f = fs.readFileSync('components/Navbar.tsx','utf8');
+const i = f.indexOf('<header');
+console.log(f.slice(i-20, i+150));
