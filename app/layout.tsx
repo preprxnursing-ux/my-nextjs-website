@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <CartDrawer />
           <SessionGuard />
-          <div style={{ maxWidth: "100vw", overflowX: "hidden" }}>
+          <div style={{ maxWidth: "100vw", overflowX: "hidden", minHeight: "calc(100vh - 75px)" }}>
             {children}
           </div>
         <ChatbotWidget />
