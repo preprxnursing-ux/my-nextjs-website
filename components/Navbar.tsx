@@ -553,7 +553,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
-  useEffect(() => { setMoreOpen(false); setCoursesOpen(false); setAvatarOpen(false); }, [pathname]);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
   const [cartAnimating, setCartAnimating] = useState(false);
