@@ -24,6 +24,7 @@ body {
 @media (max-width: 767px) {
   
   .mob-hide-on-mobile { display: none !important; }
+  header:not(.mob-shell header) { display: none !important; }
   .mob-shell { position: relative; z-index: 100; }
   body { padding-top: 0 !important; margin-top: 0 !important; }
   #__next { padding-top: 0 !important; margin-top: 0 !important; }
