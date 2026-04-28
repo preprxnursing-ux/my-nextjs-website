@@ -687,7 +687,6 @@ export default function Navbar() {
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                   )
                 ))}
-                <NursingTVDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
