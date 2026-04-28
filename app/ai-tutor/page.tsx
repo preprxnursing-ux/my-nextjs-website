@@ -11,9 +11,9 @@ const EXAMS: Exam[] = [
   { id: "teas",       label: "TEAS 7",      icon: "ðŸ“š", color: "#f59e0b", desc: "Nursing school entrance" },
   { id: "hesi",       label: "HESI A2",     icon: "ðŸ”¬", color: "#10b981", desc: "Health sciences entrance" },
   { id: "ccrn",       label: "CCRN",        icon: "â¤ï¸", color: "#ef4444", desc: "Critical care certification" },
-  { id: "fnp",        label: "FNP / NP",   icon: "ðŸ©º", color: "#8b5cf6", desc: "Nurse Practitioner boards" },
+  { id: "fnp",        label: "FNP / NP",   icon: "🩺", color: "#8b5cf6", desc: "Nurse Practitioner boards" },
   { id: "hesi-exit",  label: "HESI Exit",   icon: "ðŸŽ“", color: "#06b6d4", desc: "Nursing school exit exam" },
-  { id: "ngn",        label: "NGN / Next Gen", icon: "âš¡", color: "#f97316", desc: "Next Generation NCLEX" },
+  { id: "ngn",        label: "NGN / Next Gen", icon: "⚡", color: "#f97316", desc: "Next Generation NCLEX" },
 ];
 
 const PROMPTS: Record<string, string> = {
@@ -165,4 +165,5 @@ export default function AITutorPage() {
     </main>
   );
 }
+
 
