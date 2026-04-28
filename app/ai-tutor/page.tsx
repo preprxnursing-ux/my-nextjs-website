@@ -92,14 +92,10 @@ export default function AITutorPage() {
         <>
           {!selectedExam ? (
             <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px" }}>
-              <div style={{ textAlign: "center", marginBottom: 40 }}>
-                <div style={{ fontSize: 48, marginBottom: 12 }}>AI</div>
-                <h1 style={{ fontSize: 36, fontWeight: 800, marginBottom: 8 }}>AI Tutor</h1>
-                <p style={{ color: "#94a3b8", fontSize: 16 }}>Your personal Nursing Exams study assistant. Ask anything, anytime.</p>
+              <div style={{ textAlign: "center", marginBottom: 24 }}>
+                <h1 style={{ fontSize: 24, fontWeight: 800, marginBottom: 6 }}>Which exam are you preparing for?</h1>
+                <p style={{ color: "#94a3b8", fontSize: 14 }}>I will personalise all my responses to your specific exam</p>
               </div>
-              <p style={{ textAlign: "center", color: "#64748b", fontSize: 13, textTransform: "uppercase", marginBottom: 24 }}>Step 1 - Which exam are you preparing for?</p>
-              <h2 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 8 }}>Which exam are you preparing for?</h2>
-              <p style={{ textAlign: "center", color: "#94a3b8", marginBottom: 36 }}>I will personalise all my responses to your specific exam</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
                 {EXAMS.map((exam) => (
                   <div key={exam.id} onClick={() => { setSelectedExam(exam); setMessages([]); }}
@@ -170,3 +166,4 @@ export default function AITutorPage() {
     </main>
   );
 }
+
