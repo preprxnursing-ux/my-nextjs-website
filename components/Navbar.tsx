@@ -673,9 +673,8 @@ export default function Navbar() {
 
             {user ? (
               <>
-                <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
                 {appLinks.map((link) => (
-                  link.label === 'AI Tutor' ? (
+                  link.label === 'Quiz' ? null : link.label === 'AI Tutor' ? (
                     <Link key={link.label} href={link.href} style={{ display:'flex', alignItems:'center', gap:'6px', background:'linear-gradient(135deg,#0070f3,#0ea5e9)', color:'#fff', borderRadius:'8px', padding:'6px 14px', fontSize:'13px', fontWeight:700, textDecoration:'none', boxShadow:'0 0 14px rgba(0,112,243,0.45)', whiteSpace:'nowrap', flexShrink:0 }}
                       onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 24px rgba(0,112,243,0.7)'; e.currentTarget.style.transform='translateY(-1px)'; }}
                       onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 14px rgba(0,112,243,0.45)'; e.currentTarget.style.transform='translateY(0)'; }}>
@@ -685,8 +684,8 @@ export default function Navbar() {
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                   )
                 ))}
-                <ContactDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
+                <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
