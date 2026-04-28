@@ -117,7 +117,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "13px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>See every feature in detail</p>
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Interactive demos . Comparison table . Full breakdown</p>
               </div>
-              <Link href="/features" onClick={() => setOpen(false)} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
+              <Link href="/features" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
                 See all features <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -190,7 +190,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                     <span style={{ fontSize: "10px", fontWeight: 700, background: `${active.color}12`, color: active.color, border: `1px solid ${active.color}30`, padding: "5px 12px", borderRadius: "100px", whiteSpace: "nowrap" }}>{active.score}</span>
                   </div>
                 </div>
-                <Link href="/testimonials" onClick={() => setOpen(false)}
+                <Link href="/testimonials"
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", background: "rgba(14,165,233,.05)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", textDecoration: "none", transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.12)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(14,165,233,.05)"; e.currentTarget.style.transform = "translateY(0)"; }}>
@@ -277,7 +277,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Prefer a contact form?</p>
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Send us a detailed message on the contact page</p>
               </div>
-              <Link href="/contact" onClick={() => setOpen(false)} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>
+              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>
                 Contact page
               </Link>
             </div>
@@ -334,7 +334,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                 </div>
                 <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels � 140+ lessons � Free forever</span>
               </div>
-              <Link href="/nursing-tv" onClick={() => setOpen(false)} style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
+              <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             </div>
@@ -707,7 +707,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
 
             <div style={{ position: "relative" }}
               onMouseEnter={() => { if (moreTimeout.current) clearTimeout(moreTimeout.current); setMoreOpen(true); }}
-              onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false); setCoursesOpen(false);, 140); }}>
+              onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false), 140); }}>
               <button className="nav-btn">More <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} /></button>
               {moreOpen && (
                 <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
@@ -743,7 +743,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
                       <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Free . No credit card . Live now</p>
                     </div>
-                    <Link href="/pricing" onClick={() => setOpen(false)} style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>Get started</Link>
+                    <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>Get started</Link>
                   </div>
                 </div>
               )}
@@ -815,7 +815,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                 )}
               </div>
             ) : (
-              <Link href="/auth/login" onClick={() => setOpen(false)}
+              <Link href="/auth/login"
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", color: "#334155", transition: "background .15s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
