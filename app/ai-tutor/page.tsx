@@ -1,18 +1,19 @@
-"use client";
+﻿"use client";
+import AnatomyVisualizer from "@/components/AnatomyVisualizer";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 type Exam = { id: string; label: string; icon: string; color: string; desc: string; };
 
 const EXAMS: Exam[] = [
-  { id: "nclex-rn",   label: "NCLEX-RN",    icon: "🏥", color: "#0ea5e9", desc: "Registered Nurse licensure" },
-  { id: "nclex-pn",   label: "NCLEX-PN",    icon: "💉", color: "#6366f1", desc: "Practical Nurse licensure" },
-  { id: "teas",       label: "TEAS 7",      icon: "📚", color: "#f59e0b", desc: "Nursing school entrance" },
-  { id: "hesi",       label: "HESI A2",     icon: "🔬", color: "#10b981", desc: "Health sciences entrance" },
-  { id: "ccrn",       label: "CCRN",        icon: "❤️", color: "#ef4444", desc: "Critical care certification" },
-  { id: "fnp",        label: "FNP / NP",   icon: "🩺", color: "#8b5cf6", desc: "Nurse Practitioner boards" },
-  { id: "hesi-exit",  label: "HESI Exit",   icon: "🎓", color: "#06b6d4", desc: "Nursing school exit exam" },
-  { id: "ngn",        label: "NGN / Next Gen", icon: "⚡", color: "#f97316", desc: "Next Generation NCLEX" },
+  { id: "nclex-rn",   label: "NCLEX-RN",    icon: "ðŸ¥", color: "#0ea5e9", desc: "Registered Nurse licensure" },
+  { id: "nclex-pn",   label: "NCLEX-PN",    icon: "ðŸ’‰", color: "#6366f1", desc: "Practical Nurse licensure" },
+  { id: "teas",       label: "TEAS 7",      icon: "ðŸ“š", color: "#f59e0b", desc: "Nursing school entrance" },
+  { id: "hesi",       label: "HESI A2",     icon: "ðŸ”¬", color: "#10b981", desc: "Health sciences entrance" },
+  { id: "ccrn",       label: "CCRN",        icon: "â¤ï¸", color: "#ef4444", desc: "Critical care certification" },
+  { id: "fnp",        label: "FNP / NP",   icon: "ðŸ©º", color: "#8b5cf6", desc: "Nurse Practitioner boards" },
+  { id: "hesi-exit",  label: "HESI Exit",   icon: "ðŸŽ“", color: "#06b6d4", desc: "Nursing school exit exam" },
+  { id: "ngn",        label: "NGN / Next Gen", icon: "âš¡", color: "#f97316", desc: "Next Generation NCLEX" },
 ];
 
 const PROMPTS: Record<string, string> = {
@@ -42,6 +43,7 @@ export default function AITutorPage() {
   const [messages, setMessages] = useState<{role: string; content: string}[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"chat"|"anatomy">("chat");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function AITutorPage() {
 
   const selectExam = (exam: Exam) => {
     setSelectedExam(exam);
-    setMessages([{ role: "assistant", content: "Great choice! I am now your dedicated " + exam.label + " study assistant. 🎯\n\nI will tailor all responses specifically for the " + exam.label + " exam.\n\nWhat would you like to study? You can:\n• Ask me any " + exam.label + " topic\n• Request a practice question\n• Ask for study strategies\n• Get help with weak areas" }]);
+    setMessages([{ role: "assistant", content: "Great choice! I am now your dedicated " + exam.label + " study assistant. ðŸŽ¯\n\nI will tailor all responses specifically for the " + exam.label + " exam.\n\nWhat would you like to study? You can:\nâ€¢ Ask me any " + exam.label + " topic\nâ€¢ Request a practice question\nâ€¢ Ask for study strategies\nâ€¢ Get help with weak areas" }]);
   };
 
   const send = async (text?: string) => {
@@ -114,7 +116,7 @@ export default function AITutorPage() {
                   <p style={{ color: "#64748b", fontSize: 12, margin: 0 }}>{exam.desc}</p>
                 </div>
                 <div style={{ marginTop: 4, background: exam.color + "20", border: "1px solid " + exam.color + "30", borderRadius: 8, padding: "5px 10px" }}>
-                  <span style={{ color: exam.color, fontSize: 11, fontWeight: 700 }}>Start studying →</span>
+                  <span style={{ color: exam.color, fontSize: 11, fontWeight: 700 }}>Start studying â†’</span>
                 </div>
               </button>
             ))}
@@ -123,7 +125,7 @@ export default function AITutorPage() {
       ) : (
         <>
           <div style={{ display: "flex", justifyContent: "center", padding: "12px 20px 0", gap: 8, flexWrap: "wrap" }}>
-            <button onClick={() => { setSelectedExam(null); setMessages([]); }} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #334155", color: "#64748b", borderRadius: 20, padding: "5px 14px", fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>← Switch exam</button>
+            <button onClick={() => { setSelectedExam(null); setMessages([]); }} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid #334155", color: "#64748b", borderRadius: 20, padding: "5px 14px", fontSize: 12, cursor: "pointer", fontFamily: "inherit" }}>â† Switch exam</button>
             {suggestions.map((s, i) => (
               <button key={i} onClick={() => send(s)} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#94a3b8", borderRadius: 20, padding: "5px 14px", fontSize: 12, cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = selectedExam.color + "20"; e.currentTarget.style.color = "white"; }}
@@ -156,10 +158,11 @@ export default function AITutorPage() {
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()} placeholder={"Ask your " + selectedExam.label + " question..."} style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }} />
               <button onClick={() => send()} disabled={loading} style={{ padding: "13px 28px", background: selectedExam.color, color: "white", border: "none", borderRadius: 12, cursor: loading ? "not-allowed" : "pointer", fontWeight: 700, fontSize: 15, opacity: loading ? 0.7 : 1, fontFamily: "inherit" }}>Send</button>
             </div>
-            <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>Powered by Prenclex AI · {selectedExam.label} mode · For study purposes only</p>
+            <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>Powered by Prenclex AI Â· {selectedExam.label} mode Â· For study purposes only</p>
           </div>
         </>
       )}
     </main>
   );
 }
+
