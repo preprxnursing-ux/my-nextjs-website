@@ -58,7 +58,7 @@ const MOB_CSS = `
     .mob-shell { display: block; width: 100%; background: #f8fafc; overflow-y: auto; padding-bottom: 58px; }
     .mob-topbar { display: flex; align-items: center; justify-content: space-between; padding: 6px 16px; background: #ffffff; border-bottom: 1px solid #f1f5f9; }
     .mob-live { display: flex; align-items: center; gap: 6px; padding: 4px 16px; background: #fff7ed; border-left: 3px solid #ef4444; border-bottom: 1px solid #fed7aa; }
-    .mob-hero-visitor { padding: 12px 16px 8px; background: #f8fafc; }
+    .mob-hero-visitor { padding: 6px 16px 4px; background: #f8fafc; }
     .mob-hero-user { padding: 4px 16px 4px; background: #f8fafc; }
     .mob-stats { display: flex; gap: 6px; padding: 0 16px 6px; }
     .mob-tv-card { margin: 0 16px 6px; background: #0d1f35; border-radius: 10px; padding: 8px 12px; border-left: 4px solid #ef4444; }
@@ -158,8 +158,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
           {!user && (<>
             <div className="mob-hero-visitor">
               <p style={{ fontSize: "10px", color: "#94a3b8", fontWeight: 600, marginBottom: "4px" }}>NCLEX-RN Live Now</p>
-              <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.5rem,7vw,2.2rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.1, marginBottom: "4px" }}>Your first attempt.</h1>
-              <p style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1.2rem,6vw,1.8rem)", fontWeight: 700, color: "#0ea5e9", fontStyle: "italic", lineHeight: 1.1, marginBottom: "12px" }}>Your last exam.</p>
+              <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(0.95rem,4.5vw,1.35rem)", fontWeight: 700, color: "#0f172a", lineHeight: 1.1, marginBottom: "2px" }}>Your first attempt.</h1>
+              <p style={{ fontFamily: "Georgia,serif", fontSize: "clamp(0.85rem,4vw,1.15rem)", fontWeight: 700, color: "#0ea5e9", fontStyle: "italic", lineHeight: 1.1, marginBottom: "6px" }}>Your last exam.</p>
               <Link href="/auth/signup" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "12px", borderRadius: "12px", background: "#0ea5e9", fontSize: "14px", fontWeight: 800, color: "#fff", textDecoration: "none", marginBottom: "7px" }}>Start free today</Link>
               <Link href="/courses" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px", borderRadius: "12px", background: "#f1f5f9", border: "1px solid #e2e8f0", fontSize: "13px", fontWeight: 600, color: "#475569", textDecoration: "none" }}>Explore courses</Link>
             </div>
@@ -224,7 +224,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
           {/* LOGGED IN MODE */}
           {user && (<>
             <div style={{ padding: "4px 16px 2px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 12px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px 12px", borderRadius: "12px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)", padding: "6px 10px" }}>
                 <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
                   {firstName.charAt(0)}
                 </div>
