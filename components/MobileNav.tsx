@@ -140,7 +140,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
               </div>
             ) : (
               <div style={{ display: "flex", gap: "6px" }}>
-                <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} style={{ display: "inline-flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "#f1f5f9", border: "1px solid #e2e8f0", fontSize: "11px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
+                <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} style={{ display: "inline-flex", alignItems: "center", padding: "6px 12px", borderRadius: "20px", background: "#1e293b", border: "1px solid #334155", fontSize: "11px", fontWeight: 600, color: "#334155", textDecoration: "none" }}>Sign in</Link>
                 <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", padding: "6px 14px", borderRadius: "20px", background: "#0ea5e9", fontSize: "11px", fontWeight: 700, color: "#fff", textDecoration: "none" }}>Get started</Link>
               </div>
             )}
@@ -229,8 +229,8 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                   {firstName.charAt(0)}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: "9px", color: "#94a3b8", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
-                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0, lineHeight: 1.2 }}>{firstName}</p>
+                  <p style={{ fontSize: "11px", color: "#94a3b8", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "#f8fafc", margin: 0, lineHeight: 1.2 }}>{firstName}</p>
                 </div>
                 
               </div>
