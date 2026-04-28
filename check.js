@@ -1,4 +1,4 @@
 ﻿const fs = require('fs');
-const f = fs.readFileSync('app/auth/verify/page.tsx','utf8');
-const i = f.indexOf('handleOtpInput');
-console.log(f.slice(i-50, i+600));
+const f = fs.readFileSync('app/auth/login/page.tsx','utf8');
+const i = f.indexOf('router.push');
+console.log(f.slice(i-100, i+300));

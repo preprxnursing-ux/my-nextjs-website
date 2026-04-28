@@ -552,6 +552,7 @@ export default function Navbar() {
   const { cartPlan, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
+  useEffect(() => { setMoreOpen(false); setCoursesOpen(false); setAvatarOpen(false); }, [pathname]);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
