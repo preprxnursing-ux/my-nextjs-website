@@ -198,6 +198,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                   { href: "/contact",      label: "Contact Us",   icon: <Phone size={11}/> },
                   { href: "/blog",         label: "Blog",         icon: <Newspaper size={11}/> },
                   { href: "/faq",          label: "FAQ",          icon: <HelpCircle size={11}/> },
+                  { href: "/ai-tutor",     label: "AI Tutor",     icon: <Zap size={11}/> },
                 ].map(l => (
                   <Link key={l.label} href={l.href} className={"mob-link-pill"+(isActiveMob(pathname,l.href)?" mob-link-pill-active":"")}>{l.icon} {l.label}</Link>
                 ))}

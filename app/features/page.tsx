@@ -59,7 +59,7 @@ const features = [
   },
   {
     icon: "",
-    title: "AI tutor -- coming soon",
+    title: "AI Tutor",
     description:
       "Our upcoming AI layer will explain exactly why you keep missing certain questions, generate personalised study plans, and adapt your exam to your weak areas.",
     color: "bg-cyan-50 border-cyan-100",

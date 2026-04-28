@@ -1,12 +1,7 @@
 ﻿"use client";
 
-import { useState, useRef } from "react";
 import Link from "next/link";
-
-const contacts = [
-  { name: "Melissa", role: "Student Success Lead", email: "preprxnursing@gmail.com", responseTime: "Within 4 hours", avatar: "/melissa.jpg", color: "#0ea5e9", accentLight: "rgba(14,165,233,0.08)", border: "rgba(14,165,233,0.3)", href: "mailto:preprxnursing@gmail.com" },
-  { name: "James", role: "Founder & Educator", email: "prenclexreview@gmail.com", responseTime: "Within 24 hours", avatar: "/james.jpg", color: "#8b5cf6", accentLight: "rgba(139,92,246,0.08)", border: "rgba(139,92,246,0.3)", href: "mailto:prenclexreview@gmail.com" },
-];
+import { useState, useRef } from "react";
 
 const fontStyle = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');

@@ -1,4 +1,4 @@
-ï»¿"use client";
+"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ const courseItems = [
 ];
 
 const appLinks = [
+  { href: "https://prenclex.com/ai-tutor", label: "AI Tutor" },
   { href: "/quiz", label: "Quiz" },
   { href: "/results", label: "Results" },
   { href: "/review", label: "Review" },
@@ -77,7 +78,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     { title: "Performance Dashboard", desc: "Track every attempt, spot weak topics, measure improvement", color: "#10b981", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
     { title: "Flag & Review System", desc: "Flag tough questions and study them with full breakdowns", color: "#f59e0b", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>) },
     { title: "Adaptive Timer", desc: "Build mental endurance NCLEX demands with real timed pressure", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
-    { title: "AI Tutor - Coming Soon", desc: "Personalised study plans that adapt to where you struggle", color: "#c084fc", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
+    { title: "?? AI Tutor", desc: "Your personal Nursing Exams study assistant — ask anything, anytime", color: "#0070f3", href: "https://prenclex.com/ai-tutor", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
   ];
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
@@ -156,7 +157,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 500 }}>Real nurses . Real results . Verified</p>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "4px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", borderRadius: "100px", padding: "5px 12px" }}>
-                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>â˜…</span>)}
+                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>?</span>)}
                 <span style={{ fontSize: "11px", color: "#92400e", fontWeight: 800, marginLeft: "4px" }}>4.9</span>
               </div>
             </div>
@@ -178,7 +179,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}12 0%,transparent 70%)`, pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px" }} />
-                  <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>{[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>â˜…</span>)}</div>
+                  <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>{[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>?</span>)}</div>
                   <p style={{ fontSize: "13px", color: "#334155", fontStyle: "italic", lineHeight: 1.8, marginBottom: "16px", fontWeight: 500 }}>"{active.quote}"</p>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}15`, border: `2px solid ${active.color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0 }}>{active.initials}</div>
@@ -202,7 +203,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
               </div>
             </div>
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
-              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9â˜…", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
+              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9?", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
                   <p style={{ fontSize: "14px", fontWeight: 800, color: s.color, margin: "0 0 2px" }}>{s.val}</p>
                   <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 600 }}>{s.label}</p>
@@ -331,7 +332,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", boxShadow: "0 0 5px #ef4444" }} />
                   <span style={{ fontSize: "9px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels Â· 140+ lessons Â· Free forever</span>
+                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels · 140+ lessons · Free forever</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -396,7 +397,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   onMouseLeave={e => { e.currentTarget.style.background = channel.color + "08"; e.currentTarget.style.transform = "translateY(0)"; }}>
                   <div>
                     <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 1px" }}>Watch {channel.title}</p>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free Â· No signup required</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free · No signup required</p>
                   </div>
                   <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: channel.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="12" height="12" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -437,6 +438,7 @@ const drawerSections = [
       { href: "/testimonials", label: "Testimonials", sub: "Student success stories", color: "#8b5cf6", badge: "" },
       { href: "/pricing", label: "Pricing", sub: "Free & premium plans", color: "#f59e0b", badge: "" },
       { href: "/nursing-tv", label: "Nursing TV", sub: "Video lessons by RNs", color: "#ef4444", badge: "" },
+      { href: "https://prenclex.com/ai-tutor", label: "AI Tutor", sub: "Your NCLEX study assistant", color: "#0070f3", badge: "NEW" },
       { href: "/faq", label: "FAQ", sub: "Common questions", color: "#06b6d4", badge: "" },
       { href: "/blog", label: "Blog", sub: "Nursing tips & guides", color: "#10b981", badge: "" },
       { href: "/contact", label: "Contact Us", sub: "Talk to Melissa or James", color: "#38bdf8", badge: "" },
@@ -684,6 +686,21 @@ export default function Navbar() {
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
+                <Link href="https://prenclex.com/ai-tutor" style={{
+  display: "inline-flex", alignItems: "center", gap: 7,
+  padding: "7px 14px", borderRadius: 10, textDecoration: "none",
+  background: "linear-gradient(135deg, #0070f3, #0ea5e9)",
+  color: "white", fontWeight: 700, fontSize: 13,
+  boxShadow: "0 0 14px rgba(0,112,243,0.45)",
+  border: "1px solid rgba(255,255,255,0.15)",
+  transition: "all 0.2s", whiteSpace: "nowrap", flexShrink: 0
+}}
+onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(0,112,243,0.7)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,0.45)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+  <span style={{ fontSize: 15 }}>??</span>
+  <span>AI Tutor</span>
+  <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
+</Link>
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
