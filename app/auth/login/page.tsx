@@ -117,6 +117,7 @@ export default function LoginPage() {
     }
     await fetch("/api/auth/verify-otp", { method: "POST" });
     const returnTo = new URLSearchParams(window.location.search).get("returnUrl") || "/dashboard";
+    sessionStorage.setItem("scrollTo", window.location.search);
     window.location.href = returnTo;
   }
   async function handleResend() {

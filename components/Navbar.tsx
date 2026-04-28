@@ -674,12 +674,12 @@ export default function Navbar() {
 
             {user ? (
               <>
-                <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
+                
                 {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
-                <ContactDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
+                <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
