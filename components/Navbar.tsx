@@ -15,6 +15,7 @@ const courseItems = [
   { exam: "NCLEX-PN(R)", title: "Effective NCLEX-PN Prep", color: "#6366f1", href: "/courses/nclex-pn", available: false, tag: "Full PN test plan coverage" },
   { exam: "Nurse Practitioner", title: "Expert NP Exam Resources", color: "#8b5cf6", href: "/courses/nurse-practitioner", available: false, tag: "FNP . AGPCNP certification prep" },
   { exam: "CCRN(R)", title: "Essential CCRN Success Resources", color: "#ef4444", href: "/courses/ccrn", available: false, tag: "ICU-level critical care prep" },
+  { exam: "Anatomy Visualizer", title: "AI-Powered Anatomy Visualizer", color: "#0ea5e9", href: "/anatomy", available: true, tag: "Animated organs · NCLEX practice · Lab values" },
 ];
 
 const appLinks = [
@@ -872,6 +873,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
 
