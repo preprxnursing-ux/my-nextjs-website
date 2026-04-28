@@ -606,7 +606,7 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header className="mob-hide-on-mobile" style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "75px", gap: "0px" }}>
 
           {/* LOGO */}
@@ -665,7 +665,6 @@ export default function Navbar() {
                         <p style={{ fontSize: "11px", color: "#64748b", margin: "2px 0 0", fontWeight: 500 }}>No credit card . No commitment . Live now</p>
                       </div>
                       <Link href="/courses/nclex-rn" onClick={() => setCoursesOpen(false)} className="nav-btn-primary" style={{ fontSize: "12px", padding: "7px 14px" }}>Try free</Link>
-                      <Link href="/quiz" onClick={() => setCoursesOpen(false)} style={{ fontSize: "12px", padding: "7px 14px", borderRadius: "8px", border: "1px solid rgba(14,165,233,0.3)", color: "#0ea5e9", fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: "5px" }}>Try Quiz →</Link>
                     </div>
                   </div>
                 </div>
@@ -674,19 +673,12 @@ export default function Navbar() {
 
             {user ? (
               <>
-                <NursingTVDropdown pathname={pathname} />
+                <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
                 {appLinks.map((link) => (
-                  link.label === 'Quiz' ? null : link.label === 'AI Tutor' ? (
-                    <Link key={link.label} href={link.href} style={{ display:'flex', alignItems:'center', gap:'6px', background:'linear-gradient(135deg,#0070f3,#0ea5e9)', color:'#fff', borderRadius:'8px', padding:'6px 14px', fontSize:'13px', fontWeight:700, textDecoration:'none', boxShadow:'0 0 14px rgba(0,112,243,0.45)', whiteSpace:'nowrap', flexShrink:0 }}
-                      onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 24px rgba(0,112,243,0.7)'; e.currentTarget.style.transform='translateY(-1px)'; }}
-                      onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 14px rgba(0,112,243,0.45)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                      <span style={{fontSize:'15px'}}>🤖</span><span>AI Tutor</span><span style={{background:'rgba(255,255,255,0.2)',borderRadius:10,padding:'1px 7px',fontSize:10,fontWeight:800}}>NEW</span>
-                    </Link>
-                  ) : (
-                    <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
-                  )
+                  <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
                 <ContactDropdown pathname={pathname} />
+                <NursingTVDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
