@@ -675,6 +675,7 @@ export default function Navbar() {
             {user ? (
               <>
                 
+                <NursingTVDropdown pathname={pathname} />
                 {appLinks.map((link) => (
                   link.label === 'Quiz' ? null :
                   link.label === 'AI Tutor' ? (
