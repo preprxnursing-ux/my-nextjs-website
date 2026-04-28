@@ -697,8 +697,7 @@ export default function Navbar() {
 }}
 onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(0,112,243,0.7)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
 onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,0.45)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-  <svg width="16" height="16" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-  <span>AI Tutor</span>
+  <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
   <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
 </Link>
                 <ContactDropdown pathname={pathname} />
@@ -863,5 +862,6 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
