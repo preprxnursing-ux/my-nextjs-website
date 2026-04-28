@@ -224,15 +224,15 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
           {/* LOGGED IN MODE */}
           {user && (<>
             <div style={{ padding: "4px 16px 2px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "5px 10px", borderRadius: "10px", background: "linear-gradient(135deg,#0d1f35,#0f2540)", border: "1px solid rgba(14,165,233,0.2)" }}>
-                <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "5px 10px", borderRadius: "10px", background: "#f1f5f9", border: "1px solid #e2e8f0" }}>
+                <div style={{ width: "22px", height: "22px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "10px", fontWeight: 700, color: "#fff", flexShrink: 0 }}>
                   {firstName.charAt(0)}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: "9px", color: "#64748b", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
-                  <p style={{ fontSize: "13px", fontWeight: 700, color: "#f8fafc", margin: 0, lineHeight: 1.2 }}>{firstName}</p>
+                  <p style={{ fontSize: "9px", color: "#94a3b8", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: 0, lineHeight: 1.2 }}>{firstName}</p>
                 </div>
-                <Link href="/dashboard" style={{ display: "flex", alignItems: "center", padding: "4px 10px", borderRadius: "20px", background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)", fontSize: "10px", fontWeight: 700, color: "#38bdf8", textDecoration: "none", flexShrink: 0 }}>Dashboard</Link>
+                
               </div>
             </div>
             <div className="mob-section">
