@@ -508,11 +508,11 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
               </>
             ) : (
               <>
-                <Link href="/auth/signup" onClick={() => setMobileOpen(false)}
+                <Link href={`/auth/signup?returnUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileOpen(false)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "14px", borderRadius: "12px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", fontSize: "14px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 6px 20px rgba(14,165,233,0.3)" }}>
                   Get started free
                 </Link>
-                <Link href="/auth/login" onClick={() => setMobileOpen(false)}
+                <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileOpen(false)}
                   style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "13px", borderRadius: "12px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "14px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
                   Sign in
                 </Link>
@@ -816,7 +816,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                 )}
               </div>
             ) : (
-              <Link href="/auth/login"
+              <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", color: "#334155", transition: "background .15s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
