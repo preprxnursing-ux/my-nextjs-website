@@ -229,7 +229,7 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                   {firstName.charAt(0)}
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: "11px", color: "#94a3b8", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
+                  <p style={{ fontSize: "11px", fontWeight: 700, color: "#94a3b8", margin: 0, lineHeight: 1.2 }}>{greeting}</p>
                   <p style={{ fontSize: "14px", fontWeight: 700, color: "#f8fafc", margin: 0, lineHeight: 1.2 }}>{firstName}</p>
                 </div>
                 
