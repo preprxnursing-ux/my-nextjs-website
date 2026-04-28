@@ -265,6 +265,22 @@ export default function MobileNav({ pathname, user, handleLogout }: { pathname: 
                 </div>
               </Link>
             </div>
+            <div style={{ padding: "0 16px 6px" }}>
+              <Link href="https://prenclex.com/ai-tutor" style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", background: "linear-gradient(135deg,#0070f3,#0ea5e9)", textDecoration: "none", position: "relative", overflow: "hidden" }}>
+                <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="18" height="18" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "2px" }}>
+                    <p style={{ fontSize: "13px", fontWeight: 800, color: "#fff", margin: 0 }}>AI Tutor</p>
+                    <span style={{ fontSize: "8px", fontWeight: 800, background: "rgba(255,255,255,0.25)", color: "#fff", padding: "1px 6px", borderRadius: "20px", letterSpacing: "0.08em" }}>NEW</span>
+                  </div>
+                  <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.75)", margin: 0 }}>Ask anything. Study smarter. Anytime.</p>
+                </div>
+                <svg width="14" height="14" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </Link>
+            </div>
+
             <div className="mob-tv-card">
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
