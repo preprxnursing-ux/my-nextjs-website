@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 
 const ORGANS = [
@@ -23,8 +23,8 @@ const COURSES = [
 ];
 
 const TOPICS = [
-  {id:"overview",label:"Overview — anatomy & location"},
-  {id:"physiology",label:"Physiology — how it works"},
+  {id:"overview",label:"Overview â€” anatomy & location"},
+  {id:"physiology",label:"Physiology â€” how it works"},
   {id:"pathology",label:"Key diseases & disorders"},
   {id:"nursing",label:"Nursing assessment & care"},
   {id:"nclex",label:"High-yield NCLEX facts"},
@@ -84,7 +84,7 @@ export default function AnatomyVisualizer() {
   function pickOrgan(o: typeof ORGANS[0]) {
     setCur(o);
     setFrameLoad(true);
-    setView("3d"); // clicking organ → 3D takes over
+    setView("3d"); // clicking organ â†’ 3D takes over
     setLearnTxt(""); setGenTxt(""); setQ(null); setAns("");
     setActiveTopic(""); setActiveCourse("");
   }
@@ -155,7 +155,7 @@ export default function AnatomyVisualizer() {
     <div style={{ display: "flex", height: "calc(100vh - 60px)", background: "#060d1a", fontFamily: "system-ui, sans-serif", overflow: "hidden" }}>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}@keyframes dot{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}`}</style>
 
-      {/* ── LEFT SIDEBAR — organ list ── */}
+      {/* â”€â”€ LEFT SIDEBAR â€” organ list â”€â”€ */}
       <div style={{ width: 160, flexShrink: 0, background: "#070e1d", borderRight: "1px solid rgba(255,255,255,0.06)", overflowY: "auto", display: "flex", flexDirection: "column", padding: "16px 10px", gap: 6 }}>
         <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 8, paddingLeft: 4 }}>Body structures</div>
         {ORGANS.map(o => (
@@ -170,7 +170,7 @@ export default function AnatomyVisualizer() {
         ))}
       </div>
 
-      {/* ── MAIN CONTENT — last clicked takes full space ── */}
+      {/* â”€â”€ MAIN CONTENT â€” last clicked takes full space â”€â”€ */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", position: "relative" }}>
 
         {/* Top bar */}
@@ -191,7 +191,7 @@ export default function AnatomyVisualizer() {
           <div style={{ fontSize: 10, fontFamily: "monospace", color: "rgba(14,165,233,0.5)" }}>{cur.vitals}</div>
         </div>
 
-        {/* ── 3D VIEW — fills everything ── */}
+        {/* â”€â”€ 3D VIEW â€” fills everything â”€â”€ */}
         {view === "3d" && (
           <div style={{ flex: 1, position: "relative", background: "#04080f" }}>
             {frameLoad && (
@@ -211,7 +211,7 @@ export default function AnatomyVisualizer() {
           </div>
         )}
 
-        {/* ── LEARN VIEW ── */}
+        {/* â”€â”€ LEARN VIEW â”€â”€ */}
         {view === "learn" && (
           <div style={{ flex: 1, display: "grid", gridTemplateColumns: "260px 1fr", overflow: "hidden", animation: "slideUp .25s ease" }}>
             {/* Learn sidebar */}
@@ -230,7 +230,7 @@ export default function AnatomyVisualizer() {
                   <button onClick={() => setActiveCourse(activeCourse === c.id ? "" : c.id)}
                     style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: 9, border: `1px solid ${activeCourse === c.id ? c.color : "rgba(255,255,255,0.06)"}`, background: activeCourse === c.id ? c.color + "18" : "rgba(255,255,255,0.02)", cursor: "pointer", fontSize: 13, color: activeCourse === c.id ? c.color : "rgba(255,255,255,0.6)", fontWeight: 700, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span>{c.label}</span>
-                    <span style={{ fontSize: 10, opacity: .6 }}>{activeCourse === c.id ? "▲" : "▼"}</span>
+                    <span style={{ fontSize: 10, opacity: .6 }}>{activeCourse === c.id ? "â–²" : "â–¼"}</span>
                   </button>
                   {activeCourse === c.id && (
                     <div style={{ paddingTop: 5, display: "flex", flexDirection: "column", gap: 3 }}>
@@ -253,18 +253,18 @@ export default function AnatomyVisualizer() {
                 <>
                   <div style={{ marginBottom: 16 }}>
                     <span style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: ".1em" }}>{activeCourse || cur.sys}</span>
-                    {activeTopic && <span style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", marginLeft: 8 }}>→ {activeTopic}</span>}
+                    {activeTopic && <span style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", marginLeft: 8 }}>â†’ {activeTopic}</span>}
                   </div>
                   <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 20, fontFamily: "Georgia, serif" }}>{cur.name}</h2>
                   <p style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", lineHeight: 1.9, whiteSpace: "pre-wrap", fontFamily: "Georgia, serif" }}>{learnTxt}</p>
                   <div style={{ marginTop: 28, display: "flex", gap: 10 }}>
-                    <button onClick={goQuiz} style={{ padding: "10px 22px", borderRadius: 8, background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.3)", color: "#f59e0b", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>Practice quiz →</button>
-                    <button onClick={goLabs} style={{ padding: "10px 22px", borderRadius: 8, background: "rgba(29,158,117,0.1)", border: "1px solid rgba(29,158,117,0.3)", color: "#1D9E75", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>Check lab values →</button>
+                    <button onClick={goQuiz} style={{ padding: "10px 22px", borderRadius: 8, background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.3)", color: "#f59e0b", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>Practice quiz â†’</button>
+                    <button onClick={goLabs} style={{ padding: "10px 22px", borderRadius: 8, background: "rgba(29,158,117,0.1)", border: "1px solid rgba(29,158,117,0.3)", color: "#1D9E75", cursor: "pointer", fontSize: 14, fontWeight: 600 }}>Check lab values â†’</button>
                   </div>
                 </>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center" }}>
-                  <div style={{ fontSize: 40, marginBottom: 16 }}>📖</div>
+                  <div style={{ fontSize: 40, marginBottom: 16 }}>ðŸ“–</div>
                   <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>Select a topic or course from the left panel<br />to generate your AI-powered lesson.</p>
                 </div>
               )}
@@ -272,11 +272,11 @@ export default function AnatomyVisualizer() {
           </div>
         )}
 
-        {/* ── QUIZ VIEW ── */}
+        {/* â”€â”€ QUIZ VIEW â”€â”€ */}
         {view === "quiz" && (
           <div style={{ flex: 1, overflowY: "auto", padding: "28px 36px", background: "#060d1a", animation: "slideUp .25s ease" }}>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} — Exam Practice</h2>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>NCLEX-style questions · Select difficulty then generate</p>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} â€” Exam Practice</h2>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>NCLEX-style questions Â· Select difficulty then generate</p>
             <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
               {["easy", "medium", "hard"].map(d => (
                 <button key={d} onClick={() => setDiff(d)}
@@ -313,7 +313,7 @@ export default function AnatomyVisualizer() {
                   </div>
                 )}
                 <div style={{ display: "flex", gap: 10 }}>
-                  <button onClick={genQ} style={{ padding: "11px 28px", borderRadius: 8, background: "#f59e0b", border: "none", color: "#000", cursor: "pointer", fontSize: 14, fontWeight: 800 }}>{ans ? "Next question →" : "Generate question"}</button>
+                  <button onClick={genQ} style={{ padding: "11px 28px", borderRadius: 8, background: "#f59e0b", border: "none", color: "#000", cursor: "pointer", fontSize: 14, fontWeight: 800 }}>{ans ? "Next question â†’" : "Generate question"}</button>
                   {ans && <button onClick={goLearn} style={{ padding: "11px 22px", borderRadius: 8, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.6)", cursor: "pointer", fontSize: 14 }}>Back to lessons</button>}
                 </div>
               </div>
@@ -324,11 +324,11 @@ export default function AnatomyVisualizer() {
           </div>
         )}
 
-        {/* ── LABS VIEW ── */}
+        {/* â”€â”€ LABS VIEW â”€â”€ */}
         {view === "labs" && (
           <div style={{ flex: 1, overflowY: "auto", padding: "28px 36px", background: "#060d1a", animation: "slideUp .25s ease" }}>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} — Lab Values</h2>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>Reference ranges · Clinical significance</p>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} â€” Lab Values</h2>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>Reference ranges Â· Clinical significance</p>
             <div style={{ maxWidth: 600, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
               {cur.labs.map((l, i) => (
                 <div key={l.n} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 20px", borderBottom: i < cur.labs.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
@@ -337,17 +337,17 @@ export default function AnatomyVisualizer() {
                 </div>
               ))}
             </div>
-            <button onClick={() => { goLabs(); runGen("labs"); }} style={{ padding: "12px 28px", borderRadius: 8, background: "rgba(29,158,117,0.15)", border: "1px solid rgba(29,158,117,0.4)", color: "#4ade80", cursor: "pointer", fontSize: 14, fontWeight: 700, marginBottom: 20 }}>AI clinical interpretation →</button>
+            <button onClick={() => { goLabs(); runGen("labs"); }} style={{ padding: "12px 28px", borderRadius: 8, background: "rgba(29,158,117,0.15)", border: "1px solid rgba(29,158,117,0.4)", color: "#4ade80", cursor: "pointer", fontSize: 14, fontWeight: 700, marginBottom: 20 }}>AI clinical interpretation â†’</button>
             {genLoad && <Spinner />}
             {!genLoad && genTxt && <p style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", lineHeight: 1.9, whiteSpace: "pre-wrap", fontFamily: "Georgia, serif", maxWidth: 680 }}>{genTxt}</p>}
           </div>
         )}
 
-        {/* ── MEDS VIEW ── */}
+        {/* â”€â”€ MEDS VIEW â”€â”€ */}
         {view === "meds" && (
           <div style={{ flex: 1, overflowY: "auto", padding: "28px 36px", background: "#060d1a", animation: "slideUp .25s ease" }}>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} — Medications</h2>
-            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>Key drugs · Nursing considerations</p>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: "white", marginBottom: 6, fontFamily: "Georgia, serif" }}>{cur.name} â€” Medications</h2>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>Key drugs Â· Nursing considerations</p>
             <div style={{ maxWidth: 680, display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
               {cur.meds.map(m => (
                 <div key={m.n} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "16px 20px" }}>
@@ -357,7 +357,7 @@ export default function AnatomyVisualizer() {
                 </div>
               ))}
             </div>
-            <button onClick={() => { goMeds(); runGen("meds"); }} style={{ padding: "12px 28px", borderRadius: 8, background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.4)", color: "#a78bfa", cursor: "pointer", fontSize: 14, fontWeight: 700, marginBottom: 20 }}>AI pharmacology deep dive →</button>
+            <button onClick={() => { goMeds(); runGen("meds"); }} style={{ padding: "12px 28px", borderRadius: 8, background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.4)", color: "#a78bfa", cursor: "pointer", fontSize: 14, fontWeight: 700, marginBottom: 20 }}>AI pharmacology deep dive â†’</button>
             {genLoad && <Spinner />}
             {!genLoad && genTxt && <p style={{ fontSize: 16, color: "rgba(255,255,255,0.85)", lineHeight: 1.9, whiteSpace: "pre-wrap", fontFamily: "Georgia, serif", maxWidth: 680 }}>{genTxt}</p>}
           </div>
@@ -366,3 +366,4 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
