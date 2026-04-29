@@ -57,7 +57,7 @@ export default function AnatomyVisualizer() {
       nursing:`Nursing care priorities for ${cur.name} dysfunction: assessments, interventions, when to call provider. 100 words.`,
       nclex:`5 highest-yield NCLEX facts about the ${cur.name}. Numbered. One sentence each.`,
     };
-    setLearnTxt(await callAI(ps[t])); setLearnLoad(false);
+    const isCourse = t.startsWith('course:'); const prompt = isCourse ? You are an expert nursing educator. The student is studying \ in relation to the \. Provide a focused, exam-specific lesson. 120 words max. Plain text only. Use numbers for lists. : ps[t]; setLearnTxt(await callAI(prompt)); setLearnLoad(false);
   }
 
   async function genQ() {
@@ -81,6 +81,16 @@ export default function AnatomyVisualizer() {
 
   const src = `https://sketchfab.com/models/${cur.frameId}/embed?autospin=0&autostart=1&preload=1&ui_theme=dark&ui_infos=0&ui_watermark=0&ui_watermark_link=0&ui_ar=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_annotations=0&ui_stop=0&dnt=1`;
   const TOPICS = [{id:"overview",l:"Overview - anatomy & location"},{id:"physiology",l:"Physiology - how it works"},{id:"pathology",l:"Key diseases & disorders"},{id:"nursing",l:"Nursing assessment & care"},{id:"nclex",l:"High-yield NCLEX facts"}];
+
+  const COURSES = [
+    {id:"nclex-rn",label:"NCLEX-RN",color:"#0ea5e9",bg:"#e0f2fe",topics:["Priority nursing interventions","SATA questions","Pharmacology mnemonics","ABG interpretation","Fluid & electrolytes","Management of care"]},
+    {id:"nclex-pn",label:"NCLEX-PN",color:"#6366f1",bg:"#ede9fe",topics:["PN scope of practice","Basic nursing care","Medication administration","Patient education","Coordinated care"]},
+    {id:"teas",label:"TEAS 7",color:"#f59e0b",bg:"#fef3c7",topics:["A&P fundamentals","Biology concepts","Chemistry basics","Scientific reasoning","Human body systems"]},
+    {id:"hesi",label:"HESI A2",color:"#10b981",bg:"#d1fae5",topics:["Anatomy & physiology","Medical terminology","Biology review","Chemistry review","Health professions"]},
+    {id:"ccrn",label:"CCRN",color:"#ef4444",bg:"#fee2e2",topics:["Hemodynamic monitoring","Ventilator management","ICU pharmacology","Cardiac arrhythmias","Sepsis management","Neurological assessment"]},
+    {id:"fnp",label:"FNP",color:"#8b5cf6",bg:"#ede9fe",topics:["Primary care management","Advanced pharmacology","Differential diagnosis","Chronic disease management","Preventive care"]},
+  ];
+  const [activeCourse, setActiveCourse] = useState("");
 
   return (
     <div style={{width:"100%",background:"#060d1a",borderRadius:16,overflow:"hidden",border:"1px solid rgba(255,255,255,0.06)",fontFamily:"system-ui,sans-serif"}}>
@@ -216,4 +226,6 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
+
 
