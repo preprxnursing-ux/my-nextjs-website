@@ -529,6 +529,7 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <p style={{ fontSize: "9px", fontWeight: 800, color: "#f87171", letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 4px" }}>Account</p>
             {user ? (
+              
               <>
                 <div style={{ padding: "12px", borderRadius: "12px", background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.15)" }}>
                   <p style={{ fontSize: "10px", color: "#64748b", margin: "0 0 2px" }}>Signed in as</p>
@@ -711,6 +712,7 @@ export default function Navbar() {
             </div>
 
             {user ? (
+              <ProfileDropdown pathname={pathname} />
               <>
                 
                 <NursingTVDropdown pathname={pathname} />
@@ -913,6 +915,10 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
+
+
+
 
 
 
