@@ -475,7 +475,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
   );
 }
 export default 
-function ProfileDropdown({ pathname = '' }: { pathname?: string }) {
+function ProfileDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
