@@ -17,8 +17,6 @@ const courseItems = [
 ];
 
 const appLinks = [
-  { href: "/ai-tutor", label: "AI Tutor" },
-  { href: "/anatomy", label: "Anatomy Lab" },
   { href: "/quiz", label: "Quiz" },
   { href: "/results", label: "Results" },
   { href: "/review", label: "Review" },
@@ -474,34 +472,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
     </div>
   );
 }
-export default 
-function ProfileDropdown({ pathname = '' }: { pathname?: string }) {
-  const [open, setOpen] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
-  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
-  const items = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/results", label: "Results" },
-    { href: "/review", label: "Review" },
-    { href: "/history", label: "History" },
-  ];
-  return (
-    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <button className="nav-btn">Profile <ChevronDown style={{ width: 12, height: 12 }} /></button>
-      {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, paddingTop: 28, width: 180 }}>
-          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden", padding: 8 }}>
-            {items.map(item => (
-              <Link key={item.href} href={item.href} className={"nav-btn" + (pathname === item.href ? " active" : "")} style={{ display: "block", width: "100%" }}>{item.label}</Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-function Navbar() {
+export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const [moreOpen, setMoreOpen] = useState(false);
@@ -641,7 +612,7 @@ function Navbar() {
             {user ? (
               <>
                 <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
-                {/* Profile */}<ProfileDropdown pathname={pathname} />{/* appLinks hidden */}{false && appLinks.map((link) => (
+                {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
                 <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
@@ -832,7 +803,7 @@ function Navbar() {
               </div>
               <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>App</p>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-                {/* Profile */}<ProfileDropdown pathname={pathname} />{/* appLinks hidden */}{false && appLinks.map((link) => (
+                {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
                     style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
                     {link.label}
