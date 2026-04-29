@@ -534,6 +534,7 @@ function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pat
         {activeSection === "account" ? (
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <p style={{ fontSize: "9px", fontWeight: 800, color: "#f87171", letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 4px" }}>Account</p>
+            <ProfileDropdown pathname={pathname} />
             {user ? (
               <>
                 <div style={{ padding: "12px", borderRadius: "12px", background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.15)" }}>
@@ -716,6 +717,7 @@ export default function Navbar() {
               )}
             </div>
 
+            <ProfileDropdown pathname={pathname} />
             {user ? (
               <>
                 
@@ -838,6 +840,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
               <span style={{ fontSize: "0px", fontWeight: 700, color: cartPlan ? "#8b5cf6" : "#0ea5e9", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
 
+            <ProfileDropdown pathname={pathname} />
             {user ? (
               <div style={{ position: "relative" }}>
                 <button onClick={() => setAvatarOpen(!avatarOpen)}
@@ -919,6 +922,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
 
