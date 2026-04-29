@@ -68,6 +68,38 @@ const navStyle = `
   }
 `;
 
+function CoursesDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  return (
+    <div style={{ position: 'relative' }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href='/courses' className={'nav-btn' + (isActive(pathname, '/courses') ? ' active' : '')}>
+        Courses <ChevronDown style={{ width: 12, height: 12, transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+      </Link>
+      {open && (
+        <div className='nav-dropdown' style={{ position: 'absolute', left: 0, top: '100%', zIndex: 1001, paddingTop: 28, width: 520 }}>
+          <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,.08)', borderRadius: 20, boxShadow: '0 32px 80px rgba(0,0,0,.2)', overflow: 'hidden', padding: 10 }}>
+            {courseItems.map((item) => (
+              <Link key={item.exam} href={item.href} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '12px 14px', borderRadius: 12, textDecoration: 'none' }}
+                onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(0,0,0,.04)'}
+                onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color, flexShrink: 0, marginTop: 6 }} />
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{item.exam}</div>
+                  <div style={{ fontSize: 12, color: '#64748b' }}>{item.tag}</div>
+                </div>
+                {item.available && <div style={{ marginLeft: 'auto', fontSize: 10, fontWeight: 700, color: '#0ea5e9', background: 'rgba(14,165,233,.1)', borderRadius: 20, padding: '2px 8px' }}>Available</div>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function FeaturesDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
