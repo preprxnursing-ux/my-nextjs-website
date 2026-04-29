@@ -610,19 +610,7 @@ export default function Navbar() {
 
             {user ? (
               <>
-                <div style={{ position: "relative" }} onMouseEnter={() => setProfileOpen(true)} onMouseLeave={() => setProfileOpen(false)}>
-                  <button className="nav-btn">Profile <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-                  {profileOpen && (
-                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, paddingTop: 12, width: 180 }}>
-                      <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden", padding: 8 }}>
-                        <a href="/dashboard" className="nav-btn" style={{ display: "block" }}>Dashboard</a>
-                        <a href="/results" className="nav-btn" style={{ display: "block" }}>Results</a>
-                        <a href="/review" className="nav-btn" style={{ display: "block" }}>Review</a>
-                        <a href="/history" className="nav-btn" style={{ display: "block" }}>History</a>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                
                 {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
@@ -726,6 +714,19 @@ export default function Navbar() {
 
             {user ? (
               <div style={{ position: "relative" }}>
+                <div style={{ position: "relative" }} onMouseEnter={() => setProfileOpen(true)} onMouseLeave={() => setProfileOpen(false)}>
+                  <button className="nav-btn">Profile <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+                  {profileOpen && (
+                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, paddingTop: 12, width: 180 }}>
+                      <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden", padding: 8 }}>
+                        <a href="/dashboard" className="nav-btn" style={{ display: "block" }}>Dashboard</a>
+                        <a href="/results" className="nav-btn" style={{ display: "block" }}>Results</a>
+                        <a href="/review" className="nav-btn" style={{ display: "block" }}>Review</a>
+                        <a href="/history" className="nav-btn" style={{ display: "block" }}>History</a>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <button onClick={() => setAvatarOpen(!avatarOpen)}
                   style={{ display: "flex", alignItems: "center", gap: "5px", background: "none", border: "none", cursor: "pointer", padding: "4px" }}>
                   <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: "#fff", boxShadow: "0 4px 12px rgba(14,165,233,.35)" }}>
