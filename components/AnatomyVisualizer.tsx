@@ -17,9 +17,9 @@ const ORGANS = [
 async function callAI(prompt: string, jsonMode = false): Promise<string> {
   const system = jsonMode ? "Return only valid JSON. No backticks." : "You are a clinical nursing educator. Plain text only. No markdown. Use numbers for lists.";
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:600, system, messages:[{role:"user",content:prompt}] }) });
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", { method:"POST", headers:{"Content-Type":"application/json","Authorization":"Bearer " + process.env.NEXT_PUBLIC_GROQ_API_KEY}, body:JSON.stringify({ model:"llama3-70b-8192", max_tokens:600, messages:[{role:"system",content:system},{role:"user",content:prompt}] }) });
     const d = await res.json();
-    return d.content?.find((b: {type:string;text?:string}) => b.type==="text")?.text ?? "Could not generate.";
+    return d.choices?.[0]?.message?.content ?? "Could not generate.";
   } catch { return "Connection error. Try again."; }
 }
 
@@ -183,3 +183,4 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
