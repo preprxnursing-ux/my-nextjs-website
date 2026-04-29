@@ -56,17 +56,13 @@ export default function AITutorPage() {
     setInput("");
     setLoading(true);
     try {
-      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + process.env.NEXT_PUBLIC_GROQ_API_KEY },
-        body: JSON.stringify({
-          model: "llama3-70b-8192",
-          max_tokens: 1024,
-          messages: [{role:"system",content:PROMPTS[selectedExam.id]}, ...[...messages, userMsg].map((m) => ({ role: m.role, content: m.content }))],
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{role:"system",content:PROMPTS[selectedExam.id]}, ...[...messages, userMsg].map((m) => ({ role: m.role, content: m.content }))] }),
       });
       const data = await res.json();
-      const reply = data.choices?.[0]?.message?.content ?? "Sorry, I could not generate a response.";
+      const reply = data.reply ?? "Sorry, I could not generate a response.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     } catch {
       setMessages((prev) => [...prev, { role: "assistant", content: "Connection error. Please try again." }]);
@@ -165,5 +161,6 @@ export default function AITutorPage() {
     </main>
   );
 }
+
 
 
