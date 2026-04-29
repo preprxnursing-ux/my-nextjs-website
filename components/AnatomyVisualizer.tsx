@@ -274,62 +274,116 @@ export default function AnatomyVisualizer() {
 
         {/* ── QUIZ VIEW ── */}
         {view === "quiz" && (
-          <div style={{ flex: 1, overflowY: "auto", background: "#f8fafc", animation: "slideUp .25s ease", display: "flex", flexDirection: "column" }}>
-            <div style={{ padding: "20px 36px 0", background: "#f8fafc", flexShrink: 0 }}>
-              <h2 style={{ fontSize: 22, fontWeight: 800, color: "#0f172a", marginBottom: 4, fontFamily: "Georgia, serif" }}>{cur.name} — Exam Practice</h2>
-              <p style={{ fontSize: 13, color: "#64748b", marginBottom: 16 }}>NCLEX-style questions · Select difficulty then generate</p>
-              <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap", alignItems: "center" }}>
-                {["easy", "medium", "hard"].map(d => (
-                  <button key={d} onClick={() => setDiff(d)}
-                    style={{ padding: "8px 24px", borderRadius: 20, border: "2px solid " + (diff === d ? "#f59e0b" : "#e2e8f0"), background: diff === d ? "#f59e0b" : "white", color: diff === d ? "#000" : "#64748b", cursor: "pointer", fontSize: 13, fontWeight: 700, textTransform: "capitalize" as const }}>
-                    {d}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#f8fafc", animation: "slideUp .25s ease", overflow: "hidden" }}>
+
+            {/* Quiz header — always visible */}
+            <div style={{ padding: "18px 28px 14px", background: "white", borderBottom: "1px solid #e2e8f0", flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12, flexWrap: "wrap", gap: 8 }}>
+                <div>
+                  <h2 style={{ fontSize: 20, fontWeight: 800, color: "#0f172a", fontFamily: "Georgia, serif", margin: 0 }}>{cur.name} — Exam Practice</h2>
+                  <p style={{ fontSize: 12, color: "#94a3b8", marginTop: 2 }}>Choose a course and topic to generate targeted NCLEX questions</p>
+                </div>
+                <div style={{ display: "flex", gap: 6 }}>
+                  {["easy","medium","hard"].map(d => (
+                    <button key={d} onClick={() => setDiff(d)}
+                      style={{ padding: "6px 16px", borderRadius: 20, border: "2px solid " + (diff===d?"#f59e0b":"#e2e8f0"), background: diff===d?"#f59e0b":"white", color: diff===d?"#000":"#64748b", cursor: "pointer", fontSize: 12, fontWeight: 700, textTransform: "capitalize" as const }}>
+                      {d}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Course chips — always visible */}
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {COURSES.map(c => (
+                  <button key={c.id} onClick={() => { setActiveCourse(activeCourse===c.id?"":c.id); setActiveTopic(""); setQ(null); setAns(""); }}
+                    style={{ padding: "6px 16px", borderRadius: 20, border: "2px solid " + (activeCourse===c.id?c.color:"#e2e8f0"), background: activeCourse===c.id?c.color:"white", color: activeCourse===c.id?"white":"#475569", cursor: "pointer", fontSize: 12, fontWeight: 700, transition: "all .15s" }}>
+                    {c.label}
                   </button>
                 ))}
-                <button onClick={genQ}
-                  style={{ padding: "8px 28px", borderRadius: 20, background: "#0f172a", border: "none", color: "white", cursor: "pointer", fontSize: 13, fontWeight: 700, marginLeft: "auto" }}>
-                  {q ? "New question" : "Generate question"}
-                </button>
+                {activeCourse && (
+                  <button onClick={() => { setActiveCourse(""); setActiveTopic(""); setQ(null); setAns(""); }}
+                    style={{ padding: "6px 14px", borderRadius: 20, border: "2px solid #e2e8f0", background: "white", color: "#94a3b8", cursor: "pointer", fontSize: 12 }}>
+                    Clear ✕
+                  </button>
+                )}
               </div>
             </div>
-            <div style={{ flex: 1, padding: "0 36px 28px", background: "#f8fafc" }}>
+
+            {/* Topic chips — shown when course selected */}
+            {activeCourse && (
+              <div style={{ padding: "12px 28px", background: "#f1f5f9", borderBottom: "1px solid #e2e8f0", flexShrink: 0 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "#64748b", textTransform: "uppercase" as const, letterSpacing: ".08em", marginBottom: 8 }}>
+                  {COURSES.find(c=>c.id===activeCourse)?.label} — choose a topic:
+                </p>
+                <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                  {COURSES.find(c=>c.id===activeCourse)?.topics.map(t => (
+                    <button key={t} onClick={() => { setActiveTopic(t); setQ(null); setAns(""); }}
+                      style={{ padding: "6px 14px", borderRadius: 20, border: "1.5px solid " + (activeTopic===t?(COURSES.find(c=>c.id===activeCourse)?.color||"#0ea5e9"):"#cbd5e1"), background: activeTopic===t?(COURSES.find(c=>c.id===activeCourse)?.color||"#0ea5e9")+"18":"white", color: activeTopic===t?(COURSES.find(c=>c.id===activeCourse)?.color||"#0ea5e9"):"#475569", cursor: "pointer", fontSize: 12, fontWeight: activeTopic===t?700:400, transition: "all .15s" }}>
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Generate button — shown when topic selected */}
+            {activeCourse && activeTopic && !q && !qLoad && (
+              <div style={{ padding: "16px 28px", background: "#f8fafc", borderBottom: "1px solid #e2e8f0", flexShrink: 0, display: "flex", alignItems: "center", gap: 12 }}>
+                <button onClick={genQ}
+                  style={{ padding: "10px 28px", borderRadius: 10, background: "#0f172a", border: "none", color: "white", cursor: "pointer", fontSize: 14, fontWeight: 700 }}>
+                  Generate {diff} question →
+                </button>
+                <span style={{ fontSize: 12, color: "#94a3b8" }}>{activeTopic} · {COURSES.find(c=>c.id===activeCourse)?.label}</span>
+              </div>
+            )}
+
+            {/* Question display */}
+            <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}>
+              {!activeCourse && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center" }}>
+                  <div style={{ fontSize: 40, marginBottom: 12 }}>🎯</div>
+                  <p style={{ fontSize: 16, color: "#64748b", lineHeight: 1.7 }}>Select a course above to get started.<br/>Then choose a topic to generate your NCLEX question.</p>
+                </div>
+              )}
+              {activeCourse && !activeTopic && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center" }}>
+                  <div style={{ fontSize: 40, marginBottom: 12 }}>📋</div>
+                  <p style={{ fontSize: 16, color: "#64748b", lineHeight: 1.7 }}>Now select a topic from the list above<br/>to generate a targeted question.</p>
+                </div>
+              )}
               {qLoad && <div style={{ paddingTop: 20 }}><Spinner /></div>}
               {!qLoad && q && (
                 <div style={{ maxWidth: 720, animation: "slideUp .25s ease" }}>
                   <div style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: 14, padding: "20px 24px", marginBottom: 16, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" as const, letterSpacing: ".08em", marginBottom: 8 }}>
+                      {COURSES.find(c=>c.id===activeCourse)?.label} · {activeTopic} · {diff}
+                    </div>
                     <p style={{ fontSize: 16, color: "#0f172a", fontWeight: 600, lineHeight: 1.75, fontFamily: "Georgia, serif" }}>{q.question}</p>
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
-                    {(["A", "B", "C", "D"] as const).map(k => {
-                      let border = "#e2e8f0", bg = "white", color = "#1e293b";
-                      if (ans) {
-                        if (k === q.answer) { border = "#16a34a"; bg = "#dcfce7"; color = "#15803d"; }
-                        else if (k === ans) { border = "#dc2626"; bg = "#fee2e2"; color = "#dc2626"; }
-                        else { bg = "#f8fafc"; color = "#94a3b8"; }
-                      }
+                    {(["A","B","C","D"] as const).map(k => {
+                      let border="#e2e8f0", bg="white", color="#1e293b";
+                      if(ans){if(k===q.answer){border="#16a34a";bg="#dcfce7";color="#15803d";}else if(k===ans){border="#dc2626";bg="#fee2e2";color="#dc2626";}else{bg="#f8fafc";color="#94a3b8";}}
                       return (
-                        <button key={k} disabled={!!ans} onClick={() => setAns(k)}
-                          style={{ textAlign: "left", padding: "14px 16px", borderRadius: 10, border: "1.5px solid " + border, background: bg, cursor: ans ? "default" : "pointer", fontSize: 14, color, lineHeight: 1.5, fontWeight: 500, transition: "all .12s" }}>
-                          <span style={{ fontWeight: 800, marginRight: 10 }}>{k})</span>{q.options[k]}
+                        <button key={k} disabled={!!ans} onClick={()=>setAns(k)}
+                          style={{ textAlign:"left", padding:"14px 16px", borderRadius:10, border:"1.5px solid "+border, background:bg, cursor:ans?"default":"pointer", fontSize:14, color, lineHeight:1.5, fontWeight:500, transition:"all .12s" }}>
+                          <span style={{ fontWeight:800, marginRight:10 }}>{k})</span>{q.options[k]}
                         </button>
                       );
                     })}
                   </div>
                   {ans && (
-                    <div style={{ padding: "16px 20px", borderRadius: 12, background: ans === q.answer ? "#dcfce7" : "#fee2e2", border: "1.5px solid " + (ans === q.answer ? "#16a34a" : "#dc2626"), fontSize: 15, color: ans === q.answer ? "#15803d" : "#dc2626", lineHeight: 1.8, marginBottom: 16, fontFamily: "Georgia, serif" }}>
-                      <span style={{ fontWeight: 800 }}>{ans === q.answer ? "Correct! " : "Incorrect. "}</span>{q.rationale}
+                    <div style={{ padding:"16px 20px", borderRadius:12, background:ans===q.answer?"#dcfce7":"#fee2e2", border:"1.5px solid "+(ans===q.answer?"#16a34a":"#dc2626"), fontSize:15, color:ans===q.answer?"#15803d":"#dc2626", lineHeight:1.8, marginBottom:16, fontFamily:"Georgia, serif" }}>
+                      <span style={{ fontWeight:800 }}>{ans===q.answer?"Correct! ":"Incorrect. "}</span>{q.rationale}
                     </div>
                   )}
                   {ans && (
-                    <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                      <button onClick={genQ} style={{ padding: "11px 28px", borderRadius: 8, background: "#0f172a", border: "none", color: "white", cursor: "pointer", fontSize: 14, fontWeight: 700 }}>Next question</button>
-                      <button onClick={goLearn} style={{ padding: "11px 22px", borderRadius: 8, background: "white", border: "1.5px solid #e2e8f0", color: "#64748b", cursor: "pointer", fontSize: 14 }}>Back to lessons</button>
+                    <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
+                      <button onClick={genQ} style={{ padding:"11px 28px", borderRadius:8, background:"#0f172a", border:"none", color:"white", cursor:"pointer", fontSize:14, fontWeight:700 }}>Next question →</button>
+                      <button onClick={goLearn} style={{ padding:"11px 22px", borderRadius:8, background:"white", border:"1.5px solid #e2e8f0", color:"#64748b", cursor:"pointer", fontSize:14 }}>Back to lessons</button>
                     </div>
                   )}
-                </div>
-              )}
-              {!qLoad && !q && (
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "60%", textAlign: "center" }}>
-                  <p style={{ fontSize: 16, color: "#64748b", lineHeight: 1.7 }}>Click Generate question above to get a fresh NCLEX practice question.</p>
                 </div>
               )}
             </div>
