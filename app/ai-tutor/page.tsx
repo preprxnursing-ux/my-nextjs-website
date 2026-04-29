@@ -56,18 +56,17 @@ export default function AITutorPage() {
     setInput("");
     setLoading(true);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + process.env.NEXT_PUBLIC_GROQ_API_KEY },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
+          model: "llama3-70b-8192",
           max_tokens: 1024,
-          system: PROMPTS[selectedExam.id],
-          messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
+          messages: [{role:"system",content:PROMPTS[selectedExam.id]}, ...[...messages, userMsg].map((m) => ({ role: m.role, content: m.content }))],
         }),
       });
       const data = await res.json();
-      const reply = data.content?.find((b: { type: string; text?: string }) => b.type === "text")?.text ?? "Sorry, I could not generate a response.";
+      const reply = data.choices?.[0]?.message?.content ?? "Sorry, I could not generate a response.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     } catch {
       setMessages((prev) => [...prev, { role: "assistant", content: "Connection error. Please try again." }]);
@@ -166,4 +165,5 @@ export default function AITutorPage() {
     </main>
   );
 }
+
 
