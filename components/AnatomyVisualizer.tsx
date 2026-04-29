@@ -128,38 +128,38 @@ export default function AnatomyVisualizer() {
           </div>
 
           {drawer && (
-            <div style={{position:"absolute",bottom:0,left:0,right:0,height:"52%",background:"rgba(6,13,26,0.97)",backdropFilter:"blur(20px)",borderTop:"2px solid rgba(14,165,233,0.25)",borderRadius:"16px 16px 0 0",padding:"18px 22px 22px",overflowY:"auto",zIndex:10,animation:"slideUp .3s cubic-bezier(0.32,0.72,0,1)"}}>
+            <div style={{position:"absolute",bottom:0,left:0,right:0,height:"78%",background:"#ffffff",borderTop:"3px solid #0ea5e9",borderRadius:"20px 20px 0 0",padding:"20px 24px 24px",overflowY:"auto",zIndex:10,animation:"slideUp .3s cubic-bezier(0.32,0.72,0,1)",boxShadow:"0 -8px 40px rgba(0,0,0,0.4)"}}>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14}}>
                 <div style={{display:"flex",alignItems:"center",gap:10}}>
-                  <div style={{width:9,height:9,borderRadius:"50%",background:cur.color}}/>
-                  <span style={{fontSize:16,fontWeight:700,color:"white"}}>{cur.name}</span>
-                  <span style={{fontSize:11,color:"rgba(14,165,233,0.8)",background:"rgba(14,165,233,0.08)",border:"1px solid rgba(14,165,233,0.2)",borderRadius:20,padding:"2px 10px",fontFamily:"monospace"}}>{tab.toUpperCase()}</span>
+                  <div style={{width:10,height:10,borderRadius:"50%",background:cur.color}}/>
+                  <span style={{fontSize:18,fontWeight:800,color:"#0f172a",fontFamily:"Georgia,serif"}}>{cur.name}</span>
+                  <span style={{fontSize:11,color:"#0ea5e9",background:"#e0f2fe",border:"1px solid #bae6fd",borderRadius:20,padding:"3px 12px",fontWeight:700,letterSpacing:".05em"}}>{tab.toUpperCase()}</span>
                 </div>
-                <button onClick={()=>setDrawer(false)} style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",color:"rgba(255,255,255,0.7)",borderRadius:8,padding:"6px 16px",cursor:"pointer",fontSize:13,fontWeight:500}}>Close ✕</button>
+                <button onClick={()=>setDrawer(false)} style={{background:"#f1f5f9",border:"1px solid #e2e8f0",color:"#475569",borderRadius:8,padding:"7px 16px",cursor:"pointer",fontSize:13,fontWeight:600}}>Close ✕</button>
               </div>
-              <div style={{height:1,background:"rgba(255,255,255,0.07)",marginBottom:16}}/>
+              <div style={{height:2,background:"#e2e8f0",marginBottom:18}}/>
 
               {tab==="learn" && learnLoad && <Dots/>}
-              {tab==="learn" && !learnLoad && learnTxt && <p style={{fontSize:15,color:"rgba(255,255,255,0.9)",lineHeight:1.85,whiteSpace:"pre-wrap"}}>{learnTxt}</p>}
+              {tab==="learn" && !learnLoad && learnTxt && <p style={{fontSize:16,color:"#1e293b",lineHeight:1.9,whiteSpace:"pre-wrap",fontFamily:"Georgia,serif",fontWeight:400}}>{learnTxt}</p>}
 
               {tab==="quiz" && qLoad && <Dots/>}
               {tab==="quiz" && !qLoad && q && (
                 <div>
-                  <p style={{fontSize:15,color:"white",fontWeight:600,lineHeight:1.75,marginBottom:16}}>{q.question}</p>
+                  <p style={{fontSize:16,color:"#0f172a",fontWeight:700,lineHeight:1.75,marginBottom:16,fontFamily:"Georgia,serif"}}>{q.question}</p>
                   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:14}}>
                     {(["A","B","C","D"] as const).map(k=>{
-                      let border="rgba(255,255,255,0.1)",bg="rgba(255,255,255,0.03)",color="rgba(255,255,255,0.85)";
-                      if(ans){if(k===q.answer){border="rgba(29,158,117,0.5)";bg="rgba(29,158,117,0.12)";color="#5DCAA5";}else if(k===ans){border="rgba(226,75,74,0.5)";bg="rgba(226,75,74,0.1)";color="#F09595";}else color="rgba(255,255,255,0.3)";}
-                      return <button key={k} disabled={!!ans} onClick={()=>setAns(k)} style={{textAlign:"left",padding:"13px 15px",borderRadius:10,border:`1px solid ${border}`,background:bg,cursor:ans?"default":"pointer",fontSize:14,color,lineHeight:1.5}}><span style={{fontWeight:700,marginRight:8}}>{k})</span>{q.options[k]}</button>;
+                      let border="#e2e8f0",bg="#f8fafc",color="#1e293b";
+                      if(ans){if(k===q.answer){border="#16a34a";bg="#dcfce7";color="#15803d";}else if(k===ans){border="#dc2626";bg="#fee2e2";color="#dc2626";}else{bg="#f1f5f9";color="#94a3b8";}}
+                      return <button key={k} disabled={!!ans} onClick={()=>setAns(k)} style={{textAlign:"left",padding:"13px 15px",borderRadius:10,border:`1px solid ${border}`,background:bg,cursor:ans?"default":"pointer",fontSize:14,color,lineHeight:1.5,fontWeight:500}}><span style={{fontWeight:700,marginRight:8}}>{k})</span>{q.options[k]}</button>;
                     })}
                   </div>
-                  {ans && <div style={{padding:16,borderRadius:12,background:ans===q.answer?"rgba(29,158,117,0.1)":"rgba(226,75,74,0.08)",border:`1px solid ${ans===q.answer?"rgba(29,158,117,0.3)":"rgba(226,75,74,0.25)"}`,fontSize:14,color:"rgba(255,255,255,0.88)",lineHeight:1.8,marginBottom:12}}><span style={{fontWeight:700,fontSize:15}}>{ans===q.answer?"Correct! ":"Incorrect. "}</span>{q.rationale}</div>}
+                  {ans && <div style={{padding:16,borderRadius:12,background:ans===q.answer?"#dcfce7":"#fee2e2",border:`1px solid ${ans===q.answer?"#16a34a":"#dc2626"}`,fontSize:14,color:ans===q.answer?"#15803d":"#dc2626",lineHeight:1.8,marginBottom:12,fontFamily:"Georgia,serif"}}><span style={{fontWeight:800,fontSize:15}}>{ans===q.answer?"Correct! ":"Incorrect. "}</span>{q.rationale}</div>}
                   {ans && <button onClick={genQ} style={{width:"100%",padding:12,borderRadius:10,background:"rgba(14,165,233,0.12)",border:"1px solid rgba(14,165,233,0.3)",color:"#38bdf8",cursor:"pointer",fontSize:14,fontWeight:600}}>Next question →</button>}
                 </div>
               )}
 
               {(tab==="labs"||tab==="meds") && genLoad && <Dots/>}
-              {(tab==="labs"||tab==="meds") && !genLoad && genTxt && <p style={{fontSize:15,color:"rgba(255,255,255,0.9)",lineHeight:1.85,whiteSpace:"pre-wrap"}}>{genTxt}</p>}
+              {(tab==="labs"||tab==="meds") && !genLoad && genTxt && <p style={{fontSize:16,color:"#1e293b",lineHeight:1.9,whiteSpace:"pre-wrap",fontFamily:"Georgia,serif"}}>{genTxt}</p>}
             </div>
           )}
         </div>
@@ -216,3 +216,4 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
