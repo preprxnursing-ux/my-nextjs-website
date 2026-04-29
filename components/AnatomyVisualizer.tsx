@@ -49,7 +49,7 @@ export default function AnatomyVisualizer() {
   function swTab(t: string) { setTab(t); setLearnTxt(""); setGenTxt(""); setQ(null); setAns(""); setTopic(""); }
 
   async function runLearn(t: string) {
-    setTopic(t); setLearnLoad(true); setLearnTxt("");
+    setTopic(t); setLearnLoad(true); setLearnTxt(""); setDrawerOpen(true);
     const ps: Record<string,string> = {
       overview:`Anatomy overview of the ${cur.name}: exact location, size, key structures. 90 words max.`,
       physiology:`Key physiology of the ${cur.name}: how it works, normal values. 100 words max.`,
@@ -61,7 +61,7 @@ export default function AnatomyVisualizer() {
   }
 
   async function genQ() {
-    setQLoad(true); setQ(null); setAns("");
+    setQLoad(true); setQ(null); setAns(""); setDrawerOpen(true);
     const dd: Record<string,string> = {easy:"straightforward recall",medium:"clinical application",hard:"complex priority with subtle distractors"};
     try {
       const raw = await callAI(`One ${diff}-difficulty NCLEX-RN question about the ${cur.name}. Difficulty: ${dd[diff]}. Return ONLY JSON: {"question":"...","options":{"A":"...","B":"...","C":"...","D":"..."},"answer":"A","rationale":"..."}`, true);
@@ -71,7 +71,7 @@ export default function AnatomyVisualizer() {
   }
 
   async function runGen(t: string) {
-    setGenLoad(true); setGenTxt("");
+    setGenLoad(true); setGenTxt(""); setDrawerOpen(true);
     const ps: Record<string,string> = {
       labs:`When ${cur.name} lab values are abnormal, what does the nurse monitor and prioritize? Key actions for critical values. 90 words.`,
       meds:`Key nursing considerations when giving medications for ${cur.name} conditions: assess before giving, safety checks, patient teaching. 90 words.`,
@@ -82,9 +82,11 @@ export default function AnatomyVisualizer() {
   const src = `https://sketchfab.com/models/${cur.frameId}/embed?autospin=0&autostart=1&preload=1&ui_theme=dark&ui_infos=0&ui_watermark=0&ui_watermark_link=0&ui_ar=0&ui_help=0&ui_settings=0&ui_inspector=0&ui_annotations=0&ui_stop=0&dnt=1`;
   const TOPICS = [{id:"overview",l:"Overview - anatomy & location"},{id:"physiology",l:"Physiology - how it works"},{id:"pathology",l:"Key diseases & disorders"},{id:"nursing",l:"Nursing assessment & care"},{id:"nclex",l:"High-yield NCLEX facts"}];
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
-    <div style={{width:"100%",background:"#060d1a",borderRadius:16,overflow:"hidden",border:"1px solid rgba(255,255,255,0.06)",fontFamily:"system-ui,sans-serif"}}>
-      <style>{`@keyframes spin{to{transform:rotate(360deg)}}@keyframes dot{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}`}</style>
+    <div style={{width:"100%",background:"#060d1a",borderRadius:16,overflow:"hidden",border:"1px solid rgba(255,255,255,0.06)",fontFamily:"system-ui,sans-serif",position:"relative"}}>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}@keyframes dot{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}`}</style>
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",background:"rgba(4,8,15,0.95)",borderBottom:"1px solid rgba(255,255,255,0.05)"}}>
         <div style={{display:"flex",alignItems:"center",gap:10}}>
           <div style={{fontSize:9,fontFamily:"monospace",color:"rgba(14,165,233,0.6)",background:"rgba(14,165,233,0.08)",border:"1px solid rgba(14,165,233,0.15)",borderRadius:4,padding:"3px 8px",letterSpacing:".1em"}}>SGU MEDART LAB</div>
@@ -183,6 +185,7 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
 
 
 
