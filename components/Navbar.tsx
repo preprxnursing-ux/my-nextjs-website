@@ -734,7 +734,6 @@ export default function Navbar() {
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                   )
                 ))}
-                <ProfileDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
@@ -758,7 +757,6 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
   <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
   <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
 </Link>
-                <ProfileDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
@@ -839,6 +837,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
               </div>
               <span style={{ fontSize: "0px", fontWeight: 700, color: cartPlan ? "#8b5cf6" : "#0ea5e9", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
+            <ProfileDropdown pathname={pathname} />
 
             {user ? (
               <div style={{ position: "relative" }}>
