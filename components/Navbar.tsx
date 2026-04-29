@@ -712,8 +712,8 @@ export default function Navbar() {
             </div>
 
             {user ? (
-              <ProfileDropdown pathname={pathname} />
               <>
+                <ProfileDropdown pathname={pathname} />
                 
                 <NursingTVDropdown pathname={pathname} />
                 {appLinks.map((link) => (
@@ -915,6 +915,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
+
 
 
 
