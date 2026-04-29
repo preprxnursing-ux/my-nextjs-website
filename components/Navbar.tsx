@@ -652,7 +652,7 @@ export default function Navbar() {
     <>
       <style>{navStyle}</style>
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
-        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px", minWidth: 0, overflow: "hidden" }}>
 
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -808,7 +808,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
           </div>
 
           {/* DESKTOP ACTIONS */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0, minWidth: "fit-content" }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
