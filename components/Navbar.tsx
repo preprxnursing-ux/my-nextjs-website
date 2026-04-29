@@ -19,10 +19,6 @@ const courseItems = [
 const appLinks = [
   { href: "/ai-tutor", label: "AI Tutor" },
   { href: "/anatomy", label: "Anatomy Lab" },
-  { href: "/quiz", label: "Quiz" },
-  { href: "/results", label: "Results" },
-  { href: "/review", label: "Review" },
-  { href: "/history", label: "History" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -481,6 +477,7 @@ export default function Navbar() {
   const { cartPlan, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
@@ -613,7 +610,19 @@ export default function Navbar() {
 
             {user ? (
               <>
-                <Link href="/dashboard" className={`nav-btn${isActive(pathname, "/dashboard") ? " active" : ""}`}>Dashboard</Link>
+                <div style={{ position: "relative" }} onMouseEnter={() => setProfileOpen(true)} onMouseLeave={() => setProfileOpen(false)}>
+                  <button className="nav-btn">Profile <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+                  {profileOpen && (
+                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, paddingTop: 12, width: 180 }}>
+                      <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden", padding: 8 }}>
+                        <a href="/dashboard" className="nav-btn" style={{ display: "block" }}>Dashboard</a>
+                        <a href="/results" className="nav-btn" style={{ display: "block" }}>Results</a>
+                        <a href="/review" className="nav-btn" style={{ display: "block" }}>Review</a>
+                        <a href="/history" className="nav-btn" style={{ display: "block" }}>History</a>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 {appLinks.map((link) => (
                   <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                 ))}
