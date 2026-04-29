@@ -57,7 +57,7 @@ export default function AnatomyVisualizer() {
       nursing:`Nursing care priorities for ${cur.name} dysfunction: assessments, interventions, when to call provider. 100 words.`,
       nclex:`5 highest-yield NCLEX facts about the ${cur.name}. Numbered. One sentence each.`,
     };
-    const isCourse = t.startsWith('course:'); const prompt = isCourse ? You are an expert nursing educator. The student is studying \ in relation to the \. Provide a focused, exam-specific lesson. 120 words max. Plain text only. Use numbers for lists. : ps[t]; setLearnTxt(await callAI(prompt)); setLearnLoad(false);
+    const isCourse = t.startsWith('course:'); const coursePrompt = 'You are an expert nursing educator. The student is studying ' + t.replace('course:','') + ' in relation to the ' + cur.name + '. Provide a focused exam-specific lesson. 120 words max. Plain text only. Use numbers for lists.'; const prompt = isCourse ? coursePrompt : ps[t]; setLearnTxt(await callAI(prompt)); setLearnLoad(false);
   }
 
   async function genQ() {
@@ -226,6 +226,7 @@ export default function AnatomyVisualizer() {
     </div>
   );
 }
+
 
 
 
