@@ -41,6 +41,7 @@ const navStyle = `
     100% { transform: scale(1) translateY(0); }
   }
   .nav-dropdown { animation: dropIn .18s ease both; }
+  header { transform: none !important; zoom: 1 !important; }
   .nav-btn {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 10px 16px; border-radius: 9px; font-size: 14px; font-weight: 600;
@@ -651,7 +652,7 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100vw", zIndex: 1000, zoom: "reset", background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px", minWidth: 0, overflow: "hidden" }}>
 
           {/* LOGO */}
