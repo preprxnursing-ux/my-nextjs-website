@@ -22,9 +22,6 @@ const appLinks = [
   { href: "https://prenclex.com/ai-tutor", label: "AI Tutor" },
   { href: "/anatomy", label: "Anatomy Lab" },
   { href: "/quiz", label: "Quiz" },
-  { href: "/results", label: "Results" },
-  { href: "/review", label: "Review" },
-  { href: "/history", label: "History" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -219,6 +216,51 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
   );
 }
 
+function ProfileDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  const items = [
+    { href: "/dashboard", label: "Dashboard", icon: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z", color: "#0ea5e9", desc: "Performance overview" },
+    { href: "/results", label: "Results", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", color: "#10b981", desc: "Your quiz scores" },
+    { href: "/review", label: "Review", icon: "M5 13l4 4L19 7", color: "#f59e0b", desc: "Flagged questions" },
+    { href: "/history", label: "History", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", color: "#8b5cf6", desc: "All attempts" },
+  ];
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <button className="nav-btn" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Profile <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </button>
+      {open && (
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "260px" }}>
+          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "16px", boxShadow: "0 24px 60px rgba(0,0,0,.15)", overflow: "hidden" }}>
+            <div style={{ padding: "10px 14px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)" }}>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".12em", textTransform: "uppercase", margin: 0 }}>My Progress</p>
+            </div>
+            <div style={{ padding: "8px" }}>
+              {items.map(item => (
+                <Link key={item.label} href={item.href}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "9px 10px", borderRadius: "10px", textDecoration: "none", background: isActive(pathname, item.href) ? `${item.color}10` : "transparent", transition: "all .15s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = `${item.color}10`; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = isActive(pathname, item.href) ? `${item.color}10` : "transparent"; }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: `${item.color}12`, border: `1px solid ${item.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="14" height="14" fill="none" stroke={item.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={item.icon}/></svg>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{item.label}</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{item.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 function ContactDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -692,6 +734,7 @@ export default function Navbar() {
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                   )
                 ))}
+                <ProfileDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
@@ -715,6 +758,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
   <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
   <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
 </Link>
+                <ProfileDropdown pathname={pathname} />
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
@@ -877,6 +921,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
+
 
 
 
