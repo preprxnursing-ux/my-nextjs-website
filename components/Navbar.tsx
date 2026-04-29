@@ -41,13 +41,7 @@ const navStyle = `
     100% { transform: scale(1) translateY(0); }
   }
   .nav-dropdown { animation: dropIn .18s ease both; }
-  .nav-btn {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 10px 16px; border-radius: 9px; font-size: 14px; font-weight: 600;
-    color: #334155; background: transparent; border: none; cursor: pointer;
-    text-decoration: none; white-space: nowrap; flex-shrink: 0;
-    transition: background .15s, color .15s; font-family: inherit;
-  }
+  .nav-btn { display:inline-flex; align-items:center; gap:4px; padding:6px 8px; border-radius:8px; font-size:12px; font-weight:500; color:#334155; text-decoration:none; background:transparent; border:none; cursor:pointer; white-space:nowrap; transition:all .15s; font-family:inherit; }
   .nav-btn:hover { background: rgba(14,165,233,.08); color: #0ea5e9; }
   .nav-btn.active { background: rgba(14,165,233,.1); color: #0ea5e9; }
   .nav-btn-primary {
@@ -919,6 +913,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
 
