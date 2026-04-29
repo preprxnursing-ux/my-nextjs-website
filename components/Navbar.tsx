@@ -17,6 +17,8 @@ const courseItems = [
 ];
 
 const appLinks = [
+  { href: "/ai-tutor", label: "AI Tutor" },
+  { href: "/anatomy", label: "Anatomy Lab" },
   { href: "/quiz", label: "Quiz" },
   { href: "/results", label: "Results" },
   { href: "/review", label: "Review" },
