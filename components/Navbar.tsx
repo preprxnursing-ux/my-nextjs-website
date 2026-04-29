@@ -700,7 +700,7 @@ export default function Navbar() {
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
-                <Link href="/anatomy" style={{display:"inline-flex",alignItems:"center",gap:"6px",background:"linear-gradient(135deg,#16a34a,#22c55e)",color:"#fff",borderRadius:"8px",padding:"6px 14px",fontSize:"13px",fontWeight:700,textDecoration:"none",boxShadow:"0 0 14px rgba(22,163,74,0.45)",whiteSpace:"nowrap",flexShrink:0}}>🫀 Anatomy Lab</Link>
+                <Link href="/anatomy" style={{display:"inline-flex",alignItems:"center",gap:"6px",background:"linear-gradient(135deg,#16a34a,#22c55e)",color:"#fff",borderRadius:"8px",padding:"6px 14px",fontSize:"13px",fontWeight:700,textDecoration:"none",boxShadow:"0 0 14px rgba(22,163,74,0.45)",whiteSpace:"nowrap",flexShrink:0}}>✚ Anatomy Lab</Link>
                 <Link href="https://prenclex.com/ai-tutor" style={{
   display: "inline-flex", alignItems: "center", gap: 7,
   padding: "7px 14px", borderRadius: 10, textDecoration: "none",
@@ -877,6 +877,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
 
