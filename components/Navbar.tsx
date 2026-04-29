@@ -610,7 +610,7 @@ export default function Navbar() {
     <>
       <style>{navStyle}</style>
       <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
-        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "75px", gap: "0px" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px" }}>
 
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -622,7 +622,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "4px", flex: 1, justifyContent: "center" }}>
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
                 Courses <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
@@ -877,6 +877,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
+
 
 
 
