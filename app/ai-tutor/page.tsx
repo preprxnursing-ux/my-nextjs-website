@@ -1,6 +1,6 @@
 ﻿"use client";
 import { useState, useRef, useEffect } from "react";
-import AnatomyVisualizer from "@/components/AnatomyVisualizer";
+
 
 type Exam = { id: string; label: string; icon: string; color: string; desc: string; };
 
@@ -42,7 +42,7 @@ export default function AITutorPage() {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<"chat" | "anatomy">("chat");
+
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -161,6 +161,7 @@ export default function AITutorPage() {
     </main>
   );
 }
+
 
 
 

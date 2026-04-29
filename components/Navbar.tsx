@@ -20,6 +20,7 @@ const courseItems = [
 
 const appLinks = [
   { href: "https://prenclex.com/ai-tutor", label: "AI Tutor" },
+  { href: "/anatomy", label: "Anatomy Lab" },
   { href: "/quiz", label: "Quiz" },
   { href: "/results", label: "Results" },
   { href: "/review", label: "Review" },
@@ -873,6 +874,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
     </>
   );
 }
+
 
 
 
