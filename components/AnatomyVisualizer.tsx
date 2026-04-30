@@ -375,16 +375,16 @@ export default function AnatomyVisualizer() {
                   </div>
                   {ans && (
                     <div style={{ position:"fixed", inset:0, background:"rgba(2,8,20,0.85)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px", backdropFilter:"blur(8px)" }}>
-                      <div style={{ background:"#0c1829", borderRadius:20, padding:"32px", maxWidth:580, width:"100%", boxShadow:"0 32px 80px rgba(0,0,0,0.6)", border:"1px solid rgba(255,255,255,0.08)" }}>
+                      <div style={{ background:"#ffffff", borderRadius:20, padding:"32px", maxWidth:580, width:"100%", boxShadow:"0 32px 80px rgba(0,0,0,0.25)" }}>
                         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
                           <div style={{ width:44, height:44, borderRadius:"50%", background:ans===q.answer?"rgba(34,197,94,0.15)":"rgba(239,68,68,0.15)", border:"2px solid "+(ans===q.answer?"#22c55e":"#ef4444"), display:"flex", alignItems:"center", justifyContent:"center", fontSize:22, flexShrink:0 }}>{ans===q.answer?"✓":"✗"}</div>
                           <div><p style={{ fontSize:18, fontWeight:800, color:ans===q.answer?"#22c55e":"#ef4444", margin:0, fontFamily:"Georgia, serif" }}>{ans===q.answer?"Correct!":"Incorrect"}</p>
-                          <p style={{ fontSize:12, color:"#64748b", margin:0, fontFamily:"system-ui" }}>Correct answer: {q.answer}) {(q.options as any)[q.answer]}</p></div>
+                          <p style={{ fontSize:12, color:"#94a3b8", margin:0, fontFamily:"system-ui" }}>Correct answer: {q.answer}) {(q.options as any)[q.answer]}</p></div>
                         </div>
-                        <p style={{ fontSize:15, color:"#cbd5e1", lineHeight:1.85, marginBottom:24, fontFamily:"Georgia, serif", borderTop:"1px solid rgba(255,255,255,0.08)", paddingTop:16 }}>{q.rationale}</p>
+                        <p style={{ fontSize:15, color:"#334155", lineHeight:1.85, marginBottom:24, fontFamily:"Georgia, serif", borderTop:"1px solid #e2e8f0", paddingTop:16 }}>{q.rationale}</p>
                         <div style={{ display:"flex", gap:10 }}>
-                          <button onClick={genQ} style={{ flex:1, padding:"12px", borderRadius:10, background:"linear-gradient(135deg,#0ea5e9,#38bdf8)", border:"none", color:"white", cursor:"pointer", fontSize:15, fontWeight:700 }}>Next question →</button>
-                          <button onClick={goLearn} style={{ padding:"12px 20px", borderRadius:10, background:"transparent", border:"1.5px solid rgba(255,255,255,0.15)", color:"#94a3b8", cursor:"pointer", fontSize:14 }}>Back to lessons</button>
+                          <button onClick={genQ} style={{ flex:1, padding:"12px", borderRadius:10, background:"linear-gradient(135deg,#16a34a,#22c55e)", border:"none", color:"white", cursor:"pointer", fontSize:15, fontWeight:700, boxShadow:"0 4px 12px rgba(22,163,74,0.35)" }}>Next question →</button>
+                          <button onClick={goLearn} style={{ padding:"12px 20px", borderRadius:10, background:"linear-gradient(135deg,#0369a1,#0ea5e9)", border:"none", color:"white", cursor:"pointer", fontSize:14, fontWeight:700, boxShadow:"0 4px 12px rgba(14,165,233,0.35)" }}>Back to lessons</button>
                         </div>
                       </div>
                     </div>
