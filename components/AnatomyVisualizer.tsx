@@ -274,7 +274,7 @@ export default function AnatomyVisualizer() {
 
         {/* ── QUIZ VIEW ── */}
         {view === "quiz" && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#f8fafc", animation: "slideUp .25s ease", overflow: "hidden", overflowY: "auto" }}>
+          <div style={{ flex: 1, overflowY: "auto", background: "#f8fafc", animation: "slideUp .25s ease" }}>
 
             {/* Quiz header — always visible */}
             <div style={{ padding: "18px 28px 14px", background: "white", borderBottom: "1px solid #e2e8f0", flexShrink: 0 }}>
