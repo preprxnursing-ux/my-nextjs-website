@@ -354,7 +354,7 @@ export default function AnatomyVisualizer() {
               )}
               {qLoad && <div style={{ paddingTop: 20 }}><Spinner /></div>}
               {!qLoad && q && (
-                <div style={{ maxWidth: 720, animation: "slideUp .25s ease" }}>
+                <div style={{ width: "100%", animation: "slideUp .25s ease" }}>
                   <div style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: 14, padding: "20px 24px", marginBottom: 16, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
                     <div style={{ fontSize: 11, fontWeight: 700, color: "#94a3b8", textTransform: "uppercase" as const, letterSpacing: ".08em", marginBottom: 8 }}>
                       {COURSES.find(c=>c.id===activeCourse)?.label} · {activeTopic} · {diff}
