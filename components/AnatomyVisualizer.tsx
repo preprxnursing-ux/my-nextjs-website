@@ -389,7 +389,6 @@ export default function AnatomyVisualizer() {
                       </div>
                     </div>
                   )}
-                  )}
                 </div>
               )}
             </div>
