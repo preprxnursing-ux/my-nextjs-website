@@ -339,7 +339,7 @@ export default function AnatomyVisualizer() {
             )}
 
             {/* Question display */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", width: "100%", boxSizing: "border-box" }}>
+            <div style={{ flex: 1, overflowY: "auto", padding: "16px 20px", width: "100%", boxSizing: "border-box" }}>
               {!activeCourse && (
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center" }}>
                   <div style={{ fontSize: 40, marginBottom: 12 }}>🎯</div>
