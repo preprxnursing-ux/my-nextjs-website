@@ -246,7 +246,7 @@ export default function AnatomyVisualizer() {
               ))}
             </div>
             {/* Learn content */}
-            <div style={{ overflowY: "auto", padding: "28px 36px", background: "#060d1a" }}>
+            <div style={{ overflowY: "auto", padding: "28px 36px", background: "#f8fafc", flex: 1, width: "100%" }}>
               {learnLoad ? (
                 <div><Spinner /></div>
               ) : learnTxt ? (
