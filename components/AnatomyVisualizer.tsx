@@ -374,7 +374,6 @@ export default function AnatomyVisualizer() {
                     })}
                   </div>
                   {ans && (
-                  {ans && (
                     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", zIndex:9999, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
                       <div style={{ background:"white", borderRadius:16, padding:"28px", maxWidth:560, width:"100%", boxShadow:"0 24px 60px rgba(0,0,0,0.3)" }}>
                         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
