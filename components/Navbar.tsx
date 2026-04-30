@@ -6,6 +6,7 @@ import { ChevronDown, X, Menu, LogOut, User } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
+import MobileNav from "./MobileNav";
 
 const courseItems = [
   { exam: "Pre-Nursing", title: "TEAS 7 & HESI A2 Success Toolkit", color: "#f59e0b", href: "/courses/pre-nursing", available: false, tag: "TEAS 7 . HESI A2 entrance exams" },
@@ -14,11 +15,13 @@ const courseItems = [
   { exam: "NCLEX-PN(R)", title: "Effective NCLEX-PN Prep", color: "#6366f1", href: "/courses/nclex-pn", available: false, tag: "Full PN test plan coverage" },
   { exam: "Nurse Practitioner", title: "Expert NP Exam Resources", color: "#8b5cf6", href: "/courses/nurse-practitioner", available: false, tag: "FNP . AGPCNP certification prep" },
   { exam: "CCRN(R)", title: "Essential CCRN Success Resources", color: "#ef4444", href: "/courses/ccrn", available: false, tag: "ICU-level critical care prep" },
+  { exam: "Anatomy Visualizer", title: "AI-Powered Anatomy Visualizer", color: "#0ea5e9", href: "/anatomy", available: true, tag: "Animated organs · NCLEX practice · Lab values" },
 ];
 
 const appLinks = [
-  { href: "/ai-tutor", label: "AI Tutor" },
+  { href: "https://prenclex.com/ai-tutor", label: "AI Tutor" },
   { href: "/anatomy", label: "Anatomy Lab" },
+  { href: "/quiz", label: "Quiz" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -57,46 +60,11 @@ const navStyle = `
   .nav-btn-primary:hover { background: #38bdf8; transform: translateY(-1px); }
   .hamburger-btn { display: none !important; }
   @media (max-width: 767px) { .hamburger-btn { display: flex !important; } }
-  .cart-btn { transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease; }
-  .cart-btn:hover { transform: scale(1.18) translateY(-3px); filter: drop-shadow(0 6px 16px rgba(14,165,233,0.5)); }
-  .cart-btn.has-item { animation: cartBounce 0.5s cubic-bezier(.34,1.56,.64,1); }
   @media (max-width: 767px) {
     #desktop-nav { display: none !important; }
     #desktop-actions { display: none !important; }
   }
 `;
-
-function CoursesDropdown({ pathname }: { pathname: string }) {
-  const [open, setOpen] = useState(false);
-  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
-  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
-  return (
-    <div style={{ position: 'relative' }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-      <Link href='/courses' className={'nav-btn' + (isActive(pathname, '/courses') ? ' active' : '')}>
-        Courses <ChevronDown style={{ width: 12, height: 12, transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-      </Link>
-      {open && (
-        <div className='nav-dropdown' style={{ position: 'absolute', left: 0, top: '100%', zIndex: 1001, paddingTop: 28, width: 520 }}>
-          <div style={{ background: '#fff', border: '1px solid rgba(0,0,0,.08)', borderRadius: 20, boxShadow: '0 32px 80px rgba(0,0,0,.2)', overflow: 'hidden', padding: 10 }}>
-            {courseItems.map((item) => (
-              <Link key={item.exam} href={item.href} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '12px 14px', borderRadius: 12, textDecoration: 'none' }}
-                onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(0,0,0,.04)'}
-                onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: item.color, flexShrink: 0, marginTop: 6 }} />
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0f172a', marginBottom: 2 }}>{item.exam}</div>
-                  <div style={{ fontSize: 12, color: '#64748b' }}>{item.tag}</div>
-                </div>
-                {item.available && <div style={{ marginLeft: 'auto', fontSize: 10, fontWeight: 700, color: '#0ea5e9', background: 'rgba(14,165,233,.1)', borderRadius: 20, padding: '2px 8px' }}>Available</div>}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function FeaturesDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
@@ -109,16 +77,15 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     { title: "Performance Dashboard", desc: "Track every attempt, spot weak topics, measure improvement", color: "#10b981", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
     { title: "Flag & Review System", desc: "Flag tough questions and study them with full breakdowns", color: "#f59e0b", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>) },
     { title: "Adaptive Timer", desc: "Build mental endurance NCLEX demands with real timed pressure", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
-    { title: "AI Tutor - Coming Soon", desc: "Personalised study plans that adapt to where you struggle", color: "#c084fc", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
+    { title: "🤖 AI Tutor", desc: "Your personal Nursing Exams study assistant — ask anything, anytime", color: "#0070f3", href: "https://prenclex.com/ai-tutor", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
   ];
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/features" className={`nav-btn${isActive(pathname, "/features") ? " active" : ""}`}>
-        Our Features
-        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+        Our Features <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "700px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "700px" }}>
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -132,7 +99,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px", padding: "10px" }}>
               {featureItems.map((f) => (
-                <Link key={f.title} href="/features"
+                <Link key={f.title} href={f.href ?? "/features"}
                   style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "22px 18px", borderRadius: "12px", textDecoration: "none", transition: "all .2s", background: "transparent" }}
                   onMouseEnter={e => { e.currentTarget.style.background = `${f.color}08`; e.currentTarget.style.transform = "translateX(3px)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; }}>
@@ -152,8 +119,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
               <Link href="/features" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "9px 18px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 14px rgba(14,165,233,.3)", transition: "all .2s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                See all features
-                <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                See all features <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             </div>
           </div>
@@ -179,11 +145,10 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/testimonials" className={`nav-btn${isActive(pathname, "/testimonials") ? " active" : ""}`}>
-        Testimonials
-        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+        Testimonials <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "580px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-160px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "580px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.07)", background: "linear-gradient(135deg,rgba(14,165,233,.06) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -191,32 +156,29 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 500 }}>Real nurses . Real results . Verified</p>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "4px", background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", borderRadius: "100px", padding: "5px 12px" }}>
-                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>*</span>)}
+                {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "11px" }}>?</span>)}
                 <span style={{ fontSize: "11px", color: "#92400e", fontWeight: 800, marginLeft: "4px" }}>4.9</span>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "190px 1fr", minHeight: "240px" }}>
               <div style={{ background: "rgba(248,249,251,1)", borderRight: "1px solid rgba(0,0,0,.06)", padding: "10px" }}>
-                <p style={{ fontSize: "0px", fontWeight: 800, color: "#94a3b8", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 10px" }}>Hover to preview</p>
                 {previews.map((p, i) => (
                   <div key={p.name} onMouseEnter={() => setActiveCard(i)}
                     style={{ display: "flex", alignItems: "center", gap: "10px", padding: "10px 12px", borderRadius: "12px", background: activeCard === i ? "#ffffff" : "transparent", border: `1px solid ${activeCard === i ? "rgba(0,0,0,.08)" : "transparent"}`, boxShadow: activeCard === i ? "0 2px 8px rgba(0,0,0,.06)" : "none", cursor: "pointer", transition: "all .2s ease", marginBottom: "4px" }}>
-                    <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: `${p.color}15`, border: `2px solid ${activeCard === i ? p.color + "60" : p.color + "25"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: p.color, flexShrink: 0, transition: "all .2s", transform: activeCard === i ? "scale(1.08)" : "scale(1)" }}>{p.initials}</div>
+                    <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: `${p.color}15`, border: `2px solid ${activeCard === i ? p.color + "60" : p.color + "25"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 800, color: p.color, flexShrink: 0 }}>{p.initials}</div>
                     <div style={{ minWidth: 0 }}>
-                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#0f172a" : "#475569", margin: 0, transition: "color .2s" }}>{p.name}</p>
-                      <p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600, transition: "color .2s" }}>{p.exam}</p>
+                      <p style={{ fontSize: "12px", fontWeight: 700, color: activeCard === i ? "#0f172a" : "#475569", margin: 0 }}>{p.name}</p>
+                      <p style={{ fontSize: "10px", color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600 }}>{p.exam}</p>
                     </div>
                     {activeCard === i && <svg style={{ marginLeft: "auto", flexShrink: 0 }} width="12" height="12" fill="none" stroke={p.color} strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>}
                   </div>
                 ))}
               </div>
               <div style={{ padding: "20px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#ffffff", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}12 0%,transparent 70%)`, pointerEvents: "none", transition: "background .3s ease" }} />
+                <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: `radial-gradient(circle,${active.color}12 0%,transparent 70%)`, pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px", transition: "background .3s ease" }} />
-                  <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>
-                    {[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>*</span>)}
-                  </div>
+                  <div style={{ height: "3px", width: "40px", background: active.color, borderRadius: "3px", marginBottom: "14px" }} />
+                  <div style={{ display: "flex", gap: "2px", marginBottom: "12px" }}>{[...Array(5)].map((_, i) => <span key={i} style={{ color: "#d97706", fontSize: "13px" }}>?</span>)}</div>
                   <p style={{ fontSize: "13px", color: "#334155", fontStyle: "italic", lineHeight: 1.8, marginBottom: "16px", fontWeight: 500 }}>"{active.quote}"</p>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
                     <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: `${active.color}15`, border: `2px solid ${active.color}40`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 800, color: active.color, flexShrink: 0 }}>{active.initials}</div>
@@ -240,7 +202,7 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
               </div>
             </div>
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "12px 20px", background: "rgba(248,249,251,1)", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
-              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9*", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
+              {[{ val: "50K+", label: "Students", color: "#0369a1" }, { val: "98%", label: "Pass rate", color: "#065f46" }, { val: "4.9?", label: "Rating", color: "#92400e" }, { val: "22+", label: "Stories", color: "#5b21b6" }].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
                   <p style={{ fontSize: "14px", fontWeight: 800, color: s.color, margin: "0 0 2px" }}>{s.val}</p>
                   <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 600 }}>{s.label}</p>
@@ -254,6 +216,51 @@ function TestimonialsDropdown({ pathname }: { pathname: string }) {
   );
 }
 
+function ProfileDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  const items = [
+    { href: "/dashboard", label: "Dashboard", icon: "M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z", color: "#0ea5e9", desc: "Performance overview" },
+    { href: "/results", label: "Results", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z", color: "#10b981", desc: "Your quiz scores" },
+    { href: "/review", label: "Review", icon: "M5 13l4 4L19 7", color: "#f59e0b", desc: "Flagged questions" },
+    { href: "/history", label: "History", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z", color: "#8b5cf6", desc: "All attempts" },
+  ];
+  return (
+    <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <button className="nav-btn" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Profile <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </button>
+      {open && (
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-60px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "260px" }}>
+          <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "16px", boxShadow: "0 24px 60px rgba(0,0,0,.15)", overflow: "hidden" }}>
+            <div style={{ padding: "10px 14px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "rgba(14,165,233,.04)" }}>
+              <p style={{ fontSize: "11px", fontWeight: 800, color: "#64748b", letterSpacing: ".12em", textTransform: "uppercase", margin: 0 }}>My Progress</p>
+            </div>
+            <div style={{ padding: "8px" }}>
+              {items.map(item => (
+                <Link key={item.label} href={item.href}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "9px 10px", borderRadius: "10px", textDecoration: "none", background: isActive(pathname, item.href) ? `${item.color}10` : "transparent", transition: "all .15s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = `${item.color}10`; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = isActive(pathname, item.href) ? `${item.color}10` : "transparent"; }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: `${item.color}12`, border: `1px solid ${item.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <svg width="14" height="14" fill="none" stroke={item.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={item.icon}/></svg>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>{item.label}</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0 }}>{item.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 function ContactDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -266,11 +273,10 @@ function ContactDropdown({ pathname }: { pathname: string }) {
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <Link href="/contact" className={`nav-btn${isActive(pathname, "/contact") ? " active" : ""}`}>
-        Contact Us
-        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+        Contact Us <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </Link>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "480px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "480px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
             <div style={{ padding: "16px 20px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div>
@@ -286,8 +292,8 @@ function ContactDropdown({ pathname }: { pathname: string }) {
               {people.map(p => (
                 <div key={p.name}
                   style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", alignItems: "center", gap: "14px", padding: "14px 16px", borderRadius: "14px", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.06)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)", cursor: "default" }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,.1)`; e.currentTarget.style.background = `linear-gradient(135deg,${p.color}08 0%,rgba(248,249,251,1) 100%)`; e.currentTarget.style.borderColor = `${p.color}30`; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; }}>
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,.1)"; e.currentTarget.style.borderColor = `${p.color}30`; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "rgba(0,0,0,.06)"; }}>
                   <div style={{ position: "relative" }}>
                     <div style={{ width: "48px", height: "48px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${p.color}30` }}>
                       <img src={p.avatar} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", cursor: "pointer" }} onClick={() => window.location.href = p.href} />
@@ -296,16 +302,14 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                   </div>
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "3px" }}>
-                      <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0, cursor: "pointer", textDecoration: "underline", textDecorationColor: "transparent" }} onClick={() => window.location.href = p.href} onMouseEnter={e => (e.currentTarget.style.textDecorationColor = p.color)} onMouseLeave={e => (e.currentTarget.style.textDecorationColor = "transparent")}>{p.name}</p>
-                      <span style={{ fontSize: "0px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
+                      <p style={{ fontSize: "14px", fontWeight: 800, color: "#0f172a", margin: 0, cursor: "pointer" }} onClick={() => window.location.href = p.href}>{p.name}</p>
+                      <span style={{ fontSize: "10px", fontWeight: 700, background: `${p.color}12`, color: p.color, border: `1px solid ${p.color}25`, padding: "2px 8px", borderRadius: "100px" }}>{p.role}</span>
                     </div>
                     <p style={{ fontSize: "11px", color: "#64748b", margin: "0 0 4px", fontWeight: 400 }}>{p.topics}</p>
                     <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 500 }}>{p.response}</p>
                   </div>
-                  <button onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=' + p.email, '_blank')}
-                    style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", textDecoration: "none", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, transition: "all .2s", flexShrink: 0, position: "relative", zIndex: 10, border: "none", cursor: "pointer", fontFamily: "inherit" }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; }}>
+                  <button onClick={() => window.open("https://mail.google.com/mail/?view=cm&to=" + p.email, "_blank")}
+                    style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 14px", borderRadius: "10px", background: p.color, color: "#fff", fontSize: "11px", fontWeight: 700, whiteSpace: "nowrap", boxShadow: `0 4px 12px ${p.color}40`, border: "none", cursor: "pointer", fontFamily: "inherit" }}>
                     <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     Email
                   </button>
@@ -317,9 +321,7 @@ function ContactDropdown({ pathname }: { pathname: string }) {
                 <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>Prefer a contact form?</p>
                 <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Send us a detailed message on the contact page</p>
               </div>
-              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
+              <Link href="/contact" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "11px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>
                 Contact page
               </Link>
             </div>
@@ -363,27 +365,23 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <button onClick={() => window.location.href="/nursing-tv"} className={`nav-btn${isActive(pathname, "/nursing-tv") ? " active" : ""}`} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" style={{ flexShrink: 0 }}><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
-        Nursing TV
-        <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+        Nursing TV <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
       </button>
       {open && (
-        <div className="nav-dropdown" style={{ position: "absolute", right: "-80px", top: "100%", zIndex: 1001, paddingTop: "10px", width: "720px" }}>
+        <div className="nav-dropdown" style={{ position: "absolute", right: "-80px", top: "100%", zIndex: 1001, paddingTop: "28px", width: "720px" }}>
           <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
-            {/* HEADER */}
             <div style={{ padding: "14px 22px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(239,68,68,.05),rgba(14,165,233,.04))", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", borderRadius: "100px", padding: "4px 12px" }}>
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", boxShadow: "0 0 5px #ef4444" }} />
                   <span style={{ fontSize: "9px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels &middot; 140+ lessons &middot; Free forever</span>
+                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels � 140+ lessons � Free forever</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
-                Browse all
-                <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Browse all <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </Link>
             </div>
-            {/* GROUP TABS */}
             <div style={{ display: "flex", gap: "2px", padding: "10px 16px 0", background: "#f8f9fb", borderBottom: "1px solid rgba(0,0,0,.06)" }}>
               {groups.map((g, i) => (
                 <button key={g.label} onMouseEnter={() => { setActiveGroup(i); setActiveChannel(0); }}
@@ -392,38 +390,34 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                 </button>
               ))}
             </div>
-            {/* BODY */}
             <div style={{ display: "grid", gridTemplateColumns: "210px 1fr", minHeight: "230px" }}>
-              {/* LEFT LIST */}
               <div style={{ background: "linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%)", borderRight: "1px solid rgba(0,0,0,.07)", padding: "10px" }}>
                 {group.channels.map((c, i) => (
                   <div key={c.title} onMouseEnter={() => setActiveChannel(i)}
                     style={{ display: "flex", alignItems: "center", gap: "10px", padding: "9px 11px", borderRadius: "11px", background: activeChannel === i ? "#ffffff" : "transparent", border: "1px solid " + (activeChannel === i ? "rgba(0,0,0,.08)" : "transparent"), boxShadow: activeChannel === i ? "0 2px 10px rgba(0,0,0,.07)" : "none", cursor: "pointer", transition: "all .18s", marginBottom: "3px" }}>
-                    <div style={{ width: "34px", height: "34px", borderRadius: "9px", background: activeChannel === i ? c.color + "18" : c.color + "0e", border: "1px solid " + c.color + (activeChannel === i ? "35" : "18"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all .18s" }}>
+                    <div style={{ width: "34px", height: "34px", borderRadius: "9px", background: activeChannel === i ? c.color + "18" : c.color + "0e", border: "1px solid " + c.color + (activeChannel === i ? "35" : "18"), display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                       <svg width="15" height="15" fill="none" stroke={c.color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={c.icon}/></svg>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "1px" }}>
-                        <p style={{ fontSize: "11.5px", fontWeight: 700, color: activeChannel === i ? "#0f172a" : "#334155", margin: 0, transition: "color .18s", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.title}</p>
+                        <p style={{ fontSize: "11.5px", fontWeight: 700, color: activeChannel === i ? "#0f172a" : "#334155", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.title}</p>
                         {c.live && <span style={{ fontSize: "7px", fontWeight: 900, background: "rgba(239,68,68,.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,.25)", padding: "1px 4px", borderRadius: "100px", letterSpacing: ".1em", flexShrink: 0 }}>LIVE</span>}
                       </div>
-                      <p style={{ fontSize: "10px", color: activeChannel === i ? c.color : "#94a3b8", margin: 0, fontWeight: 500, transition: "color .18s", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.tag}</p>
+                      <p style={{ fontSize: "10px", color: activeChannel === i ? c.color : "#94a3b8", margin: 0, fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.tag}</p>
                     </div>
                     {activeChannel === i && <svg style={{ marginLeft: "auto", flexShrink: 0 }} width="11" height="11" fill="none" stroke={c.color} strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>}
                   </div>
                 ))}
               </div>
-              {/* RIGHT DETAIL */}
               <div style={{ padding: "20px 22px", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#ffffff", position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: "-50px", right: "-50px", width: "200px", height: "200px", borderRadius: "50%", background: "radial-gradient(circle," + channel.color + "12 0%,transparent 70%)", pointerEvents: "none", transition: "background .3s" }} />
-                <div style={{ position: "absolute", bottom: "-30px", left: "-30px", width: "120px", height: "120px", borderRadius: "50%", background: "radial-gradient(circle," + channel.color + "08 0%,transparent 70%)", pointerEvents: "none" }} />
+                <div style={{ position: "absolute", top: "-50px", right: "-50px", width: "200px", height: "200px", borderRadius: "50%", background: "radial-gradient(circle," + channel.color + "12 0%,transparent 70%)", pointerEvents: "none" }} />
                 <div style={{ position: "relative", zIndex: 1 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "11px", background: channel.color + "15", border: "1px solid " + channel.color + "30", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                       <svg width="18" height="18" fill="none" stroke={channel.color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={channel.icon}/></svg>
                     </div>
                     <div>
-                      <p style={{ fontSize: "16px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px", fontFamily: "'Cormorant Garamond',serif", letterSpacing: ".01em" }}>{channel.title}</p>
+                      <p style={{ fontSize: "16px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>{channel.title}</p>
                       <p style={{ fontSize: "10px", fontWeight: 700, color: channel.color, margin: 0, letterSpacing: ".08em", textTransform: "uppercase" }}>{channel.tag}</p>
                     </div>
                   </div>
@@ -442,24 +436,23 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   </div>
                 </div>
                 <Link href="/nursing-tv"
-                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 16px", background: channel.color + "08", border: "1px solid " + channel.color + "20", borderRadius: "12px", textDecoration: "none", transition: "all .2s", marginTop: "16px" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = channel.color + "14"; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = "0 4px 16px " + channel.color + "18"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = channel.color + "08"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                  style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "11px 16px", background: channel.color + "08", border: "1px solid " + channel.color + "20", borderRadius: "12px", textDecoration: "none", marginTop: "16px" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = channel.color + "14"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = channel.color + "08"; e.currentTarget.style.transform = "translateY(0)"; }}>
                   <div>
                     <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 1px" }}>Watch {channel.title}</p>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free &middot; No signup required</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free � No signup required</p>
                   </div>
                   <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: channel.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="2.5" fill="none"/></svg>
+                    <svg width="12" height="12" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </div>
                 </Link>
               </div>
             </div>
-            {/* FOOTER */}
             <div style={{ borderTop: "1px solid rgba(0,0,0,.06)", padding: "11px 22px", background: "linear-gradient(135deg,rgba(239,68,68,.03),rgba(14,165,233,.03))", display: "flex", alignItems: "center", justifyContent: "space-around" }}>
               {[{ val: "10", label: "Channels", color: "#0ea5e9" }, { val: "140+", label: "Lessons", color: "#0ea5e9" }, { val: "Free", label: "Forever", color: "#0ea5e9" }, { val: "Live", label: "Streaming", color: "#ef4444" }].map(s => (
                 <div key={s.label} style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: "15px", fontWeight: 800, color: s.color, margin: "0 0 1px", fontFamily: "'Cormorant Garamond',serif" }}>{s.val}</p>
+                  <p style={{ fontSize: "15px", fontWeight: 800, color: s.color, margin: "0 0 1px" }}>{s.val}</p>
                   <p style={{ fontSize: "10px", color: "#94a3b8", margin: 0, fontWeight: 600 }}>{s.label}</p>
                 </div>
               ))}
@@ -470,6 +463,132 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
     </div>
   );
 }
+
+const drawerSections = [
+  {
+    id: "courses",
+    label: "Courses",
+    icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+    color: "#0ea5e9",
+    items: courseItems.map((c) => ({ href: c.href, label: c.exam, sub: c.title, color: c.color, badge: c.available ? "LIVE" : "Soon" })),
+  },
+  {
+    id: "explore",
+    label: "Explore",
+    icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+    color: "#10b981",
+    items: [
+      { href: "/features", label: "Our Features", sub: "9 platform features", color: "#0ea5e9", badge: "" },
+      { href: "/testimonials", label: "Testimonials", sub: "Student success stories", color: "#8b5cf6", badge: "" },
+      { href: "/pricing", label: "Pricing", sub: "Free & premium plans", color: "#f59e0b", badge: "" },
+      { href: "/nursing-tv", label: "Nursing TV", sub: "Video lessons by RNs", color: "#ef4444", badge: "" },
+      { href: "https://prenclex.com/ai-tutor", label: "AI Tutor", sub: "Your NCLEX study assistant", color: "#0070f3", badge: "NEW" },
+      { href: "/faq", label: "FAQ", sub: "Common questions", color: "#06b6d4", badge: "" },
+      { href: "/blog", label: "Blog", sub: "Nursing tips & guides", color: "#10b981", badge: "" },
+      { href: "/contact", label: "Contact Us", sub: "Talk to Melissa or James", color: "#38bdf8", badge: "" },
+    ],
+  },
+  {
+    id: "app",
+    label: "App",
+    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
+    color: "#6366f1",
+    items: [
+      { href: "/quiz", label: "Quiz", sub: "Practice questions", color: "#0ea5e9", badge: "" },
+      { href: "/results", label: "Results", sub: "Your scores", color: "#10b981", badge: "" },
+      { href: "/review", label: "Review", sub: "Flagged questions", color: "#f59e0b", badge: "" },
+      { href: "/history", label: "History", sub: "All attempts", color: "#8b5cf6", badge: "" },
+      { href: "/dashboard", label: "Dashboard", sub: "Performance overview", color: "#06b6d4", badge: "" },
+    ],
+  },
+];
+
+function MobileDrawerBody({ pathname, user, handleLogout, setMobileOpen }: { pathname: string; user: any; handleLogout: () => void; setMobileOpen: (v: boolean) => void }) {
+  const [activeSection, setActiveSection] = useState("courses");
+  const section = drawerSections.find((s) => s.id === activeSection);
+
+  return (
+    <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+      {/* LEFT RAIL */}
+      <div style={{ width: "68px", background: "#040c18", borderRight: "1px solid rgba(14,165,233,0.1)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "10px", gap: "2px", flexShrink: 0 }}>
+        {drawerSections.map((s) => {
+          const active = activeSection === s.id;
+          return (
+            <button key={s.id} onClick={() => setActiveSection(s.id)}
+              style={{ width: "52px", padding: "9px 0", borderRadius: "11px", border: "none", cursor: "pointer", fontFamily: "inherit", background: active ? `${s.color}18` : "transparent", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", outline: active ? `1px solid ${s.color}35` : "1px solid transparent", transition: "all .18s" }}>
+              <svg width="16" height="16" fill="none" stroke={active ? s.color : "#475569"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ transition: "stroke .18s" }}><path d={s.icon}/></svg>
+              <span style={{ fontSize: "8px", fontWeight: 700, color: active ? s.color : "#475569", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.2, textAlign: "center", transition: "color .18s" }}>{s.label}</span>
+            </button>
+          );
+        })}
+        <div style={{ width: "30px", height: "1px", background: "rgba(255,255,255,0.06)", margin: "6px 0" }} />
+        <button onClick={() => setActiveSection("account")}
+          style={{ width: "52px", padding: "9px 0", borderRadius: "11px", border: "none", cursor: "pointer", fontFamily: "inherit", background: activeSection === "account" ? "rgba(248,113,113,0.12)" : "transparent", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", outline: activeSection === "account" ? "1px solid rgba(248,113,113,0.25)" : "1px solid transparent", transition: "all .18s" }}>
+          <svg width="16" height="16" fill="none" stroke={activeSection === "account" ? "#f87171" : "#475569"} strokeWidth="2" viewBox="0 0 24 24" style={{ transition: "stroke .18s" }}><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <span style={{ fontSize: "8px", fontWeight: 700, color: activeSection === "account" ? "#f87171" : "#475569", letterSpacing: "0.04em", textTransform: "uppercase", transition: "color .18s" }}>Account</span>
+        </button>
+      </div>
+
+      {/* RIGHT PANEL */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "14px 14px 32px", WebkitOverflowScrolling: "touch" } as React.CSSProperties}>
+        {activeSection === "account" ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <p style={{ fontSize: "9px", fontWeight: 800, color: "#f87171", letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 4px" }}>Account</p>
+            {user ? (
+              <>
+                <div style={{ padding: "12px", borderRadius: "12px", background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                  <p style={{ fontSize: "10px", color: "#64748b", margin: "0 0 2px" }}>Signed in as</p>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
+                </div>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", padding: "13px 14px", borderRadius: "12px", background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.2)", fontSize: "13px", fontWeight: 700, color: "#38bdf8", textDecoration: "none" }}>
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  My Dashboard
+                </Link>
+                <button onClick={handleLogout}
+                  style={{ display: "flex", alignItems: "center", gap: "10px", width: "100%", padding: "13px 14px", borderRadius: "12px", background: "rgba(248,113,113,0.08)", border: "1px solid rgba(248,113,113,0.18)", fontSize: "13px", fontWeight: 700, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
+                  <LogOut style={{ width: 14, height: 14 }} /> Sign out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href={`/auth/signup?returnUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileOpen(false)}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "14px", borderRadius: "12px", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", fontSize: "14px", fontWeight: 800, color: "#fff", textDecoration: "none", boxShadow: "0 6px 20px rgba(14,165,233,0.3)" }}>
+                  Get started free
+                </Link>
+                <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`} onClick={() => setMobileOpen(false)}
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "13px", borderRadius: "12px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "14px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
+                  Sign in
+                </Link>
+              </>
+            )}
+          </div>
+        ) : section ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <p style={{ fontSize: "9px", fontWeight: 800, color: section.color, letterSpacing: "0.18em", textTransform: "uppercase", margin: "0 0 6px" }}>{section.label}</p>
+            {section.items.map((item) => (
+              <Link key={item.label} href={item.href} onClick={() => setMobileOpen(false)}
+                style={{ display: "flex", alignItems: "center", gap: "10px", padding: "11px 12px", borderRadius: "11px", background: isActive(pathname, item.href) ? `${item.color}14` : "rgba(255,255,255,0.03)", border: `1px solid ${isActive(pathname, item.href) ? item.color + "35" : "rgba(255,255,255,0.06)"}`, textDecoration: "none" }}>
+                <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: item.color, flexShrink: 0, boxShadow: `0 0 6px ${item.color}70` }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: isActive(pathname, item.href) ? item.color : "#cbd5e1", margin: 0 }}>{item.label}</p>
+                  <p style={{ fontSize: "10px", color: "#475569", margin: 0 }}>{item.sub}</p>
+                </div>
+                {item.badge && (
+                  <span style={{ fontSize: "9px", fontWeight: 800, padding: "2px 7px", borderRadius: "100px", flexShrink: 0, background: item.badge === "LIVE" ? "rgba(14,165,233,0.16)" : "rgba(100,116,139,0.12)", color: item.badge === "LIVE" ? "#7dd3fc" : "#475569", border: `1px solid ${item.badge === "LIVE" ? "rgba(14,165,233,0.3)" : "rgba(100,116,139,0.15)"}` }}>
+                    {item.badge}
+                  </span>
+                )}
+                <svg width="11" height="11" fill="none" stroke="#334155" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -477,7 +596,7 @@ export default function Navbar() {
   const { cartPlan, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
+  useEffect(() => { setMoreOpen(false); setCoursesOpen(false); setAvatarOpen(false); }, [pathname]);
   const [coursesOpen, setCoursesOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [initials, setInitials] = useState("?");
@@ -487,28 +606,18 @@ export default function Navbar() {
   const prevCartPlan = useRef<any>(null);
 
   useEffect(() => {
-    if (cartPlan && !prevCartPlan.current) {
-      setCartAnimating(true);
-      setTimeout(() => setCartAnimating(false), 500);
-    }
+    if (cartPlan && !prevCartPlan.current) { setCartAnimating(true); setTimeout(() => setCartAnimating(false), 500); }
     prevCartPlan.current = cartPlan;
   }, [cartPlan]);
 
   useEffect(() => {
     const supabase = createClient();
-    const otpVerified = () => document.cookie.includes("otp_verified=true");
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user && otpVerified()) {
-        setUser(data.user);
-        setInitials(getInitials(data.user.user_metadata?.full_name ?? data.user.email ?? ""));
-      }
+      if (data.user && document.cookie.includes("otp_verified=true")) { setUser(data.user); setInitials(getInitials(data.user.user_metadata?.full_name ?? data.user.email ?? "")); }
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_e, session) => {
-      const verified = document.cookie.includes("otp_verified=true");
-      if (session?.user && verified) {
-        setUser(session.user);
-        setInitials(getInitials(session.user.user_metadata?.full_name ?? session.user.email ?? ""));
-      } else { setUser(null); setInitials("?"); }
+      if (session?.user && document.cookie.includes("otp_verified=true")) { setUser(session.user); setInitials(getInitials(session.user.user_metadata?.full_name ?? session.user.email ?? "")); }
+      else { setUser(null); setInitials("?"); }
     });
     return () => listener.subscription.unsubscribe();
   }, []);
@@ -542,26 +651,26 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "#ffffff", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
-        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 32px", height: "80px", gap: "0px" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px" }}>
+
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
             onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
             onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
-            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={130} height={34} style={{ objectFit: "contain" }} />
+            <div style={{ overflow: "hidden", height: "54px", display: "flex", alignItems: "center" }}>
+              <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={195} height={51} style={{ objectFit: "contain", flexShrink: 0 }} />
+            </div>
           </Link>
 
           {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0px", flex: 1, justifyContent: "space-evenly" }}>
-            {/* COURSES DROPDOWN */}
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
-                Courses
-                <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+                Courses <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
               </button>
               {coursesOpen && (
-                <div className="nav-dropdown" style={{ position: "absolute", left: 0, top: "100%", zIndex: 1001, paddingTop: "10px", width: "720px" }}
-                  onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
+                <div className="nav-dropdown" style={{ position: "absolute", left: 0, top: "100%", zIndex: 1001, paddingTop: "28px", width: "720px" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
                   <div style={{ background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.18)", overflow: "hidden" }}>
                     <div style={{ padding: "12px 18px", borderBottom: "1px solid rgba(0,0,0,.07)", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(14,165,233,.04)" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -576,7 +685,7 @@ export default function Navbar() {
                         return (
                           <Link key={course.exam} href={course.href} onClick={() => setCoursesOpen(false)}
                             style={{ display: "flex", flexDirection: "column", padding: "16px 18px", borderRadius: "12px", textDecoration: "none", background: shade.bg, border: `1px solid ${shade.border}`, transition: "all .25s", position: "relative", overflow: "hidden" }}
-                            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "scale(1.03) translateY(-2px)"; el.style.background = `linear-gradient(135deg,${course.color}15 0%,#fff 100%)`; el.style.borderColor = course.color + "50"; el.style.boxShadow = `0 8px 24px rgba(0,0,0,.08)`; }}
+                            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "scale(1.03) translateY(-2px)"; el.style.background = `linear-gradient(135deg,${course.color}15 0%,#fff 100%)`; el.style.borderColor = course.color + "50"; el.style.boxShadow = "0 8px 24px rgba(0,0,0,.08)"; }}
                             onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "scale(1) translateY(0)"; el.style.background = shade.bg; el.style.borderColor = shade.border; el.style.boxShadow = "none"; }}>
                             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: course.color, opacity: course.available ? 1 : 0.3 }} />
                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
@@ -584,11 +693,10 @@ export default function Navbar() {
                                 <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: course.color, boxShadow: `0 0 8px ${course.color}80` }} />
                                 <span style={{ fontSize: "13px", fontWeight: 800, color: course.color }}>{course.exam}</span>
                               </div>
-                              {course.available ? (
-                                <span style={{ fontSize: "0px", fontWeight: 800, background: "rgba(14,165,233,.12)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.25)", padding: "2px 7px", borderRadius: "100px" }}>LIVE</span>
-                              ) : (
-                                <span style={{ fontSize: "0px", fontWeight: 600, background: "rgba(0,0,0,.04)", color: "#94a3b8", border: "1px solid rgba(0,0,0,.06)", padding: "2px 7px", borderRadius: "100px" }}>SOON</span>
-                              )}
+                              {course.available
+                                ? <div style={{display:"flex",gap:"5px",alignItems:"center"}}><span style={{ fontSize: "10px", fontWeight: 800, background: "rgba(14,165,233,.12)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.25)", padding: "2px 7px", borderRadius: "100px" }}>LIVE</span><Link href={"/quiz/select?examType="+course.exam.replace("(R)","")} onClick={()=>setCoursesOpen(false)} style={{fontSize:"10px",fontWeight:700,color:"#0ea5e9",textDecoration:"none",border:"1px solid rgba(14,165,233,.3)",padding:"2px 7px",borderRadius:"100px",background:"rgba(14,165,233,.06)"}}>Try Quiz</Link></div>
+                                : <div style={{display:"flex",gap:"5px",alignItems:"center"}}><span style={{ fontSize: "10px", fontWeight: 600, background: "rgba(0,0,0,.04)", color: "#94a3b8", border: "1px solid rgba(0,0,0,.06)", padding: "2px 7px", borderRadius: "100px" }}>SOON</span><Link href={"/quiz/select?examType="+course.exam.replace("(R)","")} onClick={()=>setCoursesOpen(false)} style={{fontSize:"10px",fontWeight:700,color:"#0ea5e9",textDecoration:"none",border:"1px solid rgba(14,165,233,.3)",padding:"2px 7px",borderRadius:"100px",background:"rgba(14,165,233,.06)"}}>Try Quiz</Link></div>
+                              }
                             </div>
                             <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", lineHeight: 1.4, marginBottom: "4px" }}>{course.title}</p>
                             <p style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>{course.tag}</p>
@@ -611,33 +719,53 @@ export default function Navbar() {
             {user ? (
               <>
                 
-                {appLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
-                ))}
-                <span style={{ width: "1px", height: "16px", background: "rgba(255,255,255,.1)", margin: "0 2px", flexShrink: 0 }} />
-                <ContactDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
+                {appLinks.map((link) => (
+                  link.label === 'Quiz' ? null :
+                  link.label === 'Anatomy Lab' ? (
+                    <Link key={link.label} href={link.href} style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'linear-gradient(135deg,#16a34a,#22c55e)',color:'#fff',borderRadius:'8px',padding:'6px 14px',fontSize:'13px',fontWeight:700,textDecoration:'none',boxShadow:'0 0 14px rgba(22,163,74,0.45)',whiteSpace:'nowrap',flexShrink:0}}>✚ Anatomy Lab</Link>
+                  ) : link.label === 'AI Tutor' ? (
+                    <Link key={link.label} href={link.href} style={{ display:'flex', alignItems:'center', gap:'6px', background:'linear-gradient(135deg,#0070f3,#0ea5e9)', color:'#fff', borderRadius:'8px', padding:'6px 14px', fontSize:'13px', fontWeight:700, textDecoration:'none', boxShadow:'0 0 14px rgba(0,112,243,0.45)', whiteSpace:'nowrap', flexShrink:0 }}
+                      onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 24px rgba(0,112,243,0.7)'; e.currentTarget.style.transform='translateY(-1px)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 14px rgba(0,112,243,0.45)'; e.currentTarget.style.transform='translateY(0)'; }}>
+                      <span style={{fontSize:'15px'}}>🤖</span><span>AI Tutor</span><span style={{background:'rgba(255,255,255,0.2)',borderRadius:10,padding:'1px 7px',fontSize:10,fontWeight:800}}>NEW</span>
+                    </Link>
+                  ) : (
+                    <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
+                  )
+                ))}
+                <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
               <>
-                <CoursesDropdown pathname={pathname} />
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
+                <Link href="/anatomy" style={{display:"inline-flex",alignItems:"center",gap:"6px",background:"linear-gradient(135deg,#16a34a,#22c55e)",color:"#fff",borderRadius:"8px",padding:"6px 14px",fontSize:"13px",fontWeight:700,textDecoration:"none",boxShadow:"0 0 14px rgba(22,163,74,0.45)",whiteSpace:"nowrap",flexShrink:0}}>✚ Anatomy Lab</Link>
+                <Link href="https://prenclex.com/ai-tutor" style={{
+  display: "inline-flex", alignItems: "center", gap: 7,
+  padding: "7px 14px", borderRadius: 10, textDecoration: "none",
+  background: "linear-gradient(135deg, #0070f3, #0ea5e9)",
+  color: "white", fontWeight: 700, fontSize: 13,
+  boxShadow: "0 0 14px rgba(0,112,243,0.45)",
+  border: "1px solid rgba(255,255,255,0.15)",
+  transition: "all 0.2s", whiteSpace: "nowrap", flexShrink: 0
+}}
+onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(0,112,243,0.7)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,0.45)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+  <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
+  <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
+</Link>
                 <ContactDropdown pathname={pathname} />
                 <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             )}
 
-            {/* MORE DROPDOWN */}
             <div style={{ position: "relative" }}
               onMouseEnter={() => { if (moreTimeout.current) clearTimeout(moreTimeout.current); setMoreOpen(true); }}
               onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false), 140); }}>
-              <button className="nav-btn">
-                More
-                <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
-              </button>
+              <button className="nav-btn">More <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} /></button>
               {moreOpen && (
                 <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
                   <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -646,20 +774,22 @@ export default function Navbar() {
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
                     {[
-                      { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>), color: "#0ea5e9" },
-                      { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>), color: "#10b981" },
-                      { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>), color: "#f59e0b" },
-                      { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>), color: "#8b5cf6" },
-                      { href: "/nursing-tv", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>), color: "#ef4444" },
-                      { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>), color: "#06b6d4" },
+                      { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", color: "#0ea5e9" },
+                      { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: "M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z", color: "#10b981" },
+                      { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", color: "#f59e0b" },
+                      { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: "M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6", color: "#8b5cf6" },
+                      { href: "/nursing-tv", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: "M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z", color: "#ef4444" },
+                      { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", color: "#06b6d4" },
                     ].map((item) => (
                       <Link key={item.label} href={item.href}
                         style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px", borderRadius: "12px", textDecoration: "none", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.05)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)" }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = `0 8px 24px rgba(0,0,0,.08)`; }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.08)"; }}
                         onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.05)"; e.currentTarget.style.boxShadow = "none"; }}>
-                        <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>{item.icon}</div>
+                        <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>
+                          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={item.icon}/></svg>
+                        </div>
                         <div style={{ minWidth: 0 }}>
-                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px", lineHeight: 1.3 }}>{item.label}</p>
+                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px" }}>{item.label}</p>
                           <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
                       </Link>
@@ -668,20 +798,16 @@ export default function Navbar() {
                   <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <div>
                       <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
-                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400 }}>Free . No credit card . Live now</p>
+                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Free . No credit card . Live now</p>
                     </div>
-                    <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)", transition: "all .2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.background = "#38bdf8"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "#0ea5e9"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                      Get started
-                    </Link>
+                    <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>Get started</Link>
                   </div>
                 </div>
               )}
             </div>
           </div>
 
-          {/* FAR RIGHT */}
+          {/* DESKTOP ACTIONS */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
@@ -711,46 +837,32 @@ export default function Navbar() {
               </div>
               <span style={{ fontSize: "0px", fontWeight: 700, color: cartPlan ? "#8b5cf6" : "#0ea5e9", letterSpacing: ".06em", textTransform: "uppercase", transition: "color 0.3s" }}>Cart</span>
             </button>
+            <ProfileDropdown pathname={pathname} />
 
             {user ? (
               <div style={{ position: "relative" }}>
-                <div style={{ position: "relative" }} onMouseEnter={() => setProfileOpen(true)} onMouseLeave={() => setProfileOpen(false)}>
-                  <button className="nav-btn">Profile <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-                  {profileOpen && (
-                    <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, paddingTop: 12, width: 180 }}>
-                      <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden", padding: 8 }}>
-                        <a href="/dashboard" className="nav-btn" style={{ display: "block" }}>Dashboard</a>
-                        <a href="/results" className="nav-btn" style={{ display: "block" }}>Results</a>
-                        <a href="/review" className="nav-btn" style={{ display: "block" }}>Review</a>
-                        <a href="/history" className="nav-btn" style={{ display: "block" }}>History</a>
-                      </div>
-                    </div>
-                  )}
-                </div>
                 <button onClick={() => setAvatarOpen(!avatarOpen)}
                   style={{ display: "flex", alignItems: "center", gap: "5px", background: "none", border: "none", cursor: "pointer", padding: "4px" }}>
-                  <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: "#fff", boxShadow: "0 4px 12px rgba(14,165,233,.35)" }}>
-                    {initials}
-                  </div>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", fontWeight: 700, color: "#fff", boxShadow: "0 4px 12px rgba(14,165,233,.35)" }}>{initials}</div>
                   <ChevronDown style={{ width: 12, height: 12, color: "#64748b", transition: "transform .2s", transform: avatarOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
                 </button>
                 {avatarOpen && (
                   <>
                     <div style={{ position: "fixed", inset: 0, zIndex: 10 }} onClick={() => setAvatarOpen(false)} />
                     <div className="nav-dropdown" style={{ position: "absolute", right: 0, top: "100%", zIndex: 1001, marginTop: "8px", width: "200px", background: "#ffffff", border: "1px solid rgba(14,165,233,.15)", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,.45)" }}>
-                      <div style={{ padding: "12px 14px", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
+                      <div style={{ padding: "12px 14px", borderBottom: "1px solid rgba(0,0,0,.06)" }}>
                         <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>Signed in as</p>
-                        <p style={{ fontSize: "12px", fontWeight: 600, color: "#e2e8f0", margin: "3px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
+                        <p style={{ fontSize: "12px", fontWeight: 600, color: "#0f172a", margin: "3px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user.email}</p>
                       </div>
                       <div style={{ padding: "6px" }}>
                         <Link href="/dashboard" onClick={() => setAvatarOpen(false)}
-                          style={{ display: "flex", alignItems: "center", gap: "9px", padding: "9px 11px", borderRadius: "9px", fontSize: "13px", fontWeight: 500, color: "#94a3b8", textDecoration: "none", transition: "all .15s" }}
-                          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.07)"; e.currentTarget.style.color = "#f1f5f9"; }}
-                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#94a3b8"; }}>
+                          style={{ display: "flex", alignItems: "center", gap: "9px", padding: "9px 11px", borderRadius: "9px", fontSize: "13px", fontWeight: 500, color: "#475569", textDecoration: "none", transition: "all .15s" }}
+                          onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.06)"; e.currentTarget.style.color = "#0ea5e9"; }}
+                          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#475569"; }}>
                           <User style={{ width: 14, height: 14 }} /> My Dashboard
                         </Link>
                         <button onClick={handleLogout}
-                          style={{ display: "flex", alignItems: "center", gap: "9px", width: "100%", padding: "9px 11px", borderRadius: "9px", fontSize: "13px", fontWeight: 500, color: "#f87171", background: "none", border: "none", cursor: "pointer", transition: "all .15s", fontFamily: "inherit" }}
+                          style={{ display: "flex", alignItems: "center", gap: "9px", width: "100%", padding: "9px 11px", borderRadius: "9px", fontSize: "13px", fontWeight: 500, color: "#f87171", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}
                           onMouseEnter={e => (e.currentTarget.style.background = "rgba(248,113,113,.08)")}
                           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                           <LogOut style={{ width: 14, height: 14 }} /> Sign out
@@ -761,88 +873,66 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <Link href="/auth/login" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", transition: "background .15s", color: "#334155" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
-              <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-              <span style={{ fontSize: "11px", fontWeight: 600 }}>Sign in</span>
-            </Link>
+              <Link href={`/auth/login?returnUrl=${encodeURIComponent(pathname)}`}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "6px 14px", borderRadius: "9px", textDecoration: "none", color: "#334155", transition: "background .15s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(14,165,233,.08)"; e.currentTarget.style.color = "#0ea5e9"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#334155"; }}>
+                <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <span style={{ fontSize: "11px", fontWeight: 600 }}>Sign in</span>
+              </Link>
             )}
-            
           </div>
 
           {/* MOBILE HAMBURGER */}
           <button
-            style={{ marginLeft: "auto", width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "9px", border: "1px solid rgba(255,255,255,.1)", background: "rgba(255,255,255,.05)", color: "#94a3b8", cursor: "pointer", flexShrink: 0 }}
+            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0 }}
             className="hamburger-btn"
             onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X style={{ width: 17, height: 17 }} /> : <Menu style={{ width: 17, height: 17 }} />}
+            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
           </button>
         </div>
 
-        {/* MOBILE MENU */}
+        {/* MOBILE DRAWER OVERLAY */}
         {mobileOpen && (
-          <div style={{ borderTop: "1px solid rgba(255,255,255,.06)", background: "#ffffff" }}>
-            <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "16px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "4px 8px 2px" }}>Courses</p>
-              {courseItems.map((course) => (
-                <Link key={course.exam} href={course.href} onClick={() => setMobileOpen(false)}
-                  style={{ display: "flex", alignItems: "center", gap: "12px", padding: "12px 14px", borderRadius: "12px", background: "rgba(255,255,255,.04)", border: "1px solid rgba(255,255,255,.07)", textDecoration: "none" }}>
-                  <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: course.color, flexShrink: 0 }} />
-                  <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: "13px", fontWeight: 700, color: course.color, margin: 0 }}>{course.exam}</p>
-                    <p style={{ fontSize: "11px", color: "#475569", margin: 0 }}>{course.title}</p>
-                  </div>
-                  {course.available && <span style={{ fontSize: "0px", fontWeight: 800, background: "rgba(14,165,233,.16)", color: "#7dd3fc", border: "1px solid rgba(14,165,233,.3)", padding: "2px 8px", borderRadius: "100px" }}>LIVE</span>}
-                </Link>
-              ))}
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>Pages</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-                {[
-                  { href: "/features", label: "Our Features" },
-                  { href: "/testimonials", label: "Testimonials" },
-                  { href: "/contact", label: "Contact Us" },
-                  { href: "/pricing", label: "Pricing" },
-                  { href: "/faq", label: "FAQ" },
-                  { href: "/blog", label: "Blog" },
-                  { href: "/nursing-tv", label: "Nursing TV" },
-                ].map((link) => (
-                  <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
-                    {link.label}
-                  </Link>
-                ))}
+          <div className="mobile-drawer-overlay" onClick={() => setMobileOpen(false)} />
+        )}
+
+        {/* MOBILE DRAWER */}
+        {mobileOpen && (
+          <div className="mobile-drawer">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 16px 14px", borderBottom: "1px solid rgba(14,165,233,0.12)", flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
+                <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={28} height={28} style={{ borderRadius: "7px" }} />
+                <span style={{ fontSize: "12px", fontWeight: 700, color: "#e2e8f0" }}>Pre-NCLEX Nursing</span>
               </div>
-              <p style={{ fontSize: "10px", fontWeight: 700, color: "#334155", letterSpacing: ".16em", textTransform: "uppercase", padding: "10px 8px 2px" }}>App</p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
-                {appLinks.map((link) => (
-                  <Link key={link.label} href={link.href} onClick={() => setMobileOpen(false)}
-                    style={{ display: "block", padding: "10px 14px", borderRadius: "10px", background: isActive(pathname, link.href) ? "rgba(14,165,233,.15)" : "rgba(255,255,255,.05)", border: `1px solid ${isActive(pathname, link.href) ? "rgba(14,165,233,.3)" : "rgba(255,255,255,.08)"}`, fontSize: "13px", fontWeight: 600, color: isActive(pathname, link.href) ? "#38bdf8" : "#94a3b8", textDecoration: "none" }}>
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-              <div style={{ display: "flex", gap: "8px", marginTop: "8px", flexWrap: "wrap" }}>
-                {user ? (
-                  <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "rgba(248,113,113,.1)", border: "1px solid rgba(248,113,113,.2)", fontSize: "13px", fontWeight: 600, color: "#f87171", cursor: "pointer", fontFamily: "inherit" }}>
-                    <LogOut style={{ width: 13, height: 13 }} /> Sign out
-                  </button>
-                ) : (
-                  <Link href="/auth/login" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)", fontSize: "13px", fontWeight: 600, color: "#94a3b8", textDecoration: "none" }}>
-                    Sign in
-                  </Link>
-                )}
-                <Link href="/auth/signup" onClick={() => setMobileOpen(false)} style={{ display: "flex", alignItems: "center", gap: "6px", padding: "10px 14px", borderRadius: "10px", background: "#0ea5e9", fontSize: "13px", fontWeight: 700, color: "#fff", textDecoration: "none", boxShadow: "0 4px 14px rgba(14,165,233,.3)" }}>
-                  Get started
-                </Link>
-              </div>
+              <button onClick={() => setMobileOpen(false)}
+                style={{ width: "32px", height: "32px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.05)", color: "#64748b", cursor: "pointer" }}>
+                <X style={{ width: 15, height: 15 }} />
+              </button>
+            </div>
+            <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+              <MobileDrawerBody pathname={pathname} user={user} handleLogout={handleLogout} setMobileOpen={setMobileOpen} />
             </div>
           </div>
         )}
       </header>
+      <MobileNav pathname={pathname} user={user} handleLogout={handleLogout} />
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
