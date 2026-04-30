@@ -213,7 +213,7 @@ export default function AnatomyVisualizer() {
 
         {/* ── LEARN VIEW ── */}
         {view === "learn" && (
-          <div style={{ flex: 1, display: "grid", gridTemplateColumns: "260px 1fr", overflow: "hidden", animation: "slideUp .25s ease" }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", animation: "slideUp .25s ease" }}>
             {/* Learn sidebar */}
             <div style={{ background: "#070e1d", borderRight: "1px solid rgba(255,255,255,0.06)", overflowY: "auto", padding: "16px 12px" }}>
               <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.3)", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 10 }}>General topics</div>
