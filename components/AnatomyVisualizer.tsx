@@ -379,7 +379,7 @@ export default function AnatomyVisualizer() {
                         <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
                           <div style={{ width:44, height:44, borderRadius:"50%", background:ans===q.answer?"#dcfce7":"#fee2e2", display:"flex", alignItems:"center", justifyContent:"center", fontSize:22, flexShrink:0 }}>{ans===q.answer?"✓":"✗"}</div>
                           <div><p style={{ fontSize:18, fontWeight:800, color:ans===q.answer?"#15803d":"#dc2626", margin:0 }}>{ans===q.answer?"Correct!":"Incorrect"}</p>
-                          <p style={{ fontSize:12, color:"#94a3b8", margin:0 }}>Correct answer: {q.answer}) {q.options[q.answer]}</p></div>
+                          <p style={{ fontSize:12, color:"#94a3b8", margin:0 }}>Correct answer: {q.answer}) {(q.options as any)[q.answer]}</p></div>
                         </div>
                         <p style={{ fontSize:15, color:"#334155", lineHeight:1.8, marginBottom:24, fontFamily:"Georgia, serif", borderTop:"1px solid #f1f5f9", paddingTop:16 }}>{q.rationale}</p>
                         <div style={{ display:"flex", gap:10 }}>
