@@ -361,7 +361,7 @@ export default function AnatomyVisualizer() {
                     </div>
                     <p style={{ fontSize: 16, color: "#0f172a", fontWeight: 600, lineHeight: 1.75, fontFamily: "Georgia, serif" }}>{q.question}</p>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 16 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
                     {(["A","B","C","D"] as const).map(k => {
                       let border="#e2e8f0", bg="white", color="#1e293b";
                       if(ans){if(k===q.answer){border="#16a34a";bg="#dcfce7";color="#15803d";}else if(k===ans){border="#dc2626";bg="#fee2e2";color="#dc2626";}else{bg="#f8fafc";color="#94a3b8";}}
