@@ -274,7 +274,7 @@ export default function AnatomyVisualizer() {
 
         {/* ── QUIZ VIEW ── */}
         {view === "quiz" && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#f8fafc", animation: "slideUp .25s ease", overflow: "hidden" }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", background: "#f8fafc", animation: "slideUp .25s ease", overflow: "hidden", overflowY: "auto" }}>
 
             {/* Quiz header — always visible */}
             <div style={{ padding: "18px 28px 14px", background: "white", borderBottom: "1px solid #e2e8f0", flexShrink: 0 }}>
@@ -380,8 +380,8 @@ export default function AnatomyVisualizer() {
                   )}
                   {ans && (
                     <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
-                      <button onClick={genQ} style={{ padding:"11px 28px", borderRadius:8, background:"#0f172a", border:"none", color:"white", cursor:"pointer", fontSize:14, fontWeight:700 }}>Next question →</button>
-                      <button onClick={goLearn} style={{ padding:"11px 22px", borderRadius:8, background:"white", border:"1.5px solid #e2e8f0", color:"#64748b", cursor:"pointer", fontSize:14 }}>Back to lessons</button>
+                      <button onClick={genQ} style={{ padding:"11px 28px", borderRadius:8, background:"linear-gradient(135deg,#0ea5e9,#38bdf8)", border:"none", color:"white", cursor:"pointer", fontSize:14, fontWeight:700, boxShadow:"0 4px 12px rgba(14,165,233,0.35)" }}>Next question →</button>
+                      <button onClick={goLearn} style={{ padding:"11px 22px", borderRadius:8, background:"white", border:"1.5px solid #0ea5e9", color:"#0ea5e9", cursor:"pointer", fontSize:14 }}>Back to lessons</button>
                     </div>
                   )}
                 </div>
