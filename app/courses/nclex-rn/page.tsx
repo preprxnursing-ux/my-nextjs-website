@@ -1,374 +1,156 @@
+﻿"use client";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { useState } from "react";
 
-const clientNeeds = [
-  {
-    category: "Safe and Effective Care Environment",
-    color: "#06b6d4",
-    bg: "#ecfeff",
-    border: "#a5f3fc",
-    subcategories: [
-      {
-        name: "Management of Care",
-        weight: "1521%",
-        topics: [
-          "Advance directives", "Advocacy", "Case management",
-          "Client rights", "Collaboration", "Confidentiality",
-          "Continuity of care", "Delegation", "Ethical practice",
-          "Informed consent", "Legal rights", "Performance improvement",
-          "Prioritisation", "Referrals", "Supervision",
-        ],
-      },
-      {
-        name: "Safety and Infection Control",
-        weight: "915%",
-        topics: [
-          "Accident prevention", "Error prevention", "Ergonomic principles",
-          "Handling hazardous materials", "Home safety", "Reporting incidents",
-          "Safe use of equipment", "Standard precautions",
-          "Surgical asepsis", "Use of restraints",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Health Promotion and Maintenance",
-    color: "#10b981",
-    bg: "#ecfdf5",
-    border: "#a7f3d0",
-    subcategories: [
-      {
-        name: "Health Promotion",
-        weight: "612%",
-        topics: [
-          "Ante/intra/postpartum care", "Developmental stages",
-          "Family planning", "Growth and development",
-          "Health screening", "High-risk behaviours",
-          "Immunisations", "Lifestyle choices", "Self-care",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Psychosocial Integrity",
-    color: "#8b5cf6",
-    bg: "#f5f3ff",
-    border: "#ddd6fe",
-    subcategories: [
-      {
-        name: "Psychosocial Integrity",
-        weight: "612%",
-        topics: [
-          "Abuse and neglect", "Behavioural interventions",
-          "Chemical dependency", "Coping mechanisms", "Crisis intervention",
-          "Cultural awareness", "End of life", "Grief and loss",
-          "Mental health concepts", "Sensory and perceptual alterations",
-          "Stress management", "Support systems", "Therapeutic communication",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Physiological Integrity",
-    color: "#ef4444",
-    bg: "#fff1f2",
-    border: "#fecdd3",
-    subcategories: [
-      {
-        name: "Basic Care and Comfort",
-        weight: "612%",
-        topics: [
-          "Assistive devices", "Elimination", "Mobility",
-          "Non-pharmacological comfort", "Nutrition", "Oral hygiene",
-          "Personal hygiene", "Rest and sleep",
-        ],
-      },
-      {
-        name: "Pharmacological Therapies",
-        weight: "1218%",
-        topics: [
-          "Adverse effects", "Blood products", "Central venous access",
-          "Dosage calculations", "Expected effects", "Medication administration",
-          "Parenteral nutrition", "Pharmacological pain management",
-          "Total parenteral nutrition",
-        ],
-      },
-      {
-        name: "Reduction of Risk Potential",
-        weight: "915%",
-        topics: [
-          "Changes in vital signs", "Diagnostic tests", "Lab values",
-          "Pathophysiology", "Potential complications",
-          "System-specific assessments", "Therapeutic procedures",
-        ],
-      },
-      {
-        name: "Physiological Adaptation",
-        weight: "1117%",
-        topics: [
-          "Alterations in body systems", "Fluid imbalances",
-          "Haemodynamics", "Illness management",
-          "Medical emergencies", "Pathophysiology",
-          "Unexpected responses to therapies",
-        ],
-      },
-    ],
-  },
+const topics = [
+  { name: "Management of Care", pct: 17, sub: ["Prioritization & delegation","Ethical practice","Advance directives","Informed consent","Legal rights"] },
+  { name: "Safety & Infection Control", pct: 9, sub: ["Standard precautions","Error prevention","Safe medication admin","Restraints & safety","Hazardous materials"] },
+  { name: "Health Promotion", pct: 9, sub: ["Developmental stages","Immunizations","Lifestyle choices","Screening programs","Risk factor reduction"] },
+  { name: "Psychosocial Integrity", pct: 9, sub: ["Coping mechanisms","Crisis intervention","Mental health concepts","Abuse & neglect","Cultural sensitivity"] },
+  { name: "Basic Care & Comfort", pct: 9, sub: ["Personal hygiene","Non-pharmacological pain","Rest & sleep","Nutrition & hydration","Elimination patterns"] },
+  { name: "Pharmacological Therapies", pct: 15, sub: ["Drug classifications","Expected effects","Adverse reactions","Calculation & dosage","High-alert medications"] },
+  { name: "Reduction of Risk", pct: 12, sub: ["Diagnostic tests","Lab values","Vital sign monitoring","Pre/post-op care","Therapeutic procedures"] },
+  { name: "Physiological Adaptation", pct: 15, sub: ["Fluid & electrolytes","Hemodynamics","Unexpected responses","Medical emergencies","Pathophysiology"] },
 ];
 
-const examFacts = [
-  { label: "Question format", value: "Next Generation NCLEX (NGN)" },
-  { label: "Total questions", value: "85150 items" },
-  { label: "Time limit", value: "5 hours" },
-  { label: "Passing standard", value: "Logit score based" },
-  { label: "Question types", value: "MCQ, SATA, Bowtie, Matrix" },
-  { label: "Exam frequency", value: "Year-round testing" },
+const plans = [
+  { name: "Q-Bank", price: 29, per: "month", badge: "", features: ["3,100+ practice questions","Custom test builder","Detailed rationales","Performance analytics","Topic filtering","Mobile app access"] },
+  { name: "Complete Prep", price: 79, per: "month", badge: "Most Popular", features: ["Everything in Q-Bank","110+ hours video library","Unlimited CAT exams","Readiness assessments","NGN item formats","Live webinar access"] },
+  { name: "Sure PASS", price: 149, per: "one-time", badge: "Best Value", features: ["Everything in Complete","3-day 23-hour live review","Pass guarantee","Dedicated support","Study schedule","Pharmacology crash course"] },
 ];
 
-export default async function NCLEXRNPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { count } = await supabase
-    .from("questions")
-    .select("*", { count: "exact", head: true })
-    .eq("exam_type", "NCLEX-RN")
-    .eq("is_published", true);
+export default function NCLEXRNPage() {
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <main className="min-h-screen bg-[#f8fafc]">
+    <main style={{ background: "#060f1e", color: "#e2e8f0", fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: "100vh" }}>
 
       {/* HERO */}
-      <div className="bg-black text-white px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-2xl">
-              
+      <section style={{ background: "linear-gradient(135deg, #060f1e 0%, #0d1f35 50%, #0e2540 100%)", padding: "80px 24px 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(14,165,233,0.12)", border: "1px solid rgba(14,165,233,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: 20 }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
+          <span style={{ color: "#38bdf8", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em" }}>2026 NGN UPDATED</span>
+        </div>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 700, color: "#fff", lineHeight: 1.15, margin: "0 0 16px" }}>
+          NCLEX-RN® Exam Prep
+        </h1>
+        <p style={{ color: "#94a3b8", fontSize: "clamp(1rem, 2vw, 1.15rem)", maxWidth: 580, margin: "0 auto 32px", lineHeight: 1.7 }}>
+          The most comprehensive NCLEX-RN preparation platform — built around NGN item formats, adaptive testing, and real clinical reasoning.
+        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/pricing" style={{ background: "#0ea5e9", color: "#fff", padding: "14px 28px", borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Start Preparing — Free</Link>
+          <Link href="/quiz" style={{ background: "transparent", color: "#38bdf8", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none", border: "1px solid rgba(56,189,248,0.3)" }}>Take a Practice Question</Link>
+        </div>
+        <div style={{ display: "flex", gap: 32, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
+          {[["3,100+","Practice Questions"],["99%","First-Attempt Pass Rate"],["NGN Ready","2026 Updated"],["110+ hrs","Video Library"]].map(([n,l]) => (
+            <div key={l} style={{ textAlign: "center" }}>
+              <div style={{ color: "#38bdf8", fontSize: "1.6rem", fontWeight: 800, fontFamily: "'Cormorant Garamond', serif" }}>{n}</div>
+              <div style={{ color: "#64748b", fontSize: 12, marginTop: 2 }}>{l}</div>
             </div>
-            <div>
-              <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-                NCLEX-RN(R)
-              </p>
-              <span className="text-xs font-semibold bg-cyan-500 text-white px-2 py-0.5 rounded-full">
-                Live Now
-              </span>
+          ))}
+        </div>
+      </section>
+
+      {/* EXAM OVERVIEW */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>What is the NCLEX-RN®?</h2>
+        <p style={{ color: "#94a3b8", lineHeight: 1.8, marginBottom: 40, maxWidth: 700 }}>
+          The NCLEX-RN is the national licensing examination for registered nurses in the US and Canada. It uses Computer Adaptive Testing (CAT) to assess clinical decision-making across 8 client needs categories. The 2023 NGN update introduced new item types — unfolding case studies, bow-tie questions, extended drag-and-drop, and matrix questions — that require deep clinical reasoning, not memorisation.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
+          {[
+            { label: "Question count", value: "85–145 questions (CAT)" },
+            { label: "Time limit", value: "Up to 5 hours" },
+            { label: "Passing standard", value: "Next Generation NCLEX (NGN)" },
+            { label: "Eligibility", value: "BSN or ADN graduate" },
+          ].map(({ label, value }) => (
+            <div key={label} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 10, padding: "18px 20px" }}>
+              <div style={{ color: "#475569", fontSize: 12, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</div>
+              <div style={{ color: "#e2e8f0", fontWeight: 600 }}>{value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TOPIC BREAKDOWN */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>Client Needs Categories</h2>
+        <p style={{ color: "#64748b", marginBottom: 32 }}>Click any category to explore subtopics covered in our Q-Bank.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
+          {topics.map((t, i) => (
+            <div key={t.name} onClick={() => setActiveTab(activeTab === i ? -1 : i)}
+              style={{ background: "#0d1f35", border: `1px solid ${activeTab === i ? "#0ea5e9" : "rgba(14,165,233,0.12)"}`, borderRadius: 10, padding: "18px 20px", cursor: "pointer", transition: "border-color 0.2s" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: activeTab === i ? 12 : 0 }}>
+                <span style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 14 }}>{t.name}</span>
+                <span style={{ background: "rgba(14,165,233,0.15)", color: "#38bdf8", borderRadius: 999, padding: "2px 10px", fontSize: 12, fontWeight: 700 }}>{t.pct}%</span>
+              </div>
+              <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, margin: "10px 0" }}>
+                <div style={{ height: "100%", width: `${t.pct * 5}%`, background: "#0ea5e9", borderRadius: 2, transition: "width 0.4s" }} />
+              </div>
+              {activeTab === i && (
+                <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>
+                  {t.sub.map(s => <li key={s} style={{ color: "#94a3b8", fontSize: 13, marginBottom: 4 }}>{s}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* NGN SECTION */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <div style={{ background: "linear-gradient(135deg, #0d1f35, #0e2540)", border: "1px solid rgba(14,165,233,0.2)", borderRadius: 16, padding: "40px 36px" }}>
+          <div style={{ display: "flex", gap: 24, alignItems: "flex-start", flexWrap: "wrap" }}>
+            <div style={{ flex: 1, minWidth: 240 }}>
+              <span style={{ background: "rgba(14,165,233,0.15)", color: "#38bdf8", borderRadius: 999, padding: "4px 12px", fontSize: 12, fontWeight: 700 }}>NGN READY</span>
+              <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", color: "#f1f5f9", margin: "14px 0 12px" }}>Next Generation NCLEX® Item Types</h3>
+              <p style={{ color: "#94a3b8", lineHeight: 1.8, fontSize: 14 }}>Our Q-Bank is fully updated for 2026 with all NGN question formats. You won't face surprises on exam day.</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, minWidth: 280 }}>
+              {["Unfolding Case Studies","Bow-Tie Questions","Extended Drag & Drop","Matrix Multiple Response","Enhanced Hot Spot","Highlight Text"].map(item => (
+                <div key={item} style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 8, padding: "10px 14px", fontSize: 13, color: "#cbd5e1" }}>
+                  <span style={{ color: "#0ea5e9", marginRight: 6 }}>✓</span>{item}
+                </div>
+              ))}
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            NCLEX-RN<br />
-            <span className="text-cyan-400">Success Tools</span>
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-            Master clinical reasoning with questions built around all 8 NCLEX
-            client needs categories. Our platform prepares you to think like a
-            nurse  not just memorise answers.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
-              className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              {user ? "Start practising '" : "Start free today '"}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              View pricing
-            </Link>
-          </div>
         </div>
-      </div>
+      </section>
 
-      {/* QUICK STATS */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-5xl px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {examFacts.map((fact) => (
-              <div key={fact.label} className="text-center">
-                <p className="text-sm font-bold text-slate-900">{fact.value}</p>
-                <p className="text-xs text-slate-400 mt-1">{fact.label}</p>
+      {/* PRICING */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", textAlign: "center", marginBottom: 8 }}>Choose Your Plan</h2>
+        <p style={{ color: "#64748b", textAlign: "center", marginBottom: 40 }}>All plans include a free trial. No credit card required.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+          {plans.map((p) => (
+            <div key={p.name} style={{ background: p.badge === "Most Popular" ? "linear-gradient(135deg, #0d2a40, #0e2a3a)" : "#0d1f35", border: `1px solid ${p.badge ? "#0ea5e9" : "rgba(14,165,233,0.12)"}`, borderRadius: 14, padding: "28px 24px", position: "relative" }}>
+              {p.badge && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "#0ea5e9", color: "#fff", borderRadius: 999, padding: "3px 14px", fontSize: 11, fontWeight: 700, whiteSpace: "nowrap" }}>{p.badge}</div>}
+              <h3 style={{ color: "#f1f5f9", fontWeight: 700, marginBottom: 4 }}>{p.name}</h3>
+              <div style={{ marginBottom: 20 }}>
+                <span style={{ color: "#38bdf8", fontSize: "2rem", fontWeight: 800 }}>${p.price}</span>
+                <span style={{ color: "#475569", fontSize: 13 }}> / {p.per}</span>
               </div>
-            ))}
-          </div>
+              <ul style={{ paddingLeft: 0, listStyle: "none", marginBottom: 24 }}>
+                {p.features.map(f => <li key={f} style={{ color: "#94a3b8", fontSize: 13, marginBottom: 8, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>✓</span>{f}</li>)}
+              </ul>
+              <Link href="/pricing" style={{ display: "block", textAlign: "center", background: p.badge === "Most Popular" ? "#0ea5e9" : "transparent", color: p.badge === "Most Popular" ? "#fff" : "#38bdf8", border: `1px solid ${p.badge === "Most Popular" ? "#0ea5e9" : "rgba(56,189,248,0.3)"}`, borderRadius: 8, padding: "12px", fontWeight: 700, textDecoration: "none", fontSize: 14 }}>
+                Get Started
+              </Link>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
 
-      <div className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-
-        {/* PRACTICE STATS */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-cyan-50 border border-cyan-100 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-cyan-600">{count ?? 30}+</p>
-            <p className="text-sm text-cyan-700 mt-1 font-medium">Practice questions</p>
-            <p className="text-xs text-cyan-500 mt-1">With full rationales</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">3</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Exam modes</p>
-            <p className="text-xs text-slate-400 mt-1">Timed . Tutor . Quick</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">8</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Client needs</p>
-            <p className="text-xs text-slate-400 mt-1">All categories covered</p>
-          </div>
+      {/* OTHER COURSES */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 80px" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", color: "#f1f5f9", marginBottom: 20 }}>Explore Other Courses</h2>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[["Pre-Nursing","/courses/pre-nursing"],["Nursing School","/courses/nursing-school"],["NCLEX-PN","/courses/nclex-pn"],["Nurse Practitioner (FNP)","/courses/fnp"],["CCRN","/courses/ccrn"]].map(([name, href]) => (
+            <Link key={name} href={href} style={{ background: "#0d1f35", color: "#94a3b8", border: "1px solid rgba(14,165,233,0.12)", borderRadius: 8, padding: "10px 18px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>{name}</Link>
+          ))}
         </div>
-
-        {/* WHAT IS NCLEX-RN */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">What is the NCLEX-RN?</h2>
-          <div className="text-sm leading-relaxed space-y-3 text-slate-600">
-            <p>
-              The NCLEX-RN (National Council Licensure Examination for Registered Nurses)
-              is the standardised exam that all nursing graduates must pass to become
-              licensed registered nurses in the United States and Canada.
-            </p>
-            <p>
-              The exam uses <strong className="text-slate-800">Computer Adaptive Testing (CAT)</strong> 
-              meaning the difficulty of each question adjusts based on your previous answers.
-              The 2024 Next Generation NCLEX (NGN) introduced new question formats including
-              Bowtie, Matrix, and Extended Drag-and-Drop items that test clinical judgement more deeply.
-            </p>
-            <p>
-              Our question bank is built around the official NCLEX-RN test plan,
-              covering all client needs categories with the exact weighting used on the real exam.
-            </p>
-          </div>
-        </div>
-
-        {/* CLIENT NEEDS CATEGORIES */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">
-            All 8 client needs categories
-          </h2>
-          <p className="text-slate-500 text-sm mb-6">
-            Every question in our bank is mapped to one of these official NCLEX-RN categories.
-          </p>
-          <div className="space-y-4">
-            {clientNeeds.map((cn) => (
-              <div
-                key={cn.category}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm"
-              >
-                <div
-                  className="px-6 py-4 border-b"
-                  style={{ background: cn.bg, borderColor: cn.border }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ background: cn.color }}
-                    />
-                    <h3 className="font-bold text-slate-900 text-sm">{cn.category}</h3>
-                  </div>
-                </div>
-                <div className="divide-y divide-slate-100">
-                  {cn.subcategories.map((sub) => (
-                    <div key={sub.name} className="px-6 py-5">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-semibold text-slate-800 text-sm">{sub.name}</h4>
-                        <span
-                          className="text-xs font-bold px-2.5 py-1 rounded-full"
-                          style={{ background: cn.bg, color: cn.color, border: `1px solid ${cn.border}` }}
-                        >
-                          {sub.weight} of exam
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {sub.topics.map((topic) => (
-                          <span
-                            key={topic}
-                            className="text-xs bg-slate-50 text-slate-600 border border-slate-200 px-2.5 py-1 rounded-full"
-                          >
-                            {topic}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* EXAM MODES */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Three ways to practise</h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                mode: "Timed Mode",
-                icon: "",
-                color: "#3b82f6",
-                bg: "#eff6ff",
-                description: "Simulate real exam conditions with a countdown timer. Build the mental endurance NCLEX demands.",
-                best: "Best for: Exam simulation",
-              },
-              {
-                mode: "Tutor Mode",
-                icon: " ",
-                color: "#10b981",
-                bg: "#ecfdf5",
-                description: "Get instant feedback after every question. Read the rationale, understand why, then move forward with confidence.",
-                best: "Best for: Deep learning",
-              },
-              {
-                mode: "Quick Mode",
-                icon: "",
-                color: "#f59e0b",
-                bg: "#fffbeb",
-                description: "10-question sprints for daily practice. Perfect for building momentum and keeping your knowledge sharp.",
-                best: "Best for: Daily revision",
-              },
-            ].map((m) => (
-              <div
-                key={m.mode}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4"
-                  style={{ background: m.bg }}
-                >
-                  {m.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{m.mode}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-3">{m.description}</p>
-                <p className="text-xs font-semibold" style={{ color: m.color }}>
-                  {m.best}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="bg-black rounded-2xl p-10 text-center text-white">
-          <h2 className="text-3xl font-bold mb-3">Ready to start your NCLEX-RN prep?</h2>
-          <p className="text-slate-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
-            Create a free account and take your first practice exam right now.
-            No credit card. No commitment. Just real NCLEX-RN questions.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href={user ? "/quiz/select?examType=RN" : "/auth/signup"}
-              className="bg-cyan-500 hover:bg-cyan-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
-            >
-              {user ? "Go to Quiz '" : "Start free '"}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl transition text-sm"
-            >
-              View pricing
-            </Link>
-          </div>
-        </div>
-
-      </div>
+      </section>
     </main>
   );
 }

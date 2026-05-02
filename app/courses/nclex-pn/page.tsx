@@ -1,371 +1,112 @@
+﻿"use client";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { useState } from "react";
 
-const clientNeeds = [
-  {
-    category: "Safe and Effective Care Environment",
-    color: "#6366f1",
-    bg: "#eef2ff",
-    border: "#c7d2fe",
-    subcategories: [
-      {
-        name: "Management of Care",
-        weight: "11-17%",
-        topics: [
-          "Advance directives", "Advocacy", "Case management",
-          "Client rights", "Collaboration", "Confidentiality",
-          "Continuity of care", "Delegation", "Ethical practice",
-          "Informed consent", "Legal rights", "Prioritisation",
-          "Referrals", "Supervision",
-        ],
-      },
-      {
-        name: "Safety and Infection Control",
-        weight: "9-15%",
-        topics: [
-          "Accident prevention", "Error prevention", "Ergonomic principles",
-          "Handling hazardous materials", "Home safety", "Reporting incidents",
-          "Safe use of equipment", "Standard precautions",
-          "Surgical asepsis", "Use of restraints",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Health Promotion and Maintenance",
-    color: "#10b981",
-    bg: "#ecfdf5",
-    border: "#a7f3d0",
-    subcategories: [
-      {
-        name: "Health Promotion",
-        weight: "6-12%",
-        topics: [
-          "Ante/intra/postpartum care", "Developmental stages",
-          "Family planning", "Growth and development",
-          "Health screening", "High-risk behaviours",
-          "Immunisations", "Lifestyle choices", "Self-care",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Psychosocial Integrity",
-    color: "#8b5cf6",
-    bg: "#f5f3ff",
-    border: "#ddd6fe",
-    subcategories: [
-      {
-        name: "Psychosocial Integrity",
-        weight: "9-15%",
-        topics: [
-          "Abuse and neglect", "Behavioural interventions",
-          "Chemical dependency", "Coping mechanisms", "Crisis intervention",
-          "Cultural awareness", "End of life", "Grief and loss",
-          "Mental health concepts", "Stress management",
-          "Support systems", "Therapeutic communication",
-        ],
-      },
-    ],
-  },
-  {
-    category: "Physiological Integrity",
-    color: "#f59e0b",
-    bg: "#fffbeb",
-    border: "#fde68a",
-    subcategories: [
-      {
-        name: "Basic Care and Comfort",
-        weight: "7-13%",
-        topics: [
-          "Assistive devices", "Elimination", "Mobility",
-          "Non-pharmacological comfort", "Nutrition", "Oral hygiene",
-          "Personal hygiene", "Rest and sleep",
-        ],
-      },
-      {
-        name: "Pharmacological Therapies",
-        weight: "10-16%",
-        topics: [
-          "Adverse effects", "Blood products", "Dosage calculations",
-          "Expected effects", "Medication administration",
-          "Pharmacological pain management",
-        ],
-      },
-      {
-        name: "Reduction of Risk Potential",
-        weight: "9-15%",
-        topics: [
-          "Changes in vital signs", "Diagnostic tests", "Lab values",
-          "Pathophysiology", "Potential complications",
-          "System-specific assessments", "Therapeutic procedures",
-        ],
-      },
-      {
-        name: "Physiological Adaptation",
-        weight: "7-13%",
-        topics: [
-          "Alterations in body systems", "Fluid imbalances",
-          "Illness management", "Medical emergencies",
-          "Pathophysiology", "Unexpected responses to therapies",
-        ],
-      },
-    ],
-  },
+const topics = [
+  { name: "Management of Care", pct: 18, sub: ["Advance directives","Client rights","Confidentiality","Ethical practice","Supervision & delegation"] },
+  { name: "Safety & Infection Control", pct: 12, sub: ["Emergency response","Error prevention","Home safety","Standard precautions","Use of restraints"] },
+  { name: "Health Promotion & Maintenance", pct: 9, sub: ["Aging process","Developmental stages","Disease prevention","Self-care","Immunisation schedule"] },
+  { name: "Psychosocial Integrity", pct: 9, sub: ["Behavioural interventions","Chemical dependency","Coping mechanisms","Crisis intervention","Therapeutic communication"] },
+  { name: "Basic Care & Comfort", pct: 8, sub: ["Assistive devices","Elimination","Mobility","Non-pharmacological comfort","Palliative care"] },
+  { name: "Pharmacological Therapies", pct: 14, sub: ["Adverse effects","Contraindications","Dosage calculations","Expected outcomes","Medication administration"] },
+  { name: "Reduction of Risk Potential", pct: 11, sub: ["Diagnostic tests","Lab values","Potential complications","Therapeutic procedures","Vital signs"] },
+  { name: "Physiological Adaptation", pct: 14, sub: ["Alterations in body systems","Fluid & electrolytes","Illness management","Medical emergencies","Pathophysiology"] },
 ];
 
-const examFacts = [
-  { label: "Question format", value: "Next Generation NCLEX (NGN)" },
-  { label: "Total questions", value: "85-150 items" },
-  { label: "Time limit", value: "5 hours" },
-  { label: "Passing standard", value: "Logit score based" },
-  { label: "Question types", value: "MCQ, SATA, Bowtie, Matrix" },
-  { label: "Exam frequency", value: "Year-round testing" },
+const plans = [
+  { name: "Q-Bank", price: 25, per: "month", badge: "", features: ["2,400+ practice questions","Detailed rationales","Performance tracking","Topic-specific filters","Mobile access"] },
+  { name: "Complete Prep", price: 69, per: "month", badge: "Most Popular", features: ["Everything in Q-Bank","80+ hours video library","Unlimited CAT exams","Readiness assessments","NGN item formats"] },
+  { name: "Sure PASS", price: 129, per: "one-time", badge: "Best Value", features: ["Everything in Complete","2-day live review","Pass guarantee","Personalised study plan","Dedicated tutor support"] },
 ];
 
-export default async function NCLEXPNPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { count } = await supabase
-    .from("questions")
-    .select("*", { count: "exact", head: true })
-    .eq("exam_type", "NCLEX-PN")
-    .eq("is_published", true);
+export default function NCLEXPNPage() {
+  const [activeTab, setActiveTab] = useState(-1);
 
   return (
-    <main className="min-h-screen bg-[#f8fafc]">
-
-      {/* HERO */}
-      <div className="bg-black text-white px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-2xl">
-              
+    <main style={{ background: "#060f1e", color: "#e2e8f0", fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: "100vh" }}>
+      <section style={{ background: "linear-gradient(135deg, #060f1e 0%, #0d1f35 50%, #0e2540 100%)", padding: "80px 24px 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(14,165,233,0.12)", border: "1px solid rgba(14,165,233,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: 20 }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
+          <span style={{ color: "#38bdf8", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em" }}>2026 NGN UPDATED</span>
+        </div>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 700, color: "#fff", lineHeight: 1.15, margin: "0 0 16px" }}>NCLEX-PN® Exam Prep</h1>
+        <p style={{ color: "#94a3b8", fontSize: "clamp(1rem, 2vw, 1.15rem)", maxWidth: 580, margin: "0 auto 32px", lineHeight: 1.7 }}>
+          Purpose-built for LPN/LVN candidates — comprehensive content, adaptive testing, and NGN item formats designed around the PN scope of practice.
+        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/pricing" style={{ background: "#0ea5e9", color: "#fff", padding: "14px 28px", borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Start Preparing — Free</Link>
+          <Link href="/quiz" style={{ background: "transparent", color: "#38bdf8", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none", border: "1px solid rgba(56,189,248,0.3)" }}>Try a Practice Question</Link>
+        </div>
+        <div style={{ display: "flex", gap: 32, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
+          {[["2,400+","Practice Questions"],["99%","Pass Rate"],["NGN Ready","2026 Updated"],["80+ hrs","Video Content"]].map(([n,l]) => (
+            <div key={l} style={{ textAlign: "center" }}>
+              <div style={{ color: "#38bdf8", fontSize: "1.6rem", fontWeight: 800, fontFamily: "'Cormorant Garamond', serif" }}>{n}</div>
+              <div style={{ color: "#64748b", fontSize: 12, marginTop: 2 }}>{l}</div>
             </div>
-            <div>
-              <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest">
-                NCLEX-PN(R)
-              </p>
-              <span className="text-xs font-semibold bg-indigo-500 text-white px-2 py-0.5 rounded-full">
-                Coming Soon
-              </span>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>What is the NCLEX-PN®?</h2>
+        <p style={{ color: "#94a3b8", lineHeight: 1.8, marginBottom: 40, maxWidth: 700 }}>
+          The NCLEX-PN (Practical Nurse) is the licensing exam for LPNs and LVNs in the United States and Canada. The exam uses Computer Adaptive Testing and covers the scope of practice specific to practical nursing — assisting with care under the supervision of an RN or physician. The 2023 NGN update introduced new item formats requiring critical thinking and clinical judgement.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
+          {[["Question count","85–150 questions (CAT)"],["Time limit","Up to 5 hours"],["Eligibility","PN or VN program graduate"],["Focus","PN scope of practice"]].map(([label, value]) => (
+            <div key={label} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 10, padding: "18px 20px" }}>
+              <div style={{ color: "#475569", fontSize: 12, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em" }}>{label}</div>
+              <div style={{ color: "#e2e8f0", fontWeight: 600 }}>{value}</div>
             </div>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            NCLEX-PN<br />
-            <span className="text-indigo-400">Effective Prep</span>
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-            Build the clinical knowledge and judgement you need to pass the
-            NCLEX-PN. Every question is mapped to the official test plan so
-            you study exactly what the exam tests.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={user ? "/quiz/select?examType=PN" : "/auth/signup"}
-              className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              {user ? "Start practising " : "Get notified "}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              View pricing
-            </Link>
-          </div>
+          ))}
         </div>
-      </div>
+      </section>
 
-      {/* QUICK STATS */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-5xl px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {examFacts.map((fact) => (
-              <div key={fact.label} className="text-center">
-                <p className="text-sm font-bold text-slate-900">{fact.value}</p>
-                <p className="text-xs text-slate-400 mt-1">{fact.label}</p>
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>Client Needs Categories</h2>
+        <p style={{ color: "#64748b", marginBottom: 32 }}>Click any category to see covered subtopics.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
+          {topics.map((t, i) => (
+            <div key={t.name} onClick={() => setActiveTab(activeTab === i ? -1 : i)}
+              style={{ background: "#0d1f35", border: `1px solid ${activeTab === i ? "#0ea5e9" : "rgba(14,165,233,0.12)"}`, borderRadius: 10, padding: "18px 20px", cursor: "pointer" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 14 }}>{t.name}</span>
+                <span style={{ background: "rgba(14,165,233,0.15)", color: "#38bdf8", borderRadius: 999, padding: "2px 10px", fontSize: 12, fontWeight: 700 }}>{t.pct}%</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-
-        {/* PRACTICE STATS */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-indigo-600">{count ?? 0}+</p>
-            <p className="text-sm text-indigo-700 mt-1 font-medium">Practice questions</p>
-            <p className="text-xs text-indigo-500 mt-1">With full rationales</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">3</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Exam modes</p>
-            <p className="text-xs text-slate-400 mt-1">Timed . Tutor . Quick</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">8</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Client needs</p>
-            <p className="text-xs text-slate-400 mt-1">All categories covered</p>
-          </div>
-        </div>
-
-        {/* WHAT IS NCLEX-PN */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">What is the NCLEX-PN?</h2>
-          <div className="text-sm leading-relaxed space-y-3 text-slate-600">
-            <p>
-              The NCLEX-PN (National Council Licensure Examination for Practical Nurses)
-              is the standardised exam all practical and vocational nursing graduates must
-              pass to become licensed as an LPN or LVN in the United States and Canada.
-            </p>
-            <p>
-              Like the RN exam, the PN uses <strong className="text-slate-800">Computer Adaptive Testing (CAT)</strong> --
-              adjusting question difficulty based on your performance. The 2024 Next Generation
-              NCLEX (NGN) update introduced new clinical judgement question types to both exams.
-            </p>
-            <p>
-              Our question bank covers all NCLEX-PN client needs categories with the exact
-              weighting used on the real exam -- so you spend your time where it counts most.
-            </p>
-          </div>
-        </div>
-
-        {/* CLIENT NEEDS */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">
-            All client needs categories
-          </h2>
-          <p className="text-slate-500 text-sm mb-6">
-            Every question is mapped to one of these official NCLEX-PN categories.
-          </p>
-          <div className="space-y-4">
-            {clientNeeds.map((cn) => (
-              <div
-                key={cn.category}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm"
-              >
-                <div
-                  className="px-6 py-4 border-b"
-                  style={{ background: cn.bg, borderColor: cn.border }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ background: cn.color }}
-                    />
-                    <h3 className="font-bold text-slate-900 text-sm">{cn.category}</h3>
-                  </div>
-                </div>
-                <div className="divide-y divide-slate-100">
-                  {cn.subcategories.map((sub) => (
-                    <div key={sub.name} className="px-6 py-5">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-semibold text-slate-800 text-sm">{sub.name}</h4>
-                        <span
-                          className="text-xs font-bold px-2.5 py-1 rounded-full"
-                          style={{ background: cn.bg, color: cn.color, border: `1px solid ${cn.border}` }}
-                        >
-                          {sub.weight} of exam
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {sub.topics.map((topic) => (
-                          <span
-                            key={topic}
-                            className="text-xs bg-slate-50 text-slate-600 border border-slate-200 px-2.5 py-1 rounded-full"
-                          >
-                            {topic}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, margin: "10px 0" }}>
+                <div style={{ height: "100%", width: `${t.pct * 5}%`, background: "#0ea5e9", borderRadius: 2 }} />
               </div>
-            ))}
-          </div>
+              {activeTab === i && <ul style={{ margin: "8px 0 0", paddingLeft: 18 }}>{t.sub.map(s => <li key={s} style={{ color: "#94a3b8", fontSize: 13, marginBottom: 4 }}>{s}</li>)}</ul>}
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* EXAM MODES */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Three ways to practise</h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                mode: "Timed Mode",
-                icon: "",
-                color: "#3b82f6",
-                bg: "#eff6ff",
-                description: "Simulate real exam conditions with a countdown timer. Build the mental endurance the NCLEX-PN demands.",
-                best: "Best for: Exam simulation",
-              },
-              {
-                mode: "Tutor Mode",
-                icon: "",
-                color: "#10b981",
-                bg: "#ecfdf5",
-                description: "Get instant feedback after every question. Read the rationale, understand why, then move forward confidently.",
-                best: "Best for: Deep learning",
-              },
-              {
-                mode: "Quick Mode",
-                icon: "",
-                color: "#f59e0b",
-                bg: "#fffbeb",
-                description: "10-question sprints for daily practice. Perfect for building momentum and keeping knowledge sharp.",
-                best: "Best for: Daily revision",
-              },
-            ].map((m) => (
-              <div
-                key={m.mode}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4"
-                  style={{ background: m.bg }}
-                >
-                  {m.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{m.mode}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-3">{m.description}</p>
-                <p className="text-xs font-semibold" style={{ color: m.color }}>
-                  {m.best}
-                </p>
-              </div>
-            ))}
-          </div>
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", textAlign: "center", marginBottom: 8 }}>Choose Your Plan</h2>
+        <p style={{ color: "#64748b", textAlign: "center", marginBottom: 40 }}>Free trial on every plan. No credit card required.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+          {plans.map((p) => (
+            <div key={p.name} style={{ background: p.badge === "Most Popular" ? "linear-gradient(135deg,#0d2a40,#0e2a3a)" : "#0d1f35", border: `1px solid ${p.badge ? "#0ea5e9" : "rgba(14,165,233,0.12)"}`, borderRadius: 14, padding: "28px 24px", position: "relative" }}>
+              {p.badge && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "#0ea5e9", color: "#fff", borderRadius: 999, padding: "3px 14px", fontSize: 11, fontWeight: 700, whiteSpace: "nowrap" }}>{p.badge}</div>}
+              <h3 style={{ color: "#f1f5f9", fontWeight: 700, marginBottom: 4 }}>{p.name}</h3>
+              <div style={{ marginBottom: 20 }}><span style={{ color: "#38bdf8", fontSize: "2rem", fontWeight: 800 }}>${p.price}</span><span style={{ color: "#475569", fontSize: 13 }}> / {p.per}</span></div>
+              <ul style={{ paddingLeft: 0, listStyle: "none", marginBottom: 24 }}>{p.features.map(f => <li key={f} style={{ color: "#94a3b8", fontSize: 13, marginBottom: 8, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>✓</span>{f}</li>)}</ul>
+              <Link href="/pricing" style={{ display: "block", textAlign: "center", background: p.badge === "Most Popular" ? "#0ea5e9" : "transparent", color: p.badge === "Most Popular" ? "#fff" : "#38bdf8", border: `1px solid ${p.badge === "Most Popular" ? "#0ea5e9" : "rgba(56,189,248,0.3)"}`, borderRadius: 8, padding: "12px", fontWeight: 700, textDecoration: "none", fontSize: 14 }}>Get Started</Link>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="bg-black rounded-2xl p-10 text-center text-white">
-          <h2 className="text-3xl font-bold mb-3">NCLEX-PN prep is coming soon</h2>
-          <p className="text-slate-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
-            We are building out the full NCLEX-PN question bank right now.
-            Start with NCLEX-RN today or sign up to be notified when PN launches.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/courses/nclex-rn"
-              className="bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
-            >
-              Try NCLEX-RN instead 
-            </Link>
-            <Link
-              href={user ? "/dashboard" : "/auth/signup"}
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl transition text-sm"
-            >
-              {user ? "Go to dashboard" : "Sign up for free"}
-            </Link>
-          </div>
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 80px" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", color: "#f1f5f9", marginBottom: 20 }}>Explore Other Courses</h2>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[["Pre-Nursing","/courses/pre-nursing"],["Nursing School","/courses/nursing-school"],["NCLEX-RN","/courses/nclex-rn"],["Nurse Practitioner (FNP)","/courses/fnp"],["CCRN","/courses/ccrn"]].map(([name, href]) => (
+            <Link key={name} href={href} style={{ background: "#0d1f35", color: "#94a3b8", border: "1px solid rgba(14,165,233,0.12)", borderRadius: 8, padding: "10px 18px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>{name}</Link>
+          ))}
         </div>
-
-      </div>
+      </section>
     </main>
   );
 }

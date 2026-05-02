@@ -1,339 +1,99 @@
+﻿"use client";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { useState } from "react";
 
-const topicAreas = [
-  {
-    category: "Cardiovascular",
-    color: "#ef4444",
-    bg: "#fff1f2",
-    border: "#fecdd3",
-    topics: [
-      "Acute coronary syndromes", "Heart failure",
-      "Dysrhythmia recognition", "12-lead ECG interpretation",
-      "Haemodynamic monitoring", "Cardiogenic shock",
-      "Cardiac tamponade", "Aortic aneurysm",
-      "Pacemakers and ICDs", "Post-cardiac surgery care",
-    ],
-  },
-  {
-    category: "Pulmonary",
-    color: "#3b82f6",
-    bg: "#eff6ff",
-    border: "#bfdbfe",
-    topics: [
-      "Mechanical ventilation", "ARDS",
-      "Respiratory failure", "Pneumothorax",
-      "Pulmonary embolism", "COPD exacerbation",
-      "Weaning from ventilator", "Arterial blood gases",
-      "Airway management", "Chest tubes",
-    ],
-  },
-  {
-    category: "Neurology",
-    color: "#8b5cf6",
-    bg: "#f5f3ff",
-    border: "#ddd6fe",
-    topics: [
-      "Stroke management", "Traumatic brain injury",
-      "Increased intracranial pressure", "Seizure management",
-      "Spinal cord injury", "Neuromuscular disorders",
-      "Sedation and analgesia", "Neurological assessment",
-      "Brain death", "Post-neurosurgical care",
-    ],
-  },
-  {
-    category: "Multisystem",
-    color: "#f59e0b",
-    bg: "#fffbeb",
-    border: "#fde68a",
-    topics: [
-      "Sepsis and septic shock", "Multi-organ dysfunction",
-      "Trauma care", "Burns management",
-      "Disseminated intravascular coagulation",
-      "Anaphylaxis", "Toxicology",
-      "Hypothermia and hyperthermia",
-    ],
-  },
-  {
-    category: "Gastrointestinal and Renal",
-    color: "#10b981",
-    bg: "#ecfdf5",
-    border: "#a7f3d0",
-    topics: [
-      "Acute kidney injury", "Renal replacement therapy",
-      "Electrolyte imbalances", "GI bleeding",
-      "Acute pancreatitis", "Liver failure",
-      "Abdominal compartment syndrome",
-      "Nutritional support in ICU",
-    ],
-  },
-  {
-    category: "Professional Caring and Ethics",
-    color: "#6366f1",
-    bg: "#eef2ff",
-    border: "#c7d2fe",
-    topics: [
-      "Advocacy", "Caring practices",
-      "Clinical judgement", "Collaboration",
-      "End of life care in ICU", "Family-centred care",
-      "Ethical decision making", "Systems thinking",
-    ],
-  },
+const domains = [
+  { name: "Cardiovascular", pct: 17, sub: ["Acute coronary syndromes","Heart failure management","Dysrhythmia recognition","Haemodynamic monitoring","Cardiovascular surgical care"] },
+  { name: "Pulmonary", pct: 15, sub: ["Mechanical ventilation","ARDS management","Respiratory failure","Chest drainage","Arterial blood gas interpretation"] },
+  { name: "Endocrine / Haematology / GI / Renal / Integumentary", pct: 20, sub: ["DKA & HHS","AKI & CKD management","Liver failure","Coagulopathies","Burns & wound care"] },
+  { name: "Musculoskeletal / Neurological / Psychosocial", pct: 14, sub: ["Traumatic brain injury","Status epilepticus","ICU-acquired weakness","Delirium management","Family-centred care"] },
+  { name: "Multisystem", pct: 19, sub: ["Sepsis & septic shock","MODS","Trauma resuscitation","Toxicology","End-of-life care"] },
+  { name: "Professional Caring & Ethics", pct: 15, sub: ["Advocacy & moral distress","Clinical inquiry","Systems thinking","Response to diversity","Collaboration"] },
 ];
 
-const examFacts = [
-  { label: "Questions", value: "150 items" },
-  { label: "Time limit", value: "3 hours" },
-  { label: "Passing score", value: "72 out of 150" },
-  { label: "Eligibility", value: "1,750 ICU hours" },
-  { label: "Renewal", value: "Every 3 years" },
-  { label: "Offered by", value: "AACN" },
-];
-
-export default async function CCRNPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const { count } = await supabase
-    .from("questions")
-    .select("*", { count: "exact", head: true })
-    .eq("exam_type", "CCRN")
-    .eq("is_published", true);
+export default function CCRNPage() {
+  const [active, setActive] = useState(-1);
 
   return (
-    <main className="min-h-screen bg-[#f8fafc]">
-
-      {/* HERO */}
-      <div className="bg-black text-white px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-2xl">
-              
+    <main style={{ background: "#060f1e", color: "#e2e8f0", fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: "100vh" }}>
+      <section style={{ background: "linear-gradient(135deg, #060f1e 0%, #0d1f35 50%, #0e2540 100%)", padding: "80px 24px 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(14,165,233,0.12)", border: "1px solid rgba(14,165,233,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: 20 }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
+          <span style={{ color: "#38bdf8", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em" }}>AACN ACCREDITED · CE CREDITS</span>
+        </div>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 700, color: "#fff", lineHeight: 1.15, margin: "0 0 16px" }}>CCRN® Critical Care Certification Prep</h1>
+        <p style={{ color: "#94a3b8", fontSize: "clamp(1rem, 2vw, 1.15rem)", maxWidth: 600, margin: "0 auto 32px", lineHeight: 1.7 }}>
+          The definitive preparation for AACN's CCRN certification. Master the synergy model, critical care pharmacology, and complex multi-system patient management — and earn CE contact hours as you study.
+        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/pricing" style={{ background: "#0ea5e9", color: "#fff", padding: "14px 28px", borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Start Free</Link>
+          <Link href="/quiz" style={{ background: "transparent", color: "#38bdf8", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none", border: "1px solid rgba(56,189,248,0.3)" }}>Try Practice Questions</Link>
+        </div>
+        <div style={{ display: "flex", gap: 32, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
+          {[["1,000+","Practice Questions"],["13+ hrs","Video Library"],["13.75","CE Contact Hours"],["AACN","Synergy Model"]].map(([n,l]) => (
+            <div key={l} style={{ textAlign: "center" }}>
+              <div style={{ color: "#38bdf8", fontSize: "1.6rem", fontWeight: 800, fontFamily: "'Cormorant Garamond', serif" }}>{n}</div>
+              <div style={{ color: "#64748b", fontSize: 12, marginTop: 2 }}>{l}</div>
             </div>
-            <div>
-              <p className="text-xs font-bold text-red-400 uppercase tracking-widest">
-                CCRN(R)
-              </p>
-              <span className="text-xs font-semibold bg-red-500 text-white px-2 py-0.5 rounded-full">
-                Coming Soon
-              </span>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>About the CCRN® Exam</h2>
+        <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 700, marginBottom: 32 }}>
+          The CCRN (Critical Care Registered Nurse) certification by AACN validates expertise in the care of acutely and critically ill patients. It is one of the most respected specialty certifications in nursing. Eligibility requires 1,750 hours of direct care of acutely or critically ill patients within the last 2 years, with 875 of those hours in the most recent year preceding application.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14, marginBottom: 48 }}>
+          {[["Questions","150 (125 scored + 25 unscored)"],["Time","3 hours"],["Eligibility","1,750 direct care hours"],["Renewal","Every 3 years (100 pts)"]].map(([k,v]) => (
+            <div key={k} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 10, padding: "18px 20px" }}>
+              <div style={{ color: "#475569", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{k}</div>
+              <div style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 13 }}>{v}</div>
             </div>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            CCRN<br />
-            <span className="text-red-400">Success Resources</span>
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-            Master the critical care knowledge needed to earn your CCRN
-            certification. Every question covers the high-acuity topics
-            you face daily in the ICU -- from haemodynamics to mechanical
-            ventilation to sepsis management.
+          ))}
+        </div>
+
+        {/* CE Credits callout */}
+        <div style={{ background: "linear-gradient(135deg, #0d1f35, #0e2540)", border: "1px solid rgba(14,165,233,0.2)", borderRadius: 14, padding: "32px", marginBottom: 48 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", color: "#f1f5f9", marginBottom: 10 }}>Earn CE Credits While You Study</h3>
+          <p style={{ color: "#94a3b8", fontSize: 14, lineHeight: 1.8, marginBottom: 16 }}>
+            Our CCRN video library is AACN-accredited, meaning you earn 13.75 contact hours just by watching — certificates issued instantly upon completion and accepted in all states.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={user ? "/quiz/select?examType=CCRN" : "/auth/signup"}
-              className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              {user ? "Start practising " : "Get notified "}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              View pricing
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* QUICK STATS */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-5xl px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {examFacts.map((fact) => (
-              <div key={fact.label} className="text-center">
-                <p className="text-sm font-bold text-slate-900">{fact.value}</p>
-                <p className="text-xs text-slate-400 mt-1">{fact.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-
-        {/* PRACTICE STATS */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-red-50 border border-red-100 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-red-600">{count ?? 0}+</p>
-            <p className="text-sm text-red-700 mt-1 font-medium">Practice questions</p>
-            <p className="text-xs text-red-500 mt-1">With full rationales</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">6</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Topic areas</p>
-            <p className="text-xs text-slate-400 mt-1">All CCRN domains</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">ICU</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Level content</p>
-            <p className="text-xs text-slate-400 mt-1">Critical care focused</p>
-          </div>
-        </div>
-
-        {/* WHAT IS CCRN */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            What is the CCRN?
-          </h2>
-          <div className="text-sm leading-relaxed space-y-3 text-slate-600">
-            <p>
-              The CCRN is the gold standard certification for critical care
-              nurses, awarded by the American Association of Critical-Care
-              Nurses (AACN). It validates your expertise in caring for
-              acutely and critically ill patients.
-            </p>
-            <p>
-              To sit the exam you need at least
-              <strong className="text-slate-800"> 1,750 hours of direct care</strong> of
-              acutely or critically ill patients in the past two years,
-              with 875 of those hours in the most recent year preceding application.
-            </p>
-            <p>
-              Our CCRN question bank is built around the official AACN test
-              blueprint, covering everything from cardiovascular and pulmonary
-              emergencies to professional caring and ethical practice.
-            </p>
-          </div>
-        </div>
-
-        {/* TOPIC AREAS */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">
-            All CCRN topic areas covered
-          </h2>
-          <p className="text-slate-500 text-sm mb-6">
-            Every question is mapped to the official AACN CCRN test blueprint.
-          </p>
-          <div className="space-y-4">
-            {topicAreas.map((area) => (
-              <div
-                key={area.category}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm"
-              >
-                <div
-                  className="px-6 py-4 border-b"
-                  style={{ background: area.bg, borderColor: area.border }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ background: area.color }}
-                    />
-                    <h3 className="font-bold text-slate-900 text-sm">
-                      {area.category}
-                    </h3>
-                  </div>
-                </div>
-                <div className="px-6 py-5">
-                  <div className="flex flex-wrap gap-2">
-                    {area.topics.map((topic) => (
-                      <span
-                        key={topic}
-                        className="text-xs bg-slate-50 text-slate-600 border border-slate-200 px-2.5 py-1 rounded-full"
-                      >
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+            {["13.75 CE contact hours","AACN-accredited content","Instant certificate download","Accepted in all US states"].map(f => (
+              <span key={f} style={{ background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.2)", color: "#94a3b8", borderRadius: 8, padding: "6px 14px", fontSize: 12 }}>✓ {f}</span>
             ))}
           </div>
         </div>
 
-        {/* EXAM MODES */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Three ways to practise
-          </h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                mode: "Timed Mode",
-                icon: "",
-                color: "#3b82f6",
-                bg: "#eff6ff",
-                description: "Simulate the 3-hour CCRN exam. Build the speed and focus the real test demands.",
-                best: "Best for: Exam simulation",
-              },
-              {
-                mode: "Tutor Mode",
-                icon: "",
-                color: "#10b981",
-                bg: "#ecfdf5",
-                description: "Detailed critical care rationales after every question. Understand the clinical reasoning behind each answer.",
-                best: "Best for: Deep learning",
-              },
-              {
-                mode: "Quick Mode",
-                icon: "",
-                color: "#f59e0b",
-                bg: "#fffbeb",
-                description: "10-question sprints between shifts. Keep your critical care knowledge sharp without a full study session.",
-                best: "Best for: Daily revision",
-              },
-            ].map((m) => (
-              <div
-                key={m.mode}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4"
-                  style={{ background: m.bg }}
-                >
-                  {m.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{m.mode}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-3">
-                  {m.description}
-                </p>
-                <p className="text-xs font-semibold" style={{ color: m.color }}>
-                  {m.best}
-                </p>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>Exam Content Areas</h2>
+        <p style={{ color: "#64748b", marginBottom: 24 }}>Click any area to explore subtopics.</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
+          {domains.map((d, i) => (
+            <div key={d.name} onClick={() => setActive(active === i ? -1 : i)}
+              style={{ background: "#0d1f35", border: `1px solid ${active === i ? "#0ea5e9" : "rgba(14,165,233,0.12)"}`, borderRadius: 10, padding: "18px 20px", cursor: "pointer" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 13, flex: 1, paddingRight: 10 }}>{d.name}</span>
+                <span style={{ background: "rgba(14,165,233,0.15)", color: "#38bdf8", borderRadius: 999, padding: "2px 10px", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>{d.pct}%</span>
               </div>
-            ))}
-          </div>
+              <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, margin: "10px 0" }}>
+                <div style={{ height: "100%", width: `${d.pct * 5}%`, background: "#0ea5e9", borderRadius: 2 }} />
+              </div>
+              {active === i && <ul style={{ paddingLeft: 18, margin: 0 }}>{d.sub.map(s => <li key={s} style={{ color: "#94a3b8", fontSize: 13, marginBottom: 4 }}>{s}</li>)}</ul>}
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="bg-black rounded-2xl p-10 text-center text-white">
-          <h2 className="text-3xl font-bold mb-3">
-            CCRN prep is coming soon
-          </h2>
-          <p className="text-slate-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
-            We are building the full CCRN question bank right now.
-            Sign up free to be notified the moment it launches.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href={user ? "/dashboard" : "/auth/signup"}
-              className="bg-red-500 hover:bg-red-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
-            >
-              {user ? "Go to dashboard" : "Sign up for free "}
-            </Link>
-            <Link
-              href="/courses/nclex-rn"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl transition text-sm"
-            >
-              Try NCLEX-RN instead
-            </Link>
-          </div>
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 80px" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", color: "#f1f5f9", marginBottom: 20 }}>Explore Other Courses</h2>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[["Pre-Nursing","/courses/pre-nursing"],["Nursing School","/courses/nursing-school"],["NCLEX-RN","/courses/nclex-rn"],["NCLEX-PN","/courses/nclex-pn"],["Nurse Practitioner (FNP)","/courses/fnp"]].map(([name, href]) => (
+            <Link key={name} href={href} style={{ background: "#0d1f35", color: "#94a3b8", border: "1px solid rgba(14,165,233,0.12)", borderRadius: 8, padding: "10px 18px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>{name}</Link>
+          ))}
         </div>
-
-      </div>
+      </section>
     </main>
   );
 }

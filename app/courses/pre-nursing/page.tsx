@@ -1,369 +1,124 @@
+﻿"use client";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { useState } from "react";
 
-const examCovered = [
-  {
-    name: "TEAS 7",
-    full: "Test of Essential Academic Skills",
-    color: "#f59e0b",
-    bg: "#fffbeb",
-    border: "#fde68a",
-    icon: "",
-    sections: [
-      {
-        name: "Reading",
-        weight: "31%",
-        topics: [
-          "Key ideas and details", "Craft and structure",
-          "Integration of knowledge", "Informational sources",
-        ],
-      },
-      {
-        name: "Mathematics",
-        weight: "22%",
-        topics: [
-          "Numbers and algebra", "Measurement and data",
-          "Percentages", "Ratios and proportions",
-        ],
-      },
-      {
-        name: "Science",
-        weight: "31%",
-        topics: [
-          "Human anatomy and physiology", "Biology",
-          "Chemistry", "Scientific reasoning",
-        ],
-      },
-      {
-        name: "English and Language Usage",
-        weight: "16%",
-        topics: [
-          "Conventions of standard English", "Knowledge of language",
-          "Vocabulary acquisition", "Spelling and punctuation",
-        ],
-      },
-    ],
-  },
-  {
-    name: "HESI A2",
-    full: "Health Education Systems Incorporated Admission Assessment",
-    color: "#10b981",
-    bg: "#ecfdf5",
-    border: "#a7f3d0",
-    icon: "",
-    sections: [
-      {
-        name: "Reading Comprehension",
-        weight: "Core section",
-        topics: [
-          "Main idea", "Supporting details",
-          "Logical conclusions", "Passage analysis",
-        ],
-      },
-      {
-        name: "Mathematics",
-        weight: "Core section",
-        topics: [
-          "Basic operations", "Fractions and decimals",
-          "Ratios", "Military time and Roman numerals",
-        ],
-      },
-      {
-        name: "Vocabulary and General Knowledge",
-        weight: "Core section",
-        topics: [
-          "Medical terminology", "General vocabulary",
-          "Context clues", "Word roots",
-        ],
-      },
-      {
-        name: "Anatomy and Physiology",
-        weight: "Core section",
-        topics: [
-          "Body systems", "Organ functions",
-          "Medical terminology", "Physiological processes",
-        ],
-      },
-      {
-        name: "Grammar",
-        weight: "Core section",
-        topics: [
-          "Parts of speech", "Sentence structure",
-          "Punctuation", "Common errors",
-        ],
-      },
-    ],
-  },
-];
+export default function PreNursingPage() {
+  const [activeExam, setActiveExam] = useState<"teas"|"hesi">("teas");
 
-const examFacts = [
-  { label: "TEAS 7 sections", value: "4 sections" },
-  { label: "TEAS 7 questions", value: "170 items" },
-  { label: "TEAS 7 time", value: "209 minutes" },
-  { label: "HESI A2 sections", value: "Up to 9 sections" },
-  { label: "HESI A2 passing", value: "75% per section" },
-  { label: "Retake policy", value: "Varies by school" },
-];
+  const teasTopics = [
+    { name: "Reading", pct: 31, sub: ["Key ideas & details","Craft & structure","Integration of knowledge","Informational sources"] },
+    { name: "Mathematics", pct: 22, sub: ["Numbers & algebra","Measurement & data","Metric conversions","Fractions & percentages"] },
+    { name: "Science", pct: 31, sub: ["Human anatomy & physiology","Life & physical science","Scientific reasoning","Biology fundamentals"] },
+    { name: "English & Language Usage", pct: 16, sub: ["Conventions of Standard English","Knowledge of language","Vocabulary acquisition"] },
+  ];
 
-export default async function PreNursingPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const hesiTopics = [
+    { name: "Math", pct: 25, sub: ["Basic operations","Fractions & decimals","Dosage calculation","Roman numerals"] },
+    { name: "Reading Comprehension", pct: 25, sub: ["Identify main idea","Make inferences","Fact vs opinion","Passage analysis"] },
+    { name: "Vocabulary & General Knowledge", pct: 20, sub: ["Medical terminology","Healthcare vocabulary","Context clues"] },
+    { name: "Grammar", pct: 15, sub: ["Sentence structure","Punctuation","Parts of speech","Subject-verb agreement"] },
+    { name: "Biology", pct: 8, sub: ["Cell biology","Metabolism","Genetics","Biological macromolecules"] },
+    { name: "Chemistry", pct: 7, sub: ["Periodic table","Chemical bonding","Acids & bases","Nuclear chemistry"] },
+  ];
 
-  const { count } = await supabase
-    .from("questions")
-    .select("*", { count: "exact", head: true })
-    .eq("exam_type", "TEAS")
-    .eq("is_published", true);
+  const topics = activeExam === "teas" ? teasTopics : hesiTopics;
 
   return (
-    <main className="min-h-screen bg-[#f8fafc]">
-
-      {/* HERO */}
-      <div className="bg-black text-white px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-2xl">
-              
+    <main style={{ background: "#060f1e", color: "#e2e8f0", fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: "100vh" }}>
+      <section style={{ background: "linear-gradient(135deg, #060f1e 0%, #0d1f35 50%, #0e2540 100%)", padding: "80px 24px 60px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(14,165,233,0.12)", border: "1px solid rgba(14,165,233,0.3)", borderRadius: 999, padding: "6px 16px", marginBottom: 20 }}>
+          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#0ea5e9", display: "inline-block" }} />
+          <span style={{ color: "#38bdf8", fontSize: 13, fontWeight: 600, letterSpacing: "0.05em" }}>TEAS 7 &amp; HESI A2</span>
+        </div>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 700, color: "#fff", lineHeight: 1.15, margin: "0 0 16px" }}>Pre-Nursing Exam Prep</h1>
+        <p style={{ color: "#94a3b8", fontSize: "clamp(1rem, 2vw, 1.15rem)", maxWidth: 580, margin: "0 auto 32px", lineHeight: 1.7 }}>
+          Your nursing school journey starts here. Comprehensive TEAS 7 and HESI A2 preparation — practice tests, video walkthroughs, and personalised study plans.
+        </p>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+          <Link href="/pricing" style={{ background: "#0ea5e9", color: "#fff", padding: "14px 28px", borderRadius: 8, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>Start Free Today</Link>
+          <Link href="/quiz" style={{ background: "transparent", color: "#38bdf8", padding: "14px 28px", borderRadius: 8, fontWeight: 600, fontSize: 15, textDecoration: "none", border: "1px solid rgba(56,189,248,0.3)" }}>Try a Sample Question</Link>
+        </div>
+        <div style={{ display: "flex", gap: 32, justifyContent: "center", marginTop: 48, flexWrap: "wrap" }}>
+          {[["1,800+","Practice Questions"],["TEAS 7","& HESI A2"],["Expert","Video Walkthroughs"],["Score","Improvement Guarantee"]].map(([n,l]) => (
+            <div key={l} style={{ textAlign: "center" }}>
+              <div style={{ color: "#38bdf8", fontSize: "1.6rem", fontWeight: 800, fontFamily: "'Cormorant Garamond', serif" }}>{n}</div>
+              <div style={{ color: "#64748b", fontSize: 12, marginTop: 2 }}>{l}</div>
             </div>
-            <div>
-              <p className="text-xs font-bold text-amber-400 uppercase tracking-widest">
-                Pre-Nursing
-              </p>
-              <span className="text-xs font-semibold bg-amber-500 text-white px-2 py-0.5 rounded-full">
-                Coming Soon
-              </span>
+          ))}
+        </div>
+      </section>
+
+      {/* EXAM SELECTOR */}
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 0" }}>
+        <div style={{ display: "flex", gap: 12, marginBottom: 32, flexWrap: "wrap" }}>
+          {(["teas","hesi"] as const).map(exam => (
+            <button key={exam} onClick={() => setActiveExam(exam)}
+              style={{ background: activeExam === exam ? "#0ea5e9" : "#0d1f35", color: activeExam === exam ? "#fff" : "#94a3b8", border: `1px solid ${activeExam === exam ? "#0ea5e9" : "rgba(14,165,233,0.2)"}`, borderRadius: 8, padding: "10px 24px", cursor: "pointer", fontWeight: 700, fontSize: 15, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              {exam === "teas" ? "TEAS 7" : "HESI A2"}
+            </button>
+          ))}
+        </div>
+
+        {activeExam === "teas" && (
+          <div style={{ marginBottom: 32 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>TEAS 7 — Test of Essential Academic Skills</h2>
+            <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 700, marginBottom: 24 }}>
+              The ATI TEAS 7 is the most widely used nursing school entrance exam in the United States. It assesses academic readiness across four content areas — Reading, Mathematics, Science, and English & Language Usage. Most nursing programs require a minimum score of 65–70%.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14, marginBottom: 32 }}>
+              {[["Questions","170 (150 scored + 20 unscored)"],["Time","209 minutes"],["Format","Multiple choice + ATI Technology-Enhanced"],["Sections","4 content areas"]].map(([k,v]) => (
+                <div key={k} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 10, padding: "16px 18px" }}>
+                  <div style={{ color: "#475569", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{k}</div>
+                  <div style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 13 }}>{v}</div>
+                </div>
+              ))}
             </div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-            TEAS 7 & HESI A2<br />
-            <span className="text-amber-400">Success Toolkit</span>
-          </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-            Get into nursing school with confidence. Our Pre-Nursing prep covers
-            everything you need for both the TEAS 7 and HESI A2 -- the two most
-            common nursing school entrance exams.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href={user ? "/quiz/select?examType=TEAS" : "/auth/signup"}
-              className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              {user ? "Start practising " : "Get notified "}
-            </Link>
-            <Link
-              href="/pricing"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3.5 rounded-xl transition text-sm"
-            >
-              View pricing
-            </Link>
-          </div>
-        </div>
-      </div>
+        )}
 
-      {/* QUICK STATS */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="mx-auto max-w-5xl px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {examFacts.map((fact) => (
-              <div key={fact.label} className="text-center">
-                <p className="text-sm font-bold text-slate-900">{fact.value}</p>
-                <p className="text-xs text-slate-400 mt-1">{fact.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-5xl px-4 py-12 space-y-12">
-
-        {/* PRACTICE STATS */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-amber-600">{count ?? 0}+</p>
-            <p className="text-sm text-amber-700 mt-1 font-medium">Practice questions</p>
-            <p className="text-xs text-amber-500 mt-1">With full rationales</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">2</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Exams covered</p>
-            <p className="text-xs text-slate-400 mt-1">TEAS 7 . HESI A2</p>
-          </div>
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
-            <p className="text-4xl font-bold text-slate-900">9</p>
-            <p className="text-sm text-slate-600 mt-1 font-medium">Subject areas</p>
-            <p className="text-xs text-slate-400 mt-1">All sections covered</p>
-          </div>
-        </div>
-
-        {/* WHAT IS PRE-NURSING */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            What are the TEAS 7 and HESI A2?
-          </h2>
-          <div className="text-sm leading-relaxed space-y-3 text-slate-600">
-            <p>
-              Before you can enter a nursing programme, most schools require you
-              to pass an entrance exam. The two most widely used are the
-              <strong className="text-slate-800"> TEAS 7</strong> (ATI) and the
-              <strong className="text-slate-800"> HESI A2</strong> (Elsevier).
+        {activeExam === "hesi" && (
+          <div style={{ marginBottom: 32 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", color: "#f1f5f9", marginBottom: 8 }}>HESI A2 — Admission Assessment Exam</h2>
+            <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 700, marginBottom: 24 }}>
+              The HESI A2 (Health Education Systems Incorporated Admissions Assessment) is used by nursing schools to evaluate a candidate's academic readiness. Unlike the TEAS, each school selects which subtests to require, so your preparation should match your specific program's requirements.
             </p>
-            <p>
-              Both exams test your foundational knowledge in reading, maths,
-              science, and English -- the building blocks of nursing education.
-              A strong score significantly improves your chances of admission
-              to competitive nursing programmes.
-            </p>
-            <p>
-              Our question bank prepares you for both exams in one place,
-              so you are ready no matter which exam your school requires.
-            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14, marginBottom: 32 }}>
+              {[["Questions","Varies by subtest"],["Time","5+ hours (full exam)"],["Passing score","Varies by school (usually 75–80%)"],["Subtests","Up to 9 depending on program"]].map(([k,v]) => (
+                <div key={k} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.15)", borderRadius: 10, padding: "16px 18px" }}>
+                  <div style={{ color: "#475569", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 4 }}>{k}</div>
+                  <div style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 13 }}>{v}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* EXAMS COVERED */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">
-            Both exams fully covered
-          </h2>
-          <p className="text-slate-500 text-sm mb-6">
-            Every question is mapped to a specific section of the TEAS 7 or HESI A2.
-          </p>
-          <div className="space-y-6">
-            {examCovered.map((exam) => (
-              <div
-                key={exam.name}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm"
-              >
-                <div
-                  className="px-6 py-4 border-b"
-                  style={{ background: exam.bg, borderColor: exam.border }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{exam.icon}</span>
-                    <div>
-                      <h3 className="font-bold text-slate-900">{exam.name}</h3>
-                      <p className="text-xs text-slate-500">{exam.full}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="divide-y divide-slate-100">
-                  {exam.sections.map((section) => (
-                    <div key={section.name} className="px-6 py-5">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-semibold text-slate-800 text-sm">
-                          {section.name}
-                        </h4>
-                        <span
-                          className="text-xs font-bold px-2.5 py-1 rounded-full"
-                          style={{
-                            background: exam.bg,
-                            color: exam.color,
-                            border: `1px solid ${exam.border}`,
-                          }}
-                        >
-                          {section.weight}
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {section.topics.map((topic) => (
-                          <span
-                            key={topic}
-                            className="text-xs bg-slate-50 text-slate-600 border border-slate-200 px-2.5 py-1 rounded-full"
-                          >
-                            {topic}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: "#f1f5f9", marginBottom: 16 }}>Content Breakdown</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+          {topics.map((t, i) => (
+            <div key={t.name} style={{ background: "#0d1f35", border: "1px solid rgba(14,165,233,0.12)", borderRadius: 10, padding: "18px 20px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <span style={{ color: "#e2e8f0", fontWeight: 600, fontSize: 14 }}>{t.name}</span>
+                <span style={{ background: "rgba(14,165,233,0.15)", color: "#38bdf8", borderRadius: 999, padding: "2px 10px", fontSize: 12, fontWeight: 700 }}>{t.pct}%</span>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* EXAM MODES */}
-        <div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Three ways to practise
-          </h2>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                mode: "Timed Mode",
-                icon: "",
-                color: "#3b82f6",
-                bg: "#eff6ff",
-                description: "Simulate real exam conditions. Build the speed and stamina both entrance exams demand.",
-                best: "Best for: Exam simulation",
-              },
-              {
-                mode: "Tutor Mode",
-                icon: "",
-                color: "#10b981",
-                bg: "#ecfdf5",
-                description: "Get instant feedback after every question with full rationales so you truly understand the material.",
-                best: "Best for: Deep learning",
-              },
-              {
-                mode: "Quick Mode",
-                icon: "",
-                color: "#f59e0b",
-                bg: "#fffbeb",
-                description: "10-question sprints for daily practice. Keep your knowledge fresh between study sessions.",
-                best: "Best for: Daily revision",
-              },
-            ].map((m) => (
-              <div
-                key={m.mode}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4"
-                  style={{ background: m.bg }}
-                >
-                  {m.icon}
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">{m.mode}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed mb-3">
-                  {m.description}
-                </p>
-                <p className="text-xs font-semibold" style={{ color: m.color }}>
-                  {m.best}
-                </p>
+              <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, marginBottom: 12 }}>
+                <div style={{ height: "100%", width: `${t.pct * 3}%`, background: "#0ea5e9", borderRadius: 2 }} />
               </div>
-            ))}
-          </div>
+              <ul style={{ paddingLeft: 18, margin: 0 }}>{t.sub.map(s => <li key={s} style={{ color: "#94a3b8", fontSize: 12, marginBottom: 3 }}>{s}</li>)}</ul>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="bg-black rounded-2xl p-10 text-center text-white">
-          <h2 className="text-3xl font-bold mb-3">
-            Pre-Nursing prep is coming soon
-          </h2>
-          <p className="text-slate-400 mb-6 max-w-lg mx-auto text-sm leading-relaxed">
-            We are building the full TEAS 7 and HESI A2 question bank right now.
-            Sign up free to be notified the moment it launches.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href={user ? "/dashboard" : "/auth/signup"}
-              className="bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-xl transition text-sm"
-            >
-              {user ? "Go to dashboard" : "Sign up for free "}
-            </Link>
-            <Link
-              href="/courses/nclex-rn"
-              className="border border-white/20 hover:bg-white/10 text-white font-semibold px-8 py-3 rounded-xl transition text-sm"
-            >
-              Try NCLEX-RN instead
-            </Link>
-          </div>
+      <section style={{ maxWidth: 960, margin: "0 auto", padding: "64px 24px 80px" }}>
+        <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.6rem", color: "#f1f5f9", marginBottom: 20 }}>Continue Your Journey</h2>
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          {[["Nursing School","/courses/nursing-school"],["NCLEX-RN","/courses/nclex-rn"],["NCLEX-PN","/courses/nclex-pn"],["Nurse Practitioner","/courses/fnp"],["CCRN","/courses/ccrn"]].map(([name, href]) => (
+            <Link key={name} href={href} style={{ background: "#0d1f35", color: "#94a3b8", border: "1px solid rgba(14,165,233,0.12)", borderRadius: 8, padding: "10px 18px", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>{name}</Link>
+          ))}
         </div>
-
-      </div>
+      </section>
     </main>
   );
 }
