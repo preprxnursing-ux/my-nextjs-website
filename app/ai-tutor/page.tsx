@@ -268,7 +268,10 @@ export default function AITutorPage() {
   const [showHistory, setShowHistory] = useState(false);
   const [pendingSuggestion, setPendingSuggestion] = useState<string | null>(null);
   const [showContinueModal, setShowContinueModal] = useState(false);
+  const [imageBase64, setImageBase64] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClient();
 
   useEffect(() => {
@@ -312,12 +315,30 @@ export default function AITutorPage() {
     }
   }
 
+  function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setImageBase64(result);
+      setImagePreview(result);
+    };
+    reader.readAsDataURL(file);
+  }
+
   async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
     if (!selectedExam || loading) return;
-    const userMsg = { role: "user", content: userContent };
-    const newMsgs = [...baseMessages, userMsg];
+    const userMsg: any = imageBase64
+      ? { role: "user", content: [{ type: "text", text: userContent }, { type: "image_url", image_url: { url: imageBase64 } }] }
+      : { role: "user", content: userContent };
+    const displayMsg = { role: "user", content: userContent + (imageBase64 ? " [image attached]" : "") };
+    const newMsgs = [...baseMessages, displayMsg];
+    const apiMsgs = [...baseMessages, userMsg];
     setMessages(newMsgs);
     setInput("");
+    setImageBase64(null);
+    setImagePreview(null);
     setLoading(true);
     try {
       const res = await fetch("/api/chat", {
@@ -326,7 +347,7 @@ export default function AITutorPage() {
         body: JSON.stringify({
           messages: [
             { role: "system", content: PROMPTS[selectedExam.id] },
-            ...newMsgs.map((m) => ({ role: m.role, content: m.content }))
+            ...apiMsgs.map((m: any) => ({ role: m.role, content: m.content }))
           ]
         }),
       });
@@ -560,7 +581,20 @@ export default function AITutorPage() {
 
             {/* INPUT BAR */}
             <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, background: "rgba(15,23,42,0.97)", backdropFilter: "blur(12px)", borderTop: "1px solid #1e293b", padding: "14px 20px" }}>
+              {imagePreview && (
+                <div style={{ maxWidth: 900, margin: "0 auto 8px", display: "flex", alignItems: "center", gap: 8, background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: 8, width: "fit-content" }}>
+                  <img src={imagePreview} alt="preview" style={{ height: 56, borderRadius: 6, objectFit: "cover" }} />
+                  <span style={{ color: "#64748b", fontSize: 12 }}>Image ready to send</span>
+                  <button onClick={() => { setImageBase64(null); setImagePreview(null); }} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 16, lineHeight: 1 }}>x</button>
+                </div>
+              )}
               <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", gap: 10 }}>
+                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: "none" }} />
+                <button onClick={() => fileInputRef.current?.click()}
+                  title="Attach an image"
+                  style={{ padding: "13px 14px", background: "#1e293b", border: "1px solid " + (imageBase64 ? "#0ea5e9" : "#334155"), borderRadius: 12, cursor: "pointer", fontSize: 18, color: imageBase64 ? "#0ea5e9" : "#64748b", flexShrink: 0 }}>
+                  📷
+                </button>
                 <input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
