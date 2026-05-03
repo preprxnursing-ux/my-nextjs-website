@@ -507,6 +507,20 @@ export default function AITutorPage() {
                 <button onClick={() => fileInputRef.current?.click()} title="Attach file"
                   style={{ padding: "13px 14px", background: "#1e293b", border: "1px solid "+(imageBase64||attachedFile?"#0ea5e9":"#334155"), borderRadius: 12, cursor: "pointer", color: imageBase64||attachedFile?"#0ea5e9":"#64748b", flexShrink: 0, fontWeight: 700, fontSize: 16 }}>+</button>
                 <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
+                  onPaste={e => {
+                    const items = e.clipboardData?.items;
+                    if (!items) return;
+                    for (let i = 0; i < items.length; i++) {
+                      if (items[i].type.startsWith("image/")) {
+                        e.preventDefault();
+                        const file = items[i].getAsFile();
+                        if (!file) return;
+                        const reader = new FileReader();
+                        reader.onload = () => { setImageBase64(reader.result as string); setImagePreview(reader.result as string); setAttachedFile(null); };
+                        reader.readAsDataURL(file);
+                      }
+                    }
+                  }}
                   placeholder={"Ask "+selectedExam.label+" question..."}
                   style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }} />
                 <button onClick={send} disabled={loading}
