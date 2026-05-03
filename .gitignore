@@ -49,3 +49,7 @@ prenclex-chat/
 create-course-pages_files/
 *.ps1
 fix-*.js
+
+current-tutor.tsx
+fix-render.ps1
+fix-*.ps1
