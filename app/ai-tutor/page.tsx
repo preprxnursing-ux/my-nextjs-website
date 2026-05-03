@@ -17,17 +17,6 @@ const EXAMS: Exam[] = [
   { id: "ngn",       label: "NGN / Next Gen", icon: "NG", color: "#f97316", desc: "Next Generation NCLEX" },
 ];
 
-const GREETINGS: Record<string, string> = {
-  "nclex-rn":  "Hey! Ready to tackle NCLEX-RN together. What would you like to work on?",
-  "nclex-pn":  "Hi there! Let's work on your NCLEX-PN prep. What's on your mind?",
-  "teas":      "Hello! Let's get you into nursing school. What part of the TEAS would you like help with?",
-  "hesi":      "Hi! Happy to help with your HESI A2. Which section are you working on?",
-  "ccrn":      "Welcome! Let's sharpen those critical care skills. What do you want to dig into?",
-  "fnp":       "Hey! Let's work on your FNP boards. What topic are you focusing on today?",
-  "hesi-exit": "Hi! Let's get you ready for the HESI Exit. What would you like to review?",
-  "ngn":       "Hello! NGN is all about clinical thinking. Where would you like to start?",
-};
-
 const PROMPTS: Record<string, string> = {
   "nclex-rn": `You are James, a warm and expert NCLEX-RN tutor at Pre-NCLEX Nursing.
 
@@ -178,6 +167,7 @@ NGN ITEM TYPES — explain only when asked:
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 };
 
+
 const SUGGESTIONS: Record<string, string[]> = {
   "nclex-rn":  ["Priority nursing questions", "Delegation rules", "Pharmacology pearls", "Infection control"],
   "nclex-pn":  ["LPN scope of practice", "Pharmacology", "Pressure injury staging", "Signs of shock"],
@@ -257,61 +247,77 @@ function renderMessage(content: string) {
   return <>{processedBlocks}</>;
 }
 
+
+function renderMath(tex: string, display: boolean): string {
+  try { return katex.renderToString(tex, { throwOnError: false, displayMode: display }); }
+  catch { return tex; }
+}
+
+function renderMessage(content: string) {
+  const blocks = content.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g);
+  const processedBlocks = blocks.map((block, bi) => {
+    if (block.startsWith("$$") && block.endsWith("$$")) {
+      return <div key={bi} style={{ overflowX: "auto", margin: "12px 0" }} dangerouslySetInnerHTML={{ __html: renderMath(block.slice(2,-2).trim(), true) }} />;
+    }
+    if (block.startsWith("$") && block.endsWith("$") && block.length > 2) {
+      return <span key={bi} dangerouslySetInnerHTML={{ __html: renderMath(block.slice(1,-1).trim(), false) }} />;
+    }
+    return block.split("\n").map((line, i) => {
+      if (!line.trim()) return <br key={bi+"-"+i} />;
+      const renderInline = (text: string) => {
+        const parts = text.split(/(\*\*.+?\*\*)/g);
+        return parts.map((part, j) => {
+          if (part.startsWith("**") && part.endsWith("**")) return <strong key={j} style={{ color: "#0369a1", fontWeight: 700 }}>{part.slice(2,-2)}</strong>;
+          return <span key={j}>{part}</span>;
+        });
+      };
+      const clean = line.replace(/^#{1,3}\s+/, "").trim();
+      if (line.trim().match(/^\d+\./)) {
+        return <div key={bi+"-"+i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\d+\.\s*/, ""))}</span></div>;
+      }
+      if (line.trim().startsWith("-") || line.trim().startsWith("\u2022")) {
+        return <div key={bi+"-"+i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>\u2022</span><span>{renderInline(clean.replace(/^[-\u2022]\s*/, ""))}</span></div>;
+      }
+      return <div key={bi+"-"+i} style={{ marginBottom: 6 }}>{renderInline(clean)}</div>;
+    });
+  });
+  return <>{processedBlocks}</>;
+}
+
 export default function AITutorPage() {
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: string; content: any }[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [history, setHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
-  const [pendingSuggestion, setPendingSuggestion] = useState<string | null>(null);
-  const [showContinueModal, setShowContinueModal] = useState(false);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [attachedFile, setAttachedFile] = useState<{ name: string; content: string; type: string } | null>(null);
+  const [pendingSuggestion, setPendingSuggestion] = useState<string | null>(null);
+  const [showContinueModal, setShowContinueModal] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClient();
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data?.user) setUserId(data.user.id);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (userId) loadHistory();
-  }, [userId]);
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, loading]);
+  useEffect(() => { supabase.auth.getUser().then(({ data }) => { if (data?.user) setUserId(data.user.id); }); }, []);
+  useEffect(() => { if (userId) loadHistory(); }, [userId]);
 
   async function loadHistory() {
-    const { data } = await supabase
-      .from("chat_history")
-      .select("*")
-      .order("updated_at", { ascending: false })
-      .limit(20);
+    const { data } = await supabase.from("chat_history").select("*").order("updated_at", { ascending: false }).limit(20);
     if (data) setHistory(data);
   }
 
-  async function saveChat(msgs: { role: string; content: string }[], exam: Exam, sid: string | null) {
+  async function saveChat(msgs: any[], exam: Exam, sid: string | null) {
     if (!userId) return;
+    const saveable = msgs.map(m => ({ role: m.role, content: typeof m.content === "string" ? m.content : "[file message]" }));
     if (sid) {
-      await supabase.from("chat_history").update({
-        messages: msgs,
-        updated_at: new Date().toISOString(),
-      }).eq("id", sid);
+      await supabase.from("chat_history").update({ messages: saveable, updated_at: new Date().toISOString() }).eq("id", sid);
     } else {
-      const { data } = await supabase.from("chat_history").insert({
-        user_id: userId,
-        exam_id: exam.id,
-        exam_label: exam.label,
-        messages: msgs,
-      }).select().single();
+      const { data } = await supabase.from("chat_history").insert({ user_id: userId, exam_id: exam.id, exam_label: exam.label, messages: saveable }).select().single();
       if (data) setSessionId(data.id);
     }
   }
@@ -320,38 +326,38 @@ export default function AITutorPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-    const imageTypes = ["jpg", "jpeg", "png", "gif", "webp", "bmp"];
+    const imageTypes = ["jpg","jpeg","png","gif","webp","bmp"];
 
     if (imageTypes.includes(ext)) {
       const reader = new FileReader();
+      reader.onload = () => { setImageBase64(reader.result as string); setImagePreview(reader.result as string); setAttachedFile(null); };
+      reader.readAsDataURL(file);
+    } else if (ext === "pdf") {
+      const reader = new FileReader();
       reader.onload = () => {
-        setImageBase64(reader.result as string);
-        setImagePreview(reader.result as string);
-        setAttachedFile(null);
+        const base64 = (reader.result as string).split(",")[1];
+        setAttachedFile({ name: file.name, content: base64, type: "pdf" });
+        setImageBase64(null); setImagePreview(null);
       };
       reader.readAsDataURL(file);
-    } else if (["pdf", "docx", "pptx", "txt"].includes(ext)) {
+    } else if (["docx","pptx","txt"].includes(ext)) {
       setAttachedFile({ name: file.name, content: "Extracting content...", type: ext });
-      setImageBase64(null);
-      setImagePreview(null);
+      setImageBase64(null); setImagePreview(null);
       const formData = new FormData();
       formData.append("file", file);
       try {
         const res = await fetch("/api/extract", { method: "POST", body: formData });
         const data = await res.json();
-        setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
-      } catch {
-        setAttachedFile({ name: file.name, content: "Extraction failed. Please try again.", type: ext });
-      }
+        setAttachedFile({ name: file.name, content: data.text || "Could not extract.", type: ext });
+      } catch { setAttachedFile({ name: file.name, content: "Extraction failed.", type: ext }); }
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-    async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
+  async function sendMessage(userContent: string, baseMessages: any[]) {
     if (!selectedExam || loading) return;
-    const fileContext = attachedFile && attachedFile.content
-      ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END OF FILE ---"
-      : "";
+    const fileContext = attachedFile && attachedFile.type !== "pdf" && attachedFile.content && attachedFile.content !== "Extracting content..."
+      ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END ---" : "";
     const fullText = userContent + fileContext;
     const isPdf = attachedFile?.type === "pdf";
     const userMsg: any = imageBase64
@@ -359,53 +365,35 @@ export default function AITutorPage() {
       : isPdf
       ? { role: "user", content: [{ type: "text", text: userContent }, { type: "pdf", data: attachedFile!.content }] }
       : { role: "user", content: fullText };
-    const displayMsg = { role: "user", content: userContent + (imageBase64 ? " 📷 [image]" : "") + (attachedFile ? ` 📎 [${attachedFile.name}]` : "") };
+    const displayMsg = { role: "user", content: userContent + (imageBase64 ? " [image]" : "") + (attachedFile ? " ["+attachedFile.name+"]" : "") };
     const newMsgs = [...baseMessages, displayMsg];
     const apiMsgs = [...baseMessages, userMsg];
-    setMessages(newMsgs);
-    setInput("");
-    setImageBase64(null);
-    setImagePreview(null);
-    setAttachedFile(null);
-    setLoading(true);
+    setMessages(newMsgs); setInput(""); setImageBase64(null); setImagePreview(null); setAttachedFile(null); setLoading(true);
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [
-            { role: "system", content: PROMPTS[selectedExam.id] },
-            ...apiMsgs.map((m: any) => ({ role: m.role, content: m.content }))
-          ]
-        }),
+        body: JSON.stringify({ messages: [{ role: "system", content: PROMPTS[selectedExam.id] }, ...apiMsgs.map((m: any) => ({ role: m.role, content: m.content }))] }),
       });
       const data = await res.json();
-      const reply = data.reply ?? "Sorry, I could not generate a response.";
+      const reply = data.reply ?? "Sorry, no response.";
       const finalMsgs = [...newMsgs, { role: "assistant", content: reply }];
       setMessages(finalMsgs);
       await saveChat(finalMsgs, selectedExam, sessionId);
       await loadHistory();
-    } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Connection error. Please try again." }]);
-    }
+    } catch { setMessages(prev => [...prev, { role: "assistant", content: "Connection error." }]); }
     setLoading(false);
   }
 
   async function send() {
     if ((!input.trim() && !imageBase64 && !attachedFile) || !selectedExam || loading) return;
-    const text = input.trim() || (attachedFile ? "Please analyse this file." : "");
+    const text = input.trim() || (attachedFile ? "Please analyse this file." : "Please analyse this image.");
     await sendMessage(text, messages);
   }
 
-  function handleSuggestionClick(suggestion: string) {
-    if (messages.length > 1) {
-      // Already in a conversation — ask continue or new
-      setPendingSuggestion(suggestion);
-      setShowContinueModal(true);
-    } else {
-      // Fresh chat — send directly
-      sendMessage(suggestion, messages);
-    }
+  async function handleSuggestionClick(suggestion: string) {
+    if (messages.length > 1) { setPendingSuggestion(suggestion); setShowContinueModal(true); }
+    else { await sendMessage(suggestion, messages); }
   }
 
   async function handleContinueChoice(choice: "new" | "continue") {
@@ -413,120 +401,83 @@ export default function AITutorPage() {
     if (!pendingSuggestion || !selectedExam) return;
     if (choice === "new") {
       const greeting = [{ role: "assistant", content: GREETINGS[selectedExam.id] }];
-      setMessages(greeting);
-      setSessionId(null);
+      setMessages(greeting); setSessionId(null);
       await sendMessage(pendingSuggestion, greeting);
-    } else {
-      await sendMessage(pendingSuggestion, messages);
-    }
+    } else { await sendMessage(pendingSuggestion, messages); }
     setPendingSuggestion(null);
   }
 
   function startNewChat(exam: Exam) {
-    setSelectedExam(exam);
-    setSessionId(null);
+    setSelectedExam(exam); setSessionId(null);
     setMessages([{ role: "assistant", content: GREETINGS[exam.id] }]);
   }
 
   function loadSession(session: any) {
-    const exam = EXAMS.find(e => e.id === session.exam_id) || {
-      id: session.exam_id,
-      label: session.exam_label,
-      icon: session.exam_label.slice(0, 2).toUpperCase(),
-      color: "#0ea5e9",
-      desc: ""
-    };
-    setSelectedExam(exam);
-    setMessages(session.messages);
-    setSessionId(session.id);
-    setShowHistory(false);
+    const exam = EXAMS.find(e => e.id === session.exam_id) || { id: session.exam_id, label: session.exam_label, icon: session.exam_label.slice(0,2).toUpperCase(), color: "#0ea5e9", desc: "" };
+    setSelectedExam(exam); setMessages(session.messages); setSessionId(session.id); setShowHistory(false);
   }
 
-  return (
-    <main style={{ minHeight: "100vh", background: "#0f172a", color: "white", fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", display: "flex" }}>
+  const GREETINGS: Record<string, string> = {
+    "nclex-rn": "Hey! Ready to tackle NCLEX-RN. What would you like to work on?",
+    "nclex-pn": "Hi! Let's work on your NCLEX-PN prep. What's on your mind?",
+    "teas": "Hello! Let's get you into nursing school. What part of the TEAS would you like help with?",
+    "hesi": "Hi! Happy to help with your HESI A2. Which section are you working on?",
+    "ccrn": "Welcome! Let's sharpen those critical care skills. What do you want to dig into?",
+    "fnp": "Hey! Let's work on your FNP boards. What topic are you focusing on?",
+    "hesi-exit": "Hi! Let's get you ready for the HESI Exit. What would you like to review?",
+    "ngn": "Hello! NGN is all about clinical thinking. Where would you like to start?",
+  };
 
-      {/* CONTINUE/NEW MODAL */}
+  return (
+    <main style={{ background: "#060f1e", color: "#e2e8f0", fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: "100vh" }}>
       {showContinueModal && selectedExam && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ background: "#1e293b", border: "1px solid #334155", borderRadius: 16, padding: "32px 28px", maxWidth: 360, width: "90%", textAlign: "center" }}>
-            <div style={{ width: 48, height: 48, borderRadius: 12, background: selectedExam.color + "22", border: "1px solid " + selectedExam.color + "44", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, color: selectedExam.color, margin: "0 auto 16px" }}>{selectedExam.icon}</div>
             <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 8 }}>You are already in a session</h3>
-            <p style={{ color: "#94a3b8", fontSize: 14, marginBottom: 24, lineHeight: 1.6 }}>
-              Would you like to continue this conversation or start a fresh one on <strong style={{ color: "#e2e8f0" }}>{pendingSuggestion}</strong>?
-            </p>
+            <p style={{ color: "#94a3b8", fontSize: 14, marginBottom: 24 }}>Continue here or start fresh on <strong>{pendingSuggestion}</strong>?</p>
             <div style={{ display: "flex", gap: 12 }}>
-              <button onClick={() => handleContinueChoice("continue")}
-                style={{ flex: 1, padding: "12px", borderRadius: 10, background: "transparent", border: "1px solid #334155", color: "#94a3b8", cursor: "pointer", fontWeight: 600, fontSize: 14 }}>
-                Continue here
-              </button>
-              <button onClick={() => handleContinueChoice("new")}
-                style={{ flex: 1, padding: "12px", borderRadius: 10, background: selectedExam.color, border: "none", color: "white", cursor: "pointer", fontWeight: 700, fontSize: 14 }}>
-                Start new chat
-              </button>
+              <button onClick={() => handleContinueChoice("continue")} style={{ flex: 1, padding: 12, borderRadius: 10, background: "transparent", border: "1px solid #334155", color: "#94a3b8", cursor: "pointer", fontWeight: 600 }}>Continue here</button>
+              <button onClick={() => handleContinueChoice("new")} style={{ flex: 1, padding: 12, borderRadius: 10, background: selectedExam.color, border: "none", color: "white", cursor: "pointer", fontWeight: 700 }}>Start new chat</button>
             </div>
-            <button onClick={() => { setShowContinueModal(false); setPendingSuggestion(null); }}
-              style={{ marginTop: 12, background: "none", border: "none", color: "#475569", fontSize: 13, cursor: "pointer" }}>
-              Cancel
-            </button>
+            <button onClick={() => { setShowContinueModal(false); setPendingSuggestion(null); }} style={{ marginTop: 12, background: "none", border: "none", color: "#475569", fontSize: 13, cursor: "pointer" }}>Cancel</button>
           </div>
         </div>
       )}
-
-      {/* HISTORY SIDEBAR */}
       {userId && (
-        <div style={{ width: showHistory ? 280 : 0, flexShrink: 0, overflow: "hidden", transition: "width .25s", background: "#0a1120", borderRight: "1px solid #1e293b", display: "flex", flexDirection: "column" }}>
-          <div style={{ padding: "16px", borderBottom: "1px solid #1e293b", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ position: "fixed", top: 0, left: showHistory ? 0 : -280, width: 280, height: "100vh", zIndex: 150, background: "#0a1120", borderRight: "1px solid #1e293b", display: "flex", flexDirection: "column", transition: "left .25s" }}>
+          <div style={{ padding: 16, borderBottom: "1px solid #1e293b", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontWeight: 700, fontSize: 14 }}>Chat History</span>
-            <button onClick={() => setShowHistory(false)} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 20, lineHeight: 1 }}>x</button>
+            <button onClick={() => setShowHistory(false)} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 20 }}>x</button>
           </div>
-          <div style={{ flex: 1, overflowY: "auto", padding: "8px" }}>
-            {history.length === 0 && <p style={{ color: "#64748b", fontSize: 13, padding: "12px" }}>No saved chats yet.</p>}
-            {history.map((h) => (
-              <div key={h.id} onClick={() => loadSession(h)}
-                style={{ padding: "10px 12px", borderRadius: 8, cursor: "pointer", marginBottom: 4, background: sessionId === h.id ? "#1e293b" : "transparent", border: "1px solid " + (sessionId === h.id ? "#334155" : "transparent") }}
+          <div style={{ flex: 1, overflowY: "auto", padding: 8 }}>
+            {history.length === 0 && <p style={{ color: "#64748b", fontSize: 13, padding: 12 }}>No saved chats yet.</p>}
+            {history.map(h => (
+              <div key={h.id} onClick={() => loadSession(h)} style={{ padding: "10px 12px", borderRadius: 8, cursor: "pointer", marginBottom: 4, background: sessionId === h.id ? "#1e293b" : "transparent" }}
                 onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = "#1e293b"}
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = sessionId === h.id ? "#1e293b" : "transparent"}>
                 <div style={{ fontWeight: 600, fontSize: 13, color: "#e2e8f0" }}>{h.exam_label}</div>
-                <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{h.messages?.length ?? 0} messages · {new Date(h.updated_at).toLocaleDateString()}</div>
-                <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {h.messages?.[0]?.content?.slice(0, 50) ?? ""}...
-                </div>
+                <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{h.messages?.length ?? 0} messages</div>
               </div>
             ))}
           </div>
-          <div style={{ padding: "12px" }}>
-            <button onClick={() => { setSelectedExam(null); setMessages([]); setSessionId(null); setShowHistory(false); }}
-              style={{ width: "100%", padding: "10px", borderRadius: 8, background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", border: "none", color: "white", cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
-              + New Chat
-            </button>
+          <div style={{ padding: 12 }}>
+            <button onClick={() => { setSelectedExam(null); setMessages([]); setSessionId(null); setShowHistory(false); }} style={{ width: "100%", padding: 10, borderRadius: 8, background: "linear-gradient(135deg,#0ea5e9,#38bdf8)", border: "none", color: "white", cursor: "pointer", fontWeight: 700 }}>+ New Chat</button>
           </div>
         </div>
       )}
-
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-
-        {/* EXAM SELECTION */}
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         {!selectedExam ? (
           <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px", width: "100%" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
-              <div style={{ textAlign: "center", flex: 1 }}>
-                <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>Which exam are you preparing for?</h1>
-                <p style={{ color: "#94a3b8", fontSize: 15 }}>I will personalise all my responses to your specific exam</p>
-              </div>
-              {userId && (
-                <button onClick={() => setShowHistory(!showHistory)}
-                  style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 8, padding: "8px 14px", fontSize: 13, cursor: "pointer", flexShrink: 0 }}>
-                  History
-                </button>
-              )}
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 8 }}>Which exam are you preparing for?</h1>
+              <p style={{ color: "#94a3b8", fontSize: 15 }}>I will personalise all responses to your specific exam</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-              {EXAMS.map((exam) => (
-                <div key={exam.id} onClick={() => startNewChat(exam)}
-                  style={{ background: "#1e293b", borderRadius: 16, padding: 24, cursor: "pointer", border: "1px solid #334155", transition: "all .2s" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = exam.color; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "#334155"; }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: exam.color + "22", border: "1px solid " + exam.color + "44", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: exam.color, marginBottom: 12 }}>{exam.icon}</div>
+              {EXAMS.map(exam => (
+                <div key={exam.id} onClick={() => startNewChat(exam)} style={{ background: "#1e293b", borderRadius: 16, padding: 24, cursor: "pointer", border: "1px solid #334155", transition: "all .2s" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = exam.color; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = "#334155"; }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: exam.color+"22", border: "1px solid "+exam.color+"44", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: exam.color, marginBottom: 12 }}>{exam.icon}</div>
                   <div style={{ fontWeight: 800, fontSize: 18, marginBottom: 4 }}>{exam.label}</div>
                   <div style={{ color: "#94a3b8", fontSize: 13, marginBottom: 16 }}>{exam.desc}</div>
                   <div style={{ background: exam.color, color: "white", borderRadius: 8, padding: "8px 16px", fontSize: 13, fontWeight: 700, textAlign: "center" }}>Start studying</div>
@@ -534,115 +485,67 @@ export default function AITutorPage() {
               ))}
             </div>
           </div>
-
         ) : (
-
           <>
             <div style={{ maxWidth: 900, margin: "0 auto", padding: "20px 20px 160px", width: "100%" }}>
-
-              {/* HEADER */}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                <button onClick={() => { setSelectedExam(null); setMessages([]); }}
-                  style={{ background: "#1e293b", border: "none", color: "#94a3b8", cursor: "pointer", borderRadius: 8, padding: "6px 12px", fontSize: 13 }}>
-                  Back
-                </button>
-                {userId && (
-                  <button onClick={() => setShowHistory(!showHistory)}
-                    style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 8, padding: "6px 12px", fontSize: 13, cursor: "pointer" }}>
-                    History
-                  </button>
-                )}
-                <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedExam.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, color: selectedExam.color }}>{selectedExam.icon}</div>
+                <button onClick={() => { setSelectedExam(null); setMessages([]); }} style={{ background: "#1e293b", border: "none", color: "#94a3b8", cursor: "pointer", borderRadius: 8, padding: "6px 12px", fontSize: 13 }}>Back</button>
+                {userId && <button onClick={() => setShowHistory(!showHistory)} style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 8, padding: "6px 12px", fontSize: 13, cursor: "pointer" }}>History</button>}
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedExam.color+"22", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, color: selectedExam.color }}>{selectedExam.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 18 }}>{selectedExam.label} AI Tutor</div>
-                  <div style={{ color: "#94a3b8", fontSize: 13 }}>James · {selectedExam.desc}</div>
+                  <div style={{ color: "#94a3b8", fontSize: 13 }}>{selectedExam.desc}</div>
                 </div>
               </div>
-
-              {/* SUGGESTION CHIPS */}
               <div style={{ marginBottom: 20 }}>
                 <p style={{ color: "#475569", fontSize: 12, marginBottom: 10 }}>Quick topics:</p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  {(SUGGESTIONS[selectedExam.id] ?? []).map((s) => (
-                    <button key={s} onClick={() => handleSuggestionClick(s)}
-                      style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 20, padding: "7px 16px", fontSize: 13, cursor: "pointer", transition: "border-color .15s" }}
+                  {(SUGGESTIONS[selectedExam.id] ?? []).map(s => (
+                    <button key={s} onClick={() => handleSuggestionClick(s)} style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 20, padding: "7px 16px", fontSize: 13, cursor: "pointer" }}
                       onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.borderColor = selectedExam.color}
-                      onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "#334155"}>
-                      {s}
-                    </button>
+                      onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "#334155"}>{s}</button>
                   ))}
                 </div>
               </div>
-
-              {/* MESSAGES */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 {messages.map((m, i) => (
                   <div key={i} style={{ display: "flex", gap: 12, flexDirection: m.role === "user" ? "row-reverse" : "row", alignItems: "flex-start" }}>
                     <div style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, background: m.role === "user" ? "#0ea5e9" : selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white" }}>
                       {m.role === "user" ? "You" : selectedExam.icon}
                     </div>
-                    <div style={{
-                      background: m.role === "user" ? "#0ea5e9" : "#ffffff",
-                      color: m.role === "user" ? "white" : "#0f172a",
-                      padding: "14px 18px",
-                      borderRadius: 14,
-                      maxWidth: "78%",
-                      fontSize: 15,
-                      lineHeight: 1.8,
-                      boxShadow: m.role === "assistant" ? "0 1px 8px rgba(0,0,0,0.12)" : "none"
-                    }}>
-                      {m.role === "assistant" ? renderMessage(m.content) : m.content}
+                    <div style={{ background: m.role === "user" ? "#0ea5e9" : "#ffffff", color: m.role === "user" ? "white" : "#0f172a", padding: "14px 18px", borderRadius: 14, maxWidth: "78%", fontSize: 15, lineHeight: 1.8, boxShadow: m.role === "assistant" ? "0 1px 8px rgba(0,0,0,0.12)" : "none" }}>
+                      {m.role === "assistant" ? renderMessage(typeof m.content === "string" ? m.content : "") : (typeof m.content === "string" ? m.content : "[file]")}
                     </div>
                   </div>
                 ))}
-
                 {loading && (
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                     <div style={{ width: 36, height: 36, borderRadius: "50%", background: selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white", flexShrink: 0 }}>{selectedExam.icon}</div>
-                    <div style={{ background: "#ffffff", padding: "14px 18px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.12)" }}>
-                      James is thinking...
-                    </div>
+                    <div style={{ background: "#ffffff", padding: "14px 18px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.12)" }}>Thinking...</div>
                   </div>
                 )}
                 <div ref={bottomRef} />
               </div>
             </div>
-
-            {/* INPUT BAR */}
-            <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, background: "rgba(15,23,42,0.97)", backdropFilter: "blur(12px)", borderTop: "1px solid #1e293b", padding: "14px 20px" }}>
+            <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, background: "rgba(6,15,30,0.97)", backdropFilter: "blur(12px)", borderTop: "1px solid #1e293b", padding: "14px 20px" }}>
               {(imagePreview || attachedFile) && (
-                <div style={{ maxWidth: 900, margin: "0 auto 8px", display: "flex", alignItems: "center", gap: 10, background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "8px 12px", width: "fit-content" }}>
-                  {imagePreview && <a href={imagePreview} target="_blank" rel="noopener noreferrer"><img src={imagePreview} alt="preview" style={{ height: 56, borderRadius: 6, objectFit: "cover", cursor: "pointer" }} /></a>}
-                  {attachedFile && <span style={{ fontSize: 24 }}>{attachedFile.type === "pdf" ? "📄" : attachedFile.type === "docx" ? "📝" : attachedFile.type === "pptx" ? "📊" : "📎"}</span>}
-                  <div>
-                    <div style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{attachedFile?.name ?? "Image"}</div>
-                    <div style={{ color: "#64748b", fontSize: 11 }}>Ready to send with your message</div>
-                  </div>
-                  <button onClick={() => { setImageBase64(null); setImagePreview(null); setAttachedFile(null); }} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 18, marginLeft: 4 }}>x</button>
+                <div style={{ maxWidth: 900, margin: "0 auto 8px", display: "flex", alignItems: "center", gap: 8, background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "8px 12px", width: "fit-content" }}>
+                  {imagePreview && <a href={imagePreview} target="_blank" rel="noopener noreferrer"><img src={imagePreview} alt="preview" style={{ height: 48, borderRadius: 6, objectFit: "cover", cursor: "pointer" }} /></a>}
+                  {attachedFile && <span style={{ color: "#94a3b8", fontSize: 13 }}>{attachedFile.type.toUpperCase()}: {attachedFile.name}</span>}
+                  <button onClick={() => { setImageBase64(null); setImagePreview(null); setAttachedFile(null); }} style={{ background: "none", border: "none", color: "#64748b", cursor: "pointer", fontSize: 18 }}>x</button>
                 </div>
               )}
               <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", gap: 10 }}>
                 <input ref={fileInputRef} type="file" accept="image/*,.pdf,.docx,.pptx,.txt" onChange={handleFileUpload} style={{ display: "none" }} />
-                <button onClick={() => fileInputRef.current?.click()}
-                  title="Attach image, PDF, Word doc, or PowerPoint"
-                  style={{ padding: "13px 14px", background: "#1e293b", border: "1px solid " + (imageBase64 || attachedFile ? "#0ea5e9" : "#334155"), borderRadius: 12, cursor: "pointer", fontSize: 18, color: imageBase64 || attachedFile ? "#0ea5e9" : "#64748b", flexShrink: 0 }}>
-                  +
-                </button>
-                <input
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
-                  placeholder={"Ask James anything about " + selectedExam.label + "..."}
-                  style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }}
-                />
+                <button onClick={() => fileInputRef.current?.click()} title="Attach file"
+                  style={{ padding: "13px 14px", background: "#1e293b", border: "1px solid "+(imageBase64||attachedFile?"#0ea5e9":"#334155"), borderRadius: 12, cursor: "pointer", color: imageBase64||attachedFile?"#0ea5e9":"#64748b", flexShrink: 0, fontWeight: 700, fontSize: 16 }}>+</button>
+                <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && !e.shiftKey && send()}
+                  placeholder={"Ask "+selectedExam.label+" question..."}
+                  style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }} />
                 <button onClick={send} disabled={loading}
-                  style={{ padding: "13px 28px", background: selectedExam.color, color: "white", border: "none", borderRadius: 12, cursor: loading ? "not-allowed" : "pointer", fontWeight: 700, fontSize: 15, opacity: loading ? 0.7 : 1 }}>
-                  Send
-                </button>
+                  style={{ padding: "13px 28px", background: selectedExam.color, color: "white", border: "none", borderRadius: 12, cursor: loading?"not-allowed":"pointer", fontWeight: 700, fontSize: 15, opacity: loading?0.7:1 }}>Send</button>
               </div>
-              <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>
-                Pre-NCLEX Nursing AI · {selectedExam.label} · For study purposes only
-              </p>
+              <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>Pre-NCLEX Nursing AI · {selectedExam.label} · Study purposes only</p>
             </div>
           </>
         )}
