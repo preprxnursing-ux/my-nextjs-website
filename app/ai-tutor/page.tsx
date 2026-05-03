@@ -29,7 +29,7 @@ const GREETINGS: Record<string, string> = {
 };
 
 const PROMPTS: Record<string, string> = {
-  "nclex-rn": `You are James, a warm and expert NCLEX-RN tutor at Pre-NCLEX Nursing.
+  "nclex-rn": `You are AI Tutor, a warm and expert NCLEX-RN tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Only answer exactly what the student asks. Do not volunteer extra information.
@@ -49,7 +49,7 @@ WHEN ASKED FOR CONTENT, use these frameworks:
 
 Wrap key clinical terms in **double asterisks** for bold. For any formula, use LaTeX notation: inline with $formula$ or display with $$formula$$. Example: Dosage = $$\\frac{Desired}{Have} \\times Volume$$`,
 
-  "nclex-pn": `You are James, a warm and expert NCLEX-PN tutor at Pre-NCLEX Nursing.
+  "nclex-pn": `You are AI Tutor, a warm and expert NCLEX-PN tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Only answer exactly what the student asks.
@@ -67,7 +67,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
-  "teas": `You are James, a friendly TEAS 7 tutor at Pre-NCLEX Nursing.
+  "teas": `You are AI Tutor, a friendly TEAS 7 tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -83,7 +83,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key terms in **double asterisks** for bold. Always use LaTeX for formulas: inline $formula$ or display $$formula$$. Example: $$\\frac{Desired}{Have} \\times Volume$$`,
 
-  "hesi": `You are James, a helpful HESI A2 tutor at Pre-NCLEX Nursing.
+  "hesi": `You are AI Tutor, a helpful HESI A2 tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -100,7 +100,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
-  "ccrn": `You are James, an expert CCRN tutor at Pre-NCLEX Nursing. You treat candidates as ICU colleagues.
+  "ccrn": `You are AI Tutor, an expert CCRN tutor at Pre-NCLEX Nursing. You treat candidates as ICU colleagues.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -117,7 +117,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key values and terms in **double asterisks** so they render bold.`,
 
-  "fnp": `You are James, an expert FNP board exam tutor at Pre-NCLEX Nursing.
+  "fnp": `You are AI Tutor, an expert FNP board exam tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -134,7 +134,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
-  "hesi-exit": `You are James, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing.
+  "hesi-exit": `You are AI Tutor, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -151,7 +151,7 @@ WHEN ASKED FOR CONTENT:
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
-  "ngn": `You are James, an expert NGN tutor at Pre-NCLEX Nursing.
+  "ngn": `You are AI Tutor, an expert NGN tutor at Pre-NCLEX Nursing.
 
 CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
@@ -340,10 +340,10 @@ export default function AITutorPage() {
         const res = await fetch("/api/extract", { method: "POST", body: formData });
         const data = await res.json();
         if (data.scanned) {
-          setAttachedFile({ name: file.name, content: "This appears to be a scanned PDF. Please copy and paste the text you want James to analyse.", type: ext });
+          setAttachedFile({ name: file.name, content: "This appears to be a scanned PDF. Please copy and paste the text you want AI Tutor to analyse.", type: ext });
         } else {
           if (data.scanned) {
-          setAttachedFile({ name: file.name, content: "This PDF appears to be scanned. Please copy and paste the text you want James to read.", type: ext });
+          setAttachedFile({ name: file.name, content: "This PDF appears to be scanned. Please copy and paste the text you want AI Tutor to read.", type: ext });
         } else {
           setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
         }
@@ -562,7 +562,7 @@ export default function AITutorPage() {
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedExam.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, color: selectedExam.color }}>{selectedExam.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 18 }}>{selectedExam.label} AI Tutor</div>
-                  <div style={{ color: "#94a3b8", fontSize: 13 }}>James · {selectedExam.desc}</div>
+                  <div style={{ color: "#94a3b8", fontSize: 13 }}>AI Tutor · {selectedExam.desc}</div>
                 </div>
               </div>
 
@@ -607,7 +607,7 @@ export default function AITutorPage() {
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                     <div style={{ width: 36, height: 36, borderRadius: "50%", background: selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white", flexShrink: 0 }}>{selectedExam.icon}</div>
                     <div style={{ background: "#ffffff", padding: "14px 18px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.12)" }}>
-                      James is thinking...
+                      AI Tutor is thinking...
                     </div>
                   </div>
                 )}
@@ -639,7 +639,7 @@ export default function AITutorPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
-                  placeholder={"Ask James anything about " + selectedExam.label + "..."}
+                  placeholder={"Ask AI Tutor anything about " + selectedExam.label + "..."}
                   style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }}
                 />
                 <button onClick={send} disabled={loading}

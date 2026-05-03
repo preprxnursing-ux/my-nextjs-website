@@ -28,12 +28,12 @@ function renderMessage(content: string) {
   });
 }
 
-const SYSTEM_PROMPT = `You are James, a warm nursing exam tutor at Pre-NCLEX Nursing. Help with NCLEX-RN, NCLEX-PN, TEAS 7, HESI A2, CCRN, and FNP. Be concise — max 4 sentences. Answer only what is asked. Wrap key terms in **asterisks**. After answering ask ONE follow-up question. If given an image analyze it for nursing content. If given a file read and respond to it.`;
+const SYSTEM_PROMPT = `You are AI Tutor, a warm nursing exam tutor at Pre-NCLEX Nursing. Help with NCLEX-RN, NCLEX-PN, TEAS 7, HESI A2, CCRN, and FNP. Be concise — max 4 sentences. Answer only what is asked. Wrap key terms in **asterisks**. After answering ask ONE follow-up question. If given an image analyze it for nursing content. If given a file read and respond to it.`;
 
 export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean }) {
   const [open, setOpen] = useState(autoOpen);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! I am James, your nursing exam tutor. What would you like to work on today?" }
+    { role: "assistant", content: "Hi! I am AI Tutor, your nursing exam tutor. What would you like to work on today?" }
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -125,7 +125,7 @@ export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean
           <div style={{ background: "linear-gradient(135deg, #0369a1, #0ea5e9)", padding: "12px 16px", display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
             <Image src="/logo.png" alt="Prenclex" width={36} height={36} style={{ borderRadius: 8, background: "white", padding: 2 }} />
             <div>
-              <div style={{ color: "white", fontWeight: 700, fontSize: 15 }}>James — Nursing AI Tutor</div>
+              <div style={{ color: "white", fontWeight: 700, fontSize: 15 }}>AI Tutor — Nursing AI Tutor</div>
               <div style={{ color: "rgba(255,255,255,0.75)", fontSize: 11 }}>Powered by Pre-NCLEX Nursing</div>
             </div>
             <button onClick={() => setOpen(false)} style={{ marginLeft: "auto", background: "none", border: "none", color: "white", fontSize: 18, cursor: "pointer" }}>x</button>
@@ -138,7 +138,7 @@ export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean
                 </div>
               </div>
             ))}
-            {loading && <div style={{ alignSelf: "flex-start", background: "#ffffff", padding: "10px 14px", borderRadius: 12, color: "#94a3b8", fontSize: 13, fontStyle: "italic", boxShadow: "0 1px 6px rgba(0,0,0,0.15)" }}>James is thinking...</div>}
+            {loading && <div style={{ alignSelf: "flex-start", background: "#ffffff", padding: "10px 14px", borderRadius: 12, color: "#94a3b8", fontSize: 13, fontStyle: "italic", boxShadow: "0 1px 6px rgba(0,0,0,0.15)" }}>AI Tutor is thinking...</div>}
             <div ref={bottomRef} />
           </div>
           {messages.length === 1 && (
@@ -159,7 +159,7 @@ export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean
           <div style={{ display: "flex", padding: 10, gap: 8, borderTop: "1px solid #1e293b", flexShrink: 0, alignItems: "center" }}>
             <input ref={fileInputRef} type="file" accept="image/*,.pdf,.docx,.pptx,.txt" onChange={handleFileUpload} style={{ display: "none" }} />
             <button onClick={() => fileInputRef.current?.click()} title="Attach file" style={{ padding: "8px 10px", background: "#1e293b", border: "1px solid " + (imageBase64 || attachedFile ? "#0ea5e9" : "#334155"), borderRadius: 8, cursor: "pointer", color: imageBase64 || attachedFile ? "#0ea5e9" : "#64748b", flexShrink: 0, fontWeight: 700, fontSize: 16 }}>+</button>
-            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Ask James anything..." style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 13, outline: "none", fontFamily: "inherit" }} />
+            <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Ask AI Tutor anything..." style={{ flex: 1, padding: "9px 12px", borderRadius: 8, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 13, outline: "none", fontFamily: "inherit" }} />
             <button onClick={() => send()} disabled={loading} style={{ padding: "9px 14px", background: "#0ea5e9", color: "white", border: "none", borderRadius: 8, cursor: loading ? "not-allowed" : "pointer", fontWeight: 700, fontSize: 13, opacity: loading ? 0.7 : 1, fontFamily: "inherit" }}>Send</button>
           </div>
         </div>
