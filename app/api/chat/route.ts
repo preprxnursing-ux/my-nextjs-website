@@ -86,23 +86,35 @@ async function callGemini(messages: any[]) {
       }
     }
 
+    const requestBody = {
+      system_instruction: systemText ? { parts: [{ text: systemText }] } : undefined,
+      contents,
+      generationConfig: { maxOutputTokens: 1024, temperature: 0.7 }
+    };
+
     const geminiRes = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: systemText ? { parts: [{ text: systemText }] } : undefined,
-          contents,
-          generationConfig: { maxOutputTokens: 1024, temperature: 0.7 }
-        })
+        body: JSON.stringify(requestBody)
       }
     );
 
     const geminiData = await geminiRes.json();
+    console.log("Gemini response status:", geminiRes.status);
+    console.log("Gemini response:", JSON.stringify(geminiData).slice(0, 500));
+
     if (geminiData.error) {
       console.error("Gemini error:", geminiData.error);
-      return await callGroq(messages);
+      // Fall back to text-only Groq with a note about the file
+      const textMessages = messages.map((m: any) => ({
+        role: m.role,
+        content: Array.isArray(m.content)
+          ? m.content.filter((c: any) => c.type === "text").map((c: any) => c.text).join(" ") || "Please help with this nursing topic."
+          : m.content
+      }));
+      return await callGroq(textMessages);
     }
     return geminiData.candidates?.[0]?.content?.parts?.[0]?.text ?? "No response from Gemini.";
   } catch (err) {
