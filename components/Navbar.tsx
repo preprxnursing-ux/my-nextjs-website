@@ -168,7 +168,7 @@ function CoursesDropdown({ pathname }: { pathname: string }) {
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { cartCount } = useCart();
+  const { cartPlan } = useCart();
   const [user, setUser] = useState<any>(null);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -215,7 +215,7 @@ export default function Navbar() {
             {/* CART */}
             <Link href="/cart" style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, textDecoration: "none", color: "#334155" }}>
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              {cartCount > 0 && <span style={{ position: "absolute", top: 0, right: 0, background: "#0ea5e9", color: "#fff", fontSize: 9, fontWeight: 800, borderRadius: "50%", width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>{cartCount}</span>}
+              {cartPlan && <span style={{ position: "absolute", top: 0, right: 0, background: "#0ea5e9", color: "#fff", fontSize: 9, fontWeight: 800, borderRadius: "50%", width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>1</span>}
             </Link>
 
             {/* USER */}
