@@ -325,6 +325,8 @@ export default function AITutorPage() {
       ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END ---" : "";
     const fullText = userContent + fileContext;
     const isPdf = attachedFile?.type === "pdf";
+    console.log("DEBUG - attachedFile:", attachedFile?.type, "content length:", attachedFile?.content?.length);
+    console.log("DEBUG - isPdf:", isPdf, "imageBase64:", !!imageBase64);
     const userMsg: any = imageBase64
       ? { role: "user", content: [{ type: "text", text: userContent }, { type: "image_url", image_url: { url: imageBase64 } }] }
       : isPdf
