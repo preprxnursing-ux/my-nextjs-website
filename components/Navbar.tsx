@@ -49,7 +49,7 @@ const navStyle = `
   .nav-dropdown { animation: dropIn .15s ease both; }
   .nav-tab {
     display: inline-flex; align-items: center; gap: 4px;
-    padding: 0 16px; height: 38px; font-size: 13px; font-weight: 600;
+    padding: 0 16px; height: 40px; font-size: 13.5px; font-weight: 600;
     color: #334155; background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; font-family: inherit;
     border-bottom: 3px solid transparent; transition: color .15s, border-color .15s;
@@ -126,6 +126,120 @@ function SearchBar() {
   );
 }
 
+
+function FeaturesDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  const items = [
+    { title: "Three Exam Modes", desc: "Timed, Tutor & Quick practice modes", color: "#0ea5e9" },
+    { title: "Deep Rationales", desc: "Full clinical reasoning for every answer", color: "#8b5cf6" },
+    { title: "Performance Dashboard", desc: "Track progress and spot weak topics", color: "#10b981" },
+    { title: "Flag & Review System", desc: "Mark tough questions for later review", color: "#f59e0b" },
+    { title: "Adaptive Timer", desc: "Build real NCLEX mental endurance", color: "#ef4444" },
+    { title: "AI Tutor", desc: "Your personal nursing exam assistant", color: "#0070f3", href: "/ai-tutor" },
+  ];
+  return (
+    <div style={{ position: "relative", height: 38, display: "flex", alignItems: "center" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href="/features" className={`nav-tab${isActive(pathname, "/features") ? " active" : ""}`}>
+        Features <ChevronDown style={{ width: 11, height: 11, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </Link>
+      {open && (
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-100px", top: "100%", zIndex: 10001, paddingTop: 4, width: 480 }}>
+          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 24px 60px rgba(0,0,0,.18)", overflow: "hidden" }}>
+            <div style={{ padding: "10px 12px", borderBottom: "1px solid #f1f5f9" }}>
+              <p style={{ fontSize: 12, fontWeight: 800, color: "#0f172a", margin: 0 }}>Everything you need to pass</p>
+              <p style={{ fontSize: 11, color: "#64748b", margin: "2px 0 0" }}>Built by licensed RNs for nurses who pass first time</p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 4, padding: 10 }}>
+              {items.map(f => (
+                <Link key={f.title} href={f.href ?? "/features"}
+                  style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "14px", borderRadius: 10, textDecoration: "none" }}
+                  onMouseEnter={e => (e.currentTarget.style.background = f.color+"08")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: f.color+"15", border: "1px solid "+f.color+"25", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: f.color }} />
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 12, fontWeight: 700, color: "#0f172a", margin: "0 0 2px" }}>{f.title}</p>
+                    <p style={{ fontSize: 11, color: "#64748b", margin: 0 }}>{f.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div style={{ margin: "0 10px 10px", padding: "10px 14px", background: "rgba(14,165,233,.06)", border: "1px solid rgba(14,165,233,.15)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "#0f172a", margin: 0 }}>See all features in detail</p>
+              <Link href="/features" style={{ background: "#0ea5e9", color: "#fff", padding: "7px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: "none" }}>View all →</Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TestimonialsDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const [activeCard, setActiveCard] = useState(0);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function handleEnter() { if (timeout.current) clearTimeout(timeout.current); setOpen(true); }
+  function handleLeave() { timeout.current = setTimeout(() => setOpen(false), 140); }
+  const previews = [
+    { initials: "SG", name: "Stephanie G.", exam: "NCLEX-RN", color: "#0ea5e9", quote: "The questions felt exactly like the real exam. The rationales changed how I think clinically." },
+    { initials: "MT", name: "Marcus T.", exam: "NCLEX-RN", color: "#059669", quote: "Three weeks of study using only this platform. I felt completely calm walking into the exam." },
+    { initials: "AN", name: "Amara N.", exam: "NCLEX-RN", color: "#7c3aed", quote: "After failing once with another platform, I switched here and passed comfortably." },
+    { initials: "DW", name: "Denise W.", exam: "NCLEX-PN", color: "#4f46e5", quote: "Quick mode 10-question sprints were perfect for my schedule." },
+  ];
+  const active = previews[activeCard];
+  return (
+    <div style={{ position: "relative", height: 38, display: "flex", alignItems: "center" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+      <Link href="/testimonials" className={`nav-tab${isActive(pathname, "/testimonials") ? " active" : ""}`}>
+        Testimonials <ChevronDown style={{ width: 11, height: 11, transition: "transform .2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
+      </Link>
+      {open && (
+        <div className="nav-dropdown" style={{ position: "absolute", left: "-120px", top: "100%", zIndex: 10001, paddingTop: 4, width: 500 }}>
+          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,.08)", borderRadius: 16, boxShadow: "0 24px 60px rgba(0,0,0,.18)", overflow: "hidden" }}>
+            <div style={{ padding: "10px 14px", borderBottom: "1px solid #f1f5f9", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p style={{ fontSize: 12, fontWeight: 800, color: "#0f172a", margin: 0 }}>Student Stories</p>
+                <p style={{ fontSize: 11, color: "#64748b", margin: "2px 0 0" }}>Real nurses · Real results · Verified</p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 2, background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", borderRadius: 100, padding: "4px 10px" }}>
+                {"★★★★★".split("").map((s, i) => <span key={i} style={{ color: "#d97706", fontSize: 11 }}>{s}</span>)}
+                <span style={{ fontSize: 11, color: "#92400e", fontWeight: 800, marginLeft: 4 }}>4.9</span>
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "160px 1fr", minHeight: 200 }}>
+              <div style={{ background: "#f8fafc", borderRight: "1px solid #f1f5f9", padding: 8 }}>
+                {previews.map((p, i) => (
+                  <div key={p.name} onMouseEnter={() => setActiveCard(i)}
+                    style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", borderRadius: 10, background: activeCard === i ? "#fff" : "transparent", border: "1px solid "+(activeCard === i ? "rgba(0,0,0,.08)" : "transparent"), cursor: "pointer", marginBottom: 3 }}>
+                    <div style={{ width: 30, height: 30, borderRadius: "50%", background: p.color+"15", border: "2px solid "+(activeCard === i ? p.color+"60" : p.color+"25"), display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 800, color: p.color, flexShrink: 0 }}>{p.initials}</div>
+                    <div>
+                      <p style={{ fontSize: 11, fontWeight: 700, color: activeCard === i ? "#0f172a" : "#475569", margin: 0 }}>{p.name}</p>
+                      <p style={{ fontSize: 10, color: activeCard === i ? p.color : "#94a3b8", margin: 0, fontWeight: 600 }}>{p.exam}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: 16, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <div style={{ height: 3, width: 32, background: active.color, borderRadius: 3, marginBottom: 10 }} />
+                <p style={{ fontSize: 13, color: "#334155", lineHeight: 1.6, margin: "0 0 12px", fontStyle: "italic" }}>"{active.quote}"</p>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "#0f172a", margin: 0 }}>{active.name}</p>
+                <p style={{ fontSize: 11, color: active.color, margin: "2px 0 0" }}>{active.exam} · Passed</p>
+              </div>
+            </div>
+            <div style={{ padding: "8px 10px 10px", borderTop: "1px solid #f1f5f9" }}>
+              <Link href="/testimonials" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "8px", borderRadius: 8, background: "#0ea5e9", color: "#fff", textDecoration: "none", fontSize: 12, fontWeight: 700 }}>Read all stories →</Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function CoursesDropdown({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -168,7 +282,7 @@ function CoursesDropdown({ pathname }: { pathname: string }) {
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { cartPlan } = useCart();
+  const { cartCount } = useCart();
   const [user, setUser] = useState<any>(null);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -191,17 +305,17 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 9999, background: "#fff", borderBottom: "1px solid #e2e8f0" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "#fff", borderBottom: "1px solid #e2e8f0" }}>
 
         {/* ROW 1 — Logo + Search + Auth */}
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", gap: 12 }}>
 
           {/* LOGO */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
-            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={44} height={44} style={{ borderRadius: 10 }} />
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 11, fontWeight: 600, color: "#64748b", lineHeight: 1, letterSpacing: "0.05em" }}>Pre-NCLEX-Review</span>
-              <span style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", lineHeight: 1.2, fontFamily: "serif" }}>NURSING</span>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
+            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={36} height={36} style={{ borderRadius: 8 }} />
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 800, color: "#0f172a", lineHeight: 1.2 }}>Pre-NCLEX-Review</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#0ea5e9", lineHeight: 1.2 }}>NURSING</div>
             </div>
           </Link>
 
@@ -215,7 +329,7 @@ export default function Navbar() {
             {/* CART */}
             <Link href="/cart" style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", width: 36, height: 36, textDecoration: "none", color: "#334155" }}>
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-              {cartPlan && <span style={{ position: "absolute", top: 0, right: 0, background: "#0ea5e9", color: "#fff", fontSize: 9, fontWeight: 800, borderRadius: "50%", width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>1</span>}
+              {cartCount > 0 && <span style={{ position: "absolute", top: 0, right: 0, background: "#0ea5e9", color: "#fff", fontSize: 9, fontWeight: 800, borderRadius: "50%", width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center" }}>{cartCount}</span>}
             </Link>
 
             {/* USER */}
@@ -269,11 +383,11 @@ export default function Navbar() {
         </div>
 
         {/* ROW 2 — Navigation tabs */}
-        <div id="nav-row2" style={{ background: "#f8fafc", borderTop: "2px solid #0ea5e9" }}>
+        <div id="nav-row2" style={{ borderTop: "1px solid #f1f5f9", background: "#fff" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 16px", display: "flex", alignItems: "center", overflow: "hidden" }}>
             <CoursesDropdown pathname={pathname} />
-            <Link href="/features" className={`nav-tab${isActive(pathname, "/features") ? " active" : ""}`}>Features</Link>
-            <Link href="/testimonials" className={`nav-tab${isActive(pathname, "/testimonials") ? " active" : ""}`}>Testimonials</Link>
+            <FeaturesDropdown pathname={pathname} />
+            <TestimonialsDropdown pathname={pathname} />
             <Link href="/nursing-tv" className={`nav-tab${isActive(pathname, "/nursing-tv") ? " active" : ""}`}>Nursing TV</Link>
             <Link href="/blog" className={`nav-tab${isActive(pathname, "/blog") ? " active" : ""}`}>Blog</Link>
             <Link href="/quiz" className={`nav-tab${isActive(pathname, "/quiz") ? " active" : ""}`}>Practice Quiz</Link>
