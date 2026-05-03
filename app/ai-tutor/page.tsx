@@ -248,11 +248,6 @@ function renderMessage(content: string) {
 }
 
 
-function renderMath(tex: string, display: boolean): string {
-  try { return katex.renderToString(tex, { throwOnError: false, displayMode: display }); }
-  catch { return tex; }
-}
-
 
 export default function AITutorPage() {
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
