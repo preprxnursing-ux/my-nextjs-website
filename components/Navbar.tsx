@@ -191,17 +191,17 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "sticky", top: 0, zIndex: 1000, background: "#fff", borderBottom: "1px solid #e2e8f0" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 9999, background: "#fff", borderBottom: "1px solid #e2e8f0" }}>
 
         {/* ROW 1 — Logo + Search + Auth */}
         <div style={{ maxWidth: 1280, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", gap: 12 }}>
 
           {/* LOGO */}
-          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", flexShrink: 0 }}>
-            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={36} height={36} style={{ borderRadius: 8 }} />
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 800, color: "#0f172a", lineHeight: 1.2 }}>Pre-NCLEX-Review</div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#0ea5e9", lineHeight: 1.2 }}>NURSING</div>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", flexShrink: 0 }}>
+            <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={44} height={44} style={{ borderRadius: 10 }} />
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: "#64748b", lineHeight: 1, letterSpacing: "0.05em" }}>Pre-NCLEX-Review</span>
+              <span style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", lineHeight: 1.2, fontFamily: "serif" }}>NURSING</span>
             </div>
           </Link>
 
