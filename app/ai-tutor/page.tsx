@@ -1,6 +1,8 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 type Exam = { id: string; label: string; icon: string; color: string; desc: string; };
 
@@ -45,7 +47,7 @@ WHEN ASKED FOR CONTENT, use these frameworks:
 - Pharmacology: always mention what to hold the drug for and the antidote if one exists
 - Infection control: airborne=N95+negative pressure; droplet=surgical mask; contact=gloves+gown
 
-Wrap key clinical terms and values in **double asterisks** so they render bold. Example: **hold digoxin if HR < 60**.`,
+Wrap key clinical terms in **double asterisks** for bold. For any formula, use LaTeX notation: inline with $formula$ or display with $$formula$$. Example: Dosage = $$\\frac{Desired}{Have} \\times Volume$$`,
 
   "nclex-pn": `You are James, a warm and expert NCLEX-PN tutor at Pre-NCLEX Nursing.
 
@@ -63,7 +65,7 @@ WHEN ASKED FOR CONTENT:
 - Hold meds when: **HR < 60** (digoxin, beta blockers), **BP < 90/60** (antihypertensives), **RR < 12** (opioids)
 - Shock: early = restlessness + tachycardia; late = hypotension + altered LOC
 
-Wrap key terms and values in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
   "teas": `You are James, a friendly TEAS 7 tutor at Pre-NCLEX Nursing.
 
@@ -79,7 +81,7 @@ WHEN ASKED FOR CONTENT:
 - Science: focus on A&P — body systems, cell structure, genetics
 - English: subject-verb agreement, commonly confused words, sentence structure
 
-Wrap key terms and formulas in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Always use LaTeX for formulas: inline $formula$ or display $$formula$$. Example: $$\\frac{Desired}{Have} \\times Volume$$`,
 
   "hesi": `You are James, a helpful HESI A2 tutor at Pre-NCLEX Nursing.
 
@@ -96,7 +98,7 @@ WHEN ASKED FOR CONTENT:
 - Military time: add 1200 for PM; subtract 1200 for AM from times over 1200
 - Roman numerals: **I=1, V=5, X=10, L=50, C=100**
 
-Wrap key terms in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
   "ccrn": `You are James, an expert CCRN tutor at Pre-NCLEX Nursing. You treat candidates as ICU colleagues.
 
@@ -130,7 +132,7 @@ WHEN ASKED FOR CONTENT:
 - ACE inhibitors: contraindicated in pregnancy; dry cough = switch to **ARB**
 - Metformin: hold **48hr** before/after contrast; contraindicated if **GFR < 30**
 
-Wrap key terms and values in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
   "hesi-exit": `You are James, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing.
 
@@ -147,7 +149,7 @@ WHEN ASKED FOR CONTENT:
 - High-alert meds: **insulin, heparin, concentrated electrolytes** — two-nurse verification required
 - Delegation: RN keeps assessment, teaching, unstable patients, IV push meds
 
-Wrap key terms in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
   "ngn": `You are James, an expert NGN tutor at Pre-NCLEX Nursing.
 
@@ -173,7 +175,7 @@ NGN ITEM TYPES — explain only when asked:
 - **Trend** — direction of change matters most
 - **Unfolding Case** — same patient across 6 questions
 
-Wrap key terms in **double asterisks** so they render bold.`,
+Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 };
 
 const SUGGESTIONS: Record<string, string[]> = {
@@ -187,44 +189,72 @@ const SUGGESTIONS: Record<string, string[]> = {
   "ngn":       ["The 6-step NCJMM", "Matrix questions", "Unfolding case study", "Trend questions"],
 };
 
+function renderMath(tex: string, display: boolean): string {
+  try {
+    return katex.renderToString(tex, { throwOnError: false, displayMode: display });
+  } catch {
+    return tex;
+  }
+}
+
 function renderMessage(content: string) {
-  const lines = content.split("\n");
-  return lines.map((line, i) => {
-    if (!line.trim()) return <br key={i} />;
+  // Split on display math $$...$$ and inline math $...$
+  const blocks = content.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g);
 
-    const renderInline = (text: string) => {
-      const parts = text.split(/(\*\*.+?\*\*)/g);
-      return parts.map((part, j) => {
-        if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={j} style={{ color: "#0369a1", fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
-        }
-        return <span key={j}>{part}</span>;
-      });
-    };
-
-    const clean = line.replace(/^#{1,3}\s+/, "").trim();
-
-    if (line.trim().match(/^\d+\./)) {
-      const num = line.match(/^\d+/)?.[0];
-      const rest = clean.replace(/^\d+\.\s*/, "");
+  const processedBlocks = blocks.map((block, bi) => {
+    if (block.startsWith("$$") && block.endsWith("$$")) {
+      const tex = block.slice(2, -2).trim();
       return (
-        <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
-          <span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{num}.</span>
-          <span>{renderInline(rest)}</span>
-        </div>
+        <div key={bi} style={{ overflowX: "auto", margin: "12px 0", padding: "8px 0" }}
+          dangerouslySetInnerHTML={{ __html: renderMath(tex, true) }} />
       );
     }
-    if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
-      const rest = clean.replace(/^[-•]\s*/, "");
-      return (
-        <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
-          <span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span>
-          <span>{renderInline(rest)}</span>
-        </div>
-      );
+    if (block.startsWith("$") && block.endsWith("$") && block.length > 2) {
+      const tex = block.slice(1, -1).trim();
+      return <span key={bi} dangerouslySetInnerHTML={{ __html: renderMath(tex, false) }} />;
     }
-    return <div key={i} style={{ marginBottom: 6 }}>{renderInline(clean)}</div>;
+
+    // Regular text — split by lines
+    const lines = block.split("\n");
+    return lines.map((line, i) => {
+      if (!line.trim()) return <br key={bi + "-" + i} />;
+
+      const renderInline = (text: string) => {
+        const parts = text.split(/(\*\*.+?\*\*)/g);
+        return parts.map((part, j) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return <strong key={j} style={{ color: "#0369a1", fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
+          }
+          return <span key={j}>{part}</span>;
+        });
+      };
+
+      const clean = line.replace(/^#{1,3}\s+/, "").trim();
+
+      if (line.trim().match(/^\d+\./)) {
+        const num = line.match(/^\d+/)?.[0];
+        const rest = clean.replace(/^\d+\.\s*/, "");
+        return (
+          <div key={bi + "-" + i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
+            <span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{num}.</span>
+            <span>{renderInline(rest)}</span>
+          </div>
+        );
+      }
+      if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
+        const rest = clean.replace(/^[-•]\s*/, "");
+        return (
+          <div key={bi + "-" + i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
+            <span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span>
+            <span>{renderInline(rest)}</span>
+          </div>
+        );
+      }
+      return <div key={bi + "-" + i} style={{ marginBottom: 6 }}>{renderInline(clean)}</div>;
+    });
   });
+
+  return <>{processedBlocks}</>;
 }
 
 export default function AITutorPage() {
