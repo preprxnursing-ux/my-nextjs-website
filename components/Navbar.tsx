@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ const courseItems = [
   { exam: "NCLEX-PN(R)", title: "Effective NCLEX-PN Prep", color: "#6366f1", href: "/courses/nclex-pn", available: false, tag: "Full PN test plan coverage" },
   { exam: "Nurse Practitioner", title: "Expert NP Exam Resources", color: "#8b5cf6", href: "/courses/nurse-practitioner", available: false, tag: "FNP . AGPCNP certification prep" },
   { exam: "CCRN(R)", title: "Essential CCRN Success Resources", color: "#ef4444", href: "/courses/ccrn", available: false, tag: "ICU-level critical care prep" },
-  { exam: "Anatomy Visualizer", title: "AI-Powered Anatomy Visualizer", color: "#0ea5e9", href: "/anatomy", available: true, tag: "Animated organs Ã‚Â· NCLEX practice Ã‚Â· Lab values" },
+  { exam: "Anatomy Visualizer", title: "AI-Powered Anatomy Visualizer", color: "#0ea5e9", href: "/anatomy", available: true, tag: "Animated organs · NCLEX practice · Lab values" },
 ];
 
 const appLinks = [
@@ -77,7 +77,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
     { title: "Performance Dashboard", desc: "Track every attempt, spot weak topics, measure improvement", color: "#10b981", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>) },
     { title: "Flag & Review System", desc: "Flag tough questions and study them with full breakdowns", color: "#f59e0b", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>) },
     { title: "Adaptive Timer", desc: "Build mental endurance NCLEX demands with real timed pressure", color: "#ef4444", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>) },
-    { title: "Ã°Å¸Â¤â€“ AI Tutor", desc: "Your personal Nursing Exams study assistant Ã¢â‚¬â€ ask anything, anytime", color: "#0070f3", href: "https://prenclex.com/ai-tutor", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
+    { title: "🤖 AI Tutor", desc: "Your personal Nursing Exams study assistant — ask anything, anytime", color: "#0070f3", href: "https://prenclex.com/ai-tutor", icon: (<svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>) },
   ];
   return (
     <div style={{ position: "relative" }} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
@@ -376,7 +376,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#ef4444", display: "inline-block", boxShadow: "0 0 5px #ef4444" }} />
                   <span style={{ fontSize: "9px", fontWeight: 900, color: "#ef4444", letterSpacing: ".22em" }}>NURSING TV</span>
                 </div>
-                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels Ã¯Â¿Â½ 140+ lessons Ã¯Â¿Â½ Free forever</span>
+                <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>10 channels � 140+ lessons � Free forever</span>
               </div>
               <Link href="/nursing-tv" style={{ fontSize: "11px", fontWeight: 700, color: "#0ea5e9", textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}>
                 Browse all <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -441,7 +441,7 @@ function NursingTVDropdown({ pathname }: { pathname: string }) {
                   onMouseLeave={e => { e.currentTarget.style.background = channel.color + "08"; e.currentTarget.style.transform = "translateY(0)"; }}>
                   <div>
                     <p style={{ fontSize: "12px", fontWeight: 700, color: "#0f172a", margin: "0 0 1px" }}>Watch {channel.title}</p>
-                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free Ã¯Â¿Â½ No signup required</p>
+                    <p style={{ fontSize: "10px", color: "#64748b", margin: 0, fontWeight: 500 }}>Free � No signup required</p>
                   </div>
                   <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: channel.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="12" height="12" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -651,8 +651,8 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 4px 20px rgba(0,0,0,0.10)" }}>
-        <div style={{ display: "flex", alignItems: "center", padding: "0 20px", height: "58px", gap: "16px", borderBottom: "1px solid rgba(14,165,233,0.15)" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px" }}>
 
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -663,18 +663,8 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* SEARCH BAR */}
-          <div style={{ flex: 1, display: "flex", justifyContent: "center" }} className="desktop-search-bar">
-            <div style={{ position: "relative", width: "100%", maxWidth: "420px" }}>
-              <input type="text" placeholder="Search subjects, topics..." style={{ width: "100%", padding: "9px 44px 9px 18px", borderRadius: "10px", border: "1.5px solid rgba(14,165,233,0.25)", background: "rgba(14,165,233,0.04)", fontSize: "13px", color: "#0f172a", outline: "none", fontFamily: "inherit", boxSizing: "border-box" } as React.CSSProperties} onFocus={e => { e.currentTarget.style.border = "1.5px solid #0ea5e9"; e.currentTarget.style.background = "#fff"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(14,165,233,0.12)"; }} onBlur={e => { e.currentTarget.style.border = "1.5px solid rgba(14,165,233,0.25)"; e.currentTarget.style.background = "rgba(14,165,233,0.04)"; e.currentTarget.style.boxShadow = "none"; }} />
-              <div style={{ position: "absolute", right: "10px", top: "50%", transform: "translateY(-50%)", width: "28px", height: "28px", borderRadius: "7px", background: "#0ea5e9", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                <svg width="13" height="13" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              </div>
-            </div>
-          </div>
-          {/* DESKTOP ACTIONS - Row 1 right */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0px", flex: 1, justifyContent: "space-evenly"}}>
+          {/* DESKTOP NAV */}
+          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
                 Courses <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
@@ -733,12 +723,12 @@ export default function Navbar() {
                 {appLinks.map((link) => (
                   link.label === 'Quiz' ? null :
                   link.label === 'Anatomy Lab' ? (
-                    <Link key={link.label} href={link.href} style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'linear-gradient(135deg,#16a34a,#22c55e)',color:'#fff',borderRadius:'8px',padding:'6px 14px',fontSize:'13px',fontWeight:700,textDecoration:'none',boxShadow:'0 0 14px rgba(22,163,74,0.45)',whiteSpace:'nowrap',flexShrink:0}}>Ã¢Å“Å¡ Anatomy Lab</Link>
+                    <Link key={link.label} href={link.href} style={{display:'inline-flex',alignItems:'center',gap:'6px',background:'linear-gradient(135deg,#16a34a,#22c55e)',color:'#fff',borderRadius:'8px',padding:'6px 14px',fontSize:'13px',fontWeight:700,textDecoration:'none',boxShadow:'0 0 14px rgba(22,163,74,0.45)',whiteSpace:'nowrap',flexShrink:0}}>✚ Anatomy Lab</Link>
                   ) : link.label === 'AI Tutor' ? (
                     <Link key={link.label} href={link.href} style={{ display:'flex', alignItems:'center', gap:'6px', background:'linear-gradient(135deg,#0070f3,#0ea5e9)', color:'#fff', borderRadius:'8px', padding:'6px 14px', fontSize:'13px', fontWeight:700, textDecoration:'none', boxShadow:'0 0 14px rgba(0,112,243,0.45)', whiteSpace:'nowrap', flexShrink:0 }}
                       onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 24px rgba(0,112,243,0.7)'; e.currentTarget.style.transform='translateY(-1px)'; }}
                       onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 14px rgba(0,112,243,0.45)'; e.currentTarget.style.transform='translateY(0)'; }}>
-                      <span style={{fontSize:'15px'}}>Ã°Å¸Â¤â€“</span><span>AI Tutor</span><span style={{background:'rgba(255,255,255,0.2)',borderRadius:10,padding:'1px 7px',fontSize:10,fontWeight:800}}>NEW</span>
+                      <span style={{fontSize:'15px'}}>🤖</span><span>AI Tutor</span><span style={{background:'rgba(255,255,255,0.2)',borderRadius:10,padding:'1px 7px',fontSize:10,fontWeight:800}}>NEW</span>
                     </Link>
                   ) : (
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
@@ -752,7 +742,7 @@ export default function Navbar() {
                 <FeaturesDropdown pathname={pathname} />
                 <TestimonialsDropdown pathname={pathname} />
                 <NursingTVDropdown pathname={pathname} />
-                <Link href="/anatomy" style={{display:"inline-flex",alignItems:"center",gap:"6px",background:"linear-gradient(135deg,#16a34a,#22c55e)",color:"#fff",borderRadius:"8px",padding:"6px 14px",fontSize:"13px",fontWeight:700,textDecoration:"none",boxShadow:"0 0 14px rgba(22,163,74,0.45)",whiteSpace:"nowrap",flexShrink:0}}>Ã¢Å“Å¡ Anatomy Lab</Link>
+                <Link href="/anatomy" style={{display:"inline-flex",alignItems:"center",gap:"6px",background:"linear-gradient(135deg,#16a34a,#22c55e)",color:"#fff",borderRadius:"8px",padding:"6px 14px",fontSize:"13px",fontWeight:700,textDecoration:"none",boxShadow:"0 0 14px rgba(22,163,74,0.45)",whiteSpace:"nowrap",flexShrink:0}}>✚ Anatomy Lab</Link>
                 <Link href="https://prenclex.com/ai-tutor" style={{
   display: "inline-flex", alignItems: "center", gap: 7,
   padding: "7px 14px", borderRadius: 10, textDecoration: "none",
@@ -764,7 +754,7 @@ export default function Navbar() {
 }}
 onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 24px rgba(0,112,243,0.7)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
 onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,0.45)"; e.currentTarget.style.transform = "translateY(0)"; }}>
-  <span style={{ fontSize: "15px" }}>Ã°Å¸Â¤â€“</span><span>AI Tutor</span>
+  <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
   <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
 </Link>
                 <ContactDropdown pathname={pathname} />
@@ -817,13 +807,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
             </div>
           </div>
 
-
-
-
-
-
-
-
+          {/* DESKTOP ACTIONS */}
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
@@ -896,18 +881,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                 <span style={{ fontSize: "11px", fontWeight: 600 }}>Sign in</span>
               </Link>
             )}
-          </div>{/* /desktop-actions */}
-        </div>{/* /Row 1 */}
-
-        {/* ROW 2: Navigation Links */}
-        <div style={{ display: "flex", alignItems: "center", padding: "0 8px", height: "44px", borderBottom: "2px solid #0ea5e9", background: "rgba(6,15,30,0.018)" }}>
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0px", flex: 1, justifyContent: "space-evenly"}}>
-
-
-
-
-          </div>{/* /desktop-nav */}
-        </div>{/* /Row 2 */}
+          </div>
 
           {/* MOBILE HAMBURGER */}
           <button
@@ -916,7 +890,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
             onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
           </button>
-
+        </div>
 
         {/* MOBILE DRAWER OVERLAY */}
         {mobileOpen && (
