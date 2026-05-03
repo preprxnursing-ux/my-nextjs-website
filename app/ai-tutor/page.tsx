@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import katex from "katex";
@@ -339,7 +339,11 @@ export default function AITutorPage() {
       try {
         const res = await fetch("/api/extract", { method: "POST", body: formData });
         const data = await res.json();
-        setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
+        if (data.scanned) {
+          setAttachedFile({ name: file.name, content: "This appears to be a scanned PDF. Please copy and paste the text you want James to analyse.", type: ext });
+        } else {
+          setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
+        }
       } catch {
         setAttachedFile({ name: file.name, content: "Extraction failed. Please try again.", type: ext });
       }
