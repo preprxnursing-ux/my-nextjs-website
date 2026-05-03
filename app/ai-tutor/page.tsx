@@ -253,36 +253,6 @@ function renderMath(tex: string, display: boolean): string {
   catch { return tex; }
 }
 
-function renderMessage(content: string) {
-  const blocks = content.split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g);
-  const processedBlocks = blocks.map((block, bi) => {
-    if (block.startsWith("$$") && block.endsWith("$$")) {
-      return <div key={bi} style={{ overflowX: "auto", margin: "12px 0" }} dangerouslySetInnerHTML={{ __html: renderMath(block.slice(2,-2).trim(), true) }} />;
-    }
-    if (block.startsWith("$") && block.endsWith("$") && block.length > 2) {
-      return <span key={bi} dangerouslySetInnerHTML={{ __html: renderMath(block.slice(1,-1).trim(), false) }} />;
-    }
-    return block.split("\n").map((line, i) => {
-      if (!line.trim()) return <br key={bi+"-"+i} />;
-      const renderInline = (text: string) => {
-        const parts = text.split(/(\*\*.+?\*\*)/g);
-        return parts.map((part, j) => {
-          if (part.startsWith("**") && part.endsWith("**")) return <strong key={j} style={{ color: "#0369a1", fontWeight: 700 }}>{part.slice(2,-2)}</strong>;
-          return <span key={j}>{part}</span>;
-        });
-      };
-      const clean = line.replace(/^#{1,3}\s+/, "").trim();
-      if (line.trim().match(/^\d+\./)) {
-        return <div key={bi+"-"+i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\d+\.\s*/, ""))}</span></div>;
-      }
-      if (line.trim().startsWith("-") || line.trim().startsWith("\u2022")) {
-        return <div key={bi+"-"+i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>\u2022</span><span>{renderInline(clean.replace(/^[-\u2022]\s*/, ""))}</span></div>;
-      }
-      return <div key={bi+"-"+i} style={{ marginBottom: 6 }}>{renderInline(clean)}</div>;
-    });
-  });
-  return <>{processedBlocks}</>;
-}
 
 export default function AITutorPage() {
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
