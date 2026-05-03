@@ -475,7 +475,7 @@ export default function AITutorPage() {
                     <div style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, background: m.role === "user" ? "#0ea5e9" : selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white" }}>
                       {m.role === "user" ? "You" : selectedExam.icon}
                     </div>
-                    <div style={{ background: m.role === "user" ? "#0ea5e9" : "#1e293b", color: "white", padding: "12px 16px", borderRadius: 14, maxWidth: "78%", fontSize: 15, lineHeight: 1.7 }}>
+                    <div style={{ background: m.role === "user" ? "#0ea5e9" : "#ffffff", color: m.role === "user" ? "white" : "#0f172a", padding: "16px 20px", borderRadius: 14, maxWidth: "78%", fontSize: 15, lineHeight: 1.8, boxShadow: m.role === "assistant" ? "0 1px 8px rgba(0,0,0,0.15)" : "none" }}>
                       {m.role === "assistant" ? renderMessage(m.content) : m.content}
                     </div>
                   </div>
@@ -484,7 +484,7 @@ export default function AITutorPage() {
                 {loading && (
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                     <div style={{ width: 36, height: 36, borderRadius: "50%", background: selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white", flexShrink: 0 }}>{selectedExam.icon}</div>
-                    <div style={{ background: "#1e293b", padding: "12px 16px", borderRadius: 14, color: "#64748b", fontStyle: "italic", fontSize: 14 }}>James is thinking...</div>
+                    <div style={{ background: "#ffffff", padding: "16px 20px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.15)" }}>James is thinking...</div>
                   </div>
                 )}
                 <div ref={bottomRef} />
