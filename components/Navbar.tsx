@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -651,8 +651,8 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
-        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", alignItems: "center", padding: "0 12px", height: "75px", gap: "0px" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 4px 20px rgba(0,0,0,0.10)" }}>
+        <div style={{ display: "flex", alignItems: "center", padding: "0 20px", height: "58px", gap: "16px", borderBottom: "1px solid rgba(14,165,233,0.15)" }}>
 
           {/* LOGO */}
           <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -662,7 +662,7 @@ export default function Navbar() {
               <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={195} height={51} style={{ objectFit: "contain", flexShrink: 0 }} />
             </div>
           </Link>
-
+          <div style={{ flex:1, display:"flex", justifyContent:"center" }}><div style={{ position:"relative", width:"100%", maxWidth:"420px" }}><input type="text" placeholder="Search subjects, topics..." style={{ width:"100%", padding:"9px 44px 9px 18px", borderRadius:"10px", border:"1.5px solid rgba(14,165,233,0.25)", background:"rgba(14,165,233,0.04)", fontSize:"13px", color:"#0f172a", outline:"none", fontFamily:"inherit", boxSizing:"border-box" } as React.CSSProperties} onFocus={e=>{e.currentTarget.style.border="1.5px solid #0ea5e9";e.currentTarget.style.background="#fff";}} onBlur={e=>{e.currentTarget.style.border="1.5px solid rgba(14,165,233,0.25)";e.currentTarget.style.background="rgba(14,165,233,0.04)";}} /><div style={{ position:"absolute", right:"10px", top:"50%", transform:"translateY(-50%)", width:"28px", height:"28px", borderRadius:"7px", background:"#0ea5e9", display:"flex", alignItems:"center", justifyContent:"center" }}><svg width="13" height="13" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div></div></div>
           {/* DESKTOP NAV */}
           <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
@@ -805,8 +805,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                 </div>
               )}
             </div>
-          </div>
-
+          </div>{/* /desktop-nav */}</div>{/* /Row2 */}<div style={{ display:"flex", alignItems:"center", padding:"0 20px", height:"58px", gap:"16px", position:"absolute", top:0, right:0 }}>
+        </div>{/* /Row1 */}<div style={{ display:"flex", alignItems:"center", padding:"0 8px", height:"44px", borderBottom:"2px solid #0ea5e9", background:"rgba(6,15,30,0.018)" }}>
           {/* DESKTOP ACTIONS */}
           <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
@@ -890,7 +890,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
             onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
           </button>
-        </div>
+          </div>{/* /actions-absolute */}
 
         {/* MOBILE DRAWER OVERLAY */}
         {mobileOpen && (
