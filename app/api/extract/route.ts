@@ -34,8 +34,13 @@ export async function POST(req: Request) {
           text += pageText + "\n";
         }
         const clean = text.replace(/\s+/g, " ").trim();
+        const isGarbage = clean.length < 50 || (clean.match(/[a-zA-Z ]/g) || []).length / Math.max(clean.length, 1) < 0.5;
+        if (isGarbage) {
+          return NextResponse.json({ text: "", scanned: true, name: file.name, type: "pdf" });
+        }
         return NextResponse.json({
-          text: clean.slice(0, 8000) || "No readable text found in PDF.",
+          text: clean.slice(0, 8000),
+          scanned: false,
           name: file.name,
           type: "pdf"
         });

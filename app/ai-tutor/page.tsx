@@ -342,7 +342,11 @@ export default function AITutorPage() {
         if (data.scanned) {
           setAttachedFile({ name: file.name, content: "This appears to be a scanned PDF. Please copy and paste the text you want James to analyse.", type: ext });
         } else {
+          if (data.scanned) {
+          setAttachedFile({ name: file.name, content: "This PDF appears to be scanned. Please copy and paste the text you want James to read.", type: ext });
+        } else {
           setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
+        }
         }
       } catch {
         setAttachedFile({ name: file.name, content: "Extraction failed. Please try again.", type: ext });
@@ -353,8 +357,10 @@ export default function AITutorPage() {
 
     async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
     if (!selectedExam || loading) return;
-    const fileContext = attachedFile && attachedFile.content
+    const fileContext = attachedFile && attachedFile.content && attachedFile.content !== "Extracting content..."
       ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END OF FILE ---"
+      : attachedFile && attachedFile.content === "Extracting content..."
+      ? "\n\n[Note: A file named " + attachedFile.name + " was attached but is still being processed. Please ask the student to try again.]"
       : "";
     const fullText = userContent + fileContext;
     const userMsg: any = imageBase64
