@@ -54,6 +54,7 @@ async function callGemini(messages: any[]) {
 
     for (const m of messages) {
       if (m.role === "system") continue;
+      if (m.role === "assistant" && contents.length === 0) continue; // Gemini must start with user
 
       if (Array.isArray(m.content)) {
         const parts: any[] = [];
