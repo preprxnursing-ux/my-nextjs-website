@@ -17,74 +17,75 @@ export async function POST(req: Request) {
       return NextResponse.json({ text: result.value.slice(0, 8000), name: file.name, type: "docx" });
     }
 
-    // PDF — extract text using basic buffer parsing
+    // PDF using pdfjs-dist server-side
     if (ext === "pdf") {
-      const text = extractPdfText(buffer);
-      return NextResponse.json({ text: text.slice(0, 8000), name: file.name, type: "pdf" });
+      try {
+        const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs" as any);
+        const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) });
+        const pdf = await loadingTask.promise;
+        let text = "";
+        const maxPages = Math.min(pdf.numPages, 15);
+        for (let i = 1; i <= maxPages; i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          const pageText = content.items
+            .map((item: any) => item.str)
+            .join(" ");
+          text += pageText + "\n";
+        }
+        const clean = text.replace(/\s+/g, " ").trim();
+        return NextResponse.json({
+          text: clean.slice(0, 8000) || "No readable text found in PDF.",
+          name: file.name,
+          type: "pdf"
+        });
+      } catch (pdfErr) {
+        console.error("PDF parse error:", pdfErr);
+        // Fallback: basic text extraction
+        const str = buffer.toString("latin1");
+        const matches = str.match(/\(([^)]{3,200})\)/g) ?? [];
+        const text = matches
+          .map(m => m.slice(1, -1).replace(/\\[0-9]{3}/g, "").trim())
+          .filter(t => /[a-zA-Z]{3,}/.test(t))
+          .join(" ");
+        return NextResponse.json({
+          text: text.slice(0, 8000) || "Could not extract PDF text. Try copy-pasting the content.",
+          name: file.name,
+          type: "pdf"
+        });
+      }
     }
 
-    // PPTX — extract readable text from XML inside zip
+    // PPTX - extract from XML inside ZIP
     if (ext === "pptx") {
-      const text = await extractPptxText(buffer);
-      return NextResponse.json({ text: text.slice(0, 8000), name: file.name, type: "pptx" });
+      try {
+        const JSZip = (await import("jszip")).default;
+        const zip = await JSZip.loadAsync(buffer);
+        const slideFiles = Object.keys(zip.files).filter(f => f.match(/ppt\/slides\/slide[0-9]+\.xml/));
+        let text = "";
+        for (const slideFile of slideFiles.slice(0, 20)) {
+          const xml = await zip.files[slideFile].async("string");
+          const matches = xml.match(/<a:t[^>]*>([^<]+)<\/a:t>/g) ?? [];
+          text += matches.map((m: string) => m.replace(/<[^>]+>/g, "")).join(" ") + "\n";
+        }
+        return NextResponse.json({
+          text: text.slice(0, 8000) || "Could not extract PowerPoint text.",
+          name: file.name,
+          type: "pptx"
+        });
+      } catch {
+        return NextResponse.json({ text: "Could not extract PowerPoint text.", name: file.name, type: "pptx" });
+      }
     }
 
     // Plain text
     if (["txt", "md", "csv"].includes(ext)) {
-      const text = buffer.toString("utf-8");
-      return NextResponse.json({ text: text.slice(0, 8000), name: file.name, type: "txt" });
+      return NextResponse.json({ text: buffer.toString("utf-8").slice(0, 8000), name: file.name, type: "txt" });
     }
 
     return NextResponse.json({ text: "", name: file.name, type: ext, error: "Unsupported file type" });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ text: "", error: "Extraction failed" });
-  }
-}
-
-function extractPdfText(buffer: Buffer): string {
-  try {
-    const str = buffer.toString("latin1");
-    const chunks: string[] = [];
-    const streamRegex = /stream([\s\S]*?)endstream/g;
-    let match;
-    while ((match = streamRegex.exec(str)) !== null) {
-      const raw = match[1];
-      // Extract readable ASCII text from PDF streams
-      const readable = raw.replace(/[^\x20-\x7E\n\r\t]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-      if (readable.length > 20) chunks.push(readable);
-    }
-    // Also try to extract text between BT and ET markers (PDF text objects)
-    const btEtRegex = /BT([\s\S]*?)ET/g;
-    while ((match = btEtRegex.exec(str)) !== null) {
-      const block = match[1];
-      const textParts = block.match(/\(([^)]+)\)/g);
-      if (textParts) {
-        const extracted = textParts.map(p => p.slice(1, -1)).join(" ");
-        if (extracted.trim().length > 5) chunks.push(extracted);
-      }
-    }
-    return chunks.join("\n").slice(0, 8000) || "Could not extract PDF text — try copy-pasting the key sections.";
-  } catch {
-    return "PDF extraction failed.";
-  }
-}
-
-async function extractPptxText(buffer: Buffer): Promise<string> {
-  try {
-    // PPTX is a ZIP file — extract slide XML text
-    const { Readable } = await import("stream");
-    // Use a simple approach: find readable text between XML tags
-    const str = buffer.toString("latin1");
-    const textMatches = str.match(/<a:t[^>]*>([^<]+)<\/a:t>/g) ?? [];
-    const text = textMatches
-      .map(m => m.replace(/<[^>]+>/g, ""))
-      .filter(t => t.trim().length > 2)
-      .join(" ");
-    return text || "Could not extract PowerPoint text.";
-  } catch {
-    return "PPTX extraction failed.";
   }
 }

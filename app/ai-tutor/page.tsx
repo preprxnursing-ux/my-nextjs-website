@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import katex from "katex";
@@ -325,67 +325,29 @@ export default function AITutorPage() {
     if (imageTypes.includes(ext)) {
       const reader = new FileReader();
       reader.onload = () => {
-        const result = reader.result as string;
-        setImageBase64(result);
-        setImagePreview(result);
+        setImageBase64(reader.result as string);
+        setImagePreview(reader.result as string);
         setAttachedFile(null);
       };
       reader.readAsDataURL(file);
-    } else if (ext === "pdf") {
-      setAttachedFile({ name: file.name, content: "Loading PDF...", type: "pdf" });
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const typedArray = new Uint8Array(reader.result as ArrayBuffer);
-          const pdfjsLib = await import("pdfjs-dist");
-          pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-          const pdf = await pdfjsLib.getDocument({ data: typedArray }).promise;
-          let text = "";
-          for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            text += content.items.map((item: any) => item.str).join(" ") + "\\n";
-          }
-          setAttachedFile({ name: file.name, content: text.slice(0, 6000), type: "pdf" });
-          setImageBase64(null);
-          setImagePreview(null);
-        } catch {
-          setAttachedFile({ name: file.name, content: "Could not extract PDF text.", type: "pdf" });
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    } else if (ext === "docx") {
-      setAttachedFile({ name: file.name, content: "Loading document...", type: "docx" });
-      const reader = new FileReader();
-      reader.onload = async () => {
-        try {
-          const mammoth = await import("mammoth");
-          const result = await mammoth.extractRawText({ arrayBuffer: reader.result as ArrayBuffer });
-          setAttachedFile({ name: file.name, content: result.value.slice(0, 6000), type: "docx" });
-          setImageBase64(null);
-          setImagePreview(null);
-        } catch {
-          setAttachedFile({ name: file.name, content: "Could not extract document text.", type: "docx" });
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    } else if (ext === "pptx") {
-      setAttachedFile({ name: file.name, content: "[PowerPoint file attached — I will do my best to help based on the filename and your question.]", type: "pptx" });
+    } else if (["pdf", "docx", "pptx", "txt"].includes(ext)) {
+      setAttachedFile({ name: file.name, content: "Extracting content...", type: ext });
       setImageBase64(null);
       setImagePreview(null);
-    } else {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setAttachedFile({ name: file.name, content: reader.result as string, type: "txt" });
-        setImageBase64(null);
-        setImagePreview(null);
-      };
-      reader.readAsText(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      try {
+        const res = await fetch("/api/extract", { method: "POST", body: formData });
+        const data = await res.json();
+        setAttachedFile({ name: file.name, content: data.text || "Could not extract content.", type: ext });
+      } catch {
+        setAttachedFile({ name: file.name, content: "Extraction failed. Please try again.", type: ext });
+      }
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-  async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
+    async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
     if (!selectedExam || loading) return;
     const fileContext = attachedFile && attachedFile.content
       ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END OF FILE ---"
@@ -647,7 +609,7 @@ export default function AITutorPage() {
             <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 100, background: "rgba(15,23,42,0.97)", backdropFilter: "blur(12px)", borderTop: "1px solid #1e293b", padding: "14px 20px" }}>
               {(imagePreview || attachedFile) && (
                 <div style={{ maxWidth: 900, margin: "0 auto 8px", display: "flex", alignItems: "center", gap: 10, background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "8px 12px", width: "fit-content" }}>
-                  {imagePreview && <img src={imagePreview} alt="preview" style={{ height: 56, borderRadius: 6, objectFit: "cover" }} />}
+                  {imagePreview && <a href={imagePreview} target="_blank" rel="noopener noreferrer"><img src={imagePreview} alt="preview" style={{ height: 56, borderRadius: 6, objectFit: "cover", cursor: "pointer" }} /></a>}
                   {attachedFile && <span style={{ fontSize: 24 }}>{attachedFile.type === "pdf" ? "📄" : attachedFile.type === "docx" ? "📝" : attachedFile.type === "pptx" ? "📊" : "📎"}</span>}
                   <div>
                     <div style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{attachedFile?.name ?? "Image"}</div>
