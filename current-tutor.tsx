@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -228,24 +228,19 @@ const SUGGESTIONS: Record<string, string[]> = {
 function renderMessage(content: string) {
   const lines = content.split("\n");
   return lines.map((line, i) => {
-    if (!line.trim()) return <br key={i} />;
-    const renderInline = (text: string) => {
-      const parts = text.split(/(\[\[.+?\]\])/g);
-      return parts.map((part, j) => {
-        if (part.startsWith("[[") && part.endsWith("]]")) {
-          return <span key={j} style={{ color: "#0ea5e9", fontWeight: 700 }}>{part.slice(2, -2)}</span>;
-        }
-        return <span key={j}>{part.replace(/\*\*(.+?)\*\*/g, "$1")}</span>;
-      });
-    };
-    const clean = line.replace(/^#{1,3}\s+/, "").replace(/\*\*(.+?)\*\*/g, "$1").trim();
+    const clean = line
+      .replace(/\*\*(.+?)\*\*/g, "$1")
+      .replace(/\*(.+?)\*/g, "$1")
+      .replace(/^#{1,3}\s+/, "")
+      .trim();
+    if (!clean) return <br key={i} />;
     if (line.trim().match(/^\d+\./)) {
-      return <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\d+\.\s*/, ""))}</span></div>;
+      return <div key={i} style={{ marginBottom: 4, paddingLeft: 4 }}>{clean}</div>;
     }
     if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
-      return <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span><span>{renderInline(clean.replace(/^[-•]\s*/, ""))}</span></div>;
+      return <div key={i} style={{ marginBottom: 4, paddingLeft: 8 }}>{"• " + clean.replace(/^[-•]\s*/, "")}</div>;
     }
-    return <div key={i} style={{ marginBottom: 8 }}>{renderInline(clean)}</div>;
+    return <div key={i} style={{ marginBottom: 4 }}>{clean}</div>;
   });
 }
 
