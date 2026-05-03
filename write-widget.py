@@ -1,15 +1,16 @@
-"use client";
+﻿dest = r"C:\Users\USER\Desktop\nclex-app\components\ChatbotWidget.tsx"
+content = '''"use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 type Message = { role: string; content: string };
 
 function renderMessage(content: string) {
-  const lines = content.split("\n");
+  const lines = content.split("\\n");
   return lines.map((line, i) => {
     if (!line.trim()) return <br key={i} />;
     const renderInline = (text: string) => {
-      const parts = text.split(/(\*\*.+?\*\*)/g);
+      const parts = text.split(/(\\*\\*.+?\\*\\*)/g);
       return parts.map((part, j) => {
         if (part.startsWith("**") && part.endsWith("**")) {
           return <strong key={j} style={{ color: "#0ea5e9", fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
@@ -17,12 +18,12 @@ function renderMessage(content: string) {
         return <span key={j}>{part}</span>;
       });
     };
-    const clean = line.replace(/^#{1,3}\s+/, "").trim();
-    if (line.trim().match(/^\d+\./)) {
-      return <div key={i} style={{ marginBottom: 4, display: "flex", gap: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\d+\.\s*/, ""))}</span></div>;
+    const clean = line.replace(/^#{1,3}\\s+/, "").trim();
+    if (line.trim().match(/^\\d+\\./)) {
+      return <div key={i} style={{ marginBottom: 4, display: "flex", gap: 6 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\\d+\\.\\s*/, ""))}</span></div>;
     }
     if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
-      return <div key={i} style={{ marginBottom: 4, display: "flex", gap: 6 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span><span>{renderInline(clean.replace(/^[-•]\s*/, ""))}</span></div>;
+      return <div key={i} style={{ marginBottom: 4, display: "flex", gap: 6 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span><span>{renderInline(clean.replace(/^[-•]\\s*/, ""))}</span></div>;
     }
     return <div key={i} style={{ marginBottom: 4 }}>{renderInline(clean)}</div>;
   });
@@ -96,7 +97,7 @@ export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean
     if ((!msg.trim() && !imageBase64 && !attachedFile) || loading) return;
     const userText = msg.trim() || (attachedFile ? "Please analyse this file." : "Please analyse this image.");
     const fileContext = attachedFile && attachedFile.content && attachedFile.content !== "Extracting..."
-      ? "\n\n--- FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END ---" : "";
+      ? "\\n\\n--- FILE: " + attachedFile.name + " ---\\n" + attachedFile.content + "\\n--- END ---" : "";
     const userMsg: any = imageBase64
       ? { role: "user", content: [{ type: "text", text: userText + fileContext }, { type: "image_url", image_url: { url: imageBase64 } }] }
       : { role: "user", content: userText + fileContext };
@@ -167,3 +168,7 @@ export default function ChatbotWidget({ autoOpen = false }: { autoOpen?: boolean
     </>
   );
 }
+'''
+with open(dest, "w", encoding="utf-8") as f:
+    f.write(content)
+print("Done!")
