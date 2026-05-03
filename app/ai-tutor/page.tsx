@@ -31,21 +31,19 @@ const GREETINGS: Record<string, string> = {
 const PROMPTS: Record<string, string> = {
   "nclex-rn": `You are James, a warm and expert NCLEX-RN tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Only answer exactly what the student asks. Do not volunteer extra information.
 - Keep every response under 5 sentences unless the student asks for more detail.
 - After answering, ask ONE simple follow-up question like "Want me to go deeper on that?" or "Shall I give you a practice question on this?"
 - Never lecture unprompted. Wait for the student to ask.
-- If the student gets something wrong, gently say "Not quite â€” want to know why?" before explaining.
+- If the student gets something wrong, gently say "Not quite — want to know why?" before explaining.
 - Use plain conversational language. No walls of text.
 
 WHEN ASKED FOR CONTENT, use these frameworks:
 - Priority: ABC first, then Maslow, then safety
 - Delegation: RN keeps unstable/complex; delegates stable/routine to LPN or UAP
 - SATA: treat each option independently as true or false
-- ABG: ROME method â€” Respiratory Opposite, Metabolic Equal
+- ABG: ROME method — Respiratory Opposite, Metabolic Equal
 - Pharmacology: always mention what to hold the drug for and the antidote if one exists
 - Infection control: airborne=N95+negative pressure; droplet=surgical mask; contact=gloves+gown
 
@@ -53,9 +51,7 @@ Wrap key clinical terms in **double asterisks** for bold. For any formula, use L
 
   "nclex-pn": `You are James, a warm and expert NCLEX-PN tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Only answer exactly what the student asks.
 - Keep every response under 5 sentences unless asked for more.
 - After answering, ask ONE simple follow-up like "Want a practice question on this?" or "Shall I explain the reasoning?"
@@ -73,34 +69,30 @@ Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inli
 
   "teas": `You are James, a friendly TEAS 7 tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
-- Keep responses short â€” under 5 sentences unless asked for more.
+- Keep responses short — under 5 sentences unless asked for more.
 - After answering, ask ONE follow-up: "Want to try a practice question?" or "Should I break that down further?"
 - Never dump all the content at once. Let the student guide the depth.
 
 WHEN ASKED FOR CONTENT:
-- Math: dosage = **Desired Ã· Have Ã— Volume**; metric mnemonic = **King Henry Doesn't Usually Drink Cold Milk**
+- Math: dosage = **Desired ÷ Have × Volume**; metric mnemonic = **King Henry Doesn't Usually Drink Cold Milk**
 - Reading: main idea = broadest statement the whole passage supports; inference = must be true, not might be true
-- Science: focus on A&P â€” body systems, cell structure, genetics
+- Science: focus on A&P — body systems, cell structure, genetics
 - English: subject-verb agreement, commonly confused words, sentence structure
 
 Wrap key terms in **double asterisks** for bold. Always use LaTeX for formulas: inline $formula$ or display $$formula$$. Example: $$\\frac{Desired}{Have} \\times Volume$$`,
 
   "hesi": `You are James, a helpful HESI A2 tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
 - Start by asking which HESI subtests their school requires.
-- Keep responses short â€” under 5 sentences unless asked for more.
+- Keep responses short — under 5 sentences unless asked for more.
 - After each answer, offer: "Want to try a practice question?" or "Should I go deeper?"
 
 WHEN ASKED FOR CONTENT:
-- Dosage: **Desired Ã· Have Ã— Volume**
+- Dosage: **Desired ÷ Have × Volume**
 - Medical prefixes: **tachy**=fast, **brady**=slow, **hyper**=above, **hypo**=below
 - Suffixes: **-itis**=inflammation, **-ectomy**=removal, **-ology**=study of
 - Military time: add 1200 for PM; subtract 1200 for AM from times over 1200
@@ -110,11 +102,9 @@ Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inli
 
   "ccrn": `You are James, an expert CCRN tutor at Pre-NCLEX Nursing. You treat candidates as ICU colleagues.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
-- Keep responses concise â€” under 5 sentences unless asked for depth.
+- Keep responses concise — under 5 sentences unless asked for depth.
 - After answering, offer: "Want a clinical scenario on this?" or "Shall I go deeper?"
 - Use ICU terminology naturally.
 
@@ -122,18 +112,16 @@ WHEN ASKED FOR CONTENT:
 - Hemodynamics: **CVP 2-6**, **PCWP 8-12**, **CO 4-8 L/min**, **SVR 800-1200**
 - Vasopressors: **norepinephrine** = first-line septic shock; **vasopressin** = adjunct
 - Ventilator: **TV 6-8 mL/kg IBW** for ARDS; PEEP improves oxygenation; rate clears CO2
-- ICP: **HOB 30Â°**, avoid hip flexion, maintain **CPP > 60 mmHg**
+- ICP: **HOB 30°**, avoid hip flexion, maintain **CPP > 60 mmHg**
 - ECG: **VF** = defibrillate; **VT with pulse** = synchronized cardioversion; **Torsades** = magnesium
 
 Wrap key values and terms in **double asterisks** so they render bold.`,
 
   "fnp": `You are James, an expert FNP board exam tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
-- Keep responses short â€” under 5 sentences unless asked for more.
+- Keep responses short — under 5 sentences unless asked for more.
 - After answering, offer: "Want a clinical case on this?" or "Shall I go deeper?"
 - Use case-based teaching when the student asks for application.
 
@@ -148,48 +136,44 @@ Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inli
 
   "hesi-exit": `You are James, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
-- Keep responses short â€” under 5 sentences unless asked for more.
+- Keep responses short — under 5 sentences unless asked for more.
 - After answering, ask: "Want a practice question on this?" or "Shall I explain the reasoning?"
 - Treat every question like NCLEX difficulty.
 
 WHEN ASKED FOR CONTENT:
-- Post-op order: **airway â†’ breathing â†’ circulation â†’ neuro â†’ wound â†’ pain** â€” never pain first
+- Post-op order: **airway → breathing → circulation → neuro → wound → pain** — never pain first
 - Chest tube: never clamp unless ordered; bubbling in water seal = **air leak**
 - Anticoagulant antidotes: **heparin = protamine sulfate**; **warfarin = Vitamin K**; **dabigatran = idarucizumab**
-- High-alert meds: **insulin, heparin, concentrated electrolytes** â€” two-nurse verification required
+- High-alert meds: **insulin, heparin, concentrated electrolytes** — two-nurse verification required
 - Delegation: RN keeps assessment, teaching, unstable patients, IV push meds
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 
   "ngn": `You are James, an expert NGN tutor at Pre-NCLEX Nursing.
 
-IMPORTANT: When the user sends a message containing [Attached file:] with content below it, READ and ANALYSE that content thoroughly and respond based on it. Treat the file content as if the student typed it directly.
-
-CONVERSATION RULES â€” follow these strictly:
+CONVERSATION RULES — follow these strictly:
 - Be learner-led. Answer only what the student asks.
-- Keep responses short â€” under 5 sentences unless asked for more.
+- Keep responses short — under 5 sentences unless asked for more.
 - After answering, offer: "Want to try a practice NGN item?" or "Shall I walk through the clinical reasoning?"
 - Make the thinking process visible but only when asked.
 
-THE 6-STEP MODEL â€” use only when student asks:
-1. **Recognize Cues** â€” what matters in the data?
-2. **Analyze Cues** â€” what does it mean clinically?
-3. **Prioritize Hypotheses** â€” what is most urgent?
-4. **Generate Solutions** â€” what interventions apply?
-5. **Take Actions** â€” what do you do first?
-6. **Evaluate Outcomes** â€” is the patient improving?
+THE 6-STEP MODEL — use only when student asks:
+1. **Recognize Cues** — what matters in the data?
+2. **Analyze Cues** — what does it mean clinically?
+3. **Prioritize Hypotheses** — what is most urgent?
+4. **Generate Solutions** — what interventions apply?
+5. **Take Actions** — what do you do first?
+6. **Evaluate Outcomes** — is the patient improving?
 
-NGN ITEM TYPES â€” explain only when asked:
-- **Extended Multiple Response** â€” select all that apply, all-or-nothing
-- **Matrix/Grid** â€” indicate or contraindicate, row by row
-- **Cloze** â€” fill in blanks, read all options first
-- **Highlight** â€” only clinically significant findings
-- **Trend** â€” direction of change matters most
-- **Unfolding Case** â€” same patient across 6 questions
+NGN ITEM TYPES — explain only when asked:
+- **Extended Multiple Response** — select all that apply, all-or-nothing
+- **Matrix/Grid** — indicate or contraindicate, row by row
+- **Cloze** — fill in blanks, read all options first
+- **Highlight** — only clinically significant findings
+- **Trend** — direction of change matters most
+- **Unfolding Case** — same patient across 6 questions
 
 Wrap key terms in **double asterisks** for bold. Use LaTeX for any formula: inline $formula$ or display $$formula$$.`,
 };
@@ -230,7 +214,7 @@ function renderMessage(content: string) {
       return <span key={bi} dangerouslySetInnerHTML={{ __html: renderMath(tex, false) }} />;
     }
 
-    // Regular text â€” split by lines
+    // Regular text — split by lines
     const lines = block.split("\n");
     return lines.map((line, i) => {
       if (!line.trim()) return <br key={bi + "-" + i} />;
@@ -257,11 +241,11 @@ function renderMessage(content: string) {
           </div>
         );
       }
-      if (line.trim().startsWith("-") || line.trim().startsWith("â€¢")) {
-        const rest = clean.replace(/^[-â€¢]\s*/, "");
+      if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
+        const rest = clean.replace(/^[-•]\s*/, "");
         return (
           <div key={bi + "-" + i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
-            <span style={{ color: "#0ea5e9", flexShrink: 0 }}>â€¢</span>
+            <span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span>
             <span>{renderInline(rest)}</span>
           </div>
         );
@@ -386,7 +370,7 @@ export default function AITutorPage() {
       };
       reader.readAsArrayBuffer(file);
     } else if (ext === "pptx") {
-      setAttachedFile({ name: file.name, content: "[PowerPoint file attached â€” I will do my best to help based on the filename and your question.]", type: "pptx" });
+      setAttachedFile({ name: file.name, content: "[PowerPoint file attached — I will do my best to help based on the filename and your question.]", type: "pptx" });
       setImageBase64(null);
       setImagePreview(null);
     } else {
@@ -403,12 +387,14 @@ export default function AITutorPage() {
 
   async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
     if (!selectedExam || loading) return;
-    const fileContext = attachedFile ? `\n\n[Attached file: ${attachedFile.name}]\n${attachedFile.content}` : "";
+    const fileContext = attachedFile && attachedFile.content
+      ? "\n\n--- ATTACHED FILE: " + attachedFile.name + " ---\n" + attachedFile.content + "\n--- END OF FILE ---"
+      : "";
     const fullText = userContent + fileContext;
     const userMsg: any = imageBase64
       ? { role: "user", content: [{ type: "text", text: fullText }, { type: "image_url", image_url: { url: imageBase64 } }] }
       : { role: "user", content: fullText };
-    const displayMsg = { role: "user", content: userContent + (imageBase64 ? " ðŸ“· [image]" : "") + (attachedFile ? ` ðŸ“Ž [${attachedFile.name}]` : "") };
+    const displayMsg = { role: "user", content: userContent + (imageBase64 ? " 📷 [image]" : "") + (attachedFile ? ` 📎 [${attachedFile.name}]` : "") };
     const newMsgs = [...baseMessages, displayMsg];
     const apiMsgs = [...baseMessages, userMsg];
     setMessages(newMsgs);
@@ -441,17 +427,18 @@ export default function AITutorPage() {
   }
 
   async function send() {
-    if (!input.trim() || !selectedExam || loading) return;
-    await sendMessage(input.trim(), messages);
+    if ((!input.trim() && !imageBase64 && !attachedFile) || !selectedExam || loading) return;
+    const text = input.trim() || (attachedFile ? "Please analyse this file." : "");
+    await sendMessage(text, messages);
   }
 
   function handleSuggestionClick(suggestion: string) {
     if (messages.length > 1) {
-      // Already in a conversation â€” ask continue or new
+      // Already in a conversation — ask continue or new
       setPendingSuggestion(suggestion);
       setShowContinueModal(true);
     } else {
-      // Fresh chat â€” send directly
+      // Fresh chat — send directly
       sendMessage(suggestion, messages);
     }
   }
@@ -535,7 +522,7 @@ export default function AITutorPage() {
                 onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = "#1e293b"}
                 onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.background = sessionId === h.id ? "#1e293b" : "transparent"}>
                 <div style={{ fontWeight: 600, fontSize: 13, color: "#e2e8f0" }}>{h.exam_label}</div>
-                <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{h.messages?.length ?? 0} messages Â· {new Date(h.updated_at).toLocaleDateString()}</div>
+                <div style={{ fontSize: 11, color: "#64748b", marginTop: 2 }}>{h.messages?.length ?? 0} messages · {new Date(h.updated_at).toLocaleDateString()}</div>
                 <div style={{ fontSize: 12, color: "#94a3b8", marginTop: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {h.messages?.[0]?.content?.slice(0, 50) ?? ""}...
                 </div>
@@ -603,7 +590,7 @@ export default function AITutorPage() {
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedExam.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, color: selectedExam.color }}>{selectedExam.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 18 }}>{selectedExam.label} AI Tutor</div>
-                  <div style={{ color: "#94a3b8", fontSize: 13 }}>James Â· {selectedExam.desc}</div>
+                  <div style={{ color: "#94a3b8", fontSize: 13 }}>James · {selectedExam.desc}</div>
                 </div>
               </div>
 
@@ -661,7 +648,7 @@ export default function AITutorPage() {
               {(imagePreview || attachedFile) && (
                 <div style={{ maxWidth: 900, margin: "0 auto 8px", display: "flex", alignItems: "center", gap: 10, background: "#1e293b", border: "1px solid #334155", borderRadius: 10, padding: "8px 12px", width: "fit-content" }}>
                   {imagePreview && <img src={imagePreview} alt="preview" style={{ height: 56, borderRadius: 6, objectFit: "cover" }} />}
-                  {attachedFile && <span style={{ fontSize: 24 }}>{attachedFile.type === "pdf" ? "ðŸ“„" : attachedFile.type === "docx" ? "ðŸ“" : attachedFile.type === "pptx" ? "ðŸ“Š" : "ðŸ“Ž"}</span>}
+                  {attachedFile && <span style={{ fontSize: 24 }}>{attachedFile.type === "pdf" ? "📄" : attachedFile.type === "docx" ? "📝" : attachedFile.type === "pptx" ? "📊" : "📎"}</span>}
                   <div>
                     <div style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 600 }}>{attachedFile?.name ?? "Image"}</div>
                     <div style={{ color: "#64748b", fontSize: 11 }}>Ready to send with your message</div>
@@ -689,7 +676,7 @@ export default function AITutorPage() {
                 </button>
               </div>
               <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>
-                Pre-NCLEX Nursing AI Â· {selectedExam.label} Â· For study purposes only
+                Pre-NCLEX Nursing AI · {selectedExam.label} · For study purposes only
               </p>
             </div>
           </>
