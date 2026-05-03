@@ -53,3 +53,5 @@ fix-*.js
 current-tutor.tsx
 fix-render.ps1
 fix-*.ps1
+
+*.py
