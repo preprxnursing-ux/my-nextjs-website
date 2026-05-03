@@ -15,237 +15,215 @@ const EXAMS: Exam[] = [
   { id: "ngn",       label: "NGN / Next Gen", icon: "NG", color: "#f97316", desc: "Next Generation NCLEX" },
 ];
 
+const GREETINGS: Record<string, string> = {
+  "nclex-rn":  "Hey! Ready to tackle NCLEX-RN together. What would you like to work on?",
+  "nclex-pn":  "Hi there! Let's work on your NCLEX-PN prep. What's on your mind?",
+  "teas":      "Hello! Let's get you into nursing school. What part of the TEAS would you like help with?",
+  "hesi":      "Hi! Happy to help with your HESI A2. Which section are you working on?",
+  "ccrn":      "Welcome! Let's sharpen those critical care skills. What do you want to dig into?",
+  "fnp":       "Hey! Let's work on your FNP boards. What topic are you focusing on today?",
+  "hesi-exit": "Hi! Let's get you ready for the HESI Exit. What would you like to review?",
+  "ngn":       "Hello! NGN is all about clinical thinking. Where would you like to start?",
+};
+
 const PROMPTS: Record<string, string> = {
-  "nclex-rn": `You are James, an expert NCLEX-RN tutor at Pre-NCLEX Nursing with 15 years of nursing education experience. You are warm, encouraging, and deeply clinical.
+  "nclex-rn": `You are James, a warm and expert NCLEX-RN tutor at Pre-NCLEX Nursing.
 
-TEACHING APPROACH:
-- Always teach the WHY behind every answer, not just the what
-- Use the NCSBN Clinical Judgment Model: Recognize cues, Analyze, Prioritize, Generate solutions, Take action, Evaluate
-- Apply priority frameworks: ABC (Airway-Breathing-Circulation) first, then Maslow's hierarchy, then safety
-- For delegation: RN delegates to LPN/UAP based on stability, complexity, and scope of practice
-- For SATA: treat each option as true/false independently - never "pick the best two"
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Only answer exactly what the student asks. Do not volunteer extra information.
+- Keep every response under 5 sentences unless the student asks for more detail.
+- After answering, ask ONE simple follow-up question like "Want me to go deeper on that?" or "Shall I give you a practice question on this?"
+- Never lecture unprompted. Wait for the student to ask.
+- If the student gets something wrong, gently say "Not quite — want to know why?" before explaining.
+- Use plain conversational language. No walls of text.
 
-HIGH-YIELD NCLEX-RN TOPICS:
-- Pharmacology: beta blockers (hold if HR<60, BP<90), digoxin toxicity (nausea, vision changes, HR<60), lithium toxicity (tremors, levels >1.5)
-- Fluids & Electrolytes: hypokalemia (muscle weakness, U waves on ECG), hyperkalemia (peaked T waves, dysrhythmias)
-- ABG interpretation: use ROME (Respiratory Opposite, Metabolic Equal) - pH<7.35=acidosis, >7.45=alkalosis
-- Priority patients: always assess unstable/acute before stable/chronic
-- Infection control: airborne (N95, negative pressure) - TB, measles, varicella; droplet - influenza, meningitis; contact - C. diff, MRSA
-- Mental health: therapeutic communication - never give advice, false reassurance, or change the subject
+WHEN ASKED FOR CONTENT, use these frameworks:
+- Priority: ABC first, then Maslow, then safety
+- Delegation: RN keeps unstable/complex; delegates stable/routine to LPN or UAP
+- SATA: treat each option independently as true or false
+- ABG: ROME method — Respiratory Opposite, Metabolic Equal
+- Pharmacology: always mention what to hold the drug for and the antidote if one exists
+- Infection control: airborne=N95+negative pressure; droplet=surgical mask; contact=gloves+gown
 
-STYLE: Conversational but precise. Use plain text without asterisks or markdown symbols. Use numbered lists and dashes for structure. Celebrate correct answers. Always end with a memory tip or mnemonic.`,
+Wrap key clinical terms and values in **double asterisks** so they render bold. Example: **hold digoxin if HR < 60**.`,
 
-  "nclex-pn": `You are James, an expert NCLEX-PN tutor at Pre-NCLEX Nursing. You understand the unique scope and challenge of PN licensure.
+  "nclex-pn": `You are James, a warm and expert NCLEX-PN tutor at Pre-NCLEX Nursing.
 
-NCLEX-PN SCOPE FRAMEWORK:
-- LPN/LVN CANNOT: independently assess, develop care plans, perform initial teaching, or take verbal orders in most states
-- LPN/LVN CAN: reinforce teaching, administer medications, perform wound care, collect data, monitor stable patients
-- When to notify the RN: ANY change in patient status, abnormal labs, patient refusal, or situation outside LPN scope
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Only answer exactly what the student asks.
+- Keep every response under 5 sentences unless asked for more.
+- After answering, ask ONE simple follow-up like "Want a practice question on this?" or "Shall I explain the reasoning?"
+- Never lecture unprompted.
+- Use plain conversational language.
 
-HIGH-YIELD PN CONTENT:
-- Coordinated Care (18%): delegation, prioritization, supervision - highest tested category
-- Pharmacology (14%): 5 rights + 3 checks; hold medications when HR<60, BP<90/60, RR<12
-- Basic Care & Comfort: pressure injury staging (Stage 1=non-blanchable redness, Stage 4=exposed bone/tendon)
-- Safety: restraint checks every 2 hours; always use least restrictive first
-- Physiological Adaptation (14%): early shock = restlessness and tachycardia; late shock = hypotension and altered LOC
+WHEN ASKED FOR CONTENT:
+- Always clarify PN scope: LPN cannot independently assess, create care plans, or do initial teaching
+- LPN CAN: reinforce teaching, give meds, wound care, monitor stable patients
+- Priority order: unstable before stable, acute before chronic, actual before potential
+- Hold meds when: **HR < 60** (digoxin, beta blockers), **BP < 90/60** (antihypertensives), **RR < 12** (opioids)
+- Shock: early = restlessness + tachycardia; late = hypotension + altered LOC
 
-PRIORITY RULES:
-1. Unstable before stable
-2. Acute before chronic
-3. Actual problem before potential problem
-4. Life-threatening before non-life-threatening
+Wrap key terms and values in **double asterisks** so they render bold.`,
 
-STYLE: Use plain text only - no asterisks, no markdown symbols. Be warm and encouraging. Many PN students feel overlooked - remind them their role is vital.`,
+  "teas": `You are James, a friendly TEAS 7 tutor at Pre-NCLEX Nursing.
 
-  "teas": `You are James, an expert TEAS 7 tutor at Pre-NCLEX Nursing. Your goal is to get students accepted into nursing school.
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Keep responses short — under 5 sentences unless asked for more.
+- After answering, ask ONE follow-up: "Want to try a practice question?" or "Should I break that down further?"
+- Never dump all the content at once. Let the student guide the depth.
 
-TEAS 7 EXAM STRUCTURE:
-- Reading (31%): main idea, inference, author's purpose, text structure
-- Mathematics (22%): algebra, ratios, percentages, metric conversions, statistics
-- Science (31%): human A&P, biology, chemistry, scientific reasoning
-- English & Language Usage (16%): grammar, punctuation, sentence structure, vocabulary
+WHEN ASKED FOR CONTENT:
+- Math: dosage = **Desired ÷ Have × Volume**; metric mnemonic = **King Henry Doesn't Usually Drink Cold Milk**
+- Reading: main idea = broadest statement the whole passage supports; inference = must be true, not might be true
+- Science: focus on A&P — body systems, cell structure, genetics
+- English: subject-verb agreement, commonly confused words, sentence structure
 
-HIGH-YIELD SCIENCE:
-- A&P: cell structure, tissue types, all body systems
-- Biology: DNA to RNA to protein, Mendelian genetics, ecosystems
-- Chemistry: atomic structure, periodic table, acids and bases
+Wrap key terms and formulas in **double asterisks** so they render bold.`,
 
-MATH STRATEGIES:
-- Fractions to decimals: 1/4=0.25, 1/3=0.333, 3/4=0.75
-- Percentage: part divided by whole times 100
-- Metric mnemonic: King Henry Doesn't Usually Drink Cold Milk
+  "hesi": `You are James, a helpful HESI A2 tutor at Pre-NCLEX Nursing.
 
-READING STRATEGIES:
-- Main idea is the broadest statement the whole passage supports - not the first sentence
-- Inference = what MUST be true, not what might be true
-- Author's purpose: inform (facts), persuade (opinion + evidence), entertain (story)
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Start by asking which HESI subtests their school requires.
+- Keep responses short — under 5 sentences unless asked for more.
+- After each answer, offer: "Want to try a practice question?" or "Should I go deeper?"
 
-STYLE: Use plain text only - no asterisks or markdown symbols. Ask the student their current score and target, then build a focused study plan.`,
+WHEN ASKED FOR CONTENT:
+- Dosage: **Desired ÷ Have × Volume**
+- Medical prefixes: **tachy**=fast, **brady**=slow, **hyper**=above, **hypo**=below
+- Suffixes: **-itis**=inflammation, **-ectomy**=removal, **-ology**=study of
+- Military time: add 1200 for PM; subtract 1200 for AM from times over 1200
+- Roman numerals: **I=1, V=5, X=10, L=50, C=100**
 
-  "hesi": `You are James, an expert HESI A2 tutor at Pre-NCLEX Nursing. Different schools require different subtests, so always ask which ones the student needs.
+Wrap key terms in **double asterisks** so they render bold.`,
 
-HESI A2 SUBTESTS:
-- Math: operations, fractions, decimals, dosage calculation, Roman numerals, military time
-- Reading Comprehension: main idea, supporting details, implied meaning
-- Vocabulary: medical and general vocabulary, context clues
-- Grammar: subject-verb agreement, pronouns, sentence structure
-- Biology: cell structure, metabolism, genetics, macromolecules
-- Chemistry: atomic structure, bonding, acids and bases
-- Anatomy & Physiology: all 11 body systems
-- Physics: motion, gravity, energy, waves
+  "ccrn": `You are James, an expert CCRN tutor at Pre-NCLEX Nursing. You treat candidates as ICU colleagues.
 
-HIGH-YIELD VOCABULARY:
-- Prefixes: tachy=fast, brady=slow, hyper=above, hypo=below, dys=difficult, a/an=without
-- Suffixes: -itis=inflammation, -ectomy=removal, -plasty=repair, -ology=study of
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Keep responses concise — under 5 sentences unless asked for depth.
+- After answering, offer: "Want a clinical scenario on this?" or "Shall I go deeper?"
+- Use ICU terminology naturally.
 
-MATH TIPS:
-- Dosage formula: Desired divided by Have, multiplied by Volume
-- Roman numerals: I=1, V=5, X=10, L=50, C=100
-- Military time: add 1200 for PM times
+WHEN ASKED FOR CONTENT:
+- Hemodynamics: **CVP 2-6**, **PCWP 8-12**, **CO 4-8 L/min**, **SVR 800-1200**
+- Vasopressors: **norepinephrine** = first-line septic shock; **vasopressin** = adjunct
+- Ventilator: **TV 6-8 mL/kg IBW** for ARDS; PEEP improves oxygenation; rate clears CO2
+- ICP: **HOB 30°**, avoid hip flexion, maintain **CPP > 60 mmHg**
+- ECG: **VF** = defibrillate; **VT with pulse** = synchronized cardioversion; **Torsades** = magnesium
 
-STYLE: Use plain text only - no asterisks or markdown symbols. Ask which subtests the student needs and their required passing score.`,
+Wrap key values and terms in **double asterisks** so they render bold.`,
 
-  "ccrn": `You are James, an expert CCRN tutor at Pre-NCLEX Nursing. You speak the language of the ICU and treat candidates as experienced critical care colleagues.
+  "fnp": `You are James, an expert FNP board exam tutor at Pre-NCLEX Nursing.
 
-CCRN EXAM BLUEPRINT (150 questions, 125 scored):
-- Cardiovascular (17%): dysrhythmias, ACS, heart failure, hemodynamic monitoring
-- Pulmonary (15%): mechanical ventilation, ARDS, ABGs, respiratory failure
-- Multisystem (19%): sepsis, MODS, trauma, toxicology, burns
-- Endocrine/Hematology/GI/Renal (20%): DKA, AKI, liver failure, DIC
-- Neurology/Musculoskeletal/Psychosocial (14%): TBI, ICP management, stroke, delirium
-- Professional Caring & Ethics (15%): AACN Synergy Model, advocacy, moral distress
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Keep responses short — under 5 sentences unless asked for more.
+- After answering, offer: "Want a clinical case on this?" or "Shall I go deeper?"
+- Use case-based teaching when the student asks for application.
 
-AACN SYNERGY MODEL:
-- 8 patient characteristics: resiliency, vulnerability, stability, complexity, resource availability, participation in care, participation in decision-making, predictability
-- 8 nurse competencies: clinical judgment, advocacy, caring practices, collaboration, systems thinking, response to diversity, facilitation of learning, clinical inquiry
+WHEN ASKED FOR CONTENT:
+- HTN: first-line = **thiazides, ACE inhibitors, ARBs, or CCBs**; target **< 130/80**
+- DM Type 2: first-line = **metformin**; add **GLP-1** if CVD risk; **SGLT-2** for HF or CKD
+- Screening: cervical cancer **Pap q3yr ages 21-65**; colorectal **colonoscopy q10yr from age 45**
+- ACE inhibitors: contraindicated in pregnancy; dry cough = switch to **ARB**
+- Metformin: hold **48hr** before/after contrast; contraindicated if **GFR < 30**
 
-CRITICAL CARE HIGH-YIELD:
-- Hemodynamic values: CVP 2-6, PCWP 8-12, CO 4-8 L/min, SVR 800-1200
-- Vasopressors: norepinephrine = first-line for septic shock
-- Ventilator: tidal volume 6-8 mL/kg IBW for ARDS; PEEP improves oxygenation
-- ICP: HOB 30 degrees, maintain CPP above 60 mmHg
-- ECG: VF = defibrillate; VT with pulse = synchronized cardioversion; Torsades = magnesium
+Wrap key terms and values in **double asterisks** so they render bold.`,
 
-STYLE: Use plain text only - no asterisks or markdown symbols. Use ICU terminology freely. Challenge students with complex case scenarios.`,
+  "hesi-exit": `You are James, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing.
 
-  "fnp": `You are James, an expert FNP board exam tutor at Pre-NCLEX Nursing. You prepare NPs for both AANPCP FNP-BC and ANCC FNP-BC certification.
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Keep responses short — under 5 sentences unless asked for more.
+- After answering, ask: "Want a practice question on this?" or "Shall I explain the reasoning?"
+- Treat every question like NCLEX difficulty.
 
-FNP EXAM FOCUS:
-- Assessment & Diagnosis (37%): history, physical exam, differential diagnosis, diagnostics
-- Clinical Management (24%): treatment protocols, pharmacotherapy, chronic disease management
-- Health Promotion (19%): screening guidelines, immunizations, counseling
-- Professionalism & Research (10%): scope of practice, EBP application
+WHEN ASKED FOR CONTENT:
+- Post-op order: **airway → breathing → circulation → neuro → wound → pain** — never pain first
+- Chest tube: never clamp unless ordered; bubbling in water seal = **air leak**
+- Anticoagulant antidotes: **heparin = protamine sulfate**; **warfarin = Vitamin K**; **dabigatran = idarucizumab**
+- High-alert meds: **insulin, heparin, concentrated electrolytes** — two-nurse verification required
+- Delegation: RN keeps assessment, teaching, unstable patients, IV push meds
 
-SCREENING GUIDELINES:
-- Cervical cancer: Pap smear ages 21-65, every 3 years alone or every 5 years with HPV co-test ages 30-65
-- Colorectal: colonoscopy every 10 years starting age 45
-- Breast: mammogram annually or biennially starting ages 40-50
-- Diabetes: HbA1c or fasting glucose in adults 35+ with overweight or obesity
+Wrap key terms in **double asterisks** so they render bold.`,
 
-CHRONIC DISEASE MANAGEMENT:
-- HTN: first-line = thiazides, ACE inhibitors, ARBs, or CCBs; target below 130/80
-- DM Type 2: first-line = metformin; add GLP-1 if CVD risk; SGLT-2 for heart failure or CKD
-- Asthma: step therapy from SABA PRN up to high-dose ICS with LABA and LAMA
-- Depression: SSRIs first-line; reassess at 4-6 weeks; switch or augment at 8-12 weeks if no response
+  "ngn": `You are James, an expert NGN tutor at Pre-NCLEX Nursing.
 
-PHARMACOLOGY PEARLS:
-- ACE inhibitors: contraindicated in pregnancy; dry cough = switch to ARB
-- Metformin: hold 48 hours before and after contrast dye; contraindicated if GFR below 30
-- Warfarin: check INR whenever adding any new medication
+CONVERSATION RULES — follow these strictly:
+- Be learner-led. Answer only what the student asks.
+- Keep responses short — under 5 sentences unless asked for more.
+- After answering, offer: "Want to try a practice NGN item?" or "Shall I walk through the clinical reasoning?"
+- Make the thinking process visible but only when asked.
 
-STYLE: Use plain text only - no asterisks or markdown symbols. Use case-based teaching - present a scenario, ask what the student would do, then walk through the evidence-based answer.`,
+THE 6-STEP MODEL — use only when student asks:
+1. **Recognize Cues** — what matters in the data?
+2. **Analyze Cues** — what does it mean clinically?
+3. **Prioritize Hypotheses** — what is most urgent?
+4. **Generate Solutions** — what interventions apply?
+5. **Take Actions** — what do you do first?
+6. **Evaluate Outcomes** — is the patient improving?
 
-  "hesi-exit": `You are James, an expert HESI Exit Exam tutor at Pre-NCLEX Nursing. The HESI Exit is the final gate before NCLEX.
+NGN ITEM TYPES — explain only when asked:
+- **Extended Multiple Response** — select all that apply, all-or-nothing
+- **Matrix/Grid** — indicate or contraindicate, row by row
+- **Cloze** — fill in blanks, read all options first
+- **Highlight** — only clinically significant findings
+- **Trend** — direction of change matters most
+- **Unfolding Case** — same patient across 6 questions
 
-APPROACH:
-- Treat every question like an NCLEX question - same difficulty, same priority frameworks
-- Most schools require 850 or higher - always ask the student's required score
-- Content is weighted toward med-surg, pharmacology, and management of care
-
-MED-SURG PRIORITIES:
-- Post-op order: airway, breathing, circulation, neuro, wound, then pain - never pain first
-- Chest tube: never clamp unless changing; keep below chest level; bubbling in water seal = air leak
-- NG tube: check placement before every feeding - pH below 5 confirms gastric placement
-- Tracheostomy: keep spare tube and obturator at bedside always
-- Blood transfusion: stop immediately for fever, chills, or back pain - hemolytic reaction
-
-PHARMACOLOGY PRIORITIES:
-- High-alert meds: insulin, heparin, concentrated electrolytes - require two-nurse verification
-- Anticoagulant antidotes: heparin = protamine sulfate; warfarin = Vitamin K; dabigatran = idarucizumab
-- Opioid overdose: naloxone (Narcan); monitor for re-narcotization after short half-life
-
-MANAGEMENT OF CARE:
-- Delegate stable, routine, unchanging tasks to UAP
-- Delegate skilled but predictable tasks to LPN
-- RN retains: assessment, care plan, teaching, unstable patients, IV push medications
-
-STYLE: Use plain text only - no asterisks or markdown symbols. Help students identify weak areas by asking them to describe where they are struggling.`,
-
-  "ngn": `You are James, an expert Next Generation NCLEX (NGN) tutor at Pre-NCLEX Nursing. You specialize in the NCSBN Clinical Judgment Measurement Model and all NGN item formats.
-
-THE 6-STEP CLINICAL JUDGMENT MODEL - apply this to every scenario:
-1. Recognize Cues: What matters? Filter relevant from irrelevant data
-2. Analyze Cues: What does it mean? Connect findings to pathophysiology
-3. Prioritize Hypotheses: What is most likely or most urgent?
-4. Generate Solutions: What evidence-based interventions apply?
-5. Take Actions: What do I do first?
-6. Evaluate Outcomes: Did it work? Is the patient improving or deteriorating?
-
-NGN ITEM FORMATS:
-- Extended Multiple Response: select ALL that apply - all or nothing scoring
-- Matrix/Grid: rows are conditions, columns are interventions - indicate or contraindicate
-- Drag and Drop Cloze: fill in blanks from a dropdown - read every option first
-- Enhanced Hot Spot: highlight clinically significant findings only
-- Trend: analyze changing vitals and labs over time - look for direction of change
-- Unfolding Case Studies: 6 questions following the same patient across the care continuum
-
-TEACHING STRATEGY:
-- Always work through all 6 steps when analyzing a clinical scenario
-- For matrix questions: go row by row, not column by column
-- For highlight questions: only select findings that are clinically significant
-- For trend questions: the direction of change matters more than the current value
-
-COMMON SCENARIOS TO PRACTICE:
-- Sepsis progression through vital sign trends
-- Post-op respiratory deterioration
-- Fluid volume imbalance across a shift
-- Deteriorating neurological status
-
-STYLE: Use plain text only - no asterisks or markdown symbols. Make the clinical thinking process visible and explicit at every step.`,
+Wrap key terms in **double asterisks** so they render bold.`,
 };
 
 const SUGGESTIONS: Record<string, string[]> = {
-  "nclex-rn":  ["Walk me through a priority question", "Explain digoxin toxicity", "SATA on infection control", "ABG interpretation practice"],
-  "nclex-pn":  ["What can an LPN delegate?", "PN pharmacology pearls", "Pressure injury staging", "Signs of shock"],
-  "teas":      ["TEAS science: body systems", "Math: dosage calculations", "Reading: find the main idea", "Biology: DNA and genetics"],
-  "hesi":      ["A&P: cardiovascular system", "Medical prefixes quiz", "Chemistry: acids and bases", "Grammar practice"],
-  "ccrn":      ["Hemodynamic values review", "Ventilator management", "Vasopressor selection", "AACN Synergy Model"],
-  "fnp":       ["Hypertension management", "Screening guidelines", "Differential diagnosis case", "Advanced pharmacology"],
-  "hesi-exit": ["Post-op priority assessment", "High-alert medications", "Delegation scenarios", "Blood transfusion reaction"],
-  "ngn":       ["Walk me through the NCJMM", "Practice a matrix question", "Unfolding case study", "Trend question: sepsis"],
+  "nclex-rn":  ["Priority nursing questions", "Delegation rules", "Pharmacology pearls", "Infection control"],
+  "nclex-pn":  ["LPN scope of practice", "Pharmacology", "Pressure injury staging", "Signs of shock"],
+  "teas":      ["Body systems review", "Dosage calculations", "Reading strategies", "DNA and genetics"],
+  "hesi":      ["Cardiovascular system", "Medical prefixes", "Acids and bases", "Grammar tips"],
+  "ccrn":      ["Hemodynamic values", "Ventilator management", "Vasopressors", "AACN Synergy Model"],
+  "fnp":       ["Hypertension", "Screening guidelines", "Differential diagnosis", "Pharmacology"],
+  "hesi-exit": ["Post-op priorities", "High-alert medications", "Delegation", "Blood transfusion"],
+  "ngn":       ["The 6-step NCJMM", "Matrix questions", "Unfolding case study", "Trend questions"],
 };
 
 function renderMessage(content: string) {
   const lines = content.split("\n");
   return lines.map((line, i) => {
     if (!line.trim()) return <br key={i} />;
+
     const renderInline = (text: string) => {
-      const parts = text.split(/(\[\[.+?\]\])/g);
+      const parts = text.split(/(\*\*.+?\*\*)/g);
       return parts.map((part, j) => {
-        if (part.startsWith("[[") && part.endsWith("]]")) {
-          return <span key={j} style={{ color: "#0ea5e9", fontWeight: 700 }}>{part.slice(2, -2)}</span>;
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return <strong key={j} style={{ color: "#0369a1", fontWeight: 700 }}>{part.slice(2, -2)}</strong>;
         }
-        return <span key={j}>{part.replace(/\*\*(.+?)\*\*/g, "$1")}</span>;
+        return <span key={j}>{part}</span>;
       });
     };
-    const clean = line.replace(/^#{1,3}\s+/, "").replace(/\*\*(.+?)\*\*/g, "$1").trim();
+
+    const clean = line.replace(/^#{1,3}\s+/, "").trim();
+
     if (line.trim().match(/^\d+\./)) {
-      return <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{line.match(/^\d+/)?.[0]}.</span><span>{renderInline(clean.replace(/^\d+\.\s*/, ""))}</span></div>;
+      const num = line.match(/^\d+/)?.[0];
+      const rest = clean.replace(/^\d+\.\s*/, "");
+      return (
+        <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
+          <span style={{ color: "#0ea5e9", fontWeight: 700, flexShrink: 0 }}>{num}.</span>
+          <span>{renderInline(rest)}</span>
+        </div>
+      );
     }
     if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
-      return <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}><span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span><span>{renderInline(clean.replace(/^[-•]\s*/, ""))}</span></div>;
+      const rest = clean.replace(/^[-•]\s*/, "");
+      return (
+        <div key={i} style={{ marginBottom: 6, display: "flex", gap: 8 }}>
+          <span style={{ color: "#0ea5e9", flexShrink: 0 }}>•</span>
+          <span>{renderInline(rest)}</span>
+        </div>
+      );
     }
-    return <div key={i} style={{ marginBottom: 8 }}>{renderInline(clean)}</div>;
+    return <div key={i} style={{ marginBottom: 6 }}>{renderInline(clean)}</div>;
   });
 }
 
@@ -258,6 +236,8 @@ export default function AITutorPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [history, setHistory] = useState<any[]>([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [pendingSuggestion, setPendingSuggestion] = useState<string | null>(null);
+  const [showContinueModal, setShowContinueModal] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const supabase = createClient();
 
@@ -302,10 +282,10 @@ export default function AITutorPage() {
     }
   }
 
-  async function sendMessage(userContent: string, existingMessages: { role: string; content: string }[]) {
+  async function sendMessage(userContent: string, baseMessages: { role: string; content: string }[]) {
     if (!selectedExam || loading) return;
     const userMsg = { role: "user", content: userContent };
-    const newMsgs = [...existingMessages, userMsg];
+    const newMsgs = [...baseMessages, userMsg];
     setMessages(newMsgs);
     setInput("");
     setLoading(true);
@@ -337,18 +317,35 @@ export default function AITutorPage() {
     await sendMessage(input.trim(), messages);
   }
 
-  async function handleSuggestion(suggestion: string) {
-    if (!selectedExam || loading) return;
-    await sendMessage(suggestion, messages);
+  function handleSuggestionClick(suggestion: string) {
+    if (messages.length > 1) {
+      // Already in a conversation — ask continue or new
+      setPendingSuggestion(suggestion);
+      setShowContinueModal(true);
+    } else {
+      // Fresh chat — send directly
+      sendMessage(suggestion, messages);
+    }
+  }
+
+  async function handleContinueChoice(choice: "new" | "continue") {
+    setShowContinueModal(false);
+    if (!pendingSuggestion || !selectedExam) return;
+    if (choice === "new") {
+      const greeting = [{ role: "assistant", content: GREETINGS[selectedExam.id] }];
+      setMessages(greeting);
+      setSessionId(null);
+      await sendMessage(pendingSuggestion, greeting);
+    } else {
+      await sendMessage(pendingSuggestion, messages);
+    }
+    setPendingSuggestion(null);
   }
 
   function startNewChat(exam: Exam) {
     setSelectedExam(exam);
     setSessionId(null);
-    setMessages([{
-      role: "assistant",
-      content: `Hi! I am James, your ${exam.label} tutor. I am here to help you prepare with confidence.\n\nWhat would you like to focus on today? You can ask me a practice question, request an explanation of a topic, or tell me which area you are finding difficult — and we will work through it together.`
-    }]);
+    setMessages([{ role: "assistant", content: GREETINGS[exam.id] }]);
   }
 
   function loadSession(session: any) {
@@ -368,7 +365,34 @@ export default function AITutorPage() {
   return (
     <main style={{ minHeight: "100vh", background: "#0f172a", color: "white", fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", display: "flex" }}>
 
-      {/* SIDEBAR */}
+      {/* CONTINUE/NEW MODAL */}
+      {showContinueModal && selectedExam && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ background: "#1e293b", border: "1px solid #334155", borderRadius: 16, padding: "32px 28px", maxWidth: 360, width: "90%", textAlign: "center" }}>
+            <div style={{ width: 48, height: 48, borderRadius: 12, background: selectedExam.color + "22", border: "1px solid " + selectedExam.color + "44", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, color: selectedExam.color, margin: "0 auto 16px" }}>{selectedExam.icon}</div>
+            <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 8 }}>You are already in a session</h3>
+            <p style={{ color: "#94a3b8", fontSize: 14, marginBottom: 24, lineHeight: 1.6 }}>
+              Would you like to continue this conversation or start a fresh one on <strong style={{ color: "#e2e8f0" }}>{pendingSuggestion}</strong>?
+            </p>
+            <div style={{ display: "flex", gap: 12 }}>
+              <button onClick={() => handleContinueChoice("continue")}
+                style={{ flex: 1, padding: "12px", borderRadius: 10, background: "transparent", border: "1px solid #334155", color: "#94a3b8", cursor: "pointer", fontWeight: 600, fontSize: 14 }}>
+                Continue here
+              </button>
+              <button onClick={() => handleContinueChoice("new")}
+                style={{ flex: 1, padding: "12px", borderRadius: 10, background: selectedExam.color, border: "none", color: "white", cursor: "pointer", fontWeight: 700, fontSize: 14 }}>
+                Start new chat
+              </button>
+            </div>
+            <button onClick={() => { setShowContinueModal(false); setPendingSuggestion(null); }}
+              style={{ marginTop: 12, background: "none", border: "none", color: "#475569", fontSize: 13, cursor: "pointer" }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* HISTORY SIDEBAR */}
       {userId && (
         <div style={{ width: showHistory ? 280 : 0, flexShrink: 0, overflow: "hidden", transition: "width .25s", background: "#0a1120", borderRight: "1px solid #1e293b", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: "16px", borderBottom: "1px solid #1e293b", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -401,7 +425,7 @@ export default function AITutorPage() {
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
 
-        {/* EXAM SELECTION SCREEN */}
+        {/* EXAM SELECTION */}
         {!selectedExam ? (
           <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px", width: "100%" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 32 }}>
@@ -433,11 +457,10 @@ export default function AITutorPage() {
 
         ) : (
 
-          /* CHAT SCREEN */
           <>
             <div style={{ maxWidth: 900, margin: "0 auto", padding: "20px 20px 160px", width: "100%" }}>
 
-              {/* CHAT HEADER */}
+              {/* HEADER */}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                 <button onClick={() => { setSelectedExam(null); setMessages([]); }}
                   style={{ background: "#1e293b", border: "none", color: "#94a3b8", cursor: "pointer", borderRadius: 8, padding: "6px 12px", fontSize: 13 }}>
@@ -452,26 +475,24 @@ export default function AITutorPage() {
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: selectedExam.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, color: selectedExam.color }}>{selectedExam.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 18 }}>{selectedExam.label} AI Tutor</div>
-                  <div style={{ color: "#94a3b8", fontSize: 13 }}>{selectedExam.desc}</div>
+                  <div style={{ color: "#94a3b8", fontSize: 13 }}>James · {selectedExam.desc}</div>
                 </div>
               </div>
 
-              {/* SUGGESTION CHIPS — only shown when only the greeting message exists */}
-              {messages.length === 1 && messages[0].role === "assistant" && (
-                <div style={{ marginBottom: 20 }}>
-                  <p style={{ color: "#475569", fontSize: 12, marginBottom: 10 }}>Or choose a topic to get started:</p>
-                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                    {(SUGGESTIONS[selectedExam.id] ?? []).map((s) => (
-                      <button key={s} onClick={() => handleSuggestion(s)}
-                        style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 20, padding: "7px 16px", fontSize: 13, cursor: "pointer", transition: "border-color .15s" }}
-                        onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.borderColor = selectedExam.color}
-                        onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "#334155"}>
-                        {s}
-                      </button>
-                    ))}
-                  </div>
+              {/* SUGGESTION CHIPS */}
+              <div style={{ marginBottom: 20 }}>
+                <p style={{ color: "#475569", fontSize: 12, marginBottom: 10 }}>Quick topics:</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {(SUGGESTIONS[selectedExam.id] ?? []).map((s) => (
+                    <button key={s} onClick={() => handleSuggestionClick(s)}
+                      style={{ background: "#1e293b", border: "1px solid #334155", color: "#94a3b8", borderRadius: 20, padding: "7px 16px", fontSize: 13, cursor: "pointer", transition: "border-color .15s" }}
+                      onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.borderColor = selectedExam.color}
+                      onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.borderColor = "#334155"}>
+                      {s}
+                    </button>
+                  ))}
                 </div>
-              )}
+              </div>
 
               {/* MESSAGES */}
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -480,7 +501,16 @@ export default function AITutorPage() {
                     <div style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0, background: m.role === "user" ? "#0ea5e9" : selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white" }}>
                       {m.role === "user" ? "You" : selectedExam.icon}
                     </div>
-                    <div style={{ background: m.role === "user" ? "#0ea5e9" : "#ffffff", color: m.role === "user" ? "white" : "#0f172a", padding: "16px 20px", borderRadius: 14, maxWidth: "78%", fontSize: 15, lineHeight: 1.8, boxShadow: m.role === "assistant" ? "0 1px 8px rgba(0,0,0,0.15)" : "none" }}>
+                    <div style={{
+                      background: m.role === "user" ? "#0ea5e9" : "#ffffff",
+                      color: m.role === "user" ? "white" : "#0f172a",
+                      padding: "14px 18px",
+                      borderRadius: 14,
+                      maxWidth: "78%",
+                      fontSize: 15,
+                      lineHeight: 1.8,
+                      boxShadow: m.role === "assistant" ? "0 1px 8px rgba(0,0,0,0.12)" : "none"
+                    }}>
                       {m.role === "assistant" ? renderMessage(m.content) : m.content}
                     </div>
                   </div>
@@ -489,7 +519,9 @@ export default function AITutorPage() {
                 {loading && (
                   <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                     <div style={{ width: 36, height: 36, borderRadius: "50%", background: selectedExam.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: "white", flexShrink: 0 }}>{selectedExam.icon}</div>
-                    <div style={{ background: "#ffffff", padding: "16px 20px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.15)" }}>James is thinking...</div>
+                    <div style={{ background: "#ffffff", padding: "14px 18px", borderRadius: 14, color: "#94a3b8", fontStyle: "italic", fontSize: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.12)" }}>
+                      James is thinking...
+                    </div>
                   </div>
                 )}
                 <div ref={bottomRef} />
@@ -503,7 +535,7 @@ export default function AITutorPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
-                  placeholder={"Ask your " + selectedExam.label + " question..."}
+                  placeholder={"Ask James anything about " + selectedExam.label + "..."}
                   style={{ flex: 1, padding: "13px 18px", borderRadius: 12, border: "1px solid #334155", background: "#1e293b", color: "white", fontSize: 15, outline: "none", fontFamily: "inherit" }}
                 />
                 <button onClick={send} disabled={loading}
@@ -512,7 +544,7 @@ export default function AITutorPage() {
                 </button>
               </div>
               <p style={{ textAlign: "center", color: "#334155", fontSize: 11, margin: "6px 0 0" }}>
-                Powered by Pre-NCLEX Nursing AI · {selectedExam.label} mode · For study purposes only
+                Pre-NCLEX Nursing AI · {selectedExam.label} · For study purposes only
               </p>
             </div>
           </>
