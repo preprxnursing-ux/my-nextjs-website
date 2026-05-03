@@ -19,8 +19,8 @@ export async function POST(req: Request) {
 
     if (ext === "pdf") {
       try {
-        const { default: pdfParse } = await import("pdf-parse");
-        const data = await pdfParse(buffer);
+        const pdfParse = await import("pdf-parse");
+        const data = await (pdfParse as any)(buffer);
         const text = data.text.replace(/\s+/g, " ").trim();
         const alphaRatio = (text.match(/[a-zA-Z ]/g) ?? []).length / Math.max(text.length, 1);
         const isReadable = text.length > 100 && alphaRatio > 0.5;
