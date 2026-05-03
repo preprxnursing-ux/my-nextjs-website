@@ -49,14 +49,14 @@ const navStyle = `
   .nav-dropdown { animation: dropIn .15s ease both; }
   .nav-tab {
     display: inline-flex; align-items: center; gap: 4px;
-    padding: 0 16px; height: 40px; font-size: 13.5px; font-weight: 600;
-    color: #334155; background: transparent; border: none; cursor: pointer;
+    padding: 0 16px; height: 40px; font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.85); background: transparent; border: none; cursor: pointer;
     text-decoration: none; white-space: nowrap; font-family: inherit;
     border-bottom: 3px solid transparent; transition: color .15s, border-color .15s;
     flex-shrink: 0;
   }
-  .nav-tab:hover { color: #0ea5e9; border-bottom-color: #0ea5e9; }
-  .nav-tab.active { color: #0ea5e9; border-bottom-color: #0ea5e9; font-weight: 700; }
+  .nav-tab:hover { color: #fff; border-bottom-color: #38bdf8; }
+  .nav-tab.active { color: #fff; border-bottom-color: #38bdf8; font-weight: 700; background: rgba(255,255,255,0.08); }
   .hamburger-btn { display: none !important; }
   @media (max-width: 900px) {
     .hamburger-btn { display: flex !important; }
@@ -269,7 +269,7 @@ export default function Navbar() {
         </div>
 
         {/* ROW 2 — Navigation tabs */}
-        <div id="nav-row2" style={{ borderTop: "1px solid #f1f5f9", background: "#fff" }}>
+        <div id="nav-row2" style={{ background: "#0d1f35" }}>
           <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 16px", display: "flex", alignItems: "center", overflow: "hidden" }}>
             <CoursesDropdown pathname={pathname} />
             <Link href="/features" className={`nav-tab${isActive(pathname, "/features") ? " active" : ""}`}>Features</Link>
