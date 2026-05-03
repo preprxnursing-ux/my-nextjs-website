@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
     if (ext === "pdf") {
       try {
-        const pdfParse = (await import("pdf-parse/lib/pdf-parse.js")).default;
+        const pdfParse = (await import("pdf-parse")).default;
         const data = await pdfParse(buffer);
         const text = data.text.replace(/\s+/g, " ").trim();
         const alphaRatio = (text.match(/[a-zA-Z ]/g) ?? []).length / Math.max(text.length, 1);
