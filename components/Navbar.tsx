@@ -656,7 +656,7 @@ export default function Navbar() {
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", flexDirection: "column", padding: "0 12px", width: "100%" }}>
 
           {/* â”€â”€ ROW 1: Logo + main nav items + Anatomy Lab + AI Tutor + Hamburger â”€â”€ */}
-          <div style={{ display: "flex", alignItems: "center", height: "56px", gap: "0px" }}>
+          <div style={{ display: "flex", alignItems: "center", height: "68px", gap: "0px" }}>
 
             {/* LOGO */}
             <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -668,7 +668,7 @@ export default function Navbar() {
             </Link>
 
             {/* DESKTOP NAV â€” ROW 1 items only */}
-            <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
+            <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "6px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
                 Courses <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
@@ -817,10 +817,10 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
         </div>{/* end ROW-1 */}
 
         {/* â”€â”€ ROW 2: Contact + Pricing + More | Cart + Profile + Sign in â”€â”€ */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "38px", borderTop: "1px solid rgba(14,165,233,0.1)", fontSize: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "48px", borderTop: "1px solid rgba(14,165,233,0.1)", fontSize: "12px", padding: "0 4px" }}>
 
           {/* LEFT: Contact, Pricing, More */}
-          <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <ContactDropdown pathname={pathname} />
             <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
             <div style={{ position: "relative" }}
@@ -869,7 +869,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
           </div>
 
           {/* RIGHT: Cart + Profile + Sign in */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
