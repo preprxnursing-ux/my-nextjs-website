@@ -656,7 +656,7 @@ export default function Navbar() {
         <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", flexDirection: "column", padding: "0 12px", width: "100%" }}>
 
           {/* â”€â”€ ROW 1: Logo + main nav items + Anatomy Lab + AI Tutor + Hamburger â”€â”€ */}
-          <div style={{ display: "flex", alignItems: "center", height: "68px", gap: "0px" }}>
+          <div style={{ display: "flex", alignItems: "center", height: "72px", gap: "0px" }}>
 
             {/* LOGO */}
             <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
@@ -820,7 +820,7 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "48px", borderTop: "1px solid rgba(14,165,233,0.1)", fontSize: "12px", padding: "0 4px" }}>
 
           {/* LEFT: Contact, Pricing, More */}
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px", flex: 1 }}>
             <ContactDropdown pathname={pathname} />
             <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
             <div style={{ position: "relative" }}
