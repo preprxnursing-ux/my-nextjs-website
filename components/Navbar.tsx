@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useCart } from "@/lib/cartContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -651,20 +651,24 @@ export default function Navbar() {
   return (
     <>
       <style>{navStyle}</style>
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", backdropFilter: "blur(20px)", boxShadow: "0 4px 20px rgba(0,0,0,0.10)" }}>
-        <div style={{ display: "flex", alignItems: "center", padding: "0 20px", height: "58px", gap: "16px", borderBottom: "1px solid rgba(14,165,233,0.15)" }}>
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, width: "100%", zIndex: 1000, background: "#ffffff", borderTop: "3px solid #0ea5e9", borderBottom: "2px solid rgba(14,165,233,0.3)", backdropFilter: "blur(20px)", boxShadow: "0 2px 16px rgba(0,0,0,0.08)" }}>
+        {/* â”€â”€ TWO-ROW WRAPPER â”€â”€ */}
+        <div style={{ maxWidth: "100%", margin: "0 auto", display: "flex", flexDirection: "column", padding: "0 12px", width: "100%" }}>
 
-          {/* LOGO */}
-          <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
-            <div style={{ overflow: "hidden", height: "54px", display: "flex", alignItems: "center" }}>
-              <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={195} height={51} style={{ objectFit: "contain", flexShrink: 0 }} />
-            </div>
-          </Link>
-          <div style={{ flex:1, display:"flex", justifyContent:"center" }}><div style={{ position:"relative", width:"100%", maxWidth:"420px" }}><input type="text" placeholder="Search subjects, topics..." style={{ width:"100%", padding:"9px 44px 9px 18px", borderRadius:"10px", border:"1.5px solid rgba(14,165,233,0.25)", background:"rgba(14,165,233,0.04)", fontSize:"13px", color:"#0f172a", outline:"none", fontFamily:"inherit", boxSizing:"border-box" } as React.CSSProperties} onFocus={e=>{e.currentTarget.style.border="1.5px solid #0ea5e9";e.currentTarget.style.background="#fff";}} onBlur={e=>{e.currentTarget.style.border="1.5px solid rgba(14,165,233,0.25)";e.currentTarget.style.background="rgba(14,165,233,0.04)";}} /><div style={{ position:"absolute", right:"10px", top:"50%", transform:"translateY(-50%)", width:"28px", height:"28px", borderRadius:"7px", background:"#0ea5e9", display:"flex", alignItems:"center", justifyContent:"center" }}><svg width="13" height="13" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div></div></div>
-          {/* DESKTOP NAV */}
-          <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
+          {/* â”€â”€ ROW 1: Logo + main nav items + Anatomy Lab + AI Tutor + Hamburger â”€â”€ */}
+          <div style={{ display: "flex", alignItems: "center", height: "56px", gap: "0px" }}>
+
+            {/* LOGO */}
+            <Link href="/" style={{ flexShrink: 0, display: "flex", alignItems: "center", textDecoration: "none", opacity: .92, transition: "opacity .15s" }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = ".92")}>
+              <div style={{ overflow: "hidden", height: "50px", display: "flex", alignItems: "center" }}>
+                <Image src="/logo.png" alt="Pre-NCLEX Nursing" width={180} height={47} style={{ objectFit: "contain", flexShrink: 0 }} />
+              </div>
+            </Link>
+
+            {/* DESKTOP NAV â€” ROW 1 items only */}
+            <div id="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "2px", flex: 1, justifyContent: "center", fontSize: "12px" }}>
             <div style={{ position: "relative" }} onMouseEnter={handleCoursesEnter} onMouseLeave={handleCoursesLeave}>
               <button className={`nav-btn${pathname.startsWith("/courses") ? " active" : ""}`}>
                 Courses <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: coursesOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
@@ -734,8 +738,6 @@ export default function Navbar() {
                     <Link key={link.label} href={link.href} className={`nav-btn${isActive(pathname, link.href) ? " active" : ""}`}>{link.label}</Link>
                   )
                 ))}
-                <ContactDropdown pathname={pathname} />
-                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             ) : (
               <>
@@ -757,8 +759,6 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
   <span style={{ fontSize: "15px" }}>🤖</span><span>AI Tutor</span>
   <span style={{ background: "rgba(255,255,255,0.2)", borderRadius: 10, padding: "1px 7px", fontSize: 10, fontWeight: 800, letterSpacing: "0.05em" }}>NEW</span>
 </Link>
-                <ContactDropdown pathname={pathname} />
-                <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
               </>
             )}
 
@@ -805,10 +805,71 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
                 </div>
               )}
             </div>
-          </div>{/* /desktop-nav */}</div>{/* /Row2 */}<div style={{ display:"flex", alignItems:"center", padding:"0 20px", height:"58px", gap:"16px", position:"absolute", top:0, right:0 }}>
-        </div>{/* /Row1 */}<div style={{ display:"flex", alignItems:"center", padding:"0 8px", height:"44px", borderBottom:"2px solid #0ea5e9", background:"rgba(6,15,30,0.018)" }}>
-          {/* DESKTOP ACTIONS */}
-          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+          </div>{/* end desktop-nav ROW-1 */}
+
+          {/* HAMBURGER â€” ROW 1 right side (mobile only) */}
+          <button
+            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0 }}
+            className="hamburger-btn"
+            onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
+          </button>
+        </div>{/* end ROW-1 */}
+
+        {/* â”€â”€ ROW 2: Contact + Pricing + More | Cart + Profile + Sign in â”€â”€ */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "38px", borderTop: "1px solid rgba(14,165,233,0.1)", fontSize: "12px" }}>
+
+          {/* LEFT: Contact, Pricing, More */}
+          <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+            <ContactDropdown pathname={pathname} />
+            <Link href="/pricing" className={`nav-btn${isActive(pathname, "/pricing") ? " active" : ""}`}>Pricing</Link>
+            <div style={{ position: "relative" }}
+              onMouseEnter={() => { if (moreTimeout.current) clearTimeout(moreTimeout.current); setMoreOpen(true); }}
+              onMouseLeave={() => { moreTimeout.current = setTimeout(() => setMoreOpen(false), 140); }}>
+              <button className="nav-btn">More <ChevronDown style={{ width: 12, height: 12, transition: "transform .2s", transform: moreOpen ? "rotate(180deg)" : "rotate(0deg)" }} /></button>
+              {moreOpen && (
+                <div className="nav-dropdown" style={{ position: "absolute", left: 0, top: "100%", zIndex: 1001, marginTop: "4px", width: "420px", background: "#ffffff", border: "1px solid rgba(0,0,0,.08)", borderRadius: "20px", boxShadow: "0 32px 80px rgba(0,0,0,.2)", overflow: "hidden" }}>
+                  <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(0,0,0,.06)", background: "linear-gradient(135deg,rgba(14,165,233,.05) 0%,rgba(139,92,246,.04) 100%)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: 0 }}>More from Pre-NCLEX Nursing</p>
+                    <span style={{ fontSize: "10px", fontWeight: 700, background: "rgba(14,165,233,.1)", color: "#0ea5e9", border: "1px solid rgba(14,165,233,.2)", padding: "3px 10px", borderRadius: "100px" }}>Resources</span>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px", padding: "10px" }}>
+                    {[
+                      { href: "#", label: "Private Tutors", desc: "1-on-1 expert nursing tutors", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75", color: "#0ea5e9" },
+                      { href: "/blog", label: "Blog", desc: "Nursing tips, study guides & news", icon: "M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z", color: "#10b981" },
+                      { href: "/faq", label: "FAQ", desc: "Answers to common questions", icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", color: "#f59e0b" },
+                      { href: "/pricing", label: "Pricing", desc: "Free and premium plan details", icon: "M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6", color: "#8b5cf6" },
+                      { href: "/nursing-tv", label: "Nursing TV", desc: "Video lessons by licensed RNs", icon: "M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z", color: "#ef4444" },
+                      { href: "/contact", label: "Contact Us", desc: "Talk to Melissa or James directly", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z", color: "#06b6d4" },
+                    ].map((item) => (
+                      <Link key={item.label} href={item.href}
+                        style={{ display: "flex", alignItems: "flex-start", gap: "12px", padding: "14px", borderRadius: "12px", textDecoration: "none", background: "rgba(248,249,251,1)", border: "1px solid rgba(0,0,0,.05)", transition: "all .25s cubic-bezier(.34,1.56,.64,1)" }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px) scale(1.02)"; e.currentTarget.style.background = `${item.color}08`; e.currentTarget.style.borderColor = `${item.color}25`; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.08)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.background = "rgba(248,249,251,1)"; e.currentTarget.style.borderColor = "rgba(0,0,0,.05)"; e.currentTarget.style.boxShadow = "none"; }}>
+                        <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${item.color}12`, border: `1px solid ${item.color}20`, display: "flex", alignItems: "center", justifyContent: "center", color: item.color, flexShrink: 0 }}>
+                          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={item.icon}/></svg>
+                        </div>
+                        <div style={{ minWidth: 0 }}>
+                          <p style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: "0 0 3px" }}>{item.label}</p>
+                          <p style={{ fontSize: "11px", color: "#64748b", margin: 0, fontWeight: 400, lineHeight: 1.4 }}>{item.desc}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <div style={{ margin: "0 10px 10px", padding: "14px 16px", background: "linear-gradient(135deg,rgba(14,165,233,.08) 0%,rgba(139,92,246,.06) 100%)", border: "1px solid rgba(14,165,233,.15)", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div>
+                      <p style={{ fontSize: "12px", fontWeight: 800, color: "#0f172a", margin: "0 0 2px" }}>Ready to start preparing?</p>
+                      <p style={{ fontSize: "11px", color: "#64748b", margin: 0 }}>Free . No credit card . Live now</p>
+                    </div>
+                    <Link href="/pricing" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#0ea5e9", color: "#fff", padding: "8px 16px", borderRadius: "9px", fontSize: "12px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 4px 12px rgba(14,165,233,.3)" }}>Get started</Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* RIGHT: Cart + Profile + Sign in */}
+          <div id="desktop-actions" style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
             <button onClick={() => setCartOpen(true)}
               style={{ background: "none", border: "none", cursor: "pointer", padding: "4px 8px", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: "1px", transition: "transform 0.3s cubic-bezier(.34,1.56,.64,1), filter 0.3s ease" }}
               onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.18) translateY(-3px)"; e.currentTarget.style.filter = "drop-shadow(0 6px 16px rgba(14,165,233,0.5))"; }}
@@ -883,14 +944,8 @@ onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 14px rgba(0,112,243,
             )}
           </div>
 
-          {/* MOBILE HAMBURGER */}
-          <button
-            style={{ marginLeft: "auto", width: "38px", height: "38px", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "10px", border: "1px solid rgba(14,165,233,0.2)", background: "rgba(14,165,233,0.07)", color: "#7dd3fc", cursor: "pointer", flexShrink: 0 }}
-            className="hamburger-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X style={{ width: 18, height: 18 }} /> : <Menu style={{ width: 18, height: 18 }} />}
-          </button>
-          </div>{/* /actions-absolute */}
+        </div>{/* end ROW-2 */}
+        </div>{/* end TWO-ROW WRAPPER */}
 
         {/* MOBILE DRAWER OVERLAY */}
         {mobileOpen && (
